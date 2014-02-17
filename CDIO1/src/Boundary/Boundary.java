@@ -3,9 +3,9 @@ package Boundary;
 public class Boundary implements IBoundary {
 
 	@Override
-	public String login(String oprid, String password) {
-	
-		return null;
+	public int login(String oprID, String password) {
+		
+		return 0;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class Boundary implements IBoundary {
 
 	@Override
 	public int exit() {
-		
+	
 		return 0;
 	}
 
