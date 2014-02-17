@@ -1,5 +1,16 @@
 package Controller;
 
-public class Admin {
+import Boundary.Boundary;
 
+public class Admin {
+	Boundary boundary = new Boundary();
+public Admin(){
+	
+}
+	public void RunAdmin(){
+		
+		
+		
+	}
+	
 }
