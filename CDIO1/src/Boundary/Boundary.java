@@ -9,27 +9,33 @@ public class Boundary implements IBoundary {
 	}
 
 	@Override
-	public int operator() {
+	public int operatorAdmin() {
 		
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public int changePassword() {
 		
-		return 0;
+		return 2;
 	}
 
 	@Override
 	public int test(String password) {
 		
-		return 0;
+		return 3;
 	}
 
 	@Override
 	public int exit() {
 	
-		return 0;
+		return 4;
+	}
+
+	@Override
+	public int showmenu() {
+		// TODO Auto-generated method stub
+		return 5;
 	}
 
 }
