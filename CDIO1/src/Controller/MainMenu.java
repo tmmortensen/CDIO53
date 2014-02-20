@@ -1,18 +1,22 @@
 package Controller;
 
+import data.IOperatoerDAO;
+import data.OperatoerDTO;
 import Boundary.Boundary;
 
 public class MainMenu {
 	String oprID,password,name;
 	Boundary boundary = new Boundary();
+	OperatoerDTO operatoerDTO = new OperatoerDTO();
 	
 	public MainMenu(){
 	}
 
 	public void RunMain(){
 		
-		boundary.login(oprID, password); 
-		
+		boundary.login(); 
+		Operatoer a = operatoerDTO.getOperatoer(oprID);
+		oprID = Operatoer.getID;
 		
 		
 		
