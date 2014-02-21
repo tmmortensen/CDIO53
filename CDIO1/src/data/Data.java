@@ -2,7 +2,7 @@ package data;
 
 import java.util.*;
 
-public class Data implements IOperatoerDAO {
+public class Data implements IOperatoerDAO, IDataReadOnly {
 
 	Map<Integer, Operator> operators;
 
@@ -14,10 +14,10 @@ public class Data implements IOperatoerDAO {
 	@Override
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
 		if (oprId < 10 || oprId > 99)
-			throw new IOperatoerDAO.DALException("Id out of bounds");
+			throw new DALException("Id out of bounds");
 		Operator operator = operators.get(oprId);
 		if (operator == null)
-			throw new IOperatoerDAO.DALException("Id not found");
+			throw new DALException("Id not found");
 		return new OperatoerDTO(oprId, operator);
 	}
 
