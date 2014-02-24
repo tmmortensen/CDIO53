@@ -11,7 +11,7 @@ import Boundary.Boundary;
 public class MainMenu {
 	String password, oprID;
 	boolean choice = true; 
-	boolean choice1 = true; 
+	boolean choice1 = false; 
 	
 	Boundary boundary = new Boundary();
 	Data data = new Data();
@@ -28,14 +28,16 @@ public class MainMenu {
 		
 		
 		
-
 		// asks the user if he/she wants to try to login again if it failed
 		while(choice==true){
 			String[] login = boundary.login();
 			oprID=login[0]; login[1]=password; 
 			int opr_ID= Integer.parseInt(oprID);
 			if(data.getOperatoer(opr_ID).getPassword().equalsIgnoreCase(password)){
-				 while(choice1==true){
+				//here the mainMenu that acctually runs, after the login has completed, if the user decides to logout the login loop will run again. 
+				choice1=true; 
+				while(choice1==true){
+					 boundary.showStringMessage("You succesfully logged in");
 					choice=false;
 					
 					
@@ -43,6 +45,7 @@ public class MainMenu {
 				
 				}
 			else{
+				boundary.showStringMessage("your login didn't match anyone in our current list of Operators");
 				
 			}
 			
