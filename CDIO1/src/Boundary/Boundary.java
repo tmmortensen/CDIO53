@@ -3,46 +3,51 @@ package Boundary;
 import java.util.Scanner;
 
 public class Boundary implements IBoundary {
-	String oprId;
-	String password;
 
 	Scanner input = new Scanner(System.in);
 
 	public Boundary() {
-		login();
+
 	}
 
 	@Override
 	public String[] login() {
+		System.out.println("Log på systemet");
 		String[] login = new String[2];
+		System.out.println("Indtast operatør ID: ");
+		String oprId = input.nextLine();
 		login[0] = oprId;
+		System.out.println("Indtast password: ");
+		String password = input.nextLine();
 		login[1] = password;
-
-		// TODO Auto-generated method stub
-		return null;
+		return login;
 	}
 
 	@Override
 	public String getString(String msg) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(msg);
+		String stringinput = input.nextLine();
+		return stringinput;
 	}
 
 	@Override
 	public int getInt(String msg) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println(msg);
+		int getint = input.nextInt();
+		return getint;
 	}
 
 	@Override
 	public int menu(String[] options, String header) {
-		System.out.println(header + "\n");
+		System.out.println(header);
 		for (int i = 0; i <= options.length; i++) {
 			System.out.println(options[i]);
 		}
 		int menuInput = input.nextInt();
-		if (menuInput > options.length || menuInput < options.length)
+		while (menuInput > options.length + 1 || menuInput < 1) {
 			System.out.println("Ikke korrekt talværdi - tast igen");
+			menuInput = input.nextInt();
+		}
 		return menuInput;
 	}
 
