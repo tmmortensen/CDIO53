@@ -1,16 +1,9 @@
 package Boundary;
 
 public interface IBoundary {
-	void login();
-
-	void operatorAdmin();
-
-	void changePassword();
-
-	void test();
-
-	void exit();
-
-	int showmenu();
-
+	public String[] login();
+	public String getString(String msg);
+	public int getInt(String msg);
+	public int menu(String[] options, String header);
+	
 }
