@@ -1,13 +1,13 @@
 package Controller;
 
-import Boundary.Boundary;
+import Boundary.IBoundary;
 
-public class Admin {
-	Boundary boundary = new Boundary();
-public Admin(){
-	
-}
-	public void RunAdmin(){
+public class Admin implements ISubController {
+	IBoundary boundary;
+	public Admin(IBoundary bound){
+		boundary = bound;
+	}
+	public void run(int userId){
 		
 		
 		
