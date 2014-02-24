@@ -3,6 +3,8 @@ package Boundary;
 import java.util.Scanner;
 
 public class Boundary implements IBoundary {
+	String oprId;
+	String password;
 
 	Scanner input = new Scanner(System.in);
 
@@ -11,67 +13,39 @@ public class Boundary implements IBoundary {
 	}
 
 	@Override
-	public void login() {
-		String[] typeLogin = { " ", " " };
-		System.out.println("Indtast oprID");
-		String oprID = input.nextLine();
-		typeLogin[0] = oprID;
-		System.out.println("Indtast password");
-		String password = input.nextLine();
-		typeLogin[1] = password;
-
-		if (oprID == "1234" && password == "1234") {
-			showmenu();
-		}
-
+	public String[] login() {
+		String[] login = new String[2];
+		login[0] = oprId;
+		login[1] = password;
+		
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void operatorAdmin() {
-
+	public String getString(String msg) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void changePassword() {
-
+	public int getInt(String msg) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public void test() {
-
+	public int menu(String[] options, String header) {
+		System.out.println(options);
+		return 0;
 	}
 
 	@Override
-	public void exit() {
-
+	public void showStringMessage(String msg) {
+		System.out.println(msg);
+		
 	}
 
-	@Override
-	public int showmenu() {
-
-		System.out.print("Vælg en funktion:\n" + "1. Operatør Admin.\n"
-				+ "2. Ændre password\n" + "3. Test\n" + "4. Afslut\n");
-
-		int menuChoice = input.nextInt();
-
-		switch (menuChoice) {
-		case 1:
-			operatorAdmin();
-			break;
-		case 2:
-			changePassword();
-			break;
-		case 3:
-			// test();
-			break;
-		case 4:
-			System.out.println("Systemet lukkes");
-			System.exit(0);
-			break;
-		default:
-			// The user input an unexpected choice.
-		}
-		return menuChoice;
-	}
 
 }
