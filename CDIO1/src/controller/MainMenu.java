@@ -2,6 +2,7 @@ package controller;
 
 import boundary.IBoundary;
 import data.DALException;
+import data.IDataReadOnly;
 import data.IOperatoerDAO;
 
 public class MainMenu {
@@ -11,7 +12,7 @@ public class MainMenu {
 	boolean menuChoice = true;
 
 	IBoundary boundary;
-	IOperatoerDAO data;
+	IDataReadOnly data;
 
 	Password passwordCont;
 	Admin admin;
