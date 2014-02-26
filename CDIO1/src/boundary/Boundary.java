@@ -52,7 +52,13 @@ public class Boundary implements IBoundary {
 		do{
 			if (retry)
 				System.out.println("Ikke korrekt talværdi - tast igen");
-			menuInput = input.nextInt();
+			
+			try {
+				menuInput = input.nextInt();
+			} catch (Exception e){
+				menuInput = 0;
+			}
+			
 			retry = true;
 		} while (menuInput > options.length || menuInput < 1); 
 		return menuInput;
