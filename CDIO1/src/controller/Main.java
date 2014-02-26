@@ -23,6 +23,9 @@ public class Main {
 		newOp = new OperatoerDTO(14,"Test Guy 4", "TG4", "123456-7890", "password");
 		data.createOperatoer(newOp);
 		
+		newOp = new OperatoerDTO(10,"Admin", "A", "123456-7890", "adminpassword");
+		data.createOperatoer(newOp);
+		
 		mainMenu.RunMain();
 	}
 }
