@@ -6,10 +6,6 @@ public class Boundary implements IBoundary {
 
 	Scanner input = new Scanner(System.in);
 
-	public Boundary() {
-
-	}
-
 	@Override
 	public String[] login() {
 		System.out.println("Log på systemet");
