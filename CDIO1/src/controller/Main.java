@@ -1,10 +1,28 @@
 package controller;
 
+import boundary.Boundary;
+import boundary.IBoundary;
 import data.DALException;
+import data.Data;
+import data.IOperatoerDAO;
+import data.OperatoerDTO;
 
 public class Main {
 	public static void main(String[] args) throws DALException {
-		MainMenu mainMenu = new MainMenu();
+		IBoundary boundary = new Boundary();
+		IOperatoerDAO data = new Data();
+		MainMenu mainMenu = new MainMenu(boundary, data);
+		
+		//TODO sætte passwords til noget der overholder opgave beskrivelsen
+		OperatoerDTO newOp = new OperatoerDTO(11,"Test Guy", "TG", "123456-7890", "password");
+		data.createOperatoer(newOp);
+		newOp = new OperatoerDTO(12,"Test Guy 2", "TG2", "123456-7890", "password");
+		data.createOperatoer(newOp);
+		newOp = new OperatoerDTO(13,"Test Guy 3", "TG3", "123456-7890", "password");
+		data.createOperatoer(newOp);
+		newOp = new OperatoerDTO(14,"Test Guy 4", "TG4", "123456-7890", "password");
+		data.createOperatoer(newOp);
+		
 		mainMenu.RunMain();
 	}
 }

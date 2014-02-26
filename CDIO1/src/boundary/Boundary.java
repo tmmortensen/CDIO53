@@ -22,35 +22,45 @@ public class Boundary implements IBoundary {
 	@Override
 	public String getString(String msg) {
 		System.out.println(msg);
-		String stringinput = input.nextLine();
+		String stringinput;
+		do {
+			stringinput = input.nextLine();
+		} while (stringinput.equals(""));
 		return stringinput;
 	}
 
 	@Override
 	public int getInt(String msg) {
 		System.out.println(msg);
-		int getint = input.nextInt();
+		int getint;
+		try {
+			getint = input.nextInt();
+		} catch (Exception e){
+			getint = 0;
+		}
 		return getint;
 	}
 
 	@Override
 	public int menu(String[] options, String header) {
 		System.out.println(header);
-		for (int i = 0; i <= options.length; i++) {
+		for (int i = 0; i < options.length; i++) {
 			System.out.println(options[i]);
 		}
-		int menuInput = input.nextInt();
-		while (menuInput > options.length + 1 || menuInput < 1) {
-			System.out.println("Ikke korrekt talværdi - tast igen");
+		int menuInput;
+		boolean retry = false;
+		do{
+			if (retry)
+				System.out.println("Ikke korrekt talværdi - tast igen");
 			menuInput = input.nextInt();
-		}
+			retry = true;
+		} while (menuInput > options.length || menuInput < 1); 
 		return menuInput;
 	}
 
 	@Override
 	public void showStringMessage(String msg) {
 		System.out.println(msg);
-
 	}
 
 }

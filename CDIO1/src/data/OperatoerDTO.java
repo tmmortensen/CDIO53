@@ -1,7 +1,7 @@
 package data;
 
 /**
- *  A data package containing info on an operator
+ * A data package containing info on an operator
  */
 public class OperatoerDTO {
 	int oprId;
@@ -11,25 +11,34 @@ public class OperatoerDTO {
 	String password;
 
 	/**
-	 * @param id 	The id of the operator
-	 * @param name 	The name of the operator
-	 * @param ini 	The operators initials
-	 * @param cpr 	The social security number of the operator
-	 * @param pw 	The operator's password
+	 * @param id
+	 *            The id of the operator
+	 * @param name
+	 *            The name of the operator
+	 * @param ini
+	 *            The operators initials
+	 * @param cpr
+	 *            The social security number of the operator
+	 * @param pw
+	 *            The operator's password
 	 */
-	public OperatoerDTO(int id, String name, String ini, String cpr, String pw){
+	public OperatoerDTO(int id, String name, String ini, String cpr, String pw) {
 		this.oprId = id;
 		this.oprNavn = name;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = pw;
 	}
-	
+
 	/**
-	 * Creates a new <code>OperatoerDTO</code> with the info from the provided <code>Operator</code>-object and the given id
+	 * Creates a new <code>OperatoerDTO</code> with the info from the provided
+	 * <code>Operator</code>-object and the given id
 	 * 
-	 * @param oprId the id of the operator
-	 * @param op The <code>Operator</code>-object containing the rest of the information
+	 * @param oprId
+	 *            the id of the operator
+	 * @param op
+	 *            The <code>Operator</code>-object containing the rest of the
+	 *            information
 	 */
 	public OperatoerDTO(int oprId, Operator op) {
 		this.oprId = oprId;
@@ -38,10 +47,11 @@ public class OperatoerDTO {
 		this.cpr = op.getCpr();
 		this.password = op.getPassword();
 	}
-	
-	public int getOprId(){
+
+	public int getOprId() {
 		return oprId;
 	}
+
 	public String getOprNavn() {
 		return oprNavn;
 	}
@@ -58,9 +68,10 @@ public class OperatoerDTO {
 		return password;
 	}
 
-	public void setOprId(int id){
+	public void setOprId(int id) {
 		this.oprId = id;
 	}
+
 	public void setOprNavn(String name) {
 		this.oprNavn = name;
 	}

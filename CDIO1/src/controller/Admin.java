@@ -5,13 +5,14 @@ import data.*;
 
 public class Admin implements ISubController {
 	IBoundary boundary;
+	IOperatoerDAO data;
 
-	public Admin(IBoundary bound) {
+	public Admin(IBoundary bound, IOperatoerDAO data) {
 		boundary = bound;
+		this.data = data;
 	}
 
 	public void run(int userId) {
-		Data data = new Data();
 		boolean adminMenu = true;
 		String[] options = { "1. create user ", "2. delete user",
 				"3. edit user", "4. show alle users" };
@@ -31,6 +32,9 @@ public class Admin implements ISubController {
 						.getString("please enter the desired password");
 				int oprId = boundary
 						.getInt("please enter the desired oprID between 11 and 99");
+
+				// TODO Der er ingen grund til at kontrollere om operator id
+				// findes, det ordner data laget.
 				try {
 					for (int i = 0; i <= data.getOperatoerList().size(); i++) {
 						if (data.getOperatoerList().get(i).getOprId() == oprId) {
@@ -45,8 +49,8 @@ public class Admin implements ISubController {
 					e.printStackTrace();
 				}
 
-				Operator operator = new Operator(oprNavn, ini, cpr, password);
-				OperatoerDTO operatorDTO = new OperatoerDTO(oprId, operator);
+				OperatoerDTO operatorDTO = new OperatoerDTO(oprId, oprNavn,
+						ini, cpr, password);
 				try {
 					data.createOperatoer(operatorDTO);
 				} catch (DALException e) {
@@ -64,6 +68,12 @@ public class Admin implements ISubController {
 								+ data.getOperatoerList().get(i));
 						deleteChoice = boundary
 								.getInt("please choose wich user u want to delete by writing the number in front of the user");
+						// TODO denne linie vil ikke påvirke den data der er
+						// gemt i data laget.
+						// hvis vi skal understøtte at man kan slette bugere,
+						// skal vi have en ekstra metode i datalaget
+						// eller tilpasse updateOperatoer(), så den sletter en
+						// bruger hvis man sætter alle værdier til nul f.eks.
 						data.getOperatoerList().remove(deleteChoice);
 					}
 
@@ -82,7 +92,8 @@ public class Admin implements ISubController {
 					}
 					int updateChoice = boundary
 							.getInt("please enter the number of the user you want to update");
-					int opr_id=data.getOperatoerList().get(updateChoice).getOprId();
+					int opr_id = data.getOperatoerList().get(updateChoice)
+							.getOprId();
 					data.getOperatoer(opr_id);
 
 				} catch (DALException e) {

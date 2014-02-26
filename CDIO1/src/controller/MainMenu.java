@@ -1,8 +1,6 @@
 package controller;
 
-import boundary.Boundary;
 import boundary.IBoundary;
-import data.Data;
 import data.DALException;
 import data.IOperatoerDAO;
 
@@ -11,15 +9,21 @@ public class MainMenu {
 	boolean relogChoice = true;
 	boolean mainChoice = false;
 	boolean menuChoice = true;
-	
-	IBoundary boundary = new Boundary();
-	IOperatoerDAO data = new Data();
 
-	Password Password = new Password(boundary);
-	Admin admin = new Admin(boundary);
-	Test test = new Test(boundary);
+	IBoundary boundary;
+	IOperatoerDAO data;
 
-	public MainMenu() {
+	Password passwordCont;
+	Admin admin;
+	Test test;
+
+	public MainMenu(IBoundary boundary, IOperatoerDAO data) {
+		this.boundary = boundary;
+		this.data = data;
+
+		passwordCont = new Password(boundary, data);
+		admin = new Admin(boundary, data);
+		test = new Test(boundary);
 	}
 
 	public void RunMain() throws DALException {
@@ -28,7 +32,7 @@ public class MainMenu {
 		while (relogChoice == true) {
 			String[] login = boundary.login();
 			oprID = login[0];
-			login[1] = password;
+			password = login[1];
 			int opr_ID = Integer.parseInt(oprID);
 			if (data.getOperatoer(opr_ID).getPassword()
 					.equalsIgnoreCase(password)) {
@@ -43,8 +47,8 @@ public class MainMenu {
 
 					// creates the String[] options that holds the options that
 					// the user have
-					String[] options = {"1. Password ", "2. Test",
-							"3. Quit", "" };
+					String[] options = { "1. Password ", "2. Test", "3. Quit",
+							"" };
 
 					// the admin menu will be shown if you have rights to see
 					// it.
@@ -55,13 +59,14 @@ public class MainMenu {
 					// A loop wrapped around the menu choice, if the user choose
 					// a wrong menu or one that does not exist, they will be
 					// prompted to try again or simply choose quit
+					menuChoice = true;
 					while (menuChoice == true) {
 						int menu = boundary.menu(options, "Welcome "
 								+ data.getOperatoer(opr_ID).getOprNavn()
 								+ " what would you like to do?");
 						switch (menu) {
 						case 1:
-							Password.run(opr_ID);
+							passwordCont.run(opr_ID);
 							menuChoice = false;
 							break;
 
