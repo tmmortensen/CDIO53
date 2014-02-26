@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Boundary.Boundary;
+import boundary.Boundary;
 
 public class Password {
 	Boundary boundary = new Boundary();

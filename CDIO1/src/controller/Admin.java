@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Boundary.IBoundary;
+import boundary.IBoundary;
 
 public class Admin implements ISubController {
 	IBoundary boundary;

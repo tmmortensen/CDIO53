@@ -1,8 +1,9 @@
-package Controller;
+package controller;
 
+import boundary.Boundary;
 import data.Data;
 import data.DALException;
-import Boundary.Boundary;
+import data.IOperatoerDAO;
 
 public class MainMenu {
 	String password, oprID;
@@ -14,7 +15,7 @@ public class MainMenu {
 	Test test = new Test();
 
 	Boundary boundary = new Boundary();
-	Data data = new Data();
+	IOperatoerDAO data = new Data();
 
 	public MainMenu() {
 	}

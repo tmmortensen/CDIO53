@@ -1,4 +1,4 @@
-package Boundary;
+package boundary;
 
 public interface IBoundary {
 
