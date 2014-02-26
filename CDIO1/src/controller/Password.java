@@ -1,13 +1,15 @@
 package controller;
 
-import boundary.Boundary;
+import boundary.IBoundary;
 
-public class Password {
-	Boundary boundary = new Boundary();
-	public Password(){
+public class Password implements ISubController {
+	IBoundary boundary;
+	
+	public Password(IBoundary bound){
+		boundary = bound;
 	}
 	
-	public void RunPassword(){
+	public void run(int userId){
 		
 		
 	}

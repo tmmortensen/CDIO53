@@ -2,7 +2,7 @@ package data;
 
 import java.util.*;
 
-public class Data implements IOperatoerDAO, IDataReadOnly {
+public class Data implements IOperatoerDAO {
 
 	Map<Integer, Operator> operators;
 

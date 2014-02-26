@@ -1,6 +1,7 @@
 package controller;
 
 import boundary.Boundary;
+import boundary.IBoundary;
 import data.Data;
 import data.DALException;
 import data.IOperatoerDAO;
@@ -10,12 +11,13 @@ public class MainMenu {
 	boolean relogChoice = true;
 	boolean mainChoice = false;
 	boolean menuChoice = true;
-	Password Password = new Password();
-	Admin admin = new Admin();
-	Test test = new Test();
-
-	Boundary boundary = new Boundary();
+	
+	IBoundary boundary = new Boundary();
 	IOperatoerDAO data = new Data();
+
+	Password Password = new Password(boundary);
+	Admin admin = new Admin(boundary);
+	Test test = new Test(boundary);
 
 	public MainMenu() {
 	}

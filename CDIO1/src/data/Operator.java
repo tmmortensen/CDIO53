@@ -1,13 +1,20 @@
 package data;
 
+/**
+ * Storage class for info on an operator (not including the id)
+ */
 public class Operator {
 	String oprNavn;
 	String ini;
 	String cpr;
 	String password;
 
-	
-	
+	/**
+	 * @param oprNavn  	The name of the operator
+	 * @param ini	 	The operators initials
+	 * @param cpr	 	The social security number of the operator
+	 * @param password	The operator's password
+	 */
 	public Operator(String oprNavn, String ini, String cpr, String password){
 		this.oprNavn = oprNavn;
 		this.ini = ini;
@@ -15,6 +22,11 @@ public class Operator {
 		this.password = password;
 	}
 	
+	/**
+	 * Creates a new <code>Operator</code> from a <code>OperatoerDTO</code>-object
+	 * (the id of the <code>OperatoerDTO</code>-object is discarded)
+	 * @param op the <code>OperatoerDTO</code>-object containing the operator info
+	 */
 	public Operator(OperatoerDTO op){
 		this.oprNavn = op.getOprNavn();
 		this.ini = op.getIni();
