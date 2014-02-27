@@ -13,14 +13,23 @@ public class Admin implements ISubController {
 	}
 
 	public void run(int userId) {
+
+		// The user is prompted to choose which menu he would like to enter. and
+		// the menu is set to true to begin with.
 		boolean adminMenu = true;
 		String[] options = { "1. create user ", "2. delete user",
 				"3. edit user", "4. show alle users" };
 
 		int menu = boundary.menu(options,
 				"Welcome sysadmin, what would you like to do? ");
+
+		// here the loop for choosing a menu begins while the user has not
+		// decided to quit the menus he will be able to continue using the menu
 		while (adminMenu) {
 			switch (menu) {
+
+			// case 1 is the menu to create a new user, here the user admin will
+			// be prompted to enter the name, initials, cpr, password and oprID
 			case 1:
 
 				String oprNavn = boundary
@@ -61,6 +70,11 @@ public class Admin implements ISubController {
 				break;
 
 			case 2:
+
+				// case 2 is the menu for deleting a user, all the users in the
+				// memory is displayed to the admin with their corresponding
+				// index number, so the number that the admin enters stands for
+				// the user that will be removed.
 				int deleteChoice;
 				try {
 					for (int i = 0; i <= data.getOperatoerList().size(); i++) {
