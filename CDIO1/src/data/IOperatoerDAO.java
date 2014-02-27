@@ -28,4 +28,11 @@ public interface IOperatoerDAO extends IDataReadOnly {
 	 *             if no operator with the same id exist
 	 */
 	void updateOperatoer(OperatoerDTO opr) throws DALException;
+	
+	/**
+	 * Deletes the operator with the given ID.
+	 * @param id the ID of the operator to be deleted
+	 * @throws DALException if no operator with the given ID exist.
+	 */
+	void deleteOperatoer(int id) throws DALException;
 }
