@@ -18,7 +18,7 @@ public class Admin implements ISubController {
 		// the menu is set to true to begin with.
 		boolean adminMenu = true;
 		String[] options = { "1. create user ", "2. delete user",
-				"3. edit user", "4. show alle users" };
+				"3. edit user", "4. show alle users", "5. Tilbage til hovedmenuen." };
 
 		int menu = boundary.menu(options,
 				"Welcome sysadmin, what would you like to do? ");
@@ -75,6 +75,13 @@ public class Admin implements ISubController {
 					}
 				}
 				}while(true);
+				boundary.showStringMessage("Er du sikker på at du vil slette brugeren? J/N");
+				boundary.showStringMessage("ID:" + operator.getOprId());
+				boundary.showStringMessage(operator.getOprNavn());
+				boundary.showStringMessage(operator.getIni());
+				String choice = boundary.getString(operator.getCpr());
+				if(!choice.equalsIgnoreCase("J"))
+					break;
 				try{
 					data.deleteOperatoer(oprId);
 					
@@ -94,7 +101,7 @@ public class Admin implements ISubController {
 					break;
 				}
 				catch(DALException e){
-					String choice = boundary.getString("ID does not exist?\n Press enter to try again or type \"cancel\" to exit.");
+					choice = boundary.getString("ID does not exist?\n Press enter to try again or type \"cancel\" to exit.");
 					if(choice.equals("cancel")){
 						return;
 					}
@@ -139,7 +146,7 @@ public class Admin implements ISubController {
 					}
 					catch(DALException e){
 						boundary.showStringMessage(e.getMessage());
-						String choice = boundary.getString("Do you wish to enter another ID?\n Press enter for yes or type \"cancel\" to exit.");
+						choice = boundary.getString("Do you wish to enter another ID?\n Press enter for yes or type \"cancel\" to exit.");
 						if(choice.equals("cancel")){
 							return;					
 						}
@@ -170,11 +177,13 @@ public class Admin implements ISubController {
 				}
 
 				break;
-
+			
+			case 5:
+				return;
 			default:
 				boundary.showStringMessage("you did not choose a valid menu please choose another");
 				adminMenu = true;
-
+			
 			}
 		}
 
