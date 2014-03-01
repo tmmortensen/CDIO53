@@ -158,7 +158,7 @@ public class Admin implements ISubController {
 
 			case 4: //list users
 				try {
-					for (int i = 0; i <= data.getOperatoerList().size(); i++) {
+					for (int i = 0; i < data.getOperatoerList().size(); i++) {
 						OperatoerDTO operatoerDTO = data.getOperatoerList()
 								.get(i);
 						boundary.showStringMessage("name: "
