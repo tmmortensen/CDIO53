@@ -20,12 +20,11 @@ public class Admin implements ISubController {
 		String[] options = { "1. create user ", "2. delete user",
 				"3. edit user", "4. show alle users", "5. Tilbage til hovedmenuen." };
 
-		int menu = boundary.menu(options,
-				"Welcome sysadmin, what would you like to do? ");
-
 		// here the loop for choosing a menu begins while the user has not
 		// decided to quit the menus he will be able to continue using the menu
 		while (adminMenu) {
+			int menu = boundary.menu(options,
+					"Welcome sysadmin, what would you like to do? ");
 			switch (menu) {
 
 			// case 1 is the menu to create a new user, here the user admin will
