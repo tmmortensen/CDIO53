@@ -1,7 +1,6 @@
 package boundary;
 
-
-public class Boundary implements IBoundary {
+public class NetworkIOBopundary implements IBoundary {
 
 	public void run() {
 	
