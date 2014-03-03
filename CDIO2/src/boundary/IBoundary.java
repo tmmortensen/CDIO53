@@ -1,10 +1,7 @@
 package boundary;
 
-public class IBoundary implements Runnable {
+public interface IBoundary extends Runnable {
 
-	public void run() {
-		
-		
-	}
+	public void run();
 
 }
