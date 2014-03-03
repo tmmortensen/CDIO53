@@ -12,7 +12,7 @@ public class Vaegtsimulator_med_consol_opg {
 	private static double brutto = 0;
 	private static double tara = 0;
 	private static String inline;
-	private static String IndstruktionsDisplay = "";
+	private static String InstruktionsDisplay = "";
 	private static int portdst = 8000;
 	private static Socket sock;
 	private static BufferedReader instream;
@@ -23,7 +23,7 @@ public class Vaegtsimulator_med_consol_opg {
 			System.out.println(" ");
 		System.out.println("*************************************************");
 		System.out.println("Netto: " + (brutto - tara) + " kg");
-		System.out.println("Instruktionsdisplay: " + IndstruktionsDisplay);
+		System.out.println("Instruktionsdisplay: " + InstruktionsDisplay);
 		System.out.println("*************************************************");
 		System.out.println(" ");
 		System.out.println(" ");
@@ -61,9 +61,9 @@ public class Vaegtsimulator_med_consol_opg {
 					// ikke implimenteret
 				} else if (inline.startsWith("D")) {
 					if (inline.equals("D"))
-						IndstruktionsDisplay = "";
+						InstruktionsDisplay = "";
 					else
-						IndstruktionsDisplay = (inline.substring(2,
+						InstruktionsDisplay = (inline.substring(2,
 								inline.length()));
 					printmenu();
 					outstream.writeBytes("DB" + "\r\n");
