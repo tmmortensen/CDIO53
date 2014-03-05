@@ -32,13 +32,13 @@ public class Vaegtsimulator_med_consol_opg {
 		System.out.println("Brutto: " + (brutto) + " kg");
 		System.out.println("Streng modtaget: " + inline);
 		System.out.println(" ");
-		System.out.println("Denne vegt simulator lytter på ordrene ");
+		System.out.println("Denne vægt simulator lytter på ordrene ");
 		System.out.println("D, DN, S, T, B, Q ");
-		System.out.println("paa kommunikationsporten. ");
+		System.out.println("på kommunikationsporten. ");
 		System.out.println("******");
-		System.out.println("Tast T for tara (svarende til knaptryk paa vegt)");
+		System.out.println("Tast T for tara (svarende til knaptryk på vægt)");
 		System.out
-				.println("Tast B for ny brutto (svarende til at belastningen paa vegt ændres)");
+				.println("Tast B for ny brutto (svarende til at belastningen på vægt ændres)");
 		System.out.println("Tast Q for at afslutte program program");
 		System.out
 				.println("Indtast (T/B/Q for knaptryk / brutto ændring / quit)");
@@ -47,9 +47,9 @@ public class Vaegtsimulator_med_consol_opg {
 
 	public static void main(String[] args) throws IOException {
 		listener = new ServerSocket(portdst);
-		System.out.println("Venter paa connection paa port " + portdst);
+		System.out.println("Venter på connection på port " + portdst);
 		System.out.println("Indtast eventuel portnummer som 1. argument");
-		System.out.println("paa kommando linien for andet portnr");
+		System.out.println("på kommando linien for andet portnr");
 		sock = listener.accept();
 		instream = new BufferedReader(new InputStreamReader(
 				sock.getInputStream()));
@@ -84,7 +84,7 @@ public class Vaegtsimulator_med_consol_opg {
 				} else if ((inline.startsWith("Q"))) {
 					System.out.println("");
 					System.out
-							.println("Program stoppet Q modtaget paa com port");
+							.println("Program stoppet Q modtaget på com port");
 					System.in.close();
 					System.out.close();
 					instream.close();
