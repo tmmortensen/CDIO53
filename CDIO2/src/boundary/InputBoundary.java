@@ -1,63 +1,40 @@
 package boundary;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.*;
+import java.util.Scanner;
 
-import sun.tools.jar.Main;
+import data.Global;
+
 
 public class InputBoundary implements IBoundary {
 
-	private static InputBoundary inputBoundary = new InputBoundary();
-
-	public InputBoundary() {
-
+	Scanner input;
+	
+	public InputBoundary(Scanner in) {
+		input = in;
 	}
 
 	public void run() {
-
-		String sentence;
-		String modifiedSentence;
-
-		try {
-			BufferedReader inFromUser = new BufferedReader(
-					new InputStreamReader(System.in));
-
-			Socket clientSocket = new Socket("localhost", 8000);
-
-			DataOutputStream outToServer = new DataOutputStream(
-					clientSocket.getOutputStream());
-
-			BufferedReader inFromServer = new BufferedReader(
-					new InputStreamReader(clientSocket.getInputStream()));
-			while (true) {
-
-				sentence = inFromUser.readLine();
-				outToServer.writeBytes(sentence + "\r\n");
-				modifiedSentence = inFromServer.readLine();
-				System.out.println("FROM SERVER: " + modifiedSentence);
-
-				Thread.sleep(200);
+		while(!Global.exit){
+			String userInput = input.nextLine();
+			if(userInput.equalsIgnoreCase("T")){
+				Global.tara = Global.tara + Global.brutto;
+				Global.lastUpdate = System.currentTimeMillis();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			else if(userInput.equalsIgnoreCase("B")){
+				System.out.println("Indtast brutto vægt.");
+				userInput = input.nextLine();
+				try{
+					Global.brutto = Double.parseDouble(userInput);
+					Global.lastUpdate = System.currentTimeMillis();
+				}
+				catch(Exception e){
+					System.out.println("Indtastet kan ikke genkendes som tal.");
+				}	
+			}
+			else if(userInput.equalsIgnoreCase("Q")){
+				Global.exit = true;
+				return;
+			}
 		}
 	}
-
-	public static void main(String[] args) throws IOException {
-		inputBoundary.run();
-
-	}
-
-	public void showMenu(String[] menu) {
-		for (int i = 0; i <= menu.length; i++) {
-			System.out.println(menu[i]);
-		}
-
-	}
-
 }

@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
+
+import data.Global;
+import boundary.IBoundary;
+import boundary.InputBoundary;
+import boundary.NetworkIOBoundary;
+import boundary.OutputBoundary;
 
 public class Vaegtsimulator_med_consol_opg {
 	static ServerSocket listener;
@@ -18,82 +25,52 @@ public class Vaegtsimulator_med_consol_opg {
 	private static BufferedReader instream;
 	private static DataOutputStream outstream;
 
-	public static void printmenu() {
-		for (int i = 0; i < 25; i++)
-			System.out.println(" ");
-		System.out.println("*************************************************");
-		System.out.println("Netto: " + (brutto - tara) + " kg");
-		System.out.println("Instruktionsdisplay: " + InstruktionsDisplay);
-		System.out.println("*************************************************");
-		System.out.println(" ");
-		System.out.println(" ");
-		System.out.println("Debug info: ");
-		System.out.println("Hooked up to " + sock.getInetAddress());
-		System.out.println("Brutto: " + (brutto) + " kg");
-		System.out.println("Streng modtaget: " + inline);
-		System.out.println(" ");
-		System.out.println("Denne vægt simulator lytter på ordrene ");
-		System.out.println("D, DN, S, T, B, Q ");
-		System.out.println("på kommunikationsporten. ");
-		System.out.println("******");
-		System.out.println("Tast T for tara (svarende til knaptryk på vægt)");
-		System.out
-				.println("Tast B for ny brutto (svarende til at belastningen på vægt ændres)");
-		System.out.println("Tast Q for at afslutte program program");
-		System.out
-				.println("Indtast (T/B/Q for knaptryk / brutto ændring / quit)");
-		System.out.print("Tast her: ");
-	}
+	
+	
 
 	public static void main(String[] args) throws IOException {
-		listener = new ServerSocket(portdst);
-		System.out.println("Venter på connection på port " + portdst);
-		System.out.println("Indtast eventuel portnummer som 1. argument");
-		System.out.println("på kommando linien for andet portnr");
-		sock = listener.accept();
-		instream = new BufferedReader(new InputStreamReader(
-				sock.getInputStream()));
-		outstream = new DataOutputStream(sock.getOutputStream());
-		printmenu();
-		try {
-			while (!(inline = instream.readLine().toUpperCase()).isEmpty()) {
-				if (inline.startsWith("DN")) {
-					// ikke implimenteret
-				} else if (inline.startsWith("D")) {
-					if (inline.equals("D"))
-						InstruktionsDisplay = "";
-					else
-						InstruktionsDisplay = (inline.substring(2,
-								inline.length()));
-					printmenu();
-					outstream.writeBytes("DB" + "\r\n");
-				} else if (inline.startsWith("T")) {
-					outstream.writeBytes("T " + (tara) + " kg " + "\r\n");
-					tara = brutto;
-					printmenu();
-				} else if (inline.startsWith("S")) {
-					printmenu();
-					outstream.writeBytes("S " + (brutto - tara) + " kg "
-							+ "\r\n");
-				} else if (inline.startsWith("B")) { // denne ordre findes
-					// ikke på en fysisk vægt
-					String temp = inline.substring(2, inline.length());
-					brutto = Double.parseDouble(temp);
-					printmenu();
-					outstream.writeBytes("DB" + "\r\n");
-				} else if ((inline.startsWith("Q"))) {
-					System.out.println("");
-					System.out
-							.println("Program stoppet Q modtaget på com port");
-					System.in.close();
-					System.out.close();
-					instream.close();
-					outstream.close();
-					System.exit(0);
-				}
+		Global.tara = 0;
+		Global.brutto = 0;
+		Global.display = "";
+		Global.exit = false;
+		Global.lastUpdate = System.currentTimeMillis();
+		if(args.length > 0)
+			try{
+				portdst = Integer.parseInt(args[0]);
 			}
-		} catch (Exception e) {
-			System.out.println("Exception: " + e.getMessage());
+			catch(NumberFormatException e){
+				System.out.println("Port argument ugyldigt. Bruger default 8000.");
+				portdst = 8000;
+			}
+		IBoundary network = new NetworkIOBoundary(portdst);
+		Scanner inputScanner = new Scanner(System.in);
+		IBoundary input = new InputBoundary(inputScanner);
+		OutputBoundary output = new OutputBoundary();
+		Thread networkThread = new Thread(network);
+		Thread inputThread = new Thread(input);
+		networkThread.setDaemon(true);
+		networkThread.start();
+		//inputThread.setDaemon(true);
+		inputThread.start();
+		output.run();
+		while(!Global.exit){
+			try{
+				Thread.sleep(100);
+			}
+			catch(Exception e){
+				
+			}
+			
 		}
+		inputScanner.close();
+		Global.listener.close();
+		try{
+			Global.instream.close();
+		}
+		catch(Exception e){
+			
+		}
+		//networkThread.interrupt();
+		//inputThread.interrupt();
 	}
 }
