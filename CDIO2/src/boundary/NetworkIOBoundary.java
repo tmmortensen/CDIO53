@@ -31,38 +31,59 @@ public class NetworkIOBoundary implements IBoundary {
 			return;
 		}
 		try {
-			while (!(Global.networkString = instream.readLine().toUpperCase()).isEmpty()) {
-				if (Global.networkString.startsWith("DN")) {
-					// ikke implimenteret
-				} else if (Global.networkString.startsWith("D")) {
-					if (Global.networkString.equals("D"))
+			while (!(inLine = Global.instream.readLine().toUpperCase())
+					.isEmpty()) {
+				if (inLine.startsWith("RM20 8")) {
+					outstream.writeBytes("RM20 B"+ "indtast nr."+"\r\n");
+					while(inLine.startsWith("RM20 8"));{}
+					outstream.writeBytes("RM20 A" + "\r\n");
+				}
+				else if(inLine.startsWith("RESET")){
+					Global.brutto=0.0;
+					Global.tara=0.0;
+					Global.display="";
+					
+					outstream.writeBytes("du har nulstillet programmet" + "\r\n");
+					Global.lastUpdate=System.currentTimeMillis();
+					
+				}
+				else if (inLine.startsWith("P111")) {
+					Global.display= (inLine.substring(5,inLine.length()));
+					outstream.writeBytes("P111 A"+ "\r\n");
+				} else if (inLine.startsWith("D")) {
+					if (inLine.equals("D"))
 						Global.display = "";
 					else
-						Global.display = (Global.networkString.substring(2,
-								Global.networkString.length()));
-					//printmenu();
+						Global.display = (inLine.substring(2, inLine.length()));
+					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
-				} else if (Global.networkString.startsWith("T")) {
-					outstream.writeBytes("T " + (Global.tara) + " kg " + "\r\n");
+					Global.lastUpdate=System.currentTimeMillis();
+				} else if (inLine.startsWith("T")) {
+					outstream
+							.writeBytes("T " + (Global.tara) + " kg " + "\r\n");
 					Global.tara = Global.brutto;
-					//printmenu();
-				} else if (Global.networkString.startsWith("S")) {
-					//printmenu();
-					outstream.writeBytes("S " + (Global.brutto - Global.tara) + " kg "
-							+ "\r\n");
-				} else if (Global.networkString.startsWith("B")) { // denne ordre findes
+					Global.lastUpdate=System.currentTimeMillis();
+					// printmenu();
+				} else if (inLine.startsWith("S")) {
+					// printmenu();
+					outstream.writeBytes("S " + (Global.brutto - Global.tara)
+							+ " kg " + "\r\n");
+				} else if (inLine.startsWith("B")) { // denne ordre findes
 					// ikke p� en fysisk v�gt
-					String temp = Global.networkString.substring(2, Global.networkString.length());
+					String temp = inLine.substring(2, inLine.length());
 					Global.brutto = Double.parseDouble(temp);
-					//printmenu();
+					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
-				} else if ((Global.networkString.startsWith("Q"))) {
+					Global.lastUpdate=System.currentTimeMillis();
+				} else if ((inLine.startsWith("Q"))) {
 					System.out.println("");
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
+					outstream
+							.writeBytes("program  stoppet Q modtaget på com port");
 					System.in.close();
 					System.out.close();
-					instream.close();
+					Global.instream.close();
 					outstream.close();
 					System.exit(0);
 				}
@@ -70,9 +91,7 @@ public class NetworkIOBoundary implements IBoundary {
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
 		}
-		
+
 	}
-	
-	
 
 }
