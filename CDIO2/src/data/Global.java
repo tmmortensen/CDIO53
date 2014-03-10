@@ -13,6 +13,9 @@ public class Global {
 	public static int port;
 	public static InetAddress address;
 	public static long lastUpdate;
+	public static String lastInputString;
+	public static long lastInputTime;
+	
 	public static ServerSocket listener;
 	public static BufferedReader instream;
 }

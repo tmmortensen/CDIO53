@@ -16,6 +16,8 @@ public class InputBoundary implements IBoundary {
 	public void run() {
 		while(!Global.exit){
 			String userInput = input.nextLine();
+			Global.lastInputString = userInput;
+			Global.lastInputTime = System.currentTimeMillis();
 			if(userInput.equalsIgnoreCase("T")){
 				Global.tara = Global.tara + Global.brutto;
 				Global.lastUpdate = System.currentTimeMillis();
@@ -35,6 +37,7 @@ public class InputBoundary implements IBoundary {
 				Global.exit = true;
 				return;
 			}
+			
 		}
 	}
 }
