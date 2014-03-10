@@ -19,7 +19,7 @@ public class InputBoundary implements IBoundary {
 			Global.lastInputString = userInput;
 			Global.lastInputTime = System.currentTimeMillis();
 			if(userInput.equalsIgnoreCase("T")){
-				Global.tara = Global.tara + Global.brutto;
+				Global.tara = Global.brutto;
 				Global.lastUpdate = System.currentTimeMillis();
 			}
 			else if(userInput.equalsIgnoreCase("B")){
