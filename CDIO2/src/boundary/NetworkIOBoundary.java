@@ -31,14 +31,14 @@ public class NetworkIOBoundary implements IBoundary {
 			return;
 		}
 		try {
-			while (!(inLine = Global.instream.readLine().toUpperCase())
+			while (!(Global.networkString = instream.readLine().toUpperCase())
 					.isEmpty()) {
-				if (inLine.startsWith("RM20 8")) {
+				if (Global.networkString.startsWith("RM20 8")) {
 					outstream.writeBytes("RM20 B"+ "indtast nr."+"\r\n");
-					while(inLine.startsWith("RM20 8"));{}
+					while(Global.networkString.startsWith("RM20 8"));{}
 					outstream.writeBytes("RM20 A" + "\r\n");
 				}
-				else if(inLine.startsWith("RESET")){
+				else if(Global.networkString.startsWith("RESET")){
 					Global.brutto=0.0;
 					Global.tara=0.0;
 					Global.display="";
@@ -47,35 +47,35 @@ public class NetworkIOBoundary implements IBoundary {
 					Global.lastUpdate=System.currentTimeMillis();
 					
 				}
-				else if (inLine.startsWith("P111")) {
-					Global.display= (inLine.substring(5,inLine.length()));
+				else if (Global.networkString.startsWith("P111")) {
+					Global.display= (Global.networkString.substring(5,Global.networkString.length()));
 					outstream.writeBytes("P111 A"+ "\r\n");
-				} else if (inLine.startsWith("D")) {
-					if (inLine.equals("D"))
+				} else if (Global.networkString.startsWith("D")) {
+					if (Global.networkString.equals("D"))
 						Global.display = "";
 					else
-						Global.display = (inLine.substring(2, inLine.length()));
+						Global.display = (Global.networkString.substring(2, Global.networkString.length()));
 					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
 					Global.lastUpdate=System.currentTimeMillis();
-				} else if (inLine.startsWith("T")) {
+				} else if (Global.networkString.startsWith("T")) {
 					outstream
 							.writeBytes("T " + (Global.tara) + " kg " + "\r\n");
 					Global.tara = Global.brutto;
 					Global.lastUpdate=System.currentTimeMillis();
 					// printmenu();
-				} else if (inLine.startsWith("S")) {
+				} else if (Global.networkString.startsWith("S")) {
 					// printmenu();
 					outstream.writeBytes("S " + (Global.brutto - Global.tara)
 							+ " kg " + "\r\n");
-				} else if (inLine.startsWith("B")) { // denne ordre findes
+				} else if (Global.networkString.startsWith("B")) { // denne ordre findes
 					// ikke p� en fysisk v�gt
-					String temp = inLine.substring(2, inLine.length());
+					String temp = Global.networkString.substring(2, Global.networkString.length());
 					Global.brutto = Double.parseDouble(temp);
 					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
 					Global.lastUpdate=System.currentTimeMillis();
-				} else if ((inLine.startsWith("Q"))) {
+				} else if ((Global.networkString.startsWith("Q"))) {
 					System.out.println("");
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
@@ -83,7 +83,7 @@ public class NetworkIOBoundary implements IBoundary {
 							.writeBytes("program  stoppet Q modtaget på com port");
 					System.in.close();
 					System.out.close();
-					Global.instream.close();
+					instream.close();
 					outstream.close();
 					System.exit(0);
 				}
