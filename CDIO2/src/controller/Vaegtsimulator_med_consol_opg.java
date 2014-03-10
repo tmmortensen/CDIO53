@@ -63,7 +63,6 @@ public class Vaegtsimulator_med_consol_opg {
 		} else
 			listenSocket.close();
 
-
 		while(!Global.exit){
 			try{
 				Thread.sleep(100);
