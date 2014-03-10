@@ -34,7 +34,7 @@ public class OutputBoundary implements IBoundary {
 		System.out.println("Debug info: ");
 		System.out.println("Hooked up to " + Global.address);
 		System.out.println("Brutto: " + (Global.brutto) + " kg");
-		System.out.println("Streng modtaget: " + Global.inLine);
+		System.out.println("Streng modtaget: " + Global.networkString);
 		System.out.println(" ");
 		System.out.println("Denne vægt simulator lytter på ordrene ");
 		System.out.println("D, DN, S, T, B, Q ");

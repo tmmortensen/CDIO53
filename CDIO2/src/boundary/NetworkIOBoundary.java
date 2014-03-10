@@ -9,7 +9,6 @@ import java.net.Socket;
 import data.Global;
 
 public class NetworkIOBoundary implements IBoundary {
-	private String inLine;
 	private static int portdst = 8001;
 	private static Socket sock;
 	private static DataOutputStream outstream;
@@ -37,32 +36,32 @@ public class NetworkIOBoundary implements IBoundary {
 			return;
 		}
 		try {
-			while (!(inLine = Global.instream.readLine().toUpperCase()).isEmpty()) {
-				if (inLine.startsWith("DN")) {
+			while (!(Global.networkString = Global.instream.readLine().toUpperCase()).isEmpty()) {
+				if (Global.networkString.startsWith("DN")) {
 					// ikke implimenteret
-				} else if (inLine.startsWith("D")) {
-					if (inLine.equals("D"))
+				} else if (Global.networkString.startsWith("D")) {
+					if (Global.networkString.equals("D"))
 						Global.display = "";
 					else
-						Global.display = (inLine.substring(2,
-								inLine.length()));
+						Global.display = (Global.networkString.substring(2,
+								Global.networkString.length()));
 					//printmenu();
 					outstream.writeBytes("DB" + "\r\n");
-				} else if (inLine.startsWith("T")) {
+				} else if (Global.networkString.startsWith("T")) {
 					outstream.writeBytes("T " + (Global.tara) + " kg " + "\r\n");
 					Global.tara = Global.brutto;
 					//printmenu();
-				} else if (inLine.startsWith("S")) {
+				} else if (Global.networkString.startsWith("S")) {
 					//printmenu();
 					outstream.writeBytes("S " + (Global.brutto - Global.tara) + " kg "
 							+ "\r\n");
-				} else if (inLine.startsWith("B")) { // denne ordre findes
+				} else if (Global.networkString.startsWith("B")) { // denne ordre findes
 					// ikke p� en fysisk v�gt
-					String temp = inLine.substring(2, inLine.length());
+					String temp = Global.networkString.substring(2, Global.networkString.length());
 					Global.brutto = Double.parseDouble(temp);
 					//printmenu();
 					outstream.writeBytes("DB" + "\r\n");
-				} else if ((inLine.startsWith("Q"))) {
+				} else if ((Global.networkString.startsWith("Q"))) {
 					System.out.println("");
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
