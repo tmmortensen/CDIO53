@@ -6,26 +6,21 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.omg.CORBA.DataInputStream;
+
 import data.Global;
 
 public class NetworkIOBoundary implements IBoundary {
-	private static int portdst = 8001;
-	private static Socket sock;
-	private static DataOutputStream outstream;
+	private Socket sock;
+	private DataOutputStream outstream;
+	private BufferedReader instream;
 	
-	public NetworkIOBoundary(int port){
-		portdst = port;
+	public NetworkIOBoundary(Socket socket){
+		sock = socket;
 	}
 	public void run() {	
 		try{
-			Global.listener = new ServerSocket(portdst);
-			Global.port = portdst;
-			System.out.println("Venter på connection på port " + portdst);
-			System.out.println("Indtast eventuel portnummer som 1. argument");
-			System.out.println("på kommando linien for andet portnr");
-			sock = Global.listener.accept();
-			Global.address = sock.getInetAddress();
-			Global.instream = new BufferedReader(new InputStreamReader(
+			instream = new BufferedReader(new InputStreamReader(
 				sock.getInputStream()));
 			outstream = new DataOutputStream(sock.getOutputStream());
 		}
@@ -36,7 +31,7 @@ public class NetworkIOBoundary implements IBoundary {
 			return;
 		}
 		try {
-			while (!(Global.networkString = Global.instream.readLine().toUpperCase()).isEmpty()) {
+			while (!(Global.networkString = instream.readLine().toUpperCase()).isEmpty()) {
 				if (Global.networkString.startsWith("DN")) {
 					// ikke implimenteret
 				} else if (Global.networkString.startsWith("D")) {
@@ -67,7 +62,7 @@ public class NetworkIOBoundary implements IBoundary {
 							.println("Program stoppet Q modtaget p� com port");
 					System.in.close();
 					System.out.close();
-					Global.instream.close();
+					instream.close();
 					outstream.close();
 					System.exit(0);
 				}

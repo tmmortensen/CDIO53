@@ -1,9 +1,6 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -16,17 +13,7 @@ import boundary.OutputBoundary;
 
 public class Vaegtsimulator_med_consol_opg {
 	static ServerSocket listener;
-	private static double brutto = 0;
-	private static double tara = 0;
-	private static String inline;
-	private static String InstruktionsDisplay = "";
 	private static int portdst = 8000;
-	private static Socket sock;
-	private static BufferedReader instream;
-	private static DataOutputStream outstream;
-
-	
-	
 
 	public static void main(String[] args) throws IOException {
 		Global.tara = 0;
@@ -42,17 +29,41 @@ public class Vaegtsimulator_med_consol_opg {
 				System.out.println("Port argument ugyldigt. Bruger default 8000.");
 				portdst = 8000;
 			}
-		IBoundary network = new NetworkIOBoundary(portdst);
+		//input setup and run
 		Scanner inputScanner = new Scanner(System.in);
 		IBoundary input = new InputBoundary(inputScanner);
-		OutputBoundary output = new OutputBoundary();
-		Thread networkThread = new Thread(network);
 		Thread inputThread = new Thread(input);
-		networkThread.setDaemon(true);
-		networkThread.start();
-		//inputThread.setDaemon(true);
-		inputThread.start();
-		output.run();
+		inputThread.start();		
+
+		//output setup and run
+		OutputBoundary output = new OutputBoundary();
+		Thread outputThread = new Thread(output);
+		outputThread.start();
+		
+		// Network setup and run
+		Global.port = portdst;
+		ServerSocket listenSocket = new ServerSocket(portdst);
+		ConnectionSetup connection = new ConnectionSetup(listenSocket);
+		Thread connectionTread = new Thread(connection);
+		connectionTread.start();
+		
+		while(!Global.exit){
+			try{
+				connectionTread.join(100);
+			} catch (Exception e){
+				
+			}
+		}
+		Socket socket = null;
+		if (!Global.exit){
+			socket = connection.getSocket();
+			IBoundary network = new NetworkIOBoundary(socket);
+			Thread networkThread = new Thread(network);
+			networkThread.start();
+		} else
+			listenSocket.close();
+
+
 		while(!Global.exit){
 			try{
 				Thread.sleep(100);
@@ -60,16 +71,14 @@ public class Vaegtsimulator_med_consol_opg {
 			catch(Exception e){
 				
 			}
-			
 		}
 		inputScanner.close();
-		Global.listener.close();
 		try{
-			Global.instream.close();
-		}
-		catch(Exception e){
+			socket.close();
+		}catch(Exception e){
 			
 		}
+		
 		//networkThread.interrupt();
 		//inputThread.interrupt();
 	}
