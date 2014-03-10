@@ -48,9 +48,7 @@ public class Vaegtsimulator_med_consol_opg {
 		OutputBoundary output = new OutputBoundary();
 		Thread networkThread = new Thread(network);
 		Thread inputThread = new Thread(input);
-		networkThread.setDaemon(true);
 		networkThread.start();
-		//inputThread.setDaemon(true);
 		inputThread.start();
 		output.run();
 		while(!Global.exit){
