@@ -51,5 +51,13 @@ public class Data implements IOperatoerDAO {
 			throw new DALException("Operator ID does not exist.");
 		}
 	}
-
+	
+	@Override
+	public void deleteOperatoer(int id)throws DALException{
+		if (id < 10 || id > 99)
+			throw new DALException("Id out of bounds");
+		Operator result = operators.remove(id);
+		if (result == null)
+			throw new DALException("Operator does not exist");
+	}
 }
