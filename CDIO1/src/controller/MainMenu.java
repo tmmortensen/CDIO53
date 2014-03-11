@@ -36,7 +36,7 @@ public class MainMenu {
 			password = login[1];
 			int opr_ID = Integer.parseInt(oprID);
 			if (data.getOperatoer(opr_ID).getPassword()
-					.equalsIgnoreCase(password)) {
+					.equals(password)) {
 
 				// here the mainMenu that actually runs, after the login has
 				// completed, if the user decides to logout the login loop will
@@ -48,13 +48,12 @@ public class MainMenu {
 
 					// creates the String[] options that holds the options that
 					// the user have
-					String[] options = { "1. Password ", "2. Test", "3. Quit",
-							"" };
+					String[] options = { "1. Password ", "2. Test", "3. Quit", "4. Logout", ""};
 
 					// the admin menu will be shown if you have rights to see
 					// it.
 					if (opr_ID == 10) {
-						options[3] = "4. admin";
+						options[4] = "5. admin";
 					}
 
 					// A loop wrapped around the menu choice, if the user choose
@@ -82,6 +81,11 @@ public class MainMenu {
 							break;
 
 						case 4:
+							mainChoice = false;
+							menuChoice = false;
+							relogChoice = true;
+							break;
+						case 5:
 							if (opr_ID == 10) {
 								menuChoice = false;
 								admin.run(opr_ID);

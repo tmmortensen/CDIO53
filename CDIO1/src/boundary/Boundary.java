@@ -22,10 +22,7 @@ public class Boundary implements IBoundary {
 	@Override
 	public String getString(String msg) {
 		System.out.println(msg);
-		String stringinput;
-		do {
-			stringinput = input.nextLine();
-		} while (stringinput.equals(""));
+		String stringinput = input.nextLine();
 		return stringinput;
 	}
 
@@ -35,6 +32,7 @@ public class Boundary implements IBoundary {
 		int getint;
 		try {
 			getint = input.nextInt();
+			input.nextLine();
 		} catch (Exception e){
 			getint = 0;
 		}
@@ -55,6 +53,7 @@ public class Boundary implements IBoundary {
 			
 			try {
 				menuInput = input.nextInt();
+				input.nextLine();
 			} catch (Exception e){
 				menuInput = 0;
 			}

@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Random;
+
 /**
  * A data package containing info on an operator
  */
@@ -48,6 +50,43 @@ public class OperatoerDTO {
 		this.password = op.getPassword();
 	}
 
+	public static boolean checkPassword(String password){
+		int i = 0;
+		if (password.matches(".*[0-9]+.*"))
+			i++;
+		if (password.matches(".*[a-z]+.*"))
+			i++;
+		if (password.matches(".*[A-Z]+.*"))
+			i++;
+		if (password.matches(".*\\W+.*"))
+			i++;
+		if (password.contains(" ") || password.length() < 6)
+			i=0;
+		if(i >= 3)
+			return true;
+		else
+			return false;
+	}
+	public static String generatePassword(){
+		String numbers = "0123456789";
+		String lowerCase = "abcdefghijklmnopqrstuwxyz";
+		String upperCase = lowerCase.toUpperCase();
+		String specialChar = "!\"#¤%&/()=";
+		String legalchars = numbers+lowerCase+upperCase+specialChar;
+		String returnString = "";
+		for(int i=0; i<6; i++){
+			returnString += legalchars.charAt(new Random().nextInt(legalchars.length()));
+		}
+		if (!returnString.matches(".*[0-9]+.*"))
+			returnString += numbers.charAt(new Random().nextInt(numbers.length()));
+		if (!returnString.matches(".*[a-z]+.*"))
+			returnString += lowerCase.charAt(new Random().nextInt(lowerCase.length()));
+		if (!returnString.matches(".*[A-Z]+.*"))
+			returnString += upperCase.charAt(new Random().nextInt(upperCase.length()));
+		if (!returnString.matches(".*\\W+.*"))
+			returnString += specialChar.charAt(new Random().nextInt(specialChar.length()));
+		return returnString;
+	}
 	public int getOprId() {
 		return oprId;
 	}
