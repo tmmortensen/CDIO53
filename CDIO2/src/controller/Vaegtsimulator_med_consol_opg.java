@@ -5,22 +5,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import data.Global;
+import data.IProgramState;
+import data.ProgramState;
 import boundary.IBoundary;
 import boundary.InputBoundary;
 import boundary.NetworkIOBoundary;
 import boundary.OutputBoundary;
 
 public class Vaegtsimulator_med_consol_opg {
-	static ServerSocket listener;
-	private static int portdst = 8000;
-
+	
 	public static void main(String[] args) throws IOException {
-		Global.tara = 0;
-		Global.brutto = 0;
-		Global.display = "";
-		Global.exit = false;
-		Global.lastUpdate = System.currentTimeMillis();
+		int portdst;
+		IProgramState programState = new ProgramState();
+		Socket socket = null;
+		
+		
 		if(args.length > 0)
 			try{
 				portdst = Integer.parseInt(args[0]);
@@ -29,56 +28,65 @@ public class Vaegtsimulator_med_consol_opg {
 				System.out.println("Port argument ugyldigt. Bruger default 8000.");
 				portdst = 8000;
 			}
+		else
+		{
+			System.out.println("Bruger default port 8000.");
+			portdst = 8000;
+		}
+		
 		//input setup and run
 		Scanner inputScanner = new Scanner(System.in);
-		IBoundary input = new InputBoundary(inputScanner);
+		IBoundary input = new InputBoundary(inputScanner, programState);
 		Thread inputThread = new Thread(input);
 		inputThread.start();		
 
 		//output setup and run
-		OutputBoundary output = new OutputBoundary();
+		OutputBoundary output = new OutputBoundary(programState);
 		Thread outputThread = new Thread(output);
 		outputThread.start();
 		
 		// Network setup and run
-		Global.port = portdst;
+		programState.setPort(portdst);
 		ServerSocket listenSocket = new ServerSocket(portdst);
-		ConnectionSetup connection = new ConnectionSetup(listenSocket);
+		ConnectionSetup connection = new ConnectionSetup(listenSocket, programState);
 		Thread connectionTread = new Thread(connection);
 		connectionTread.start();
 		
-		while(!Global.exit){
-			try{
-				connectionTread.join(100);
-			} catch (Exception e){
-				
-			}
-		}
-		Socket socket = null;
-		if (!Global.exit){
-			socket = connection.getSocket();
-			IBoundary network = new NetworkIOBoundary(socket);
-			Thread networkThread = new Thread(network);
-			networkThread.start();
-		} else
-			listenSocket.close();
-
-		while(!Global.exit){
-			try{
-				Thread.sleep(100);
-			}
-			catch(Exception e){
-				
-			}
-		}
-		inputScanner.close();
-		try{
-			socket.close();
-		}catch(Exception e){
-			
+		// wait for a connection to be made or the program to close
+		while(programState.isRunning() && (connection.getSocket() == null)){
+			try{connectionTread.join(100);}
+			catch (Exception e){}
 		}
 		
-		//networkThread.interrupt();
-		//inputThread.interrupt();
+		// if the program is still running start up the networkIO
+		if (programState.isRunning()){
+			socket = connection.getSocket();
+			IBoundary network = new NetworkIOBoundary(socket, programState);
+			Thread networkThread = new Thread(network);
+			networkThread.start();
+		} 
+		
+		// we have a connection now and don't need the server socket anymore
+		listenSocket.close();
+
+		// wait until program is closed
+		while(programState.isRunning()){
+			try{Thread.sleep(100);}
+			catch(Exception e){}
+		}
+		
+
+		// close down resources used by the program
+		// close down the input socket so the input thread will stop waiting for user input
+		inputScanner.close();
+		
+		// close down the network socket so the network thread will stop waiting for network input
+		try{socket.close();}
+		catch(Exception e){}
+
+		System.in.close();
+		System.out.close();
+		
+		System.exit(0);
 	}
 }

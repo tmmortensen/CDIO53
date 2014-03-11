@@ -4,31 +4,33 @@ package controller;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import data.Global;
+import data.IProgramState;
 
 public class ConnectionSetup implements Runnable {
 	ServerSocket listener;
 	Socket socket;
+	IProgramState programState;
 	
-	ConnectionSetup(ServerSocket listenSocket){
+	ConnectionSetup(ServerSocket listenSocket, IProgramState programState){
 		listener = listenSocket;
+		this.programState = programState;
 	}
 	
 	@Override
 	public void run() {
 		try{
-			System.out.println("Venter på connection på port " + Global.port);
+			System.out.println("Venter på connection på port " + programState.getPort());
 			System.out.println("Indtast eventuel portnummer som 1. argument");
 			System.out.println("på kommando linien for andet portnr");
 			socket = listener.accept();
-			// indtil viddere regner vi kun med �n forbindelse.
+			// indtil viddere regner vi kun med �n forbindelse.
 			listener.close();
-			Global.address = socket.getInetAddress();
+			programState.setAdress(socket.getInetAddress());
 		}
 		catch(Exception e){
-			if(!Global.exit)
+			if(programState.isRunning())
 				System.out.println("Exception: " + e.getMessage());
-			Global.exit = true;
+			programState.quit();
 			return;
 		}
 		

@@ -1,40 +1,45 @@
 package boundary;
 
-import data.Global;
+import data.IProgramState;
 
 public class OutputBoundary implements IBoundary {
 	
-	private long lastRefresh = 0; 
+	private long lastRefresh = 0;
+	private IProgramState programState;
+	
+	public OutputBoundary(IProgramState programState){
+		this.programState = programState;
+	}
 
 	public void run() {
-		while(!Global.exit){
-			if(Global.lastUpdate > lastRefresh){
+		while(programState.isRunning()){
+			if(programState.hasDisplayUpdated(lastRefresh)){
 				lastRefresh = System.currentTimeMillis();
 				printmenu();
-				
 			}
-			try{
-				this.wait(100);	
-			}
-			catch(Exception e){
-				
-			}
+			try{this.wait(100);}
+			catch(Exception e){}
 		}
-		
 	}
+	
 	public void printmenu() {
-		for (int i = 0; i < 25; i++)
-			System.out.println(" ");
+	//	for (int i = 0; i < 25; i++)
+	//		System.out.println(" ");
+		
+		String adress = "null";
+		try{ adress = programState.getAdress().getHostAddress();}
+		catch (Exception e) {}
+		
 		System.out.println("*************************************************");
-		System.out.println("Netto: " + (Global.brutto - Global.tara) + " kg");
-		System.out.println("Instruktionsdisplay: " + Global.display);
+		System.out.println("Netto: " + programState.getNet() + " kg");
+		System.out.println("Instruktionsdisplay: " + programState.getDisplayText());
 		System.out.println("*************************************************");
 		System.out.println(" ");
 		System.out.println(" ");
 		System.out.println("Debug info: ");
-		System.out.println("Hooked up to " + Global.address);
-		System.out.println("Brutto: " + (Global.brutto) + " kg");
-		System.out.println("Streng modtaget: " + Global.networkString);
+		System.out.println("Hooked up to " + adress);
+		System.out.println("Brutto: " + programState.getGross() + " kg");
+		System.out.println("Streng modtaget: " + programState.getNetString());
 		System.out.println(" ");
 		System.out.println("Denne vægt simulator lytter på ordrene ");
 		System.out.println("D, DN, S, T, B, Q ");

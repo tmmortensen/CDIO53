@@ -3,20 +3,19 @@ package boundary;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.omg.CORBA.DataInputStream;
-
-import data.Global;
+import data.IProgramState;
 
 public class NetworkIOBoundary implements IBoundary {
 	private Socket sock;
 	private DataOutputStream outstream;
 	private BufferedReader instream;
+	private IProgramState programState;
 	
-	public NetworkIOBoundary(Socket socket){
+	public NetworkIOBoundary(Socket socket, IProgramState programState){
 		sock = socket;
+		this.programState = programState;
 	}
 	public void run() {	
 		try{
@@ -25,69 +24,56 @@ public class NetworkIOBoundary implements IBoundary {
 			outstream = new DataOutputStream(sock.getOutputStream());
 		}
 		catch(Exception e){
-			if(!Global.exit)
+			if(programState.isRunning())
 				System.out.println("Exception: " + e.getMessage());
-			Global.exit = true;
+			programState.quit();
 			return;
 		}
+		
 		try {
-			while (!(Global.networkString = instream.readLine().toUpperCase())
-					.isEmpty()) {
-				if (Global.networkString.startsWith("RM20 8")) {
+			String netString;
+			while (!( netString = instream.readLine().toUpperCase()).isEmpty()) {
+				programState.setNetString(netString);
+				if (netString.startsWith("RM20 8")) {
 					outstream.writeBytes("RM20 B"+ "indtast nr."+"\r\n");
-					while(Global.networkString.startsWith("RM20 8"));{}
+					while(netString.startsWith("RM20 8"));{}
 					outstream.writeBytes("RM20 A" + "\r\n");
 				}
-				else if(Global.networkString.startsWith("RESET")){
-					Global.brutto=0.0;
-					Global.tara=0.0;
-					Global.display="";
-					
+				else if(netString.startsWith("RESET")){
+					programState.reset();
 					outstream.writeBytes("du har nulstillet programmet" + "\r\n");
-					Global.lastUpdate=System.currentTimeMillis();
-					
 				}
-				else if (Global.networkString.startsWith("P111")) {
-					Global.display= (Global.networkString.substring(5,Global.networkString.length()));
+				else if (netString.startsWith("P111")) {
+					programState.setDisplayText(netString.substring(5,netString.length()));
 					outstream.writeBytes("P111 A"+ "\r\n");
-				} else if (Global.networkString.startsWith("D")) {
-					if (Global.networkString.equals("D"))
-						Global.display = "";
+				} else if (netString.startsWith("D")) {
+					if (netString.equals("D"))
+						programState.setDisplayText("");
 					else
-						Global.display = (Global.networkString.substring(2, Global.networkString.length()));
-					// printmenu();
+						programState.setDisplayText(netString.substring(2, netString.length()));
 					outstream.writeBytes("DB" + "\r\n");
-					Global.lastUpdate=System.currentTimeMillis();
-				} else if (Global.networkString.startsWith("T")) {
-					outstream
-							.writeBytes("T " + (Global.tara) + " kg " + "\r\n");
-					Global.tara = Global.brutto;
-					Global.lastUpdate=System.currentTimeMillis();
-					// printmenu();
-				} else if (Global.networkString.startsWith("S")) {
-					// printmenu();
-					outstream.writeBytes("S " + (Global.brutto - Global.tara)
+				} else if (netString.startsWith("T")) {
+					programState.tare();
+					outstream.writeBytes("T " + (programState.getGross()) + " kg " + "\r\n");
+				} else if (netString.startsWith("S")) {
+					outstream.writeBytes("S " + (programState.getNet())
 							+ " kg " + "\r\n");
-				} else if (Global.networkString.startsWith("B")) { // denne ordre findes
+				} else if (netString.startsWith("B")) { // denne ordre findes
 					// ikke p� en fysisk v�gt
-					String temp = Global.networkString.substring(2, Global.networkString.length());
-					Global.brutto = Double.parseDouble(temp);
+					String temp = netString.substring(2, netString.length());
+					programState.setGross(Double.parseDouble(temp));
 					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
-					Global.lastUpdate=System.currentTimeMillis();
-				} else if ((Global.networkString.startsWith("Q"))) {
+				} else if ((netString.startsWith("Q"))) {
 					System.out.println("");
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
 					outstream
 							.writeBytes("program  stoppet Q modtaget på com port");
-					System.in.close();
-					System.out.close();
-					instream.close();
-					outstream.close();
-					System.exit(0);
 				}
 			}
+			instream.close();
+			outstream.close();
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
 		}
