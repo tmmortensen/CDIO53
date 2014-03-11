@@ -27,7 +27,7 @@ public class OutputBoundary implements IBoundary {
 	//		System.out.println(" ");
 		
 		String adress = "null";
-		try{ adress = programState.getAdress().getHostAddress();}
+		try{ adress = programState.getAddress().getHostAddress();}
 		catch (Exception e) {}
 		
 		System.out.println("*************************************************");

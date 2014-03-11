@@ -25,7 +25,7 @@ public class ConnectionSetup implements Runnable {
 			socket = listener.accept();
 			// indtil viddere regner vi kun med �n forbindelse.
 			listener.close();
-			programState.setAdress(socket.getInetAddress());
+			programState.setAddress(socket.getInetAddress());
 		}
 		catch(Exception e){
 			if(programState.isRunning())

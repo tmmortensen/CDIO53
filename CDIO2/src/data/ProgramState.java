@@ -10,7 +10,7 @@ public class ProgramState implements IProgramState {
 	String userInput = "";
 	
 	int port = 0;
-	InetAddress adress;
+	InetAddress address;
 
 	boolean exit = false;
 	long lastUpdate = 0;
@@ -46,13 +46,13 @@ public class ProgramState implements IProgramState {
 		return port;
 	}
 
-	public void setAdress(InetAddress adress){
-		this.adress = adress;
+	public void setAddress(InetAddress address){
+		this.address = address;
 		lastUpdate = System.currentTimeMillis();
 	}
 	
-	public InetAddress getAdress(){
-		return adress;
+	public InetAddress getAddress(){
+		return address;
 	}
 
 	@Override
