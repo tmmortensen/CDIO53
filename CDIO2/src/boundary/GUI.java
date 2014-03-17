@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -88,14 +90,88 @@ public class GUI implements IBoundary {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(640, 480);
 		f.setVisible(true);
-	}
+		
+		b1.addMouseListener(new MouseListener() {
+		    
 
-	class EventHandler implements ActionListener {
+			@Override
+			public void mouseClicked(MouseEvent b1) {
+				
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent b1) {
+				
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent b1) {
+			
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent b1) {
+				
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent b1) {
+				
+			}
+			
+			
+	b2.addMouseListener(new MouseListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent event) {
-
+		public void mouseClicked(MouseEvent b2) {
+			// TODO Auto-generated method stub
+			
 		}
 
+		@Override
+		public void mouseEntered(MouseEvent b2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent b2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent b2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent b2) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+	
+	
+					
+		    }); 
+	
+	
+
+	
+		 
+	
+		
+		
+		   
+
+	
+
 	}
-}
+
