@@ -8,6 +8,7 @@ public class ProgramState implements IProgramState {
 	String display = "";
 	String netString = "";
 	String userInput = "";
+	String botDisplay = "";
 	
 	int port = 0;
 	InetAddress address;
@@ -18,6 +19,15 @@ public class ProgramState implements IProgramState {
 	
 	public ProgramState() {
 		lastUpdate = System.currentTimeMillis();
+	}
+	
+	public void setBotDisplay(String botDisplay){
+		this.botDisplay=botDisplay;
+		
+	}
+	
+	public String getBotDisplay(){
+		return botDisplay; 
 	}
 	
 	@Override
