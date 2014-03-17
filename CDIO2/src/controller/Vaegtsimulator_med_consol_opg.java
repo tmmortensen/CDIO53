@@ -43,9 +43,9 @@ public class Vaegtsimulator_med_consol_opg {
 		OutputBoundary output = new OutputBoundary(programState);
 		Thread outputThread = new Thread(output);
 		outputThread.start();
-		GUI gui = new GUI();
-		Thread guiThread = new Thread(gui);
-		guiThread.start();
+//		GUI gui = new GUI();
+//		Thread guiThread = new Thread(gui);
+//		guiThread.start();
 
 		// Network setup and run
 		programState.setPort(portdst);
