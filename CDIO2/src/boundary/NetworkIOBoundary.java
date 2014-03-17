@@ -75,13 +75,6 @@ public class NetworkIOBoundary implements IBoundary {
 				} else if (netString.startsWith("S")) {
 					outstream.writeBytes("S " + (programState.getNet())
 							+ " kg " + "\r\n");
-				} else if (netString.startsWith("B")) { // denne ordre findes
-					// ikke p� en fysisk v�gt
-					String temp = netString.substring(2, netString.length());
-					programState.setGross(Double.parseDouble(temp));
-					// printmenu();
-					outstream.writeBytes("DB" + "\r\n");
-					
 				} else if ((netString.startsWith("Q"))) {
 					System.out.println("");
 					System.out
