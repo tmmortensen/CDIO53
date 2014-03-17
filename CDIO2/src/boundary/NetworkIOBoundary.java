@@ -47,10 +47,21 @@ public class NetworkIOBoundary implements IBoundary {
 					outstream.writeBytes("du har nulstillet programmet"
 							+ "\r\n");
 				} else if (netString.startsWith("P111")) {
-					programState.setDisplayText(netString.substring(5,
-							netString.length()));
-					outstream.writeBytes("P111 A" + "\r\n");
-				} else if (netString.startsWith("D")) {
+
+					if (netString.length() <= 39) {
+						programState.setBotDisplay(netString.substring(5,
+								netString.length()));
+						outstream.writeBytes("P111 A" + "\r\n");
+
+					} else {
+						outstream.writeBytes("P111 L" + "\r\n");
+					}
+				} else if (netString.startsWith("P110")) {
+					programState.setBotDisplay(" ");
+
+				}
+
+				else if (netString.startsWith("D")) {
 					if (netString.equals("D"))
 						programState.setDisplayText("");
 					else
@@ -70,6 +81,7 @@ public class NetworkIOBoundary implements IBoundary {
 					programState.setGross(Double.parseDouble(temp));
 					// printmenu();
 					outstream.writeBytes("DB" + "\r\n");
+					
 				} else if ((netString.startsWith("Q"))) {
 					System.out.println("");
 					System.out
