@@ -168,30 +168,42 @@ public class GUI implements IBoundary {
 
 	private class Eventhandler implements ActionListener {
 
+		String[] addToValue = new String[10];
+		int i = 0;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == b0) {
 
 			} else if (e.getSource() == b1) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b2) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b3) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b4) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b5) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b6) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b7) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b8) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == b9) {
-
+				addToValue[i] = b1.getName();
+				i++;
 			} else if (e.getSource() == clear) {
-
+				addToValue = new String[10];
 			} else if (e.getSource() == enter) {
 
 			} else if (e.getSource() == tara) {
