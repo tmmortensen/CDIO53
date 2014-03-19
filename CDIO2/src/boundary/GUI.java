@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,7 +18,7 @@ import data.IProgramState;
 
 public class GUI implements IBoundary {
 
-	Scanner input;
+	private long lastRefresh = 0;
 	IProgramState programState;
 
 	JFrame f = new JFrame("Vægtsimulator");
@@ -37,6 +36,19 @@ public class GUI implements IBoundary {
 
 	@Override
 	public void run() {
+		while (programState.isRunning()) {
+			if (programState.hasDisplayUpdated(lastRefresh)) {
+				lastRefresh = System.currentTimeMillis();
+				printGui();
+			}
+			try {
+				this.wait(100);
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	public void printGui() {
 
 		String adress = "null";
 		try {
@@ -79,7 +91,7 @@ public class GUI implements IBoundary {
 				+ "Debug info: \n"
 				+ "Hooked up to "
 				+ adress
-				+ "Brutto: "
+				+ "\nBrutto: "
 				+ programState.getGross()
 				+ " kg"
 				+ "Streng modtaget: "
