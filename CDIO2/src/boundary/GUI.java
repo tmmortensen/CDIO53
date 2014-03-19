@@ -31,8 +31,18 @@ public class GUI implements IBoundary {
 	JTextPane toweight, fromweight;
 	JSpinner enterWeight;
 
+	public GUI(IProgramState programState) {
+		this.programState = programState;
+	}
+
 	@Override
 	public void run() {
+
+		String adress = "null";
+		try {
+			adress = programState.getAddress().getHostAddress();
+		} catch (Exception e) {
+		}
 
 		// define components
 		b0 = new JButton("0");
@@ -59,16 +69,30 @@ public class GUI implements IBoundary {
 		// define attributes on components
 		toweight.setBackground(Color.black);
 		toweight.setForeground(Color.green);
-		toweight.setText("Denne vægt simulator lytter på ordrene"
-				+ "D, DN, S, T, B, Q "
-				+ "På kommunikationsporten\n "
+		toweight.setText("*************************************************\n"
+				+ "Netto: "
+				+ programState.getNet()
+				+ " kg\n"
+				+ "Instruktionsdisplay: "
+				+ programState.getDisplayText()
+				+ "\n*************************************************\n\n"
+				+ "Debug info: \n"
+				+ "Hooked up to "
+				+ adress
+				+ "Brutto: "
+				+ programState.getGross()
+				+ " kg"
+				+ "Streng modtaget: "
+				+ programState.getNetString()
+				+ "\n\nDenne vægt simulator lytter på ordrene "
+				+ "\nD, DN, S, T, B, Q "
+				+ "På kommunikationsporten\n"
+				+ "******\n"
 				+ "Tast T for tara (svarende til knaptryk på vægt)\n"
 				+ "Tast B for ny brutto (svarende til at belastningen på vægt ændres)\n"
 				+ "Tast Q for at afslutte program program\n"
 				+ "Indtast (T/B/Q for knaptryk / brutto ændring / quit)\n"
-				+ "Tast her: Venter på connection på port 8000\n"
-				+ "Indtast eventuel portnummer som 1. argument\n"
-				+ "på kommando linien for andet portnr");
+				+ "Tast her: ");
 		fromweight.setBackground(Color.black);
 		fromweight.setForeground(Color.green);
 		fromweight.setText("hello, world");

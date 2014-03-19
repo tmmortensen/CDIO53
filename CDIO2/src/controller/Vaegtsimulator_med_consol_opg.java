@@ -43,7 +43,7 @@ public class Vaegtsimulator_med_consol_opg {
 		OutputBoundary output = new OutputBoundary(programState);
 		Thread outputThread = new Thread(output);
 		outputThread.start();
-		GUI gui = new GUI();
+		GUI gui = new GUI(programState);
 		Thread guiThread = new Thread(gui);
 		guiThread.start();
 
