@@ -32,11 +32,14 @@ public class GUI implements IBoundary {
 	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara;
 	JTextPane toweight, fromweight;
 	JSpinner enterWeight;
+	Eventhandler handler = new Eventhandler();
 
 	public GUI(IProgramState programState) {
 		this.programState = programState;
+
 		// define components
 		b0 = new JButton("0");
+		b0.setActionCommand("0");
 		b1 = new JButton("1");
 		b2 = new JButton("2");
 		b3 = new JButton("3");
@@ -62,6 +65,39 @@ public class GUI implements IBoundary {
 
 		enterWeight = new JSpinner(new SpinnerNumberModel(0, 0, 100000000, 1));
 		enterWeight.setToolTipText("Enter weight here");
+
+		// set layoutmanagers
+		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
+		buttonPanel.setLayout(new GridLayout(4, 4));
+		mainPanel.setLayout(new BorderLayout());
+		taraPanel.setLayout(new BoxLayout(taraPanel, BoxLayout.X_AXIS));
+
+		// add components
+		buttonPanel.add(b0);
+		buttonPanel.add(b1);
+		buttonPanel.add(b2);
+		buttonPanel.add(b3);
+		buttonPanel.add(b4);
+		buttonPanel.add(b5);
+		buttonPanel.add(b6);
+		buttonPanel.add(b7);
+		buttonPanel.add(b8);
+		buttonPanel.add(b9);
+		buttonPanel.add(clear);
+		buttonPanel.add(enter);
+
+		mainPanel.add(buttonPanel, BorderLayout.EAST);
+		mainPanel.add(viewPanel, BorderLayout.CENTER);
+		mainPanel.add(enterWeight, BorderLayout.NORTH);
+
+		viewPanel.add(toweight);
+		viewPanel.add(Box.createVerticalStrut(10));
+		viewPanel.add(fromweight);
+		viewPanel.add(Box.createVerticalStrut(10));
+		viewPanel.add(taraPanel);
+
+		taraPanel.add(tara);
+		taraPanel.add(enterWeight);
 	}
 
 	@Override
@@ -102,7 +138,7 @@ public class GUI implements IBoundary {
 				+ "\nBrutto: "
 				+ programState.getGross()
 				+ " kg"
-				+ "Streng modtaget: "
+				+ "\tStreng modtaget: "
 				+ programState.getNetString()
 				+ "\n\nDenne vægt simulator lytter på ordrene "
 				+ "\nD, DN, S, T, B, Q "
@@ -115,50 +151,17 @@ public class GUI implements IBoundary {
 				+ "Tast her: ");
 		fromweight.setBackground(Color.black);
 		fromweight.setForeground(Color.green);
-		fromweight.setText("hello, world");
-
-		// set layoutmanagers
-		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
-		buttonPanel.setLayout(new GridLayout(4, 4));
-		mainPanel.setLayout(new BorderLayout());
-		taraPanel.setLayout(new BoxLayout(taraPanel, BoxLayout.X_AXIS));
-
-		// add components
-		buttonPanel.add(b0);
-		buttonPanel.add(b1);
-		buttonPanel.add(b2);
-		buttonPanel.add(b3);
-		buttonPanel.add(b4);
-		buttonPanel.add(b5);
-		buttonPanel.add(b6);
-		buttonPanel.add(b7);
-		buttonPanel.add(b8);
-		buttonPanel.add(b9);
-		buttonPanel.add(clear);
-		buttonPanel.add(enter);
-
-		mainPanel.add(buttonPanel, BorderLayout.EAST);
-		mainPanel.add(viewPanel, BorderLayout.CENTER);
-		mainPanel.add(enterWeight, BorderLayout.NORTH);
-
-		viewPanel.add(toweight);
-		viewPanel.add(Box.createVerticalStrut(10));
-		viewPanel.add(fromweight);
-		viewPanel.add(Box.createVerticalStrut(10));
-		viewPanel.add(taraPanel);
-
-		taraPanel.add(tara);
-		taraPanel.add(enterWeight);
+		fromweight.setText("");
 
 		// add textPanel to Contentpane
 		f.getContentPane().add(mainPanel);
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(640, 480);
+		// set to SVGA res
+		f.setSize(800, 600);
 		f.setVisible(true);
 
 		// add eventhandling
-		Eventhandler handler = new Eventhandler();
 		b0.addActionListener(handler);
 		b1.addActionListener(handler);
 		b2.addActionListener(handler);
@@ -177,46 +180,36 @@ public class GUI implements IBoundary {
 
 	private class Eventhandler implements ActionListener, ChangeListener {
 
-		String[] addToValue = new String[10];
-		int i = 0;
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+			String inputtext = fromweight.getText();
+
 			if (e.getSource() == b0) {
-
+				fromweight.setText(inputtext + b0.getText());
 			} else if (e.getSource() == b1) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b1.getText());
 			} else if (e.getSource() == b2) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b2.getText());
 			} else if (e.getSource() == b3) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b3.getText());
 			} else if (e.getSource() == b4) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b4.getText());
 			} else if (e.getSource() == b5) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b5.getText());
 			} else if (e.getSource() == b6) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b6.getText());
 			} else if (e.getSource() == b7) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b7.getText());
 			} else if (e.getSource() == b8) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b8.getText());
 			} else if (e.getSource() == b9) {
-				addToValue[i] = b1.getName();
-				i++;
+				fromweight.setText(inputtext + b9.getText());
 			} else if (e.getSource() == clear) {
-				addToValue = new String[10];
-			} else if (e.getSource() == enter) {
+				fromweight.setText("");
+			} else if (e.getSource().equals(enter)) {
 
-			} else if (e.getSource() == tara) {
-				e.getActionCommand();
+			} else if (e.getSource().equals(tara)) {
 				programState.tare();
 			}
 
@@ -224,7 +217,10 @@ public class GUI implements IBoundary {
 
 		@Override
 		public void stateChanged(ChangeEvent ce) {
+
+			enterWeight.getValue();
 			if (ce.getSource() == enterWeight) {
+				enterWeight.setValue(enterWeight);
 				// String userInput = enterWeight.;
 				// programState.setGross(Double.parseDouble(userInput));
 				// JOptionPane.showInputDialog(GUI.this, userInput);
