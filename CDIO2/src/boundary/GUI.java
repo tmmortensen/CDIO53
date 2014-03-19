@@ -13,6 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import data.IProgramState;
 
@@ -32,6 +35,33 @@ public class GUI implements IBoundary {
 
 	public GUI(IProgramState programState) {
 		this.programState = programState;
+		// define components
+		b0 = new JButton("0");
+		b1 = new JButton("1");
+		b2 = new JButton("2");
+		b3 = new JButton("3");
+		b4 = new JButton("4");
+		b5 = new JButton("5");
+		b6 = new JButton("6");
+		b7 = new JButton("7");
+		b8 = new JButton("8");
+		b9 = new JButton("9");
+
+		clear = new JButton("CLEAR");
+		clear.setToolTipText("Push to clear");
+
+		enter = new JButton("ENTER");
+		enter.setToolTipText("Push to send");
+
+		tara = new JButton("<T>");
+		tara.setToolTipText("Push to tara weight");
+
+		toweight = new JTextPane();
+
+		fromweight = new JTextPane();
+
+		enterWeight = new JSpinner(new SpinnerNumberModel(0, 0, 100000000, 1));
+		enterWeight.setToolTipText("Enter weight here");
 	}
 
 	@Override
@@ -55,28 +85,6 @@ public class GUI implements IBoundary {
 			adress = programState.getAddress().getHostAddress();
 		} catch (Exception e) {
 		}
-
-		// define components
-		b0 = new JButton("0");
-		b1 = new JButton("1");
-		b2 = new JButton("2");
-		b3 = new JButton("3");
-		b4 = new JButton("4");
-		b5 = new JButton("5");
-		b6 = new JButton("6");
-		b7 = new JButton("7");
-		b8 = new JButton("8");
-		b9 = new JButton("9");
-		clear = new JButton("CLEAR");
-		clear.setToolTipText("Push to clear");
-		enter = new JButton("ENTER");
-		enter.setToolTipText("Push to send");
-		tara = new JButton("<T>");
-		tara.setToolTipText("Push to tara weight");
-		toweight = new JTextPane();
-		fromweight = new JTextPane();
-		enterWeight = new JSpinner();
-		enterWeight.setToolTipText("Enter weight here");
 
 		// define attributes on components
 		toweight.setBackground(Color.black);
@@ -163,10 +171,11 @@ public class GUI implements IBoundary {
 		b9.addActionListener(handler);
 		enter.addActionListener(handler);
 		clear.addActionListener(handler);
-		enterWeight.getValue();
+		tara.addActionListener(handler);
+		enterWeight.addChangeListener(handler);
 	}
 
-	private class Eventhandler implements ActionListener {
+	private class Eventhandler implements ActionListener, ChangeListener {
 
 		String[] addToValue = new String[10];
 		int i = 0;
@@ -209,10 +218,16 @@ public class GUI implements IBoundary {
 			} else if (e.getSource() == tara) {
 				e.getActionCommand();
 				programState.tare();
-			} else if (e.getSource() == enterWeight) {
-				String userInput = (String) enterWeight.getValue();
-				programState.setGross(Double.parseDouble(userInput));
-				System.out.println();
+			}
+
+		}
+
+		@Override
+		public void stateChanged(ChangeEvent ce) {
+			if (ce.getSource() == enterWeight) {
+				// String userInput = enterWeight.;
+				// programState.setGross(Double.parseDouble(userInput));
+				// JOptionPane.showInputDialog(GUI.this, userInput);
 			}
 
 		}
