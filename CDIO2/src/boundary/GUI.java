@@ -100,6 +100,22 @@ public class GUI implements IBoundary {
 
 		taraPanel.add(tara);
 		taraPanel.add(enterWeight);
+
+		// add eventhandling
+		b0.addActionListener(handler);
+		b1.addActionListener(handler);
+		b2.addActionListener(handler);
+		b3.addActionListener(handler);
+		b4.addActionListener(handler);
+		b5.addActionListener(handler);
+		b6.addActionListener(handler);
+		b7.addActionListener(handler);
+		b8.addActionListener(handler);
+		b9.addActionListener(handler);
+		enter.addActionListener(handler);
+		clear.addActionListener(handler);
+		tara.addActionListener(handler);
+		enterWeight.addChangeListener(handler);
 	}
 
 	@Override
@@ -162,21 +178,6 @@ public class GUI implements IBoundary {
 		f.setSize(800, 600);
 		f.setVisible(true);
 
-		// add eventhandling
-		b0.addActionListener(handler);
-		b1.addActionListener(handler);
-		b2.addActionListener(handler);
-		b3.addActionListener(handler);
-		b4.addActionListener(handler);
-		b5.addActionListener(handler);
-		b6.addActionListener(handler);
-		b7.addActionListener(handler);
-		b8.addActionListener(handler);
-		b9.addActionListener(handler);
-		enter.addActionListener(handler);
-		clear.addActionListener(handler);
-		tara.addActionListener(handler);
-		enterWeight.addChangeListener(handler);
 	}
 
 	private class Eventhandler implements ActionListener, ChangeListener {
@@ -209,12 +210,10 @@ public class GUI implements IBoundary {
 			} else if (e.getSource() == clear) {
 				fromweight.setText("");
 				inputtext = fromweight.getText();
-			} else if (e.getSource().equals(enter)) {
-				programState.setGross(Double.parseDouble(inputtext));
-				fromweight.setText("");
-				inputtext = fromweight.getText();
 			} else if (e.getSource().equals(tara)) {
 				programState.tare();
+			} else if (e.getSource().equals(enter)) {
+				programState.setGross(Double.parseDouble(inputtext));
 			}
 
 		}
