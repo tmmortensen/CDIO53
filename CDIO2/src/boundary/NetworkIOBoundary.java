@@ -14,6 +14,8 @@ public class NetworkIOBoundary implements IBoundary {
 	private DataOutputStream outstream;
 	private BufferedReader instream;
 	private IProgramState programState;
+	private boolean needResponse = false;
+	private long lastRequest;
 	
 	public NetworkIOBoundary(IProgramState programState) {
 		this.programState = programState;
@@ -59,28 +61,39 @@ public class NetworkIOBoundary implements IBoundary {
 		try {
 			String netString;
 			while (programState.isRunning()) {
+				
+				if(needResponse && programState.haveNewUserInput(lastRequest)){
+					outstream.writeBytes("RM20 A \"" + programState.getUserInput()+ "\"\r\n");
+					needResponse = false;
+				}
+				
 				if(!instream.ready())
 					continue;
+				
 				if ((netString = instream.readLine().toUpperCase()).isEmpty())
 					continue;
+				
 				programState.setNetString(netString);
+				
 				if (netString.startsWith("RM20 8")) {
-					String argString = netString.substring(8);
-					String args[] = argString.split("\" \"");
+					String argString;
+					String args[];
+					try{
+						argString = netString.substring(8);
+						args = argString.split("\" \"");
+					} catch (Exception e) {
+						outstream.writeBytes("RM20 L\r\n");
+						continue;
+					}
 					if (args.length == 3 && args[2].equals("&3\"")){
 						outstream.writeBytes("RM20 B\r\n");
-						long t = System.currentTimeMillis();
 						programState.setDisplayText(args[0]);
-						while (!programState.haveNewUserInput(t) && programState.isRunning()){
-							try{wait(100);}
-							catch (Exception e) {}
-						}
-						outstream.writeBytes("RM20 A \"" + programState.getUserInput()+ "\"\r\n");
+						needResponse = true;
+						lastRequest = System.currentTimeMillis();
 					} else {
 						outstream.writeBytes("RM20 L\r\n");
-						outstream.writeBytes("Programmet understøtter kun følgende version af RM20_8:");
-						outstream.writeBytes("RM20_8_\"<display text>\"_\"<placeholder text>\"_\"&3\"");
-						
+						outstream.writeBytes("Programmet understøtter kun følgende version af RM20_8:\r\n");
+						outstream.writeBytes("RM20_8_\"<display text>\"_\"<placeholder text>\"_\"&3\"\r\n");					
 					}
 				} else if (netString.startsWith("RESET")) {
 					programState.reset();
