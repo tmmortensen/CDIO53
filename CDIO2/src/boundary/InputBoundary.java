@@ -5,11 +5,25 @@ import java.io.InputStreamReader;
 
 import data.IProgramState;
 
+/**
+ * Class to take input from a client
+ * 
+ * @author thomasmortensen
+ * 
+ */
 public class InputBoundary implements IBoundary {
 
 	BufferedReader consoleReader;
 	IProgramState programState;
 
+	/**
+	 * Constuctor that makes the program ready for user inputs
+	 * 
+	 * @param in
+	 *            is a scanner that recieves keyboardinput
+	 * @param programState
+	 *            changes state of the program depending on the input
+	 */
 	public InputBoundary(IProgramState programState) {
 		this.programState = programState;
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
