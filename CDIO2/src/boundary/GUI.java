@@ -58,6 +58,7 @@ public class GUI implements IBoundary {
 
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
+		digits = new JTextPane();
 
 		enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0,
 				1.0));
