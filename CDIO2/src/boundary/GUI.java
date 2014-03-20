@@ -71,7 +71,6 @@ public class GUI implements IBoundary {
 		taraPanel.setLayout(new BoxLayout(taraPanel, BoxLayout.X_AXIS));
 
 		// add components
-		buttonPanel.add(b0);
 		buttonPanel.add(b1);
 		buttonPanel.add(b2);
 		buttonPanel.add(b3);
@@ -82,6 +81,7 @@ public class GUI implements IBoundary {
 		buttonPanel.add(b8);
 		buttonPanel.add(b9);
 		buttonPanel.add(clear);
+		buttonPanel.add(b0);
 		buttonPanel.add(enter);
 
 		mainPanel.add(buttonPanel, BorderLayout.EAST);
@@ -217,8 +217,8 @@ public class GUI implements IBoundary {
 			} else if (e.getSource().equals(tara)) {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
-				programState.setUserInput(inputtext);
-				fromweight.setText("");
+				programState.setGross(Double.parseDouble(inputtext));
+				digits.setText("");
 				inputtext = fromweight.getText();
 			}
 		}
