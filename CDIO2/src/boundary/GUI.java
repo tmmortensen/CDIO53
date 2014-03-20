@@ -134,19 +134,44 @@ public class GUI implements IBoundary {
 		tara.addActionListener(handler);
 		comma.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
+
+		// define attributes on components
+		toweight.setBackground(Color.black);
+		toweight.setForeground(Color.green);
+		toweight.setToolTipText("Upper display");
+
+		fromweight.setBackground(Color.black);
+		fromweight.setForeground(Color.green);
+		fromweight.setToolTipText("Bottom display");
+		
+		digits.setBackground(Color.black);
+		digits.setForeground(Color.green);
+		digits.setToolTipText("Displays input on weight");
+		enterWeight.setToolTipText("Enter brutto weight here");
+
+		// add textPanel to Contentpane
+		f.getContentPane().add(mainPanel);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// set to SVGA res
+		f.setSize(800, 600);
+
+
 	}
 
 	@Override
 	public void run() {
+
+		f.setVisible(true);
+
 		while (programState.isRunning()) {
-			if (programState.hasDisplayUpdated(lastRefresh)) {
+			if (programState.hasDisplayUpdated(lastRefresh -10)) {
 				lastRefresh = System.currentTimeMillis();
 				printGui();
 			}
 			try {
 				this.wait(100);
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 		}
 	}
 
@@ -161,49 +186,27 @@ public class GUI implements IBoundary {
 		} catch (Exception e) {
 		}
 
-		// define attributes on components
-		toweight.setBackground(Color.black);
-		toweight.setForeground(Color.green);
-		toweight.setToolTipText("Upper display");
 		toweight.setText("*************************************************\n"
-				+ "Netto: "
-				+ programState.getNet()
-				+ " kg\n"
-				+ "Instruktionsdisplay: "
-				+ programState.getDisplayText()
+				+ "Netto: "	+ programState.getNet()	+ " kg\n"
+				+ "Instruktionsdisplay: " + programState.getDisplayText()
 				+ "\n*************************************************\n\n"
 				+ "Debug info: \n"
-				+ "Hooked up to "
-				+ adress
-				+ "\nBrutto: "
-				+ programState.getGross()
-				+ " kg"
-				+ "\tStreng modtaget: "
-				+ programState.getNetString()
+				+ "Hooked up to " + adress
+				+ "\nBrutto: " + programState.getGross() + " kg"
+				+ "\nStreng modtaget: "	+ programState.getNetString()
 				+ "\n\nDenne vægt simulator lytter på ordrene "
-				+ "\nD, DN, S, T, B, Q "
-				+ "På kommunikationsporten\n"
+				+ "\nD, DW, S, T, B, Q , P111 og RM20_8 "
+				+ "\nPå kommunikationsporten\n"
 				+ "******\n"
 				+ "Tast T for tara\n"
 				+ "Tast værdi nederst for ny brutto (svarende til at belastningen på vægt ændres)\n"
 				+ "Klik på \"x\" i hjørnet for at afslutte program program\n");
-		fromweight.setBackground(Color.black);
-		fromweight.setForeground(Color.green);
+
 		fromweight.setText(programState.getBotDisplay());
-		fromweight.setToolTipText("Bottom display");
-		digits.setBackground(Color.black);
-		digits.setForeground(Color.green);
+
 		digits.setText("");
-		digits.setToolTipText("Displays input on weight");
-		enterWeight.setToolTipText("Enter brutto weight here");
-
-		// add textPanel to Contentpane
-		f.getContentPane().add(mainPanel);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// set to SVGA res
-		f.setSize(800, 600);
-		f.setVisible(true);
+				
+		f.repaint();
 
 	}
 
