@@ -30,7 +30,7 @@ public class GUI implements IBoundary {
 	JPanel mainPanel = new JPanel();
 	JPanel taraPanel = new JPanel();
 	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara;
-	JTextPane toweight, fromweight;
+	JTextPane toweight, fromweight, digits;
 	// SpinnerListModel enterWeightString = new SpinnerListModel();
 	JSpinner enterWeight = new JSpinner();
 	Eventhandler handler = new Eventhandler();
@@ -40,7 +40,6 @@ public class GUI implements IBoundary {
 
 		// define components
 		b0 = new JButton("0");
-		b0.setActionCommand("0");
 		b1 = new JButton("1");
 		b2 = new JButton("2");
 		b3 = new JButton("3");
@@ -50,22 +49,19 @@ public class GUI implements IBoundary {
 		b7 = new JButton("7");
 		b8 = new JButton("8");
 		b9 = new JButton("9");
-
 		clear = new JButton("CLEAR");
 		clear.setToolTipText("Push to clear");
-
 		enter = new JButton("ENTER");
 		enter.setToolTipText("Push to send");
-
 		tara = new JButton("<T>");
 		tara.setToolTipText("Push to tara weight");
 
 		toweight = new JTextPane();
-
 		fromweight = new JTextPane();
+		digits = new JTextPane();
 
-		enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0,
-				100000.0, 1.0));
+		enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0,
+				1.0));
 		enterWeight.setToolTipText("Enter weight here");
 
 		// set layoutmanagers
@@ -92,10 +88,12 @@ public class GUI implements IBoundary {
 		mainPanel.add(viewPanel, BorderLayout.CENTER);
 		mainPanel.add(enterWeight, BorderLayout.NORTH);
 
+		viewPanel.add(digits);
+		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(toweight);
-		viewPanel.add(Box.createVerticalStrut(10));
+		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(fromweight);
-		viewPanel.add(Box.createVerticalStrut(10));
+		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(taraPanel);
 
 		taraPanel.add(tara);
@@ -143,6 +141,7 @@ public class GUI implements IBoundary {
 		// define attributes on components
 		toweight.setBackground(Color.black);
 		toweight.setForeground(Color.green);
+		toweight.setToolTipText("Upper display");
 		toweight.setText("*************************************************\n"
 				+ "Netto: "
 				+ programState.getNet()
@@ -167,7 +166,12 @@ public class GUI implements IBoundary {
 				+ "Klik på \"x\" i hjørnet for at afslutte program program\n");
 		fromweight.setBackground(Color.black);
 		fromweight.setForeground(Color.green);
-		fromweight.setText("");
+		fromweight.setText(programState.getBotDisplay());
+		fromweight.setToolTipText("Bottom display");
+		digits.setBackground(Color.black);
+		digits.setForeground(Color.green);
+		digits.setText("");
+		digits.setToolTipText("Displays input on weight");
 		enterWeight.setToolTipText("Enter brutto weight here");
 
 		// add textPanel to Contentpane
@@ -185,31 +189,31 @@ public class GUI implements IBoundary {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			String inputtext = fromweight.getText();
+			String inputtext = digits.getText();
 
 			if (e.getSource() == b0) {
-				fromweight.setText(inputtext + b0.getText());
+				digits.setText(inputtext + b0.getText());
 			} else if (e.getSource() == b1) {
-				fromweight.setText(inputtext + b1.getText());
+				digits.setText(inputtext + b1.getText());
 			} else if (e.getSource() == b2) {
-				fromweight.setText(inputtext + b2.getText());
+				digits.setText(inputtext + b2.getText());
 			} else if (e.getSource() == b3) {
-				fromweight.setText(inputtext + b3.getText());
+				digits.setText(inputtext + b3.getText());
 			} else if (e.getSource() == b4) {
-				fromweight.setText(inputtext + b4.getText());
+				digits.setText(inputtext + b4.getText());
 			} else if (e.getSource() == b5) {
-				fromweight.setText(inputtext + b5.getText());
+				digits.setText(inputtext + b5.getText());
 			} else if (e.getSource() == b6) {
-				fromweight.setText(inputtext + b6.getText());
+				digits.setText(inputtext + b6.getText());
 			} else if (e.getSource() == b7) {
-				fromweight.setText(inputtext + b7.getText());
+				digits.setText(inputtext + b7.getText());
 			} else if (e.getSource() == b8) {
-				fromweight.setText(inputtext + b8.getText());
+				digits.setText(inputtext + b8.getText());
 			} else if (e.getSource() == b9) {
-				fromweight.setText(inputtext + b9.getText());
+				digits.setText(inputtext + b9.getText());
 			} else if (e.getSource() == clear) {
-				fromweight.setText("");
-				inputtext = fromweight.getText();
+				digits.setText("");
+				inputtext = digits.getText();
 			} else if (e.getSource().equals(tara)) {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
@@ -217,13 +221,15 @@ public class GUI implements IBoundary {
 				fromweight.setText("");
 				inputtext = fromweight.getText();
 			}
-
 		}
 
 		@Override
 		public void stateChanged(ChangeEvent ce) {
+
 			if (ce.getSource() == enterWeight) {
-				programState.setGross(Double.parseDouble(enterWeight.getValue().toString()));
+
+				programState.setGross(Double.parseDouble(enterWeight.getValue()
+						.toString()));
 			}
 
 		}
