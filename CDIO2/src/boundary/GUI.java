@@ -58,9 +58,9 @@ public class GUI implements IBoundary {
 
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
-		digits = new JTextPane();
-		enterWeight = new JSpinner(new SpinnerNumberModel(0, 0,
-				Integer.MAX_VALUE, 1));
+
+		enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0,
+				1.0));
 		enterWeight.setToolTipText("Enter weight here");
 
 		// set layoutmanagers
@@ -216,18 +216,19 @@ public class GUI implements IBoundary {
 			} else if (e.getSource().equals(tara)) {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
-				programState.setGross(Double.parseDouble(inputtext));
+				programState.setUserInput(inputtext);
+				fromweight.setText("");
+				inputtext = fromweight.getText();
 			}
 		}
 
 		@Override
 		public void stateChanged(ChangeEvent ce) {
 
-			String userInput = enterWeight.getValue().toString();
-
 			if (ce.getSource() == enterWeight) {
-				programState.setGross(Double.parseDouble(userInput));
-				digits.setText(userInput);
+
+				programState.setGross(Double.parseDouble(enterWeight.getValue()
+						.toString()));
 			}
 
 		}
