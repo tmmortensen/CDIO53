@@ -213,7 +213,7 @@ public class GUI implements IBoundary {
 			} else if (e.getSource().equals(tara)) {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
-				programState.setGross(Double.parseDouble(inputtext));
+				programState.setUserInput(inputtext);
 			}
 
 		}
