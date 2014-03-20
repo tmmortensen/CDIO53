@@ -35,6 +35,11 @@ public class GUI implements IBoundary {
 	JSpinner enterWeight = new JSpinner();
 	Eventhandler handler = new Eventhandler();
 
+	@Override
+	public void closeResources() {
+		f.dispose();
+	}
+	
 	public GUI(IProgramState programState) {
 		this.programState = programState;
 
@@ -218,8 +223,8 @@ public class GUI implements IBoundary {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
 				programState.setUserInput(inputtext);
-				fromweight.setText("");
-				inputtext = fromweight.getText();
+				digits.setText("");
+				inputtext = digits.getText();
 			}
 		}
 

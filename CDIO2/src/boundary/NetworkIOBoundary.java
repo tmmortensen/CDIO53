@@ -3,36 +3,66 @@ package boundary;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 import data.IProgramState;
 
 public class NetworkIOBoundary implements IBoundary {
+	private ServerSocket listener;
 	private Socket sock;
 	private DataOutputStream outstream;
 	private BufferedReader instream;
 	private IProgramState programState;
-
-	public NetworkIOBoundary(Socket socket, IProgramState programState) {
-		sock = socket;
+	
+	public NetworkIOBoundary(IProgramState programState) {
 		this.programState = programState;
 	}
 
-	public void run() {
+	public void closeResources(){
+		try{
+			// lukining af serversocket i tilfælde af at vi stadig venter på connection
+			listener.close();
+		} catch(Exception e){}
 		try {
+			// lukning af socket
+			sock.close();
+			instream.close();
+			outstream.close();
+		} catch (Exception e){}
+	}
+
+	public void run() {
+		
+		// Start af Socket
+		try{
+			listener = new ServerSocket(programState.getPort());
+			System.out.println("Venter på connection på port " + programState.getPort());
+			System.out.println("Indtast eventuel portnummer som 1. argument");
+			System.out.println("på kommando linien for andet portnr");
+			sock = listener.accept();
+			// indtil viddere regner vi kun med �n forbindelse.
+			listener.close();
+			programState.setAddress(sock.getInetAddress());
 			instream = new BufferedReader(new InputStreamReader(
 					sock.getInputStream()));
 			outstream = new DataOutputStream(sock.getOutputStream());
-		} catch (Exception e) {
-			if (programState.isRunning())
+		}
+		catch(Exception e){
+			if(programState.isRunning())
 				System.out.println("Exception: " + e.getMessage());
 			programState.quit();
 			return;
 		}
 
+		// håndtering af input fra socket
 		try {
 			String netString;
-			while (!(netString = instream.readLine().toUpperCase()).isEmpty()) {
+			while (programState.isRunning()) {
+				if(!instream.ready())
+					continue;
+				if ((netString = instream.readLine().toUpperCase()).isEmpty())
+					continue;
 				programState.setNetString(netString);
 				if (netString.startsWith("RM20 8")) {
 					boolean cond1 = true, cond2 = false, cond3 = false;
@@ -92,9 +122,7 @@ public class NetworkIOBoundary implements IBoundary {
 				} else if (netString.startsWith("P110")) {
 					programState.setBotDisplay(" ");
 
-				}
-
-				else if (netString.startsWith("D")) {
+				}else if (netString.startsWith("D")) {
 					if (netString.equals("D"))
 						programState.setDisplayText("");
 					else
@@ -108,16 +136,15 @@ public class NetworkIOBoundary implements IBoundary {
 				} else if (netString.startsWith("S")) {
 					outstream.writeBytes("S " + (programState.getNet())
 							+ " kg " + "\r\n");
-				} else if ((netString.startsWith("Q"))) {
+				} else if (netString.startsWith("Q")) {
 					System.out.println("");
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
 					outstream
 							.writeBytes("program  stoppet Q modtaget på com port");
+					programState.quit();
 				}
 			}
-			instream.close();
-			outstream.close();
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
 		}

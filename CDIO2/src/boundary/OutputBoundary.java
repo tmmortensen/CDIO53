@@ -10,6 +10,12 @@ public class OutputBoundary implements IBoundary {
 	public OutputBoundary(IProgramState programState){
 		this.programState = programState;
 	}
+	
+	@Override
+	public void closeResources() {
+		try{System.out.close();}
+		catch(Exception e) {}
+	}
 
 	public void run() {
 		while(programState.isRunning()){
