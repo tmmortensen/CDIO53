@@ -35,6 +35,39 @@ public class NetworkIOBoundary implements IBoundary {
 			while (!(netString = instream.readLine().toUpperCase()).isEmpty()) {
 				programState.setNetString(netString);
 				if (netString.startsWith("RM20 8")) {
+					boolean cond1 = true, cond2 = false, cond3 = false;
+
+					// String netString1 =
+					// "RM20 8 \"indtast nr\" \"dette vil blive slettet\" \"nr\"";
+
+					String netString2 = netString.replaceAll("\\s+", "");
+
+					for (int i = 6; i > 30; i++) {
+						if (netString2.codePointAt(i) == 34) {
+							cond1 = true;
+							for (int j = i + 2; j < netString2.length(); j++) {
+								if (netString2.codePointAt(j) == 34) {
+									cond2 = true;
+									for (int k = j + 2; k < netString2.length(); k++) {
+										if (k > j + 11) {
+											i = 31;
+										}
+										if (netString2.codePointAt(k) == 34) {
+											cond3 = true;
+											i = 31;
+
+										}
+									}
+								}
+
+							}
+
+						}
+					}
+					if (cond1 && cond2 && cond3) {
+						outstream.writeBytes("success the string was fine :) ");
+					}
+
 					outstream.writeBytes("RM20 B");
 					programState.setDisplayText("indtast batch_nr: ");
 					while (programState.getDisplayText().isEmpty()) {
@@ -90,5 +123,4 @@ public class NetworkIOBoundary implements IBoundary {
 		}
 
 	}
-
 }

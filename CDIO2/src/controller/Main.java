@@ -13,7 +13,7 @@ import boundary.OutputBoundary;
 import data.IProgramState;
 import data.ProgramState;
 
-public class Vaegtsimulator_med_consol_opg {
+public class Main {
 
 	public static void main(String[] args) throws IOException {
 		int portdst;
