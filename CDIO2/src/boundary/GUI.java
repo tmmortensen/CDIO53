@@ -19,6 +19,12 @@ import javax.swing.event.ChangeListener;
 
 import data.IProgramState;
 
+/**
+ * Class to create the Graphical User Interface
+ * 
+ * @author thomasmortensen
+ * 
+ */
 public class GUI implements IBoundary {
 
 	private long lastRefresh = 0;
@@ -29,12 +35,17 @@ public class GUI implements IBoundary {
 	JPanel buttonPanel = new JPanel();
 	JPanel mainPanel = new JPanel();
 	JPanel taraPanel = new JPanel();
-	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara;
+	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara, comma;
 	JTextPane toweight, fromweight, digits;
-	// SpinnerListModel enterWeightString = new SpinnerListModel();
 	JSpinner enterWeight = new JSpinner();
 	Eventhandler handler = new Eventhandler();
 
+	/**
+	 * Constructor that creates GUI components and their attributes
+	 * 
+	 * @param programState
+	 *            is used when a client changes the program state
+	 */
 	public GUI(IProgramState programState) {
 		this.programState = programState;
 
@@ -55,6 +66,8 @@ public class GUI implements IBoundary {
 		enter.setToolTipText("Push to send");
 		tara = new JButton("<T>");
 		tara.setToolTipText("Push to tara weight");
+		comma = new JButton(".");
+		comma.setToolTipText("Push to make decimal numbers");
 
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
@@ -98,6 +111,7 @@ public class GUI implements IBoundary {
 
 		taraPanel.add(tara);
 		taraPanel.add(enterWeight);
+		taraPanel.add(comma);
 
 		// add eventhandling
 		b0.addActionListener(handler);
@@ -113,6 +127,7 @@ public class GUI implements IBoundary {
 		enter.addActionListener(handler);
 		clear.addActionListener(handler);
 		tara.addActionListener(handler);
+		comma.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
 	}
 
@@ -130,6 +145,9 @@ public class GUI implements IBoundary {
 		}
 	}
 
+	/**
+	 * Method to print the GUI on screen
+	 */
 	public void printGui() {
 
 		String adress = "null";
@@ -184,6 +202,12 @@ public class GUI implements IBoundary {
 
 	}
 
+	/**
+	 * Class to handle events in GUI
+	 * 
+	 * @author thomasmortensen
+	 * 
+	 */
 	private class Eventhandler implements ActionListener, ChangeListener {
 
 		@Override
@@ -214,9 +238,11 @@ public class GUI implements IBoundary {
 			} else if (e.getSource() == clear) {
 				digits.setText("");
 				inputtext = digits.getText();
-			} else if (e.getSource().equals(tara)) {
+			} else if (e.getSource() == tara) {
 				programState.tare();
-			} else if (e.getSource().equals(enter)) {
+			} else if (e.getSource() == comma) {
+				digits.setText(inputtext + comma.getText());
+			} else if (e.getSource() == enter) {
 				programState.setGross(Double.parseDouble(inputtext));
 				digits.setText("");
 				inputtext = fromweight.getText();
