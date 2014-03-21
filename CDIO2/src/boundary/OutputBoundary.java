@@ -3,42 +3,49 @@ package boundary;
 import data.IProgramState;
 
 public class OutputBoundary implements IBoundary {
-	
+
 	private long lastRefresh = 0;
 	private IProgramState programState;
-	
-	public OutputBoundary(IProgramState programState){
+
+	public OutputBoundary(IProgramState programState) {
 		this.programState = programState;
 	}
-	
+
 	@Override
 	public void closeResources() {
-		try{System.out.close();}
-		catch(Exception e) {}
+		try {
+			System.out.close();
+		} catch (Exception e) {
+		}
 	}
 
 	public void run() {
-		while(programState.isRunning()){
-			if(programState.hasDisplayUpdated(lastRefresh)){
+		while (programState.isRunning()) {
+			if (programState.hasDisplayUpdated(lastRefresh)) {
 				lastRefresh = System.currentTimeMillis();
 				printmenu();
 			}
-			try{this.wait(100);}
-			catch(Exception e){}
+			try {
+				this.wait(100);
+			} catch (Exception e) {
+			}
 		}
 	}
-	
+
 	public void printmenu() {
-	//	for (int i = 0; i < 25; i++)
-	//		System.out.println(" ");
-		
+		// for (int i = 0; i < 25; i++)
+		// System.out.println(" ");
+
 		String adress = "null";
-		try{ adress = programState.getAddress().getHostAddress();}
-		catch (Exception e) {}
-		
+		try {
+			adress = programState.getAddress().getHostAddress();
+		} catch (Exception e) {
+		}
+
 		System.out.println("*************************************************");
 		System.out.println("Netto: " + programState.getNet() + " kg");
-		System.out.println("Instruktionsdisplay: " + programState.getDisplayText());
+		System.out.println("Instruktionsdisplay: "
+				+ programState.getDisplayText());
 		System.out.println("*************************************************");
 		System.out.println(" ");
 		System.out.println(" ");
@@ -53,10 +60,11 @@ public class OutputBoundary implements IBoundary {
 		System.out.println("******");
 		System.out.println("Tast T for tara (svarende til knaptryk på vægt)");
 		System.out
-				.println("Tast B for ny brutto (svarende til at belastningen på vægt ændres)");
+				.println("Tast B for ny brutto (svarende til at belastningen "
+						+ "på vægt ændres)");
 		System.out.println("Tast Q for at afslutte program program");
-		System.out
-				.println("Indtast (T/B/Q for knaptryk / brutto ændring / quit)");
+		System.out.println("Indtast (T/B/Q for knaptryk / brutto ændring / "
+				+ "quit)");
 		System.out.print("Tast her: ");
-}
+	}
 }

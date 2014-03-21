@@ -28,12 +28,13 @@ public class InputBoundary implements IBoundary {
 		this.programState = programState;
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
 	}
-	
-	public void closeResources(){
-		try{
+
+	public void closeResources() {
+		try {
 			consoleReader.close();
 			System.in.close();
-		} catch(Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 
 	public void run() {
@@ -54,15 +55,15 @@ public class InputBoundary implements IBoundary {
 					try {
 						programState.setGross(Double.parseDouble(userInput));
 					} catch (Exception e) {
-						System.out
-								.println("Indtastet kan ikke genkendes som tal.");
+						System.out.println("Indtastet kan ikke genkendes "
+								+ "som tal.");
 					}
 				} else if (userInput.equalsIgnoreCase("Q")) {
 					programState.quit();
 					return;
 				} else
 					System.out.println("user input :\"" + userInput + "\"");
-					programState.setUserInput(userInput);
+				programState.setUserInput(userInput);
 			} catch (Exception e) {
 			}
 		}

@@ -20,8 +20,8 @@ public class Main {
 			try {
 				portdst = Integer.parseInt(args[0]);
 			} catch (NumberFormatException e) {
-				System.out
-						.println("Port argument ugyldigt. Bruger default 8000.");
+				System.out.println("Port argument ugyldigt. "
+						+ "Bruger default 8000.");
 				portdst = 8000;
 			}
 		else {
@@ -38,7 +38,7 @@ public class Main {
 		IBoundary output = new OutputBoundary(programState);
 		Thread outputThread = new Thread(output);
 		outputThread.start();
-		
+
 		// gui setup and run
 		GUI gui = new GUI(programState);
 		Thread guiThread = new Thread(gui);
@@ -62,7 +62,7 @@ public class Main {
 		input.closeResources();
 		output.closeResources();
 		gui.closeResources();
-		//System.exit(0);
-		
+		// System.exit(0);
+
 	}
 }
