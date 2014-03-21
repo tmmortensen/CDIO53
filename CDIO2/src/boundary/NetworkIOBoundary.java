@@ -9,9 +9,9 @@ import java.net.Socket;
 import data.IProgramState;
 
 /**
- * Class used to send/recieve network input and output
+ * Class used to send/receive network input and output
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class NetworkIOBoundary implements IBoundary {

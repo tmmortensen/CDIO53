@@ -8,7 +8,7 @@ import data.IProgramState;
 /**
  * Class to take input from a client
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class InputBoundary implements IBoundary {

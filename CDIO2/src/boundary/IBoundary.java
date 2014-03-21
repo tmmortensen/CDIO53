@@ -1,5 +1,11 @@
 package boundary;
 
+/**
+ * Interface with methods for all Boundary classes
+ * 
+ * @author Gruppe 53
+ * 
+ */
 public interface IBoundary extends Runnable {
 
 	/**
@@ -8,7 +14,7 @@ public interface IBoundary extends Runnable {
 	 * 
 	 */
 	public void run();
-	
+
 	/**
 	 * closes resources used by the boundary
 	 */

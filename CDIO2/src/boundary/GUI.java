@@ -22,7 +22,7 @@ import data.IProgramState;
 /**
  * Class to create the Graphical User Interface
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class GUI implements IBoundary {

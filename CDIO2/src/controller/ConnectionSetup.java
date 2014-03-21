@@ -8,7 +8,7 @@ import data.IProgramState;
 /**
  * Class to create Socket connection
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class ConnectionSetup implements Runnable {

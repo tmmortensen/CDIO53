@@ -5,7 +5,7 @@ import java.net.InetAddress;
 /**
  * Class used to change the program state
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class ProgramState implements IProgramState {

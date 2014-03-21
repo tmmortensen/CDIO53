@@ -13,7 +13,7 @@ import data.ProgramState;
 /**
  * The Main class that runs the program
  * 
- * @author thomasmortensen
+ * @author Gruppe 53
  * 
  */
 public class Main {
