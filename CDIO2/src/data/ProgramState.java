@@ -23,7 +23,7 @@ public class ProgramState implements IProgramState {
 	
 	public void setBotDisplay(String botDisplay){
 		this.botDisplay=botDisplay;
-		
+		lastUpdate = System.currentTimeMillis();
 	}
 	
 	public String getBotDisplay(){

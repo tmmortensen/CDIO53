@@ -14,6 +14,8 @@ public class NetworkIOBoundary implements IBoundary {
 	private DataOutputStream outstream;
 	private BufferedReader instream;
 	private IProgramState programState;
+	private boolean needResponse = false;
+	private long lastRequest;
 	
 	public NetworkIOBoundary(IProgramState programState) {
 		this.programState = programState;
@@ -59,85 +61,81 @@ public class NetworkIOBoundary implements IBoundary {
 		try {
 			String netString;
 			while (programState.isRunning()) {
+				
+				if(needResponse && programState.haveNewUserInput(lastRequest)){
+					outstream.writeBytes("RM20 A \"" + programState.getUserInput()+ "\"\r\n");
+					needResponse = false;
+				}
+				
 				if(!instream.ready())
 					continue;
+				
 				if ((netString = instream.readLine().toUpperCase()).isEmpty())
 					continue;
+				
 				programState.setNetString(netString);
+				
 				if (netString.startsWith("RM20 8")) {
-					boolean cond1 = true, cond2 = false, cond3 = false;
-
-					// String netString1 =
-					// "RM20 8 \"indtast nr\" \"dette vil blive slettet\" \"nr\"";
-
-					String netString2 = netString.replaceAll("\\s+", "");
-
-					for (int i = 6; i > 30; i++) {
-						if (netString2.codePointAt(i) == 34) {
-							cond1 = true;
-							for (int j = i + 2; j < netString2.length(); j++) {
-								if (netString2.codePointAt(j) == 34) {
-									cond2 = true;
-									for (int k = j + 2; k < netString2.length(); k++) {
-										if (k > j + 11) {
-											i = 31;
-										}
-										if (netString2.codePointAt(k) == 34) {
-											cond3 = true;
-											i = 31;
-
-										}
-									}
-								}
-
-							}
-
-						}
+					String argString;
+					String args[];
+					try{
+						argString = netString.substring(8);
+						args = argString.split("\" \"");
+					} catch (Exception e) {
+						outstream.writeBytes("RM20 L\r\n");
+						continue;
 					}
-					if (cond1 && cond2 && cond3) {
-						outstream.writeBytes("success the string was fine :) ");
+					if (args.length == 3 && args[2].equals("&3\"")){
+						outstream.writeBytes("RM20 B\r\n");
+						programState.setDisplayText(args[0]);
+						needResponse = true;
+						lastRequest = System.currentTimeMillis();
+					} else {
+						outstream.writeBytes("RM20 L\r\n");
+						outstream.writeBytes("Programmet understøtter kun følgende version af RM20_8:\r\n");
+						outstream.writeBytes("RM20_8_\"<display text>\"_\"<placeholder text>\"_\"&3\"\r\n");					
 					}
-
-					outstream.writeBytes("RM20 B");
-					programState.setDisplayText("indtast batch_nr: ");
-					while (programState.getDisplayText().isEmpty()) {
-					}
-					outstream.writeBytes("RM20 A"
-							+ programState.getDisplayText());
-
 				} else if (netString.startsWith("RESET")) {
 					programState.reset();
-					outstream.writeBytes("du har nulstillet programmet"
-							+ "\r\n");
+					outstream.writeBytes("du har nulstillet programmet\r\n");
 				} else if (netString.startsWith("P111")) {
-
-					if (netString.length() <= 39) {
-						programState.setBotDisplay(netString.substring(5,
+					if (netString.length() <= 37) {
+						programState.setBotDisplay(netString.substring(6,
 								netString.length()));
-						outstream.writeBytes("P111 A" + "\r\n");
-
+						outstream.writeBytes("P111 A\r\n");
 					} else {
-						outstream.writeBytes("P111 L" + "\r\n");
+						outstream.writeBytes("P111 L\r\n");
 					}
-				} else if (netString.startsWith("P110")) {
-					programState.setBotDisplay(" ");
-
-				}else if (netString.startsWith("D")) {
-					if (netString.equals("D"))
+				} else if (netString.startsWith("P110")){
+					programState.setBotDisplay("");
+				} else if (netString.equals("DW")){
 						programState.setDisplayText("");
-					else
-						programState.setDisplayText(netString.substring(2,
-								netString.length()));
-					outstream.writeBytes("DB" + "\r\n");
-				} else if (netString.startsWith("T")) {
+						outstream.writeBytes("DW A\r\n");
+				} else if (netString.startsWith("D ")){
+						if (!netString.matches("D \".+\"")){
+							outstream.writeBytes("D L\r\n");
+							continue;
+						}
+						int end = netString.indexOf("\"", 3);
+						netString = netString.substring(3, end);
+						programState.setDisplayText(netString);
+						outstream.writeBytes("D A\r\n");
+				} else if (netString.equals("T")) {
 					programState.tare();
-					outstream.writeBytes("T " + (programState.getGross())
+					outstream.writeBytes("T S " + (programState.getGross())
 							+ " kg " + "\r\n");
-				} else if (netString.startsWith("S")) {
-					outstream.writeBytes("S " + (programState.getNet())
+				} else if (netString.equals("S")) {
+					outstream.writeBytes("S S " + (programState.getNet())
 							+ " kg " + "\r\n");
-				} else if (netString.startsWith("Q")) {
-					System.out.println("");
+				} else if (netString.startsWith("B ")) {
+					try{
+						double weight = Double.parseDouble(netString.substring(2));
+						programState.setGross(weight);
+						outstream.writeBytes("B A\r\n");
+					}catch (Exception e) {
+						outstream.writeBytes("B L\r\n");
+					}
+				} else if (netString.equals("Q")) {
 					System.out
 							.println("Program stoppet Q modtaget p� com port");
 					outstream

@@ -35,7 +35,7 @@ public class GUI implements IBoundary {
 	JPanel buttonPanel = new JPanel();
 	JPanel mainPanel = new JPanel();
 	JPanel taraPanel = new JPanel();
-	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara, comma;
+	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara;
 	JTextPane toweight, fromweight, digits;
 	JSpinner enterWeight = new JSpinner();
 	Eventhandler handler = new Eventhandler();
@@ -71,7 +71,6 @@ public class GUI implements IBoundary {
 		enter.setToolTipText("Push to send");
 		tara = new JButton("<T>");
 		tara.setToolTipText("Push to tara weight");
-		comma.setToolTipText("Push to make decimal numbers");
 
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
@@ -131,12 +130,37 @@ public class GUI implements IBoundary {
 		clear.addActionListener(handler);
 		tara.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
+
+		// define attributes on components
+		toweight.setBackground(Color.black);
+		toweight.setForeground(Color.green);
+		toweight.setToolTipText("Upper display");
+
+		fromweight.setBackground(Color.black);
+		fromweight.setForeground(Color.green);
+		fromweight.setToolTipText("Bottom display");
+
+		digits.setBackground(Color.black);
+		digits.setForeground(Color.green);
+		digits.setToolTipText("Displays input on weight");
+		enterWeight.setToolTipText("Enter brutto weight here");
+
+		// add textPanel to Contentpane
+		f.getContentPane().add(mainPanel);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// set to SVGA res
+		f.setSize(800, 600);
+
 	}
 
 	@Override
 	public void run() {
+
+		f.setVisible(true);
+
 		while (programState.isRunning()) {
-			if (programState.hasDisplayUpdated(lastRefresh)) {
+			if (programState.hasDisplayUpdated(lastRefresh - 10)) {
 				lastRefresh = System.currentTimeMillis();
 				printGui();
 			}
@@ -158,7 +182,6 @@ public class GUI implements IBoundary {
 		} catch (Exception e) {
 		}
 
-		// define attributes on components
 		toweight.setBackground(Color.black);
 		toweight.setForeground(Color.green);
 		toweight.setFocusable(false);
@@ -176,17 +199,16 @@ public class GUI implements IBoundary {
 				+ "\nBrutto: "
 				+ programState.getGross()
 				+ " kg"
-				+ "\tStreng modtaget: "
+				+ "\nStreng modtaget: "
 				+ programState.getNetString()
 				+ "\n\nDenne vægt simulator lytter på ordrene "
-				+ "\nD, DN, S, T, B, Q "
-				+ "På kommunikationsporten\n"
+				+ "\nD, DW, S, T, B, Q , P111 og RM20_8 "
+				+ "\nPå kommunikationsporten\n"
 				+ "******\n"
 				+ "Tast T for tara\n"
 				+ "Tast værdi nederst for ny brutto (svarende til at belastningen på vægt ændres)\n"
 				+ "Klik på \"x\" i hjørnet for at afslutte program program\n");
-		fromweight.setBackground(Color.black);
-		fromweight.setForeground(Color.green);
+
 		fromweight.setText(programState.getBotDisplay());
 		fromweight.setToolTipText("Bottom display");
 		fromweight.setFocusable(false);
@@ -204,6 +226,7 @@ public class GUI implements IBoundary {
 		// set to SVGA res
 		f.setSize(800, 600);
 		f.setVisible(true);
+		f.repaint();
 
 	}
 
