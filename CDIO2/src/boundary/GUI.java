@@ -44,7 +44,7 @@ public class GUI implements IBoundary {
 	public void closeResources() {
 		f.dispose();
 	}
-	
+
 	/**
 	 * Constructor that creates GUI components and their attributes
 	 * 
@@ -71,7 +71,6 @@ public class GUI implements IBoundary {
 		enter.setToolTipText("Push to send");
 		tara = new JButton("<T>");
 		tara.setToolTipText("Push to tara weight");
-		comma = new JButton(".");
 		comma.setToolTipText("Push to make decimal numbers");
 
 		toweight = new JTextPane();
@@ -116,7 +115,6 @@ public class GUI implements IBoundary {
 
 		taraPanel.add(tara);
 		taraPanel.add(enterWeight);
-		taraPanel.add(comma);
 
 		// add eventhandling
 		b0.addActionListener(handler);
@@ -132,7 +130,6 @@ public class GUI implements IBoundary {
 		enter.addActionListener(handler);
 		clear.addActionListener(handler);
 		tara.addActionListener(handler);
-		comma.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
 	}
 
@@ -164,6 +161,7 @@ public class GUI implements IBoundary {
 		// define attributes on components
 		toweight.setBackground(Color.black);
 		toweight.setForeground(Color.green);
+		toweight.setFocusable(false);
 		toweight.setToolTipText("Upper display");
 		toweight.setText("*************************************************\n"
 				+ "Netto: "
@@ -191,10 +189,12 @@ public class GUI implements IBoundary {
 		fromweight.setForeground(Color.green);
 		fromweight.setText(programState.getBotDisplay());
 		fromweight.setToolTipText("Bottom display");
+		fromweight.setFocusable(false);
 		digits.setBackground(Color.black);
 		digits.setForeground(Color.green);
 		digits.setText("");
-		digits.setToolTipText("Displays input on weight");
+		digits.setFocusable(false);
+		digits.setToolTipText("Displays input from numpad on the weight");
 		enterWeight.setToolTipText("Enter brutto weight here");
 
 		// add textPanel to Contentpane
