@@ -141,11 +141,6 @@ public class GUI implements IBoundary {
 		tara.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
 
-		// add mainPanel to Contentpane
-		f.getContentPane().add(mainPanel);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(800, 600); // SVGA res
-
 	}
 
 	@Override
@@ -193,12 +188,10 @@ public class GUI implements IBoundary {
 		fromweight.setText(programState.getBotDisplay());
 		digits.setText("");
 
-		// add textPanel to Contentpane
+		// add mainPanel to Contentpane
 		f.getContentPane().add(mainPanel);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// set to SVGA res
-		f.setSize(800, 600);
+		f.setSize(800, 600); // set to SVGA res
 		f.setVisible(true);
 		f.repaint();
 
@@ -207,7 +200,7 @@ public class GUI implements IBoundary {
 	/**
 	 * Class to handle events in GUI
 	 * 
-	 * @author thomasmortensen
+	 * @author Gruppe 53
 	 * 
 	 */
 	private class Eventhandler implements ActionListener, ChangeListener {
