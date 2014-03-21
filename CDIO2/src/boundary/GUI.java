@@ -92,7 +92,6 @@ public class GUI implements IBoundary {
 		digits.setFocusable(false);
 		digits.setToolTipText("Displays input from numpad on the weight");
 		enterWeight.setToolTipText("Enter brutto weight here");
-		enterWeight.setToolTipText("Enter brutto weight here");
 
 		// set layoutmanagers
 		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
