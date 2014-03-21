@@ -29,6 +29,7 @@ public class InputBoundary implements IBoundary {
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
 	}
 
+	@Override
 	public void closeResources() {
 		try {
 			consoleReader.close();
@@ -37,6 +38,7 @@ public class InputBoundary implements IBoundary {
 		}
 	}
 
+	@Override
 	public void run() {
 		while (programState.isRunning()) {
 			try {

@@ -10,8 +10,21 @@ import boundary.OutputBoundary;
 import data.IProgramState;
 import data.ProgramState;
 
+/**
+ * The Main class that runs the program
+ * 
+ * @author thomasmortensen
+ * 
+ */
 public class Main {
 
+	/**
+	 * Runs the program
+	 * 
+	 * @param args
+	 * @throws IOException
+	 *             thrown if port number is invalid
+	 */
 	public static void main(String[] args) throws IOException {
 		int portdst;
 		IProgramState programState = new ProgramState();

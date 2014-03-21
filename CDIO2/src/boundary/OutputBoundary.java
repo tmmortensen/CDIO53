@@ -19,6 +19,7 @@ public class OutputBoundary implements IBoundary {
 		}
 	}
 
+	@Override
 	public void run() {
 		while (programState.isRunning()) {
 			if (programState.hasDisplayUpdated(lastRefresh)) {
@@ -32,6 +33,9 @@ public class OutputBoundary implements IBoundary {
 		}
 	}
 
+	/**
+	 * Method to print console menu
+	 */
 	public void printmenu() {
 		// for (int i = 0; i < 25; i++)
 		// System.out.println(" ");

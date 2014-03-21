@@ -5,6 +5,12 @@ import java.net.Socket;
 
 import data.IProgramState;
 
+/**
+ * Class to create Socket connection
+ * 
+ * @author thomasmortensen
+ * 
+ */
 public class ConnectionSetup implements Runnable {
 	ServerSocket listener;
 	Socket socket;
@@ -35,6 +41,11 @@ public class ConnectionSetup implements Runnable {
 
 	}
 
+	/**
+	 * Method to get the socket
+	 * 
+	 * @return the socket
+	 */
 	public Socket getSocket() {
 		return socket;
 	}

@@ -8,6 +8,12 @@ import java.net.Socket;
 
 import data.IProgramState;
 
+/**
+ * Class used to send/recieve network input and output
+ * 
+ * @author thomasmortensen
+ * 
+ */
 public class NetworkIOBoundary implements IBoundary {
 	private ServerSocket listener;
 	private Socket sock;
@@ -21,6 +27,7 @@ public class NetworkIOBoundary implements IBoundary {
 		this.programState = programState;
 	}
 
+	@Override
 	public void closeResources() {
 		try {
 			// lukining af serversocket i tilfælde af at vi stadig venter på
@@ -37,6 +44,7 @@ public class NetworkIOBoundary implements IBoundary {
 		}
 	}
 
+	@Override
 	public void run() {
 
 		// Start af Socket
