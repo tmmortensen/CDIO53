@@ -122,6 +122,7 @@ public class NetworkIOBoundary implements IBoundary {
 					}
 				} else if (netString.startsWith("P110")) {
 					programState.setBotDisplay("");
+					outstream.writeBytes("P110 A \r\n");
 				} else if (netString.equals("DW")) {
 					programState.setDisplayText("");
 					outstream.writeBytes("DW A\r\n");
