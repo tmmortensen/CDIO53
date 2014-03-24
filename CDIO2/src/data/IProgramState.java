@@ -2,6 +2,12 @@ package data;
 
 import java.net.InetAddress;
 
+/**
+ * Interface with methods for ProgramState classes
+ * 
+ * @author Gruppe 53
+ * 
+ */
 public interface IProgramState {
 	/**
 	 * 

@@ -2,6 +2,12 @@ package data;
 
 import java.net.InetAddress;
 
+/**
+ * Class used to change the program state
+ * 
+ * @author Gruppe 53
+ * 
+ */
 public class ProgramState implements IProgramState {
 	double tare = 0;
 	double gross = 0;
@@ -9,27 +15,29 @@ public class ProgramState implements IProgramState {
 	String netString = "";
 	String userInput = "";
 	String botDisplay = "";
-	
+
 	int port = 0;
 	InetAddress address;
 
 	boolean exit = false;
 	long lastUpdate = 0;
 	long lastInput = 0;
-	
+
 	public ProgramState() {
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public void setBotDisplay(String botDisplay){
-		this.botDisplay=botDisplay;
-		
+
+	@Override
+	public void setBotDisplay(String botDisplay) {
+		this.botDisplay = botDisplay;
+		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public String getBotDisplay(){
-		return botDisplay; 
+
+	@Override
+	public String getBotDisplay() {
+		return botDisplay;
 	}
-	
+
 	@Override
 	public void setNetString(String netString) {
 		this.netString = netString;
@@ -51,17 +59,20 @@ public class ProgramState implements IProgramState {
 		this.port = port;
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public int getPort(){
+
+	@Override
+	public int getPort() {
 		return port;
 	}
 
-	public void setAddress(InetAddress address){
+	@Override
+	public void setAddress(InetAddress address) {
 		this.address = address;
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public InetAddress getAddress(){
+
+	@Override
+	public InetAddress getAddress() {
 		return address;
 	}
 
@@ -81,33 +92,38 @@ public class ProgramState implements IProgramState {
 		gross = weight;
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public double getGross(){
+
+	@Override
+	public double getGross() {
 		return gross;
 	}
-	
-	
+
+	@Override
 	public double getNet() {
 		return gross - tare;
 	}
-	
-	public String getDisplayText(){
+
+	@Override
+	public String getDisplayText() {
 		return display;
 	}
-	
-	public void setDisplayText(String text){
+
+	@Override
+	public void setDisplayText(String text) {
 		display = text;
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public void reset(){
+
+	@Override
+	public void reset() {
 		gross = 0;
 		tare = 0;
 		display = "";
 		lastUpdate = System.currentTimeMillis();
 	}
-	
-	public void quit(){
+
+	@Override
+	public void quit() {
 		exit = true;
 	}
 
