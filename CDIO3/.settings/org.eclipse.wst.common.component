@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="CDIO3">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/cdio3"/>
+        <property name="context-root" value="CDIO3"/>
+        <property name="java-output-path" value="/CDIO3/build/classes"/>
+    </wb-module>
+</project-modules>
