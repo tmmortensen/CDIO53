@@ -1,0 +1,65 @@
+h1
+{
+	text-align:center;
+	-webkit-margin-before:0;
+	color:white;
+}
+
+.dialog
+{
+	padding:20px;
+	margin:auto;
+	margin-top:5em;
+	width:400px;
+	background:#448;
+}
+
+.dialog label
+{
+	display:inline-block;
+	margin:4px 2px;
+	padding:2px 5px;
+	width:40%;
+	background:#000;
+	color:#fff;
+}
+
+.dialog input
+{
+	width:51%;
+	padding:2px 5px;
+}
+
+.dialog span
+{
+	display:inline-block;
+	width:51%;
+	background:white;
+	padding:2px 5px;
+	
+}
+
+.dialog input[name="Dato"]
+{
+	color:#fff;
+	background:inherit;
+	border-style:none;
+}
+
+
+.dialog input[type="submit"]
+{
+	display:block;
+	margin:auto;
+	margin-top:10px;
+	width:70px;
+}
+
+.error
+{
+	margin:4px;
+	text-align:center;
+	color:white;
+	background:red;
+	border:1px dashed white;
+}
