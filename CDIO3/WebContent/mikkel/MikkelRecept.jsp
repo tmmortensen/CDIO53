@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*, java.text.*" 
+<%@ page language="java" import="java.util.*, java.text.*, java.lang.*" 
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
@@ -37,6 +37,16 @@
 			vName = request.getParameter("Varenavn");
 			netto = request.getParameter("Nettovægt");
 			tol = request.getParameter("Tolerance");
+			
+			
+			rNum = rNum.replaceAll("\\s","");
+			vNum = vNum.replaceAll("\\s","");
+			vName = vName.replaceAll("\\s","");
+			netto = netto.replaceAll("\\s","");
+			tol = (tol.replaceAll("\\s","")).replaceAll(",",".");
+			
+			
+			
 			
 			//kontrol af receptnummer
 			try {
@@ -146,6 +156,7 @@
 		<span><% out.print(tol); %></span>
 		<label for="date">Dato</label>
 		<span><% out.print(dateString);%></span>
+		<a href="MikkelRecept.jsp"> Ny recept   </a>
 	</div>
 	<%	} %>
 </body>
