@@ -16,7 +16,7 @@ h1
 	padding:20px;
 	margin:auto;
 	margin-top:5em;
-	width:400px;
+	width:28em;
 	background:#448;
 }
 
@@ -48,7 +48,8 @@ h1
 .dialog input[name="Dato"]
 {
 	color:#fff;
-	background:inherit;
+	background:#448;
+	/*background:inherit;*/
 	border-style:none;
 }
 
