@@ -1,24 +1,45 @@
 package client;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class WriteToFile {
-	
-	public static String filename   = "log.txt";
-	
-	 public static void save(int dato, int tid, int oprNr, int varenr, int afvejning, int lager) throws FileNotFoundException {
-		 try {
-			 FileWriter fw =new FileWriter(new File(filename), true);
-			 fw.write("\n");
-			 fw.write(dato + " | " + tid + " | " + oprNr + " |"+ varenr +"|" +afvejning +"|" + lager +"|");
-			 fw.close();
-			 } catch (IOException e) {
-			 e.printStackTrace();
-		 
-		 
-			 }
-	 }
+  
+  public static void main( String[] argv ) {
+    String filename = "test.txt";
+
+    try {
+      FileWriter output = new FileWriter( filename );
+
+      output.write( "dato " + "\n" );
+      output.write( "tid" + "\n" );
+      output.write( "oprNr" + "\n" );
+      output.write( "varenr" + "\n" );
+      output.write( "afvejning" + "\n" );
+      output.write( "lager" + "\n" );
+
+      
+      output.close();
+    }
+    catch ( FileNotFoundException e ) {
+      System.out.println( "Filen kunne ikke oprettes: " + filename );
+    }
+    catch ( IOException e ) {
+      System.out.println( "Der opstod fejl under skrivning til: " + filename );
+    }
+
+    try {
+      FileReader input = new FileReader( filename );
+
+      while ( input.ready() )
+        System.out.print( (char) input.read() );
+
+      input.close();
+    }
+    catch ( FileNotFoundException e ) {
+      System.out.println( "Filen findes ikke: " + filename );
+    }
+    catch ( IOException e ) {
+      System.out.println( "Der opstod fejl under l?sning fra: " + filename );
+    }
+  }
 }
