@@ -14,17 +14,17 @@ public class TCPConnect {
 		Scanner input = new Scanner(System.in);
 		String sentence;
 		String modifiedSentence;
-		Integer varenummer,afvejning; 
+		Integer varenummer = 0,afvejning = 0; 
 		WriteToFile writeToFile = new WriteToFile(); 
 
-		System.out.println("ønsker du at lave en afvejning:   y/n?");
+		System.out.println("ï¿½nsker du at lave en afvejning:   y/n?");
 		String startChoice = input.next();
 
 		if (startChoice.equalsIgnoreCase("y")) {
 			try {
 
-				// kode til at oprette de forskellige TCP lyttere og skrivere så
-				// vi kan kommunikere med vægten.
+				// kode til at oprette de forskellige TCP lyttere og skrivere sï¿½
+				// vi kan kommunikere med vï¿½gten.
 				Socket clientSocket = new Socket("localhost", 8000);
 
 				DataOutputStream outToServer = new DataOutputStream(
@@ -39,7 +39,7 @@ public class TCPConnect {
 				modifiedSentence = inFromServer.readLine();
 				if(modifiedSentence.substring(0, 5).equals("RM20 8")){
 					String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-					writeToFile.WriteLog(timeStamp,modifiedSentence.substring(6),varenummer,afvejning);
+					writeToFile.writeLog(timeStamp,modifiedSentence.substring(6),varenummer,afvejning);
 					
 				}
 				
