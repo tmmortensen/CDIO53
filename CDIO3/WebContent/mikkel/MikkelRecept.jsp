@@ -42,7 +42,7 @@
 			rNum = rNum.replaceAll("\\s","");
 			vNum = vNum.replaceAll("\\s","");
 			vName = vName.replaceAll("\\s","");
-			netto = netto.replaceAll("\\s","");
+			netto = netto.replaceAll("\\s","").replaceAll(",",".");
 			tol = (tol.replaceAll("\\s","")).replaceAll(",",".");
 			
 			
@@ -52,10 +52,15 @@
 			try {
 				int rNumber = Integer.parseInt(rNum);
 				if (rNumber < 0 || rNumber > 99999999){
+					if(rNumber < 0)
+						rNumErrorString += "<br>Det Indtastede tal er mindre end 0";
+					else
+						rNumErrorString += "<br>Det Indtastede tal er større end 99999999";
 					rNumError = true;
 					showInput = true;
 				}
 			} catch(Exception e){
+				rNumErrorString += "<br>Det Indtastede kan ikke læses som et tal";
 				rNumError = true;
 				showInput = true;
 			}
@@ -64,28 +69,42 @@
 			try {
 				int vNumber = Integer.parseInt(vNum);
 				if (vNumber < 0 || vNumber > 99999999){
+					if(vNumber < 0)
+						vNumErrorString += "<br>Det Indtastede tal er mindre end 0";
+					else
+						vNumErrorString += "<br>Det Indtastede tal er større end 99999999";
 					vNumError = true;
 					showInput = true;
 				}
 			} catch(Exception e){
+				vNumErrorString += "<br>Det Indtastede kan ikke læses som et tal";
 				vNumError = true;
 				showInput = true;
 			}
 			
 			//kontrol af varenavn
 			if (vName.length() < 2 || vName.length() > 20){
+				if (vName.length() < 2)
+					vNameErrorString += "<br>Navnet er for kort";
+				else
+					vNameErrorString += "<br>Navnet er for langt";
 				vNameError = true;
 				showInput = true;
 			}
 			
 			//kontrol af nettovægt
 			try {
-				int iNetto = Integer.parseInt(netto);
-				if (iNetto < 50 || iNetto > 6000){
+				double dNetto = Double.parseDouble(netto);
+				if (dNetto < 50 || dNetto > 6000){
+					if(dNetto < 50)
+						nettoErrorString += "<br>Det Indtastede tal er mindre end 50";
+					else
+						nettoErrorString += "<br>Det Indtastede tal er større end 6000";
 					nettoError = true;
 					showInput = true;
 				}
 			} catch(Exception e){
+				nettoErrorString += "<br>Det Indtastede kan ikke læses som et tal";
 				nettoError = true;
 				showInput = true;
 			}
@@ -97,10 +116,18 @@
 				double tolGram = dNetto * dTol * 0.01;
 				
 				if (dTol < 0.1 || dTol > 10 || tolGram < 1){
+					if ( tolGram < 1 ){
+						tolErrorString += "<br>Tollerancen er mindre end 1g";
+						tolErrorString += "<br>(" + (1/dNetto*100) + "% når nettovægt er "+ dNetto +")";
+					}
 					tolError = true;
 					showInput = true;
 				}
 			} catch(Exception e){
+				try{double dTol = Double.parseDouble(tol);}
+				catch(Exception e2){
+					tolErrorString += "<br>Det Indtastede kan ikke læses som et tal";
+				}
 				tolError = true;
 				showInput = true;
 			}
