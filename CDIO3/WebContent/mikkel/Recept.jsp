@@ -26,7 +26,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Oprettelse af recept</title>
-<link rel="stylesheet" type="text/css" href="mikkel.css">
+<link rel="stylesheet" type="text/css" href="Recept.css">
 </head>
 <body>
 	<%
@@ -141,7 +141,7 @@
 	%>
 	<div class="dialog">
 		<h1>Oprettelse af Recept</h1>
-		<form method="post" action="MikkelRecept.jsp">
+		<form method="post">
 		<% if (rNumError){ %> <div class="error"> <% out.print(rNumErrorString); %> </div> <%} %>
 			<label for="rNumber">Receptnummer</label>
 			<input type="text" name="Receptnummer" id="rNumber"
@@ -183,7 +183,7 @@
 		<span><% out.print(tol); %></span>
 		<label for="date">Dato</label>
 		<span><% out.print(dateString);%></span>
-		<a href="MikkelRecept.jsp"> Ny recept   </a>
+		<a href="Recept.jsp"> Ny recept   </a>
 	</div>
 	<%	} %>
 </body>
