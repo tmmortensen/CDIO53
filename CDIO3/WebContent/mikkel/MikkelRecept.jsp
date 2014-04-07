@@ -8,8 +8,8 @@
 	String netto = "";
 	String tol = "";
 
-	String rNumErrorString = "Receptnummer skal være et helt tal mellem 0 og 99999999";
-	String vNumErrorString = "Varenummer skal være et helt tal mellem 0 og 99999999";
+	String rNumErrorString = "Receptnummer skal være et helt tal mellem 1 og 99999999";
+	String vNumErrorString = "Varenummer skal være et helt tal mellem 1 og 99999999";
 	String vNameErrorString = "Varenavn skal være mellem 2 og 20 karaterer langt";
 	String nettoErrorString = "Nettovægt skal være mellem 50g og 6000g";
 	String tolErrorString = "Tolerancen skal være mellem 0.1% og 10% og mindst 1g";
@@ -51,9 +51,9 @@
 			//kontrol af receptnummer
 			try {
 				int rNumber = Integer.parseInt(rNum);
-				if (rNumber < 0 || rNumber > 99999999){
-					if(rNumber < 0)
-						rNumErrorString += "<br>Det Indtastede tal er mindre end 0";
+				if (rNumber < 1 || rNumber > 99999999){
+					if(rNumber < 1)
+						rNumErrorString += "<br>Det Indtastede tal er mindre end 1";
 					else
 						rNumErrorString += "<br>Det Indtastede tal er større end 99999999";
 					rNumError = true;
@@ -68,9 +68,9 @@
 			//kontrol af varenummer
 			try {
 				int vNumber = Integer.parseInt(vNum);
-				if (vNumber < 0 || vNumber > 99999999){
-					if(vNumber < 0)
-						vNumErrorString += "<br>Det Indtastede tal er mindre end 0";
+				if (vNumber < 1 || vNumber > 99999999){
+					if(vNumber < 1)
+						vNumErrorString += "<br>Det Indtastede tal er mindre end 1";
 					else
 						vNumErrorString += "<br>Det Indtastede tal er større end 99999999";
 					vNumError = true;
