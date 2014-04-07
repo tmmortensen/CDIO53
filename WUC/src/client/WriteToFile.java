@@ -46,11 +46,13 @@ public class WriteToFile {
 	}
 
 	public void writeStore() {
-		if (new File("C:\\Users\\Morten\\workspace\\WUC\\Store.txt") != null){
+		if (new File("Store.txt").exists()){
+			System.out.println("Jammen du har jo filen skattebasse");}
+		else{
 		File outputfile = new File("Store.txt");
 		try {
 			writer = new BufferedWriter(new FileWriter(outputfile));
-			writer.write("Mintpastillen");
+			writer.write("Lars Larsen: Mintpastillen Dato: 27/3-2004");
 			((BufferedWriter) writer).newLine();
 			writer.write("Lækkerpillen");
 			((BufferedWriter) writer).newLine();
@@ -71,13 +73,14 @@ public class WriteToFile {
 			writer.write("Sovepillen (if you know what i mean)");
 			((BufferedWriter) writer).newLine();
 			writer.close();
-		} catch (IOException e) {}
+			System.out.println("yaay filen blev skrevet");
+		} catch (IOException e) {
+		 System.out.println("Der gik sku noget galt under skrivningen af filen"); 
+		}
 		
 		
 		}
-		else {
-			System.out.println("Jammen du har jo filen skattebasse");
-		}
+		
 		
 	}
 
@@ -99,3 +102,4 @@ public class WriteToFile {
 	}
 
 }
+
