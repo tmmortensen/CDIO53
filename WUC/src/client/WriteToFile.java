@@ -1,6 +1,6 @@
 package client;
-import java.io.*;
 
+import java.io.*;
 
 public class WriteToFile {
 	BufferedReader inputreader;
@@ -46,60 +46,83 @@ public class WriteToFile {
 	}
 
 	public void writeStore() {
-		if (new File("Store.txt").exists()){
-			System.out.println("Jammen du har jo filen skattebasse");}
-		else{
-		File outputfile = new File("Store.txt");
-		try {
-			writer = new BufferedWriter(new FileWriter(outputfile));
-			writer.write("Lars Larsen: Mintpastillen Dato: 27/3-2004");
-			((BufferedWriter) writer).newLine();
-			writer.write("Lækkerpillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Superpillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("StivDolkpillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Usynlighedspillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Ildpillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("AvForDen-pillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Anus-pillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Hurtigpillen");
-			((BufferedWriter) writer).newLine();
-			writer.write("Sovepillen (if you know what i mean)");
-			((BufferedWriter) writer).newLine();
-			writer.close();
-			System.out.println("yaay filen blev skrevet");
-		} catch (IOException e) {
-		 System.out.println("Der gik sku noget galt under skrivningen af filen"); 
+		if (new File("Store.txt").exists()) {
+			System.out.println("Filen eksistere allerede");
+		} else {
+			File outputfile = new File("Store.txt");
+			try {
+				writer = new BufferedWriter(new FileWriter(outputfile));
+				writer.write("Mintpastillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Lækkerpillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Superpillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("StivDolkpillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Usynlighedspillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Ildpillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("AvAvAv-pillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("*****-pillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Hurtigpillen");
+				((BufferedWriter) writer).newLine();
+				writer.write("Sovepillen (if you know what i mean)");
+				((BufferedWriter) writer).newLine();
+				writer.close();
+				System.out.println("yaay filen blev skrevet");
+			} catch (IOException e) {
+				System.out
+						.println("Der skete en fejl under skrivningen af filen");
+			}
+
 		}
-		
-		
-		}
-		
-		
+
 	}
 
-	
-
-	public void readStore() {
+	public String readStore(int varenummer) {
 
 		try {
 			File inputfile = new File("Store.txt");
 			inputreader = new BufferedReader(new FileReader(inputfile));
-			String fileText = inputreader.readLine();
-			System.out.println(fileText);
+			LineNumberReader ln = new LineNumberReader(inputreader);
+			ln.setLineNumber(varenummer);
+			
+			if (ln.getLineNumber() <= 10) {
+				if (varenummer == 0) {
+					String x = ln.readLine();
+					System.out.println(x);
+					return x;
+				}
+				for (int i = 0; i + 1 <= varenummer; i++) {
+					ln.readLine();
+					if (i + 1 == varenummer) {
+						String x = ln.readLine();
+						System.out.println(x);
+						return x;
+					}
+
+				}
+
+			}
+			else {
+				System.out.println("Du skulle have valgt et vare nummer mellem 0 og 9");
+			}
+
+			// String fileText = inputreader.readLine();
+			// System.out.println(fileText);
+
 			inputreader.close();
 
+		} catch (FileNotFoundException ex) {
+			System.out.println("Filen blev ikke fundet");
 		} catch (Exception ex) {
-			System.out.println("Omg someting went wrong");
+			System.out.println("Noget gik galt under læsningen af filen");
 		}
-
+		return null;
 	}
 
 }
-
