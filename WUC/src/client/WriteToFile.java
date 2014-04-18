@@ -13,10 +13,10 @@ public class WriteToFile {
 		try {
 			FileWriter output = new FileWriter(filename);
 
-			output.write("dato " + date + "\n");
-			output.write("oprNr" + Opr_nummer + "\n");
-			output.write("varenr" + varenummer + "\n");
-			output.write("afvejning" + afvejning + "\n");
+			output.write("dato " + date + "\n ");
+			output.write("oprNr " + Opr_nummer + "\n ");
+			output.write("varenr " + varenummer + "\n ");
+			output.write("afvejning " + afvejning + "\n ");
 
 			output.close();
 		} catch (FileNotFoundException e) {
@@ -54,7 +54,7 @@ public class WriteToFile {
 				writer = new BufferedWriter(new FileWriter(outputfile));
 				writer.write("Mintpastillen");
 				((BufferedWriter) writer).newLine();
-				writer.write("Lækkerpillen");
+				writer.write("Lï¿½kkerpillen");
 				((BufferedWriter) writer).newLine();
 				writer.write("Superpillen");
 				((BufferedWriter) writer).newLine();
@@ -120,7 +120,7 @@ public class WriteToFile {
 		} catch (FileNotFoundException ex) {
 			System.out.println("Filen blev ikke fundet");
 		} catch (Exception ex) {
-			System.out.println("Noget gik galt under læsningen af filen");
+			System.out.println("Noget gik galt under lï¿½sningen af filen");
 		}
 		return null;
 	}

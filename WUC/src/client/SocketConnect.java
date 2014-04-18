@@ -7,9 +7,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class SocketConnect {
-	String sentence, varenavn, choice;
-	String modifiedSentence;
-	Integer varenummer = 0, afvejning = 0, Tara = 0, Netto = 0;
+	private String sentence, varenavn, choice;
+	private String modifiedSentence;
+	private int afvejning = 0, Tara = 0, Netto = 0;
 	private Socket clientSocket;
 	private BufferedReader inFromServer;
 	private DataOutputStream outToServer;
@@ -30,14 +30,15 @@ public class SocketConnect {
 			e.getMessage();
 		}
 		try {
-			sentence = "\"RM20 4\" \"indtast operatoer nummer\" \"\" \"nr\"";
+			sentence = "RM20 4 \"indtast operatoer nummer\" \"dette slettes\" \"nr\"";
 			outToServer.writeBytes(sentence + "\r\n");
 			modifiedSentence = inFromServer.readLine();
-			while (!modifiedSentence.substring(0, 5).equals("RM20 A")) {
+			System.out.println(modifiedSentence);
+			while (!modifiedSentence.substring(0, 6).equalsIgnoreCase("RM20 A")) {
 				modifiedSentence = inFromServer.readLine();
-
+				System.out.println(modifiedSentence);
 			}
-			return_sentence = modifiedSentence.substring(6);
+			return_sentence = modifiedSentence.substring(7);
 
 		}
 
@@ -46,8 +47,21 @@ public class SocketConnect {
 		}
 		return return_sentence;
 	}
+	public void initiate() {
+		try {
+			clientSocket = new Socket("localhost", 4567);
+			inFromServer = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
+			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
-	public String varenavn() {
+			outToServer.writeBytes("S" + "\r\n");
+			
+		} catch (Exception e) {
+			e.getMessage();
+		}
+	}
+
+	public int varenummer() {
 		try {
 			clientSocket = new Socket("localhost", 4567);
 			inFromServer = new BufferedReader(new InputStreamReader(
@@ -59,19 +73,19 @@ public class SocketConnect {
 		}
 		try {
 
-			sentence = "\"RM20 4\" \"indtast varenr\" \"\" \"\"";
+			sentence = "RM20 4 \"indtast varenr\" \" \" \" \"";
 			outToServer.writeBytes(sentence + "\r\n");
 			modifiedSentence = inFromServer.readLine();
-			while (!modifiedSentence.substring(0, 5).equals("RM20 A")) {
+			while (!modifiedSentence.substring(0, 6).equalsIgnoreCase("RM20 A")) {
 				modifiedSentence = inFromServer.readLine();
 
 			}
-			varenavn = modifiedSentence.substring(6);
-
+			int varenummer = Integer.parseInt(modifiedSentence.substring(7));
+			return varenummer;
 		} catch (IOException e) {
 			e.getMessage();
 		}
-		return varenavn;
+		return -1;
 	}
 
 }
