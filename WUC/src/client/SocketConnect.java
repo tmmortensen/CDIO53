@@ -47,6 +47,7 @@ public class SocketConnect {
 		}
 		return return_sentence;
 	}
+
 	public void initiate() {
 		try {
 			clientSocket = new Socket("localhost", 4567);
@@ -55,7 +56,7 @@ public class SocketConnect {
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
 			outToServer.writeBytes("S" + "\r\n");
-			
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
@@ -88,4 +89,38 @@ public class SocketConnect {
 		return -1;
 	}
 
+	public void weightTara() {
+		try {
+			clientSocket = new Socket("localhost", 4567);
+			inFromServer = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
+			outToServer = new DataOutputStream(clientSocket.getOutputStream());
+
+			outToServer.writeBytes("T");
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+	}
+
+	public boolean waitForBowl() {
+		try {
+			clientSocket = new Socket("localhost", 4567);
+			inFromServer = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
+			outToServer = new DataOutputStream(clientSocket.getOutputStream());
+			outToServer.writeBytes("S");
+			Double doubleSentence = Double.parseDouble(inFromServer.readLine()
+					.substring(3));
+			while (doubleSentence == 0.0) {
+				outToServer.writeBytes("S");
+				doubleSentence = Double.parseDouble(inFromServer.readLine()
+						.substring(3));
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return true;
+	}
 }

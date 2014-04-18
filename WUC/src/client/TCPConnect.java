@@ -14,7 +14,8 @@ public class TCPConnect implements Runnable {
 	WriteToFile writeToFile = new WriteToFile();
 
 	public void run() {
-
+		// initializing the weighting procedure by opening a connection to the
+		// weight and test that it works.
 		startWeight();
 		SocketConnect socketConnection = new SocketConnect();
 		socketConnection.initiate();
@@ -24,9 +25,14 @@ public class TCPConnect implements Runnable {
 			e.getMessage();
 		}
 
+		// the operator identifies themselves, by writing their oprId on the
+		// weight it is then saved in the log file
 		oprId = socketConnection.identify();
 		System.out.println("oprId modtaget:" + oprId);
 		writeOpr(oprId);
+
+		// we check whether the operator entered the correct item number, if it
+		// was not correct the let the user try again
 		varenummer = socketConnection.varenummer();
 
 		while (itemCheck(writeToFile.readStore(varenummer)) != true) {
@@ -34,6 +40,16 @@ public class TCPConnect implements Runnable {
 		}
 
 		writeItem(oprId, varenummer);
+
+		// the operator is now prompted to place the bowl/cup on the weight
+		System.out.println("please place the desired item on the weight");
+		while (socketConnection.waitForBowl() != true)
+			;
+		System.out
+				.println("did you place the desired bowl/cup on the weight?    y/n");
+		if (input.next().equalsIgnoreCase("y")) {
+			socketConnection.weightTara();
+		}
 
 	}
 
@@ -69,8 +85,8 @@ public class TCPConnect implements Runnable {
 
 	private void writeItem(String oprId, int varenummer) {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-		.format(Calendar.getInstance().getTime());
-writeToFile.writeLog(timeStamp, oprId, varenummer, afvejning);
+				.format(Calendar.getInstance().getTime());
+		writeToFile.writeLog(timeStamp, oprId, varenummer, afvejning);
 	}
 
 }
