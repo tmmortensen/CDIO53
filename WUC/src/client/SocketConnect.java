@@ -9,7 +9,7 @@ import java.net.Socket;
 public class SocketConnect {
 	private String sentence, varenavn, choice;
 	private String modifiedSentence;
-	private int afvejning = 0, Tara = 0, netto = 0;
+	private double afvejning = 0, tara = 0, netto = 0;
 	private Socket clientSocket;
 	private BufferedReader inFromServer;
 	private DataOutputStream outToServer;
@@ -103,28 +103,28 @@ public class SocketConnect {
 		}
 	}
 
-	public boolean waitForBowl() {
+	public double waitForBowl() {
 		try {
 			clientSocket = new Socket("localhost", 4567);
 			inFromServer = new BufferedReader(new InputStreamReader(
 					clientSocket.getInputStream()));
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			outToServer.writeBytes("S");
-			Double doubleSentence = Double.parseDouble(inFromServer.readLine()
+			tara = Double.parseDouble(inFromServer.readLine()
 					.substring(3));
-			while (doubleSentence == 0.0) {
+			while (tara == 0.0) {
 				outToServer.writeBytes("S");
-				doubleSentence = Double.parseDouble(inFromServer.readLine()
+				tara = Double.parseDouble(inFromServer.readLine()
 						.substring(3));
 			}
 
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		return true;
+		return tara;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		try {
 
 			clientSocket = new Socket("localhost", 4567);
@@ -134,7 +134,7 @@ public class SocketConnect {
 			sentence = "S";
 			outToServer.writeBytes(sentence + "\r\n");
 
-			netto = Integer.parseInt(inFromServer.readLine());
+			netto = Double.parseDouble(inFromServer.readLine());
 
 		} catch (Exception e) {
 			e.getMessage();

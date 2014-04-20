@@ -8,7 +8,8 @@ public class TCPConnect implements Runnable {
 	Scanner input = new Scanner(System.in);
 	String sentence, varenavn, choice;
 	String modifiedSentence, oprId;
-	Integer varenummer, afvejning = 0, Tara = 0, netto = 0;
+	Integer varenummer, afvejning = 0;
+	double tara = 0, netto = 0;
 	WriteToFile writeToFile = new WriteToFile();
 
 	public void run() {
@@ -41,8 +42,7 @@ public class TCPConnect implements Runnable {
 
 		// the operator is now prompted to place the bowl/cup on the weight
 		System.out.println("please place the desired item on the weight");
-		while (socketConnection.waitForBowl() != true)
-			;
+		tara = socketConnection.waitForBowl();
 		System.out
 				.println("did you place the desired bowl/cup on the weight?    y/n");
 		if (input.next().equalsIgnoreCase("y")) {
@@ -92,7 +92,7 @@ public class TCPConnect implements Runnable {
 
 	}
 
-	private void writeLog(String oprId, int varenummer, int netto) {
+	private void writeLog(String oprId, int varenummer, double netto) {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(Calendar.getInstance().getTime());
 		writeToFile.writeLog(timeStamp, oprId, varenummer, afvejning);

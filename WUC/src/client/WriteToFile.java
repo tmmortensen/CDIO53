@@ -7,7 +7,7 @@ public class WriteToFile {
 	BufferedWriter writer;
 
 	public void writeLog(String date, String Opr_nummer, int varenummer,
-			int afvejning) {
+			double netto) {
 		String filename = "log.txt";
 
 		try {
@@ -16,7 +16,7 @@ public class WriteToFile {
 			output.write("dato " + date + "\n ");
 			output.write("oprNr " + Opr_nummer + "\n ");
 			output.write("varenr " + varenummer + "\n ");
-			output.write("afvejning " + afvejning + "\n ");
+			output.write("netto " + netto + "\n ");
 
 			output.close();
 		} catch (FileNotFoundException e) {
