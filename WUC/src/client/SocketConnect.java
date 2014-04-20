@@ -9,7 +9,7 @@ import java.net.Socket;
 public class SocketConnect {
 	private String sentence, varenavn, choice;
 	private String modifiedSentence;
-	private int afvejning = 0, Tara = 0, Netto = 0;
+	private int afvejning = 0, Tara = 0, netto = 0;
 	private Socket clientSocket;
 	private BufferedReader inFromServer;
 	private DataOutputStream outToServer;
@@ -122,5 +122,24 @@ public class SocketConnect {
 			e.getMessage();
 		}
 		return true;
+	}
+
+	public int getWeight() {
+		try {
+
+			clientSocket = new Socket("localhost", 4567);
+			inFromServer = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
+			outToServer = new DataOutputStream(clientSocket.getOutputStream());
+			sentence = "S";
+			outToServer.writeBytes(sentence + "\r\n");
+
+			netto = Integer.parseInt(inFromServer.readLine());
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return netto;
 	}
 }

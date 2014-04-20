@@ -3,14 +3,12 @@ package client;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.swing.plaf.SliderUI;
-
 public class TCPConnect implements Runnable {
 	boolean notFound = true;
 	Scanner input = new Scanner(System.in);
 	String sentence, varenavn, choice;
 	String modifiedSentence, oprId;
-	Integer varenummer, afvejning = 0, Tara = 0, Netto = 0;
+	Integer varenummer, afvejning = 0, Tara = 0, netto = 0;
 	WriteToFile writeToFile = new WriteToFile();
 
 	public void run() {
@@ -29,7 +27,7 @@ public class TCPConnect implements Runnable {
 		// weight it is then saved in the log file
 		oprId = socketConnection.identify();
 		System.out.println("oprId modtaget:" + oprId);
-		writeOpr(oprId);
+		// writeOpr(oprId);
 
 		// we check whether the operator entered the correct item number, if it
 		// was not correct the let the user try again
@@ -39,7 +37,7 @@ public class TCPConnect implements Runnable {
 			varenummer = socketConnection.varenummer();
 		}
 
-		writeItem(oprId, varenummer);
+		// writeItem(oprId, varenummer);
 
 		// the operator is now prompted to place the bowl/cup on the weight
 		System.out.println("please place the desired item on the weight");
@@ -50,13 +48,24 @@ public class TCPConnect implements Runnable {
 		if (input.next().equalsIgnoreCase("y")) {
 			socketConnection.weightTara();
 		}
+		// The operator has to put the item in the bowl/cup to proceed with the
+		// procedure.
 
-	}
-
-	private void writeOpr(String oprId) {
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(Calendar.getInstance().getTime());
-		writeToFile.writeLog(timeStamp, oprId, varenummer, afvejning);
+		System.out.println("please place the desired item in the bowl/cup");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("did you put the item in the bowl?   y/n?");
+		String itemChoice = input.next();
+		while (!itemChoice.equalsIgnoreCase("y")) {
+			System.out
+					.println("have you put the desired item in the bowl? y/n");
+			itemChoice = input.next();
+		}
+		netto = socketConnection.getWeight();
+		writeLog(oprId, varenummer, netto);
 
 	}
 
@@ -83,7 +92,7 @@ public class TCPConnect implements Runnable {
 
 	}
 
-	private void writeItem(String oprId, int varenummer) {
+	private void writeLog(String oprId, int varenummer, int netto) {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(Calendar.getInstance().getTime());
 		writeToFile.writeLog(timeStamp, oprId, varenummer, afvejning);
