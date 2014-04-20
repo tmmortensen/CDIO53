@@ -67,7 +67,9 @@ public class TCPConnect implements Runnable {
 				itemChoice = input.next();
 			}
 			netto = socketConnection.getWeight();
-			System.out.println("please remove everything from the weight");
+			System.out
+					.println("please remove everything from the weight and write \'y\'");
+			System.out.print("write here: ");
 			String remove_choice = input.next();
 			while (!remove_choice.equalsIgnoreCase("y")) {
 				remove_choice = input.next();

@@ -17,18 +17,22 @@ public class SocketConnect {
 	public SocketConnect() {
 
 	}
-
-	public String identify() {
-		String return_sentence = null;
+	public void initiate() {
 		try {
 			clientSocket = new Socket("localhost", 4567);
 			inFromServer = new BufferedReader(new InputStreamReader(
 					clientSocket.getInputStream()));
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
+			outToServer.writeBytes("S" + "\r\n");
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
+	}
+
+	public String identify() {
+		String return_sentence = null;
 		try {
 			sentence = "RM20 4 \"indtast operatoer nummer\" \"dette slettes\" \"nr\"";
 			outToServer.writeBytes(sentence + "\r\n");
@@ -48,30 +52,10 @@ public class SocketConnect {
 		return return_sentence;
 	}
 
-	public void initiate() {
-		try {
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
-			outToServer.writeBytes("S" + "\r\n");
-
-		} catch (Exception e) {
-			e.getMessage();
-		}
-	}
 
 	public int varenummer() {
-		try {
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
-		} catch (Exception e) {
-			e.getMessage();
-		}
 		try {
 
 			sentence = "RM20 4 \"indtast varenr\" \" \" \" \"";
@@ -91,10 +75,6 @@ public class SocketConnect {
 
 	public void weightTara() {
 		try {
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
 			outToServer.writeBytes("T");
 
@@ -105,10 +85,7 @@ public class SocketConnect {
 
 	public double waitForBowl() {
 		try {
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
+
 			outToServer.writeBytes("S");
 			tara = Double.parseDouble(inFromServer.readLine()
 					.substring(3));
@@ -127,10 +104,6 @@ public class SocketConnect {
 	public double getWeight() {
 		try {
 
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			sentence = "S";
 			outToServer.writeBytes(sentence + "\r\n");
 
@@ -145,10 +118,6 @@ public class SocketConnect {
 	public double getBrutto(){
 		try {
 
-			clientSocket = new Socket("localhost", 4567);
-			inFromServer = new BufferedReader(new InputStreamReader(
-					clientSocket.getInputStream()));
-			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			sentence = "S";
 			outToServer.writeBytes(sentence + "\r\n");
 			brutto=Double.parseDouble(inFromServer.readLine());
