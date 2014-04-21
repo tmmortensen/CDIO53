@@ -29,16 +29,15 @@ public class TCPConnect implements Runnable {
 			// the operator identifies themselves, by writing their oprId on the
 			// weight it is then saved in the log file
 			oprId = socketConnection.identify();
-			System.out.println("oprId modtaget:" + oprId);
-
+			System.out.println("oprId modtaget: " + oprId);
 			// we check whether the operator entered the correct item number, if
 			// it
 			// was not correct the let the user try again
 			varenummer = socketConnection.varenummer();
 
 			while (itemCheck(writeToFile.readStore(varenummer)) != true) {
-				varenummer = socketConnection.varenummer();
-			}
+				socketConnection.varenummer();
+				}
 
 			while (brutto_ok != true) {
 				// the operator is now prompted to place the bowl/cup on the
@@ -132,6 +131,7 @@ public class TCPConnect implements Runnable {
 		writeToFile.writeStore();
 		while (!start_choice.equalsIgnoreCase("y")) {
 			startWeight();
+			break;
 		}
 		return true;
 
