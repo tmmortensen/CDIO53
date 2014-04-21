@@ -145,4 +145,15 @@ public class SocketConnect {
 		}
 		return brutto;
 	}
+
+	public void closeConnection() {
+		try {
+			clientSocket.close();
+			outToServer.close();
+			inFromServer.close();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
 }

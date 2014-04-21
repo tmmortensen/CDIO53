@@ -12,12 +12,13 @@ public class TCPConnect implements Runnable {
 	double tara = 0, netto = 0, brutto = 0;
 
 	WriteToFile writeToFile = new WriteToFile();
+	SocketConnect socketConnection = new SocketConnect();
 
 	public void run() {
 		// initializing the weighting procedure by opening a connection to the
 		// weight and test that it works.
 		if (startWeight() == true) {
-			SocketConnect socketConnection = new SocketConnect();
+			
 			socketConnection.initiate();
 			try {
 				Thread.sleep(1000);
@@ -149,6 +150,8 @@ public class TCPConnect implements Runnable {
 					.format(Calendar.getInstance().getTime());
 			writeToFile.writeLog(timeStamp, oprId, varenummer, netto);
 			System.out.println("your session has been saved.");
+			socketConnection.closeConnection();
+			System.exit(0);
 
 		}
 	}
