@@ -1,10 +1,12 @@
 package client;
 
+import java.awt.SystemTray;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.lang.*;
 
 public class SocketConnect {
 	private String sentence, varenavn, choice;
@@ -17,6 +19,7 @@ public class SocketConnect {
 	public SocketConnect() {
 
 	}
+
 	public void initiate() {
 		try {
 			clientSocket = new Socket("localhost", 4567);
@@ -25,6 +28,8 @@ public class SocketConnect {
 			outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
 			outToServer.writeBytes("S" + "\r\n");
+			modifiedSentence = inFromServer.readLine().substring(9, 14);
+			System.out.println("modtaget " + modifiedSentence);
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -51,8 +56,6 @@ public class SocketConnect {
 		}
 		return return_sentence;
 	}
-
-
 
 	public int varenummer() {
 
@@ -86,13 +89,18 @@ public class SocketConnect {
 	public double waitForBowl() {
 		try {
 
-			outToServer.writeBytes("S");
-			tara = Double.parseDouble(inFromServer.readLine()
-					.substring(3));
-			while (tara == 0.0) {
-				outToServer.writeBytes("S");
-				tara = Double.parseDouble(inFromServer.readLine()
-						.substring(3));
+			outToServer.writeBytes("S" + "\r\n");
+			modifiedSentence = inFromServer.readLine().substring(9, 14);
+
+			tara = Double.parseDouble(modifiedSentence);
+			int retval = Double.compare(tara, 0.0);
+			System.out.println(retval);
+			while (retval <= 0) {
+				outToServer.writeBytes("S" + "\r\n");
+				modifiedSentence = inFromServer.readLine().substring(9, 14);
+
+				tara = Double.parseDouble(modifiedSentence);
+				retval = Double.compare(tara, 0.0);
 			}
 
 		} catch (Exception e) {
@@ -104,28 +112,33 @@ public class SocketConnect {
 	public double getWeight() {
 		try {
 
-			sentence = "S";
-			outToServer.writeBytes(sentence + "\r\n");
+			outToServer.writeBytes("S" + "\r\n");
+			modifiedSentence = inFromServer.readLine().substring(9, 14);
 
-			netto = Double.parseDouble(inFromServer.readLine());
-
+			netto = Double.parseDouble(modifiedSentence);
+			System.out.println("netto modtaget: " + netto);
 		} catch (Exception e) {
 			e.getMessage();
 		}
 
 		return netto;
 	}
-	public double getBrutto(){
+
+	public double getBrutto() {
 		try {
 
-			sentence = "S";
-			outToServer.writeBytes(sentence + "\r\n");
-			brutto=Double.parseDouble(inFromServer.readLine());
-			
-			while(brutto>=0.0){
-				brutto=Double.parseDouble(inFromServer.readLine());
-			}
+			outToServer.writeBytes("S" + "\r\n");
+			modifiedSentence = inFromServer.readLine().substring(9, 14);
 
+			brutto = Double.parseDouble(modifiedSentence);
+
+			while (brutto >= 0.0) {
+				outToServer.writeBytes("S" + "\r\n");
+				modifiedSentence = inFromServer.readLine().substring(9, 14);
+
+				brutto = Double.parseDouble(modifiedSentence);
+
+			}
 
 		} catch (Exception e) {
 			e.getMessage();
