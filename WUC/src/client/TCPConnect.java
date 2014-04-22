@@ -36,7 +36,7 @@ public class TCPConnect implements Runnable {
 			varenummer = socketConnection.varenummer();
 
 			while (itemCheck(writeToFile.readStore(varenummer)) != true) {
-				socketConnection.varenummer();
+				varenummer= socketConnection.varenummer();
 				}
 
 			while (brutto_ok != true) {
@@ -103,7 +103,7 @@ public class TCPConnect implements Runnable {
 	private boolean bruttoOK(double tara, double netto, double brutto) {
 		boolean brutto_ok;
 
-		if (((tara + netto) / (-1 * brutto)) * 100 <= 5.0) {
+		if (((tara + (netto-tara)) / (brutto*-1)) * 100 <= 5.0) {
 			brutto_ok = true;
 		} else {
 			brutto_ok = false;

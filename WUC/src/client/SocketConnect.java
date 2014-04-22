@@ -94,7 +94,6 @@ public class SocketConnect {
 
 			tara = Double.parseDouble(modifiedSentence);
 			int retval = Double.compare(tara, 0.0);
-			System.out.println(retval);
 			while (retval <= 0) {
 				outToServer.writeBytes("S" + "\r\n");
 				modifiedSentence = inFromServer.readLine().substring(9, 14);
@@ -128,13 +127,13 @@ public class SocketConnect {
 		try {
 
 			outToServer.writeBytes("S" + "\r\n");
-			modifiedSentence = inFromServer.readLine().substring(9, 14);
+			modifiedSentence = inFromServer.readLine().substring(8, 14);
 
 			brutto = Double.parseDouble(modifiedSentence);
 
 			while (brutto >= 0.0) {
 				outToServer.writeBytes("S" + "\r\n");
-				modifiedSentence = inFromServer.readLine().substring(9, 14);
+				modifiedSentence = inFromServer.readLine().substring(8, 14);
 
 				brutto = Double.parseDouble(modifiedSentence);
 
