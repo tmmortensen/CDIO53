@@ -71,6 +71,7 @@
 	</div>
 	<%--Kun til test--%>
 	<%
+		out.print("This page is only a JSP page<BR>");
 		out.print("Current Users <BR>");
 		List<OperatoerDTO> operators = data.getOperatoerList();
 		if(operators.isEmpty()){

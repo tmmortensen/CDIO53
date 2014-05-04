@@ -7,20 +7,17 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import boundary.LoginBoundary;
 import data.Data;
-import data.IOperatoerDAO;
-import data.OperatoerDTO;
 
 public class LoginController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	IOperatoerDAO data;
+	Data data;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (IOperatoerDAO) getServletContext().getAttribute("data");
+		data = (Data) getServletContext().getAttribute("data");
 		if (data == null){
 			data = new Data();
 			getServletContext().setAttribute("data", data);
@@ -37,7 +34,7 @@ public class LoginController extends HttpServlet{
 			request.getSession().setAttribute("user", user);
 		}
 		
-		String sLoginError = "";
+		String loginError = "";
 		
 		if (!user.isinitialized()){
 			user.init(data);
@@ -47,7 +44,7 @@ public class LoginController extends HttpServlet{
 		if (request.getParameter("Redirect") != null)
 			redirect = request.getParameter("Redirect");
 		else
-			redirect = "mainmenu.jsp";
+			redirect = "mainmenu";
 
 		String uid = request.getParameter("UserID");
 		String pword = request.getParameter("Password");
@@ -57,44 +54,41 @@ public class LoginController extends HttpServlet{
 			user.logout();
 		}
 
-		if (user.isLoggedIn())
+		if (user.isLoggedIn()){
 			response.sendRedirect(redirect);
+			return;
+		}
 
 		if (uid != null && pword != null)
 			try {
 				int iUid = Integer.parseInt(uid);
 				if (user.login(iUid, pword)){
 					response.sendRedirect(redirect);
+					return;
 				} else{
-					sLoginError = "Det indtastede bruger id og kodeord er ikke korrekt";	
+					loginError = "Det indtastede bruger id og kodeord er ikke korrekt";	
 				}
 			} catch (Exception e){
-				sLoginError = "Bruger ID er ikke et tal";	
+				loginError = "Bruger ID er ikke et tal";	
 			}
 		else {
 			uid = "";
 			pword = "";
 		}
 		
-		LoginBoundary boundary = new LoginBoundary();
-		boundary.setLoginError(sLoginError);
-		boundary.setUserId(uid);
-		boundary.setPassword(pword);
-		boundary.setRedirect(redirect);
-		boundary.createOutput(response);
+		// TODO fjern dette
+		request.setAttribute("data", data);
+		// ^^ er kun til test
 		
-		// TODO remove this when done testing
-		try {
-			PrintWriter output = response.getWriter();
-			List<OperatoerDTO> operators = data.getOperatoerList();
-			for (OperatoerDTO op : operators){
-				output.print("ID: " + op.getOprId() + " PW: " + op.getPassword() + " Admin: ");
-				if (op.isAdmin()){
-					output.print("Ja");
-				}
-				output.print("<BR>\n");
-			}
-		} catch (Exception e){}
+		request.setAttribute("error", loginError);
+		request.setAttribute("userID", uid);
+		request.setAttribute("password", pword);
+		request.setAttribute("redirect", redirect);
+		
+		
+		RequestDispatcher dispatcher =
+				getServletContext().getRequestDispatcher("/login_boundary.jsp");
+		dispatcher.forward(request, response);
 	}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 

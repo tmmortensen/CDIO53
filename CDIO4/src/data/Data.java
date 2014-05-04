@@ -21,7 +21,7 @@ public class Data implements IOperatoerDAO {
 	}
 
 	@Override
-	public OperatoerDTO getOperatoer(int oprId) throws DALException {
+	public synchronized OperatoerDTO getOperatoer(int oprId) throws DALException {
 		if (oprId < 1 || oprId > 99999999)
 			throw new DALException("Id out of bounds");
 		Operator operator = operators.get(oprId);
@@ -40,7 +40,7 @@ public class Data implements IOperatoerDAO {
 	}
 
 	@Override
-	public void createOperatoer(OperatoerDTO opr) throws DALException {
+	public synchronized void createOperatoer(OperatoerDTO opr) throws DALException {
 		Operator result = operators.put(opr.getOprId(), new Operator(opr));
 		if (result != null) {
 			operators.put(opr.getOprId(), result);
@@ -51,7 +51,7 @@ public class Data implements IOperatoerDAO {
 	}
 
 	@Override
-	public void updateOperatoer(OperatoerDTO opr) throws DALException {
+	public synchronized void updateOperatoer(OperatoerDTO opr) throws DALException {
 		Operator result = operators.put(opr.getOprId(), new Operator(opr));
 		if (result == null) {
 			operators.remove(opr.getOprId());
@@ -69,7 +69,7 @@ public class Data implements IOperatoerDAO {
 	}
 	
 	@Override
-	public void deleteOperatoer(int id)throws DALException{
+	public synchronized void deleteOperatoer(int id)throws DALException{
 		if (id < 1 || id > 99999999)
 			throw new DALException("Id out of bounds");
 		Operator result = operators.remove(id);
