@@ -10,6 +10,14 @@ public class Data implements IOperatoerDAO {
 	public Data() {
 		operators = new HashMap<Integer, Operator>();
 		adminCount = 0;
+		
+		// creating the sysadmin
+		try {
+		createOperatoer(new OperatoerDTO(1,"Sysadmin", "SA", "1234567890", "adminpw",true));
+		} catch (Exception e) {}
+		
+		//TODO remove this when done testing
+		createDefaultOperators();
 	}
 
 	@Override
@@ -24,13 +32,10 @@ public class Data implements IOperatoerDAO {
 
 	@Override
 	public List<OperatoerDTO> getOperatoerList() throws DALException {
-		// Iterator<Map.Entry<Integer, Operator>> iOperator =
-		// operators.entrySet().iterator();
 		List<OperatoerDTO> returnlist = new ArrayList<OperatoerDTO>();
 		for (Map.Entry<Integer, Operator> entry : operators.entrySet()) {
 			returnlist.add(new OperatoerDTO(entry.getKey(), entry.getValue()));
 		}
-
 		return returnlist;
 	}
 
