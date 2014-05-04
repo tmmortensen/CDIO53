@@ -8,6 +8,7 @@ public class Operator {
 	String ini;
 	String cpr;
 	String password;
+	boolean admin;
 
 	/**
 	 * @param oprNavn
@@ -19,12 +20,18 @@ public class Operator {
 	 * @param password
 	 *            The operator's password
 	 */
-	public Operator(String oprNavn, String ini, String cpr, String password) {
-		this.oprNavn = oprNavn;
-		this.ini = ini;
-		this.cpr = cpr;
-		this.password = password;
+	public Operator(String oprNavn, String ini, String cpr, String password) throws DALException {
+		this(oprNavn, ini, cpr, password, false);
 	}
+	
+	public Operator(String oprNavn, String ini, String cpr, String password, boolean admin) throws DALException {
+		setOprNavn(oprNavn);
+		setIni(ini);
+		setCpr(cpr);
+		setPassword(password);
+		setAdmin(admin);
+	}
+
 
 	/**
 	 * Creates a new <code>Operator</code> from a <code>OperatoerDTO</code>
@@ -34,14 +41,15 @@ public class Operator {
 	 *            the <code>OperatoerDTO</code>-object containing the operator
 	 *            info
 	 */
-	public Operator(OperatoerDTO op) {
-		this.oprNavn = op.getOprNavn();
-		this.ini = op.getIni();
-		this.cpr = op.getCpr();
-		this.password = op.getPassword();
+	public Operator(Operator op) throws DALException {
+		setOprNavn(op.getOprNavn());
+		setIni(op.getIni());
+		setCpr(op.getCpr());
+		setPassword(op.getPassword());
+		setAdmin(op.isAdmin());
 	}
 
-	public String getOprNavn() {
+	public String getOprNavn(){
 		return oprNavn;
 	}
 
@@ -56,22 +64,42 @@ public class Operator {
 	public String getPassword() {
 		return password;
 	}
+	
+	public boolean isAdmin(){
+		return admin;
+	}
 
-	public void setOprNavn(String newname) {
+	public void setOprNavn(String newname)  throws DALException {
+		if (newname.length() < 2)
+			throw new DALException("Operatør navn er for kort");
+		if (newname.length() > 20)
+			throw new DALException("Operatør navn er for langt");
 		this.oprNavn = newname;
 	}
 
-	public void setIni(String newini) {
+	public void setIni(String newini)  throws DALException {
+		if (newini.length() < 2)
+			throw new DALException("Operatør initialer er for få");
+		if (newini.length() > 3)
+			throw new DALException("Operatør initialer er for mange");
 		this.ini = newini;
-
 	}
 
-	public void setCpr(String newcpr) {
+	public void setCpr(String newcpr)  throws DALException {
+		if (!newcpr.matches("\\d{10}"))
+			throw new DALException("CPR-nummer er ikke 10 cifre");
 		this.cpr = newcpr;
 	}
 
-	public void setPassword(String newpassword) {
+	public void setPassword(String newpassword)  throws DALException {
+		if (newpassword.length() < 6)
+			throw new DALException("Kodeord er for kort");
+		if (newpassword.length() > 7)
+			throw new DALException("Kodeord er for langt");
 		this.password = newpassword;
 	}
-
+	
+	public void setAdmin(boolean admin){
+		this.admin = admin;
+	}
 }

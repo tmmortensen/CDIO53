@@ -5,12 +5,8 @@ import java.util.Random;
 /**
  * A data package containing info on an operator
  */
-public class OperatoerDTO {
+public class OperatoerDTO extends Operator{
 	int oprId;
-	String oprNavn;
-	String ini;
-	String cpr;
-	String password;
 
 	/**
 	 * @param id
@@ -24,14 +20,14 @@ public class OperatoerDTO {
 	 * @param pw
 	 *            The operator's password
 	 */
-	public OperatoerDTO(int id, String name, String ini, String cpr, String pw) {
-		this.oprId = id;
-		this.oprNavn = name;
-		this.ini = ini;
-		this.cpr = cpr;
-		this.password = pw;
+	public OperatoerDTO(int id, String name, String ini, String cpr, String pw) throws DALException{
+		this( id, name, ini, cpr, pw, false);
 	}
 
+	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, boolean admin) throws DALException{
+		super(name, ini, cpr, pw, admin);
+		setID(id);
+	}
 	/**
 	 * Creates a new <code>OperatoerDTO</code> with the info from the provided
 	 * <code>Operator</code>-object and the given id
@@ -42,14 +38,15 @@ public class OperatoerDTO {
 	 *            The <code>Operator</code>-object containing the rest of the
 	 *            information
 	 */
-	public OperatoerDTO(int oprId, Operator op) {
-		this.oprId = oprId;
-		this.oprNavn = op.getOprNavn();
-		this.ini = op.getIni();
-		this.cpr = op.getCpr();
-		this.password = op.getPassword();
+	public OperatoerDTO(int oprId, Operator op) throws DALException{
+		super(op);
+		setID(oprId);
 	}
 
+	public int getOprId() { return oprId; }
+
+	public void setOprId(int id) { this.oprId = id; }
+	
 	public static boolean checkPassword(String password){
 		int i = 0;
 		if (password.matches(".*[0-9]+.*"))
@@ -58,73 +55,38 @@ public class OperatoerDTO {
 			i++;
 		if (password.matches(".*[A-Z]+.*"))
 			i++;
-		if (password.matches(".*\\W+.*"))
+		if (password.matches(".*[\\W_]+.*"))
 			i++;
-		if (password.contains(" ") || password.length() < 6)
+		if (password.contains(" ") || password.length() < 7 || password.length() > 8)
 			i=0;
 		if(i >= 3)
 			return true;
 		else
 			return false;
 	}
+	
 	public static String generatePassword(){
 		String numbers = "0123456789";
 		String lowerCase = "abcdefghijklmnopqrstuwxyz";
 		String upperCase = lowerCase.toUpperCase();
-		String specialChar = "!\"#¤%&/()=";
+		String specialChar = "!\"#¤%&/()=_";
 		String legalchars = numbers+lowerCase+upperCase+specialChar;
 		String returnString = "";
-		for(int i=0; i<6; i++){
+		returnString += lowerCase.charAt(new Random().nextInt(lowerCase.length()));
+		returnString += numbers.charAt(new Random().nextInt(numbers.length()));
+		returnString += upperCase.charAt(new Random().nextInt(upperCase.length()));
+		returnString += specialChar.charAt(new Random().nextInt(specialChar.length()));
+		while(returnString.length() < 7){
 			returnString += legalchars.charAt(new Random().nextInt(legalchars.length()));
 		}
-		if (!returnString.matches(".*[0-9]+.*"))
-			returnString += numbers.charAt(new Random().nextInt(numbers.length()));
-		if (!returnString.matches(".*[a-z]+.*"))
-			returnString += lowerCase.charAt(new Random().nextInt(lowerCase.length()));
-		if (!returnString.matches(".*[A-Z]+.*"))
-			returnString += upperCase.charAt(new Random().nextInt(upperCase.length()));
-		if (!returnString.matches(".*\\W+.*"))
-			returnString += specialChar.charAt(new Random().nextInt(specialChar.length()));
 		return returnString;
 	}
-	public int getOprId() {
-		return oprId;
-	}
-
-	public String getOprNavn() {
-		return oprNavn;
-	}
-
-	public String getIni() {
-		return ini;
-	}
-
-	public String getCpr() {
-		return cpr;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setOprId(int id) {
+	
+	private void setID(int id) throws DALException {
+		if ( id < 1)
+			throw new DALException("ID skal være større end 0");
+		if (id > 99999999)
+			throw new DALException("ID skal være mindre end 99999999");
 		this.oprId = id;
 	}
-
-	public void setOprNavn(String name) {
-		this.oprNavn = name;
-	}
-
-	public void setIni(String ini) {
-		this.ini = ini;
-	}
-
-	public void setCpr(String cpr) {
-		this.cpr = cpr;
-	}
-
-	public void setPassword(String pw) {
-		this.password = pw;
-	}
-
 }

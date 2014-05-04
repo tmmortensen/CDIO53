@@ -116,15 +116,15 @@ public class Admin implements ISubController {
 				switch(optionChoice){
 				case 1:
 					String newName = boundary.getString("Enter the new operator name");
-					operator.setOprNavn(newName);
+					try { operator.setOprNavn(newName); } catch (DALException e) {}
 					break;
 				case 2:
 					String newIni = boundary.getString("Enter the new operator initials");
-					operator.setOprNavn(newIni);
+					try { operator.setOprNavn(newIni); } catch (DALException e) {}
 					break;
 				case 3:
 					String newCpr = boundary.getString("Enter the new operator Cpr-number");
-					operator.setOprNavn(newCpr);
+					try { operator.setOprNavn(newCpr);} catch (DALException e) {}
 					break;
 				case 4:
 					do{

@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) throws DALException {
 		IBoundary boundary = new Boundary();
 		IOperatoerDAO data = new Data();
-		MainMenu mainMenu = new MainMenu(boundary, data);
+		MainMenuOld mainMenu = new MainMenuOld(boundary, data);
 		
 		//TODO sætte passwords til noget der overholder opgave beskrivelsen
 		OperatoerDTO newOp = new OperatoerDTO(11,"Test Guy", "TG", "123456-7890", OperatoerDTO.generatePassword());

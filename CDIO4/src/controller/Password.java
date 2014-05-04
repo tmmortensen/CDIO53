@@ -46,7 +46,7 @@ public class Password implements ISubController {
 			String newPass2 = boundary.getString("Repeat new password:");
 		
 			if (newPass1.equals(newPass2) && OperatoerDTO.checkPassword(newPass1)){
-				operator.setPassword(newPass1);
+				try { operator.setPassword(newPass1); } catch (DALException e) {}
 				try{
 					opData.updateOperatoer(operator);
 				}
