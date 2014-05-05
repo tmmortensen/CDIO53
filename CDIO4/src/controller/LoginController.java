@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet{
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null){
 			user = new User();
+			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}
 		
