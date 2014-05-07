@@ -40,7 +40,10 @@
 				}
 			%>
 		</tbody></table>
-		<A href="mainmenu">Hovedmenu</A>
+		<div class="buttons">
+			<A href="mainmenu">Hovedmenu</A>
+			<A href="login?logout=true">Log ud</A>
+		</div>
 	</div>
 </body>
 </html>

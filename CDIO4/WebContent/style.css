@@ -46,6 +46,11 @@ h1 {
 	border: 1px dashed white;
 }
 
+.buttons{
+	width: 12em;
+	margin: auto;
+}
+
 a {
 	text-align: center;
 	color: black;
@@ -65,6 +70,19 @@ a,input[type="submit"] {
 	margin-top: 1em;
 }
 
+tr a{
+	margin: auto;
+}
+
+.adminDialog a{
+	display: inline-block;
+	width: 6em;
+}
+
+.adminDialog table a{
+	width: 4em;
+}
+
 table{
 	border-collapse: collapse;
 }
@@ -78,16 +96,3 @@ tr{
 	border-color: black transparent;
 	vertical-align: middle;
 }
-
-tr a{
-	margin: auto;
-}
-
-.adminDialog a{
-	width: 6em;
-}
-
-.adminDialog table a{
-	width: 4em;
-}
-
