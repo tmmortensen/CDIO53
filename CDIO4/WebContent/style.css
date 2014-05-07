@@ -1,0 +1,93 @@
+h1 {
+	text-align: center;
+	-webkit-margin-before: 0;
+	color: white;
+}
+
+.dialog,.adminDialog {
+	padding: 20px;
+	margin: auto;
+	margin-top: 5em;
+	background: #448;
+	border: 4px outset #558;
+}
+
+.dialog {
+	width: 28em;
+}
+
+.adminDialog{
+	width: 35em;
+}
+
+.dialog label {
+	display: inline-block;
+	margin: 4px 2px;
+	padding: 2px 5px;
+	width: 40%;
+	background: #000;
+	color: #fff;
+}
+
+.dialog input {
+	width: 51%;
+	padding: 2px 5px;
+}
+
+.dialog input[type="submit"] {
+	width: 70px;
+}
+
+.error {
+	margin: 4px;
+	text-align: center;
+	color: white;
+	background: red;
+	border: 1px dashed white;
+}
+
+a {
+	text-align: center;
+	color: black;
+	padding: 2px;
+	font-style: normal;
+	text-decoration: none;
+	width: 5em;
+}
+
+a,input[type="submit"] {
+	display: block;
+	margin: auto;
+	background: Gainsboro;
+	border: 2px outset gray;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14px;
+	margin-top: 1em;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+td{
+	text-align: center;
+}
+
+tr{
+	border: 1px solid black;
+	border-color: black transparent;
+	vertical-align: middle;
+}
+
+tr a{
+	margin: auto;
+}
+
+.adminDialog a{
+	width: 6em;
+}
+
+.adminDialog table a{
+	width: 4em;
+}
+
