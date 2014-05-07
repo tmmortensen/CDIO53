@@ -10,8 +10,18 @@
     <servlet-name>LoginController</servlet-name>
     <servlet-class>controller.LoginController</servlet-class>
   </servlet>
+  <servlet>
+    <description>User Administration</description>
+    <display-name>UserAdminController</display-name>
+    <servlet-name>UserAdminController</servlet-name>
+    <servlet-class>controller.UserAdminController</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserAdminController</servlet-name>
+    <url-pattern>/user_admin</url-pattern>
   </servlet-mapping>
 </web-app>

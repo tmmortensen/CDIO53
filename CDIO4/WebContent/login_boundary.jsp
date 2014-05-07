@@ -14,7 +14,7 @@
 <body>
 	<div class="dialog">
 		<h1>Intast bruger ID og kodeord </h1>
-		<% if (error != null){ %> <div class="error"> <% out.print(error); %> </div> <%} %>
+		<% if (error != ""){ %> <div class="error"> <% out.print(error); %> </div> <%} %>
 		<form method="post">
 			<label for="userid">Bruger ID</label>
 			<input type="text" name="UserID" id="userid"

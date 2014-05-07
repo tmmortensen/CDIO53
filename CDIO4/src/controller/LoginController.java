@@ -6,19 +6,21 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import data.Data;
+import data.IDataReadOnly;
 
 public class LoginController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	Data data;
+	IDataReadOnly data;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (IDataReadOnly) getServletContext().getAttribute("data");
 		if (data == null){
-			data = new Data();
-			getServletContext().setAttribute("data", data);
+			Data newdata = new Data();
+			getServletContext().setAttribute("data", newdata);
+			data = newdata;
 		}
 	}
 	
