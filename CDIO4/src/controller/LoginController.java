@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,6 +29,7 @@ public class LoginController extends HttpServlet{
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null){
 			user = new User();
+			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}
 		
