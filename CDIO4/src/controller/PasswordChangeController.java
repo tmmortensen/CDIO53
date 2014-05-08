@@ -39,7 +39,7 @@ public class PasswordChangeController extends HttpServlet {
 			response.sendRedirect("login");
 			return;
 		} 
-		
+
 		String error = "";
 		
 		String sNewPword1 = request.getParameter("newPword1");
