@@ -22,6 +22,12 @@
   	<servlet-name>TestController</servlet-name>
   	<servlet-class>controller.TestController</servlet-class>
   </servlet>
+   <servlet>
+  	<description>Password Change</description>
+  	<display-name>PasswordChangeController</display-name>
+  	<servlet-name>PasswordChangeController</servlet-name>
+  	<servlet-class>controller.PasswordChangeController</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/login</url-pattern>
@@ -33,5 +39,9 @@
   <servlet-mapping>
   	<servlet-name>TestController</servlet-name>
   	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PasswordChangeController</servlet-name>
+  	<url-pattern>/password_change</url-pattern>
   </servlet-mapping>
 </web-app>
