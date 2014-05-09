@@ -1,11 +1,10 @@
 package controller;
 
 import java.io.IOException;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
-
 import data.Data;
+import data.OperatoerDTO;
 
 /**
  * Servlet implementation class TestController
@@ -13,6 +12,7 @@ import data.Data;
 public class PasswordChangeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Data data;
+	OperatoerDTO opr;
        
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
@@ -49,16 +49,24 @@ public class PasswordChangeController extends HttpServlet {
 		
 		if (sUid != null) {
 				int iUid = Integer.parseInt(sUid);
-				if (!user.checkId(iUid)){
-//					idError = "Det indtastede bruger id er ikke korrekt";
-					idError = sUid;
-				}
+
+					if (opr.getOprId() != iUid){
+//						idError = "Det indtastede bruger id er ikke korrekt";
+						idError = sUid;
+					}
+					else {
+						idError = "Bruger ID: " + sUid;
+					}
 			}
 		
-		if (pword != null){
-				if (!user.checkPassword(pword)){
+		if (pword != null) {
+			
+				if (!opr.getPassword().equals(pword)){
 //					pwError = "Det indtastede password er ikke korrekt";
 					pwError = "password er: " + pword;
+				}
+				else {
+					pwError = "Password er: " + pword;
 				}
 		}
 		

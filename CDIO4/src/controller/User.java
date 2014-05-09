@@ -26,16 +26,6 @@ public class User {
 		return isLoggedIn();
 	}
 	
-	public boolean checkId(int id){
-		this.userId = id;
-		return getUserId();
-	}
-	
-	public boolean checkPassword(String password){
-		this.password = password;
-		return getUserId();
-	}
-	
 	public void logout(){
 		this.userId = 0;
 		this.password = "";
@@ -48,28 +38,6 @@ public class User {
 				return true;
 		} catch (Exception e){}
 		return false;
-	}
-	
-	public boolean getUserId(){
-			try {
-				OperatoerDTO operator = data.getOperatoer(userId);
-				if(operator.getPassword().equals(password));
-					return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;
-	}
-	
-	public String getUserPassword(){
-		try {
-			OperatoerDTO operator = data.getOperatoer(userId);
-			if (operator.getPassword().equals(password))
-				return this.password;
-		} catch (Exception e) {
-			
-		}
-		return password;
 	}
 	
 	public boolean isAdmin(){
