@@ -4,14 +4,16 @@ h1 {
 	color: white;
 }
 
-.dialog,.adminDialog {
+.dialog,.adminDialog, .main_menu {
 	padding: 20px;
 	margin: auto;
 	margin-top: 5em;
 	background: #448;
 	border: 4px outset #558;
 }
-
+.main_menu{
+	width: 20em;
+}
 .dialog {
 	width: 28em;
 }
@@ -78,6 +80,20 @@ tr a{
 	display: inline-block;
 	width: 6em;
 }
+.main_menu a{
+	width: 14em;
+	margin: auto;
+}
+
+.dialog .buttons a{
+	display: inline-block;
+	width: 6em;
+}
+
+.dialog .buttons a{
+	display: inline-block;
+	width: 6em;
+}
 
 .adminDialog table a{
 	width: 4em;
@@ -95,4 +111,8 @@ tr{
 	border: 1px solid black;
 	border-color: black transparent;
 	vertical-align: middle;
+}
+
+input[value="Skift Password"]{
+	width: 10em;
 }
