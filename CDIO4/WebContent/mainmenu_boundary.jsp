@@ -12,6 +12,7 @@
 </head>
 <body>
 <div class="main_menu">
+	<h1>Hovedmenu</h1>
 <%
 	for(MenuOption option: menuChoices){
 		out.print("<A href=\"" + option.url + "\">" + option.name + "</A><BR>" ); 

@@ -19,8 +19,8 @@ public class UserInfo {
 		name = operator.getOprNavn();
 		cpr = operator.getCpr();
 		admin = operator.isAdmin();
-		deleURL = "/confirm_delete?id=" + id;
-		editURL = "/edit_user?id=" + id;
+		deleURL = "confirm_delete?id=" + id;
+		editURL = "edit_user?id=" + id;
 	}
 
 }

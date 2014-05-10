@@ -17,7 +17,7 @@
 </head>
 <body>
 
-	<div class="dialog">
+	<div class="password_dialog">
 	<% if(success){%>
 		<h1>Dit password er ændret</h1>
 		<%}else{  %>

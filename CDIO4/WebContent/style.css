@@ -4,25 +4,34 @@ h1 {
 	color: white;
 }
 
-.dialog,.adminDialog, .main_menu {
+.dialog,
+.adminDialog,
+.main_menu,
+.delete_dialog,
+.password_dialog{
 	padding: 20px;
 	margin: auto;
 	margin-top: 5em;
 	background: #448;
 	border: 4px outset #558;
 }
+
 .main_menu{
 	width: 20em;
 }
-.dialog {
+
+.dialog,
+.password_dialog {
 	width: 28em;
 }
 
-.adminDialog{
+.adminDialog,
+.delete_dialog{
 	width: 35em;
 }
 
-.dialog label {
+.dialog label, 
+.password_dialog label{
 	display: inline-block;
 	margin: 4px 2px;
 	padding: 2px 5px;
@@ -31,13 +40,18 @@ h1 {
 	color: #fff;
 }
 
-.dialog input {
+.dialog input, 
+.password_dialog input{
 	width: 51%;
 	padding: 2px 5px;
 }
 
 .dialog input[type="submit"] {
 	width: 70px;
+}
+
+.password_dialog input[type="submit"]{
+	width: 10em;
 }
 
 .error {
@@ -49,8 +63,9 @@ h1 {
 }
 
 .buttons{
-	width: 12em;
+	width: 14em;
 	margin: auto;
+	margin-top: 2em; 
 }
 
 a {
@@ -80,24 +95,32 @@ tr a{
 	display: inline-block;
 	width: 6em;
 }
+
+.adminDialog .buttons a{
+	display: inline-block;
+	margin: 0.5em;
+	width: 6em;
+}
+
 .main_menu a{
 	width: 14em;
 	margin: auto;
 }
 
-.dialog .buttons a{
+.dialog .buttons a,
+.password_dialog .buttons a{
 	display: inline-block;
+	margin: 0.5em;
 	width: 6em;
 }
 
-.dialog .buttons a{
+.delete_dialog .buttons a,
+.delete_dialog .buttons input{
 	display: inline-block;
-	width: 6em;
-}
-
-.dialog .buttons a{
-	display: inline-block;
-	width: 6em;
+	width: 5em;
+	margin: 0.5em;
+	margin-top: 1em;
+	padding : 2px;
 }
 
 .adminDialog table a{
@@ -105,6 +128,7 @@ tr a{
 }
 
 table{
+	margin: auto;
 	border-collapse: collapse;
 }
 
@@ -118,6 +142,6 @@ tr{
 	vertical-align: middle;
 }
 
-input[value="Skift Password"]{
+.long_button{
 	width: 10em;
 }

@@ -29,6 +29,10 @@
 				value="<% out.print(netto); %>">
 			<input type="submit" value="Beregn">
 		</form>
+		<div class="buttons">
+			<A href="mainmenu">Hovedmenu</A>
+			<A href="login?logout=true">Log ud</A>
+		</div>
 	</div>
 </body>
 </html>
