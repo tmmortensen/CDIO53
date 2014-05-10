@@ -16,6 +16,7 @@ public class EditUserController extends HttpServlet {
 
 	Data data;
 	UserInfo userinfo = (UserInfo) getServletContext().getAttribute("user");
+	boolean first_visit = true;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -33,6 +34,34 @@ public class EditUserController extends HttpServlet {
 		String ini = request.getParameter("userINI");
 		String name = request.getParameter("userNAME");
 		String cpr = request.getParameter("userCPR");
+		User user = (User) request.getSession().getAttribute("user");
+		if (user == null) {
+			user = new User();
+			user.init(data);
+			request.getSession().setAttribute("user", user);
+		}
+
+		if (first_visit) {
+			String InUid = request.getParameter("id");
+			int IntUid = Integer.parseInt(InUid);
+			try {
+				String Inini = data.getOperatoer(IntUid).getIni();
+				String Inname = data.getOperatoer(IntUid).getOprNavn();
+				String Incpr = data.getOperatoer(IntUid).getCpr();
+				request.setAttribute("userID", InUid);
+				request.setAttribute("userINI", Inini);
+				request.setAttribute("userNAME", Inname);
+				request.setAttribute("userCPR", Incpr);
+				RequestDispatcher dispatcher = getServletContext()
+						.getRequestDispatcher("/edit_user.jsp");
+				dispatcher.forward(request, response);
+				first_visit = false; 
+				return;
+			} catch (DALException e1) {
+				e1.printStackTrace();
+			}
+
+		}
 
 		if (uid.equals(userinfo.id) && ini.equals(userinfo.ini)
 				&& name.equals(userinfo.name) && cpr.equals(userinfo.cpr)) {
@@ -45,6 +74,7 @@ public class EditUserController extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/edit_user.jsp");
 			dispatcher.forward(request, response);
+			return;
 
 		} else {
 			int Uid = Integer.parseInt(uid);
@@ -53,9 +83,9 @@ public class EditUserController extends HttpServlet {
 				try {
 					String password = data.getOperatoer(userinfo.id)
 							.getPassword();
-					data.deleteOperatoer(Uid);
-					data.createOperatoer(new OperatoerDTO(Uid, ini, name, cpr,
-							password));
+					OperatoerDTO opr = new OperatoerDTO(Uid, name, ini, cpr,
+							password);
+					data.updateOperatoer(opr);
 
 				} catch (DALException e) {
 					// TODO Auto-generated catch block
@@ -65,9 +95,9 @@ public class EditUserController extends HttpServlet {
 				try {
 					String password = data.getOperatoer(userinfo.id)
 							.getPassword();
-					data.deleteOperatoer(userinfo.id);
 					data.createOperatoer(new OperatoerDTO(Uid, ini, name, cpr,
 							password));
+					data.deleteOperatoer(userinfo.id);
 
 				} catch (DALException e) {
 					e.printStackTrace();
