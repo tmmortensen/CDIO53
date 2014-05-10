@@ -15,7 +15,6 @@ public class EditUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	Data data;
-	UserInfo userinfo = (UserInfo) getServletContext().getAttribute("user");
 	boolean first_visit = true;
 
 	public void init(ServletConfig config) throws ServletException {
@@ -40,10 +39,11 @@ public class EditUserController extends HttpServlet {
 			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}
+		String InUid = request.getParameter("id");
+		int IntUid = Integer.parseInt(InUid);
 
 		if (first_visit) {
-			String InUid = request.getParameter("id");
-			int IntUid = Integer.parseInt(InUid);
+
 			try {
 				String Inini = data.getOperatoer(IntUid).getIni();
 				String Inname = data.getOperatoer(IntUid).getOprNavn();
@@ -56,63 +56,70 @@ public class EditUserController extends HttpServlet {
 						.getRequestDispatcher("/edit_user.jsp");
 				dispatcher.forward(request, response);
 				first_visit = false;
+
 				return;
 			} catch (DALException e1) {
 				e1.printStackTrace();
 			}
 
 		}
+		OperatoerDTO operator;
 
-		if (uid.equals(userinfo.id) && ini.equals(userinfo.ini)
-				&& name.equals(userinfo.name) && cpr.equals(userinfo.cpr)) {
-			err = "du har ikke ændret noget!";
-			request.setAttribute("userID", uid);
-			request.setAttribute("userINI", ini);
-			request.setAttribute("userNAME", name);
-			request.setAttribute("userCPR", cpr);
-			request.setAttribute("error", err);
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/edit_user.jsp");
-			dispatcher.forward(request, response);
-			return;
+		try {
+			operator = data.getOperatoer(IntUid);
+			if (uid.equals(InUid) && ini.equals(operator.getIni())
+					&& name.equals(operator.getOprNavn())
+					&& cpr.equals(operator.getCpr())) {
+				err = "du har ikke ï¿½ndret noget!";
+				request.setAttribute("userID", uid);
+				request.setAttribute("userINI", ini);
+				request.setAttribute("userNAME", name);
+				request.setAttribute("userCPR", cpr);
+				request.setAttribute("error", err);
+				RequestDispatcher dispatcher = getServletContext()
+						.getRequestDispatcher("/edit_user.jsp");
+				dispatcher.forward(request, response);
+				return;
 
-		} else {
-			int Uid = Integer.parseInt(uid);
-
-			if (Uid == userinfo.id) {
-				try {
-					String password = data.getOperatoer(userinfo.id)
-							.getPassword();
-					OperatoerDTO opr = new OperatoerDTO(Uid, name, ini, cpr,
-							password);
-					data.updateOperatoer(opr);
-
-				} catch (DALException e) {
-					err = e.getMessage();
-				}
 			} else {
-				try {
-					String password = data.getOperatoer(userinfo.id)
-							.getPassword();
-					data.createOperatoer(new OperatoerDTO(Uid, ini, name, cpr,
-							password));
-					data.deleteOperatoer(userinfo.id);
+				int Uid = Integer.parseInt(uid);
 
-				} catch (DALException e) {
-					err = e.getMessage();
-					request.setAttribute("error", err);
-					request.setAttribute("userID", uid);
-					request.setAttribute("userINI", ini);
-					request.setAttribute("userNAME", name);
-					request.setAttribute("userCPR", cpr);
+				if (uid.equals(InUid)) {
+					try {
+						String password = data.getOperatoer(Uid).getPassword();
+						OperatoerDTO opr = new OperatoerDTO(Uid, name, ini,
+								cpr, password);
+						data.updateOperatoer(opr);
 
-					RequestDispatcher dispatcher = getServletContext()
-							.getRequestDispatcher("/edit_user.jsp");
-					dispatcher.forward(request, response);
-					return;
+					} catch (DALException e) {
+						err = e.getMessage();
+					}
+				} else {
+					try {
+						String password = data.getOperatoer(IntUid)
+								.getPassword();
+						data.createOperatoer(new OperatoerDTO(Uid, ini, name,
+								cpr, password));
+						data.deleteOperatoer(IntUid);
+
+					} catch (DALException e) {
+						err = e.getMessage();
+						request.setAttribute("error", err);
+						request.setAttribute("userID", uid);
+						request.setAttribute("userINI", ini);
+						request.setAttribute("userNAME", name);
+						request.setAttribute("userCPR", cpr);
+
+						RequestDispatcher dispatcher = getServletContext()
+								.getRequestDispatcher("/edit_user.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+
 				}
-
 			}
+		} catch (Exception e) {
+			e.getMessage();
 		}
 
 		request.setAttribute("userID", uid);
