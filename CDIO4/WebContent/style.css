@@ -95,6 +95,11 @@ tr a{
 	width: 6em;
 }
 
+.dialog .buttons a{
+	display: inline-block;
+	width: 6em;
+}
+
 .adminDialog table a{
 	width: 4em;
 }
