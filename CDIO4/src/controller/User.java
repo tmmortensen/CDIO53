@@ -47,4 +47,8 @@ public class User {
 		} catch (Exception e) {}
 		return false;
 	}
+	
+	public int getId(){
+		return userId;
+	}
 }

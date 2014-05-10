@@ -79,6 +79,11 @@ tr a{
 	width: 6em;
 }
 
+.dialog .buttons a{
+	display: inline-block;
+	width: 6em;
+}
+
 .adminDialog table a{
 	width: 4em;
 }
@@ -95,4 +100,8 @@ tr{
 	border: 1px solid black;
 	border-color: black transparent;
 	vertical-align: middle;
+}
+
+input[value="Skift Password"]{
+	width: 10em;
 }
