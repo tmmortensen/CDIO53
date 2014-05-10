@@ -28,7 +28,12 @@
   	<servlet-name>PasswordChangeController</servlet-name>
   	<servlet-class>controller.PasswordChangeController</servlet-class>
   </servlet>
-  <servlet-mapping>
+  <servlet>
+  	<description>Main menuen</description>
+  	<display-name>MainMenuController</display-name>
+  	<servlet-name>MainMenuController</servlet-name>
+  	<servlet-class>controller.MainMenuController</servlet-class>
+  </servlet><servlet-mapping>
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
@@ -44,4 +49,9 @@
   	<servlet-name>PasswordChangeController</servlet-name>
   	<url-pattern>/password_change</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MainMenuController</servlet-name>
+  	<url-pattern>/mainmenu</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

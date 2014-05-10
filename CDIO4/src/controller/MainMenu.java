@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-
 import data.MenuOption;
 
 public class MainMenu {
@@ -16,5 +15,5 @@ public class MainMenu {
 		}
 		return options;
 	}
-
+	
 }
