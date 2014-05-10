@@ -55,7 +55,7 @@ public class EditUserController extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext()
 						.getRequestDispatcher("/edit_user.jsp");
 				dispatcher.forward(request, response);
-				first_visit = false; 
+				first_visit = false;
 				return;
 			} catch (DALException e1) {
 				e1.printStackTrace();
@@ -88,8 +88,7 @@ public class EditUserController extends HttpServlet {
 					data.updateOperatoer(opr);
 
 				} catch (DALException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					err = e.getMessage();
 				}
 			} else {
 				try {
@@ -100,7 +99,17 @@ public class EditUserController extends HttpServlet {
 					data.deleteOperatoer(userinfo.id);
 
 				} catch (DALException e) {
-					e.printStackTrace();
+					err = e.getMessage();
+					request.setAttribute("error", err);
+					request.setAttribute("userID", uid);
+					request.setAttribute("userINI", ini);
+					request.setAttribute("userNAME", name);
+					request.setAttribute("userCPR", cpr);
+
+					RequestDispatcher dispatcher = getServletContext()
+							.getRequestDispatcher("/edit_user.jsp");
+					dispatcher.forward(request, response);
+					return;
 				}
 
 			}
@@ -110,10 +119,12 @@ public class EditUserController extends HttpServlet {
 		request.setAttribute("userINI", ini);
 		request.setAttribute("userNAME", name);
 		request.setAttribute("userCPR", cpr);
+		request.setAttribute("error", err);
 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/edit_user.jsp");
 		dispatcher.forward(request, response);
+		return;
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
