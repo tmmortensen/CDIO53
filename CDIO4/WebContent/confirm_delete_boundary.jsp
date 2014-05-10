@@ -3,6 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="error" class="java.lang.String" scope="request"/>
 <jsp:useBean id="userInfo" class="data.UserInfo" scope="request"/>
+<%
+	boolean done = (Boolean) request.getAttribute("done");
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -15,8 +18,12 @@
 		<h1>Bruger sletning</h1>
 		<%  out.print(error); %>
 		<a href="user_admin">OK</a>
-		<% } else {%>
+		<% } else {
+			if (!done) {%>
 		<h1>Bekræft at du vil slette følgende bruger:</h1>
+		<%} else { %>
+		<h1>Denne bruger er blevet slettet</h1>
+		<%}  %>
 		<table border="1"><tbody>
 			<tr>
 				<th>ID</th>
@@ -32,21 +39,24 @@
 			out.println("\t\t\t\t\t<td>" + userInfo.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + userInfo.cpr + "</td>\n");
 			if (userInfo.admin)
-				out.println("\t\t\t\t\t<td>X</td>\n");
+				out.println("\t\t\t\t\t<td>Ja</td>\n");
 			else
-				out.println("\t\t\t\t\t<td> </td>\n");
+				out.println("\t\t\t\t\t<td>Nej</td>\n");
 		%>
 		</tbody></table>
-		
-		<form method="post">
+		<% if (!done) {%>
+		<div class="buttons">
+			<form method="post">
 			<input type="hidden" name="confirmed" id="confirmed"
 				value="true">
-		</form>
-		<div class="buttons">
 			<input type="submit" value="Slet">
-			<a href="user_admin">Annullér</a>
+		</form>
+		<a href="user_admin">Annullér</a>
 		</div>
-		<%} %>
+		<%} else { %>
+		<a href="user_admin">Tilbage</a>
+		<%}
+		} %>
 	</div>
 </body>
 </html>

@@ -11,11 +11,9 @@ import data.OperatoerDTO;
 import data.UserInfo;
 
 public class EditUserController extends HttpServlet {
-
 	private static final long serialVersionUID = 1L;
 
 	Data data;
-	boolean first_visit = true;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -28,110 +26,149 @@ public class EditUserController extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String err = "";
-		String uid = request.getParameter("userID");
-		String ini = request.getParameter("userINI");
-		String name = request.getParameter("userNAME");
-		String cpr = request.getParameter("userCPR");
+
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			user = new User();
 			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}
-		String InUid = request.getParameter("id");
-		int IntUid = Integer.parseInt(InUid);
 
-		if (first_visit) {
-
-			try {
-				String Inini = data.getOperatoer(IntUid).getIni();
-				String Inname = data.getOperatoer(IntUid).getOprNavn();
-				String Incpr = data.getOperatoer(IntUid).getCpr();
-				request.setAttribute("userID", InUid);
-				request.setAttribute("userINI", Inini);
-				request.setAttribute("userNAME", Inname);
-				request.setAttribute("userCPR", Incpr);
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("/edit_user.jsp");
-				dispatcher.forward(request, response);
-				first_visit = false;
-
-				return;
-			} catch (DALException e1) {
-				e1.printStackTrace();
-			}
-
+		if (!user.isLoggedIn()) {
+			response.sendRedirect("login");
+			return;
 		}
-		OperatoerDTO operator;
+
+		if (!user.isAdmin()) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return;
+		}
+
+		String sNewId = "";
+		UserInfo info = new UserInfo();
+		UserInfo old = new UserInfo();
+		UserInfo error = new UserInfo();
+		String idError = "";
+		String majorError = "";
+		boolean anyError = false;
+
+		String sOperatorId = request.getParameter("id");
+		int iOperatorId = 0;
 
 		try {
-			operator = data.getOperatoer(IntUid);
-			if (uid.equals(InUid) && ini.equals(operator.getIni())
-					&& name.equals(operator.getOprNavn())
-					&& cpr.equals(operator.getCpr())) {
-				err = "du har ikke �ndret noget!";
-				request.setAttribute("userID", uid);
-				request.setAttribute("userINI", ini);
-				request.setAttribute("userNAME", name);
-				request.setAttribute("userCPR", cpr);
-				request.setAttribute("error", err);
-				RequestDispatcher dispatcher = getServletContext()
-						.getRequestDispatcher("/edit_user.jsp");
-				dispatcher.forward(request, response);
-				return;
-
-			} else {
-				int Uid = Integer.parseInt(uid);
-
-				if (uid.equals(InUid)) {
-					try {
-						String password = data.getOperatoer(Uid).getPassword();
-						OperatoerDTO opr = new OperatoerDTO(Uid, name, ini,
-								cpr, password);
-						data.updateOperatoer(opr);
-
-					} catch (DALException e) {
-						err = e.getMessage();
-					}
-				} else {
-					try {
-						String password = data.getOperatoer(IntUid)
-								.getPassword();
-						data.createOperatoer(new OperatoerDTO(Uid, ini, name,
-								cpr, password));
-						data.deleteOperatoer(IntUid);
-
-					} catch (DALException e) {
-						err = e.getMessage();
-						request.setAttribute("error", err);
-						request.setAttribute("userID", uid);
-						request.setAttribute("userINI", ini);
-						request.setAttribute("userNAME", name);
-						request.setAttribute("userCPR", cpr);
-
-						RequestDispatcher dispatcher = getServletContext()
-								.getRequestDispatcher("/edit_user.jsp");
-						dispatcher.forward(request, response);
-						return;
-					}
-
-				}
-			}
-		} catch (Exception e) {
-			e.getMessage();
+			iOperatorId = Integer.parseInt(sOperatorId);
+		} catch (NumberFormatException e) {
+			majorError = "Bruger id er ugyldigt";
+			anyError = true;
 		}
 
-		request.setAttribute("userID", uid);
-		request.setAttribute("userINI", ini);
-		request.setAttribute("userNAME", name);
-		request.setAttribute("userCPR", cpr);
-		request.setAttribute("error", err);
+		if (request.getMethod().equals("GET")) {
+			try {
+				OperatoerDTO opr = data.getOperatoer(iOperatorId);
+				sNewId = sOperatorId;
+				info = new UserInfo(opr);
+				request.setAttribute("info", info);
+			} catch (DALException e1) {
+				majorError = "Der findes ingen bruger med det angivne id";
+				anyError = true;
+			}
+		} else {
+			info = new UserInfo();
+			
+			sNewId = request.getParameter("newId");
+			info.ini = request.getParameter("newIni");
+			info.name = request.getParameter("newName");
+			info.cpr = request.getParameter("newCPR");
+			info.admin = (request.getParameter("newAdmin") != null &&
+					request.getParameter("newAdmin").equals("true"));
+
+			try{
+				info.id = Integer.parseInt(sNewId);
+			} catch (NumberFormatException e){
+				info.id = 0;
+				idError = "Det indtastede bruger id er ikke et tal";
+				anyError = true;
+			}
+			
+			OperatoerDTO operator;
+			try {
+				operator = data.getOperatoer(iOperatorId);
+
+				try {
+					operator.setOprId(info.id);
+				} catch (DALException e){
+					idError = e.getMessage();
+					anyError = true;
+				}
+				
+				try {
+					operator.setIni(info.ini);
+				} catch (DALException e){
+					error.ini = e.getMessage();
+					anyError = true;
+				}
+				
+				try {
+					operator.setOprNavn(info.name);
+				} catch (DALException e){
+					error.name = e.getMessage();
+					anyError = true;
+				}
+				
+				try {
+					operator.setCpr(info.cpr);
+				} catch (DALException e){
+					error.cpr = e.getMessage();
+					anyError = true;
+				}
+				
+				operator.setAdmin(info.admin);
+				
+				if (!anyError){
+					old = new UserInfo(data.getOperatoer(iOperatorId));
+					if (iOperatorId == info.id) {
+						try { data.updateOperatoer(operator);} 
+						catch (DALException e) {
+							idError = e.getMessage();
+							anyError = true;
+						}
+					} else {
+						try {
+							data.createOperatoer(operator);
+							data.deleteOperatoer(iOperatorId);
+						} catch (DALException e) {
+							idError = e.getMessage();
+							anyError = true;
+						}
+					}
+				} else if (iOperatorId != info.id) {
+					try { 
+						data.getOperatoer(info.id);
+						idError = "Dette id er optaget";
+					}
+					catch (DALException e) {}
+				}
+			} catch (Exception e) {
+				majorError = "Brugeren med det givne id findes ikke længere";
+			}
+		}
+		
+		request.setAttribute("majorError", majorError);
+		request.setAttribute("error", error);
+		request.setAttribute("idError", idError);
+		request.setAttribute("complete", !anyError && request.getMethod().equals("POST"));
+		
+		request.setAttribute("newId", sNewId);
+		request.setAttribute("oldId", sOperatorId);
+		request.setAttribute("info", info);
+		request.setAttribute("old", old);
+		
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/edit_user.jsp");
+				.getRequestDispatcher("/edit_user_boundary.jsp");
 		dispatcher.forward(request, response);
-		return;
+		
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)

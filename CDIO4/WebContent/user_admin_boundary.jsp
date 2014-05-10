@@ -31,15 +31,16 @@
 					out.println("\t\t\t\t\t<td>" + user.name + "</td>\n");
 					out.println("\t\t\t\t\t<td>" + user.cpr + "</td>\n");
 					if (user.admin)
-						out.println("\t\t\t\t\t<td>X</td>\n");
+						out.println("\t\t\t\t\t<td>Ja</td>\n");
 					else
-						out.println("\t\t\t\t\t<td> </td>\n");
+						out.println("\t\t\t\t\t<td>Nej</td>\n");
 					out.println("\t\t\t\t\t<td><A href=\"" + user.editURL + "\">Rediger</A></td>\n");
 					out.println("\t\t\t\t\t<td><A href=\"" + user.deleURL + "\">Slet</A></td>\n");
 					out.println("\t\t\t\t</tr>\n");
 				}
 			%>
 		</tbody></table>
+		<A href="new_user">Opret ny bruger</A>
 		<div class="buttons">
 			<A href="mainmenu">Hovedmenu</A>
 			<A href="login?logout=true">Log ud</A>

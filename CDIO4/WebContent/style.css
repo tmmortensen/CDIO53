@@ -68,6 +68,10 @@ h1 {
 	margin-top: 2em; 
 }
 
+.delete_dialog .buttons{
+	width: 12em;
+}
+
 a {
 	text-align: center;
 	color: black;
@@ -92,8 +96,8 @@ tr a{
 }
 
 .adminDialog a{
-	display: inline-block;
-	width: 6em;
+	display: block;
+	width: 10em;
 }
 
 .adminDialog .buttons a{
@@ -144,4 +148,8 @@ tr{
 
 .long_button{
 	width: 10em;
+}
+
+.buttons form{
+	display: inline-block;
 }

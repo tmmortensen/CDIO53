@@ -46,6 +46,12 @@
   	<servlet-name>ConfirmDeleteController</servlet-name>
   	<servlet-class>controller.ConfirmDeleteController</servlet-class>
   </servlet>
+  <servlet>
+  	<description>Creation of a new user</description>
+  	<display-name>NewUserController</display-name>
+  	<servlet-name>NewUserController</servlet-name>
+  	<servlet-class>controller.NewUserController</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/login</url-pattern>
@@ -73,5 +79,9 @@
   <servlet-mapping>
   	<servlet-name>ConfirmDeleteController</servlet-name>
   	<url-pattern>/confirm_delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>NewUserController</servlet-name>
+  	<url-pattern>/new_user</url-pattern>
   </servlet-mapping>
 </web-app>
