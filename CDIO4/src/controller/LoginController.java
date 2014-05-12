@@ -1,26 +1,26 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import data.Data;
+import data.IDataReadOnly;
 
 public class LoginController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	Data data;
+	IDataReadOnly data;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (IDataReadOnly) getServletContext().getAttribute("data");
 		if (data == null){
-			data = new Data();
-			getServletContext().setAttribute("data", data);
+			Data newdata = new Data();
+			getServletContext().setAttribute("data", newdata);
+			data = newdata;
 		}
 	}
 	
@@ -42,15 +42,15 @@ public class LoginController extends HttpServlet{
 		}
 
 		String redirect;
-		if (request.getParameter("Redirect") != null)
-			redirect = request.getParameter("Redirect");
+		if (request.getParameter("redirect") != null)
+			redirect = request.getParameter("redirect");
 		else
 			redirect = "mainmenu";
 
-		String uid = request.getParameter("UserID");
-		String pword = request.getParameter("Password");
+		String uid = request.getParameter("userId");
+		String pword = request.getParameter("password");
 
-		String logout = request.getParameter("Logout");
+		String logout = request.getParameter("logout");
 		if (logout != null && logout.toLowerCase().equals("true")){
 			user.logout();
 		}
@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet{
 		// ^^ er kun til test
 		
 		request.setAttribute("error", loginError);
-		request.setAttribute("userID", uid);
+		request.setAttribute("userId", uid);
 		request.setAttribute("password", pword);
 		request.setAttribute("redirect", redirect);
 		

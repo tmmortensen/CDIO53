@@ -92,9 +92,9 @@ public class Operator {
 	}
 
 	public void setPassword(String newpassword)  throws DALException {
-		if (newpassword.length() < 6)
+		if (newpassword.length() < 7)
 			throw new DALException("Kodeord er for kort");
-		if (newpassword.length() > 7)
+		if (newpassword.length() > 8)
 			throw new DALException("Kodeord er for langt");
 		this.password = newpassword;
 	}

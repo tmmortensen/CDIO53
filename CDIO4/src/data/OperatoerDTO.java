@@ -26,7 +26,7 @@ public class OperatoerDTO extends Operator{
 
 	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, boolean admin) throws DALException{
 		super(name, ini, cpr, pw, admin);
-		setID(id);
+		setOprId(id);
 	}
 	/**
 	 * Creates a new <code>OperatoerDTO</code> with the info from the provided
@@ -40,13 +40,11 @@ public class OperatoerDTO extends Operator{
 	 */
 	public OperatoerDTO(int oprId, Operator op) throws DALException{
 		super(op);
-		setID(oprId);
+		setOprId(oprId);
 	}
 
 	public int getOprId() { return oprId; }
 
-	public void setOprId(int id) { this.oprId = id; }
-	
 	public static boolean checkPassword(String password){
 		int i = 0;
 		if (password.matches(".*[0-9]+.*"))
@@ -82,7 +80,7 @@ public class OperatoerDTO extends Operator{
 		return returnString;
 	}
 	
-	private void setID(int id) throws DALException {
+	public void setOprId(int id) throws DALException {
 		if ( id < 1)
 			throw new DALException("ID skal være større end 0");
 		if (id > 99999999)

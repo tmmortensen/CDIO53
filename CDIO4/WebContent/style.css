@@ -1,0 +1,155 @@
+h1 {
+	text-align: center;
+	-webkit-margin-before: 0;
+	color: white;
+}
+
+.dialog,
+.adminDialog,
+.main_menu,
+.delete_dialog,
+.password_dialog{
+	padding: 20px;
+	margin: auto;
+	margin-top: 5em;
+	background: #448;
+	border: 4px outset #558;
+}
+
+.main_menu{
+	width: 20em;
+}
+
+.dialog,
+.password_dialog {
+	width: 28em;
+}
+
+.adminDialog,
+.delete_dialog{
+	width: 35em;
+}
+
+.dialog label, 
+.password_dialog label{
+	display: inline-block;
+	margin: 4px 2px;
+	padding: 2px 5px;
+	width: 40%;
+	background: #000;
+	color: #fff;
+}
+
+.dialog input, 
+.password_dialog input{
+	width: 51%;
+	padding: 2px 5px;
+}
+
+.dialog input[type="submit"] {
+	width: 70px;
+}
+
+.password_dialog input[type="submit"]{
+	width: 10em;
+}
+
+.error {
+	margin: 4px;
+	text-align: center;
+	color: white;
+	background: red;
+	border: 1px dashed white;
+}
+
+.buttons{
+	width: 14em;
+	margin: auto;
+	margin-top: 2em; 
+}
+
+.delete_dialog .buttons{
+	width: 12em;
+}
+
+a {
+	text-align: center;
+	color: black;
+	padding: 2px;
+	font-style: normal;
+	text-decoration: none;
+	width: 5em;
+}
+
+a,input[type="submit"] {
+	display: block;
+	margin: auto;
+	background: Gainsboro;
+	border: 2px outset gray;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14px;
+	margin-top: 1em;
+}
+
+tr a{
+	margin: auto;
+}
+
+.adminDialog a{
+	display: block;
+	width: 10em;
+}
+
+.adminDialog .buttons a{
+	display: inline-block;
+	margin: 0.5em;
+	width: 6em;
+}
+
+.main_menu a{
+	width: 14em;
+	margin: auto;
+}
+
+.dialog .buttons a,
+.password_dialog .buttons a{
+	display: inline-block;
+	margin: 0.5em;
+	width: 6em;
+}
+
+.delete_dialog .buttons a,
+.delete_dialog .buttons input{
+	display: inline-block;
+	width: 5em;
+	margin: 0.5em;
+	margin-top: 1em;
+	padding : 2px;
+}
+
+.adminDialog table a{
+	width: 4em;
+}
+
+table{
+	margin: auto;
+	border-collapse: collapse;
+}
+
+td{
+	text-align: center;
+}
+
+tr{
+	border: 1px solid black;
+	border-color: black transparent;
+	vertical-align: middle;
+}
+
+.long_button{
+	width: 10em;
+}
+
+.buttons form{
+	display: inline-block;
+}
