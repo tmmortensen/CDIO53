@@ -5,21 +5,21 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.Data;
-import admin.data.IDataReadOnly;
+import admin.data.UserData;
+import admin.data.IUserReadOnly;
 
 /**
  * Servlet implementation class TestController
  */
 public class TestController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	IDataReadOnly data;
+	IUserReadOnly data;
        
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (UserData) getServletContext().getAttribute("data");
 		if (data == null){
-			Data newdata = new Data();
+			UserData newdata = new UserData();
 			getServletContext().setAttribute("data", newdata);
 			data = newdata;
 		}

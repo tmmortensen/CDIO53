@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The read-only interface to the data layer
  */
-public interface IDataReadOnly {
+public interface IUserReadOnly {
 	/**
 	 * 
 	 * @param oprId
@@ -15,12 +15,12 @@ public interface IDataReadOnly {
 	 *             if the id is out of bounds or operator id doesn't exist in
 	 *             the database
 	 */
-	OperatoerDTO getOperatoer(int oprId) throws DALException;
+	UserDTO getOperatoer(int oprId) throws DALException;
 
 	/**
 	 * 
 	 * @return a list of all operators present in the database
 	 * @throws DALException
 	 */
-	List<OperatoerDTO> getOperatoerList() throws DALException;
+	List<UserDTO> getOperatoerList() throws DALException;
 }

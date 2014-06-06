@@ -6,21 +6,21 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.DALException;
-import admin.data.Data;
-import admin.data.OperatoerDTO;
+import admin.data.UserData;
+import admin.data.UserDTO;
 
 /**
  * Servlet implementation class TestController
  */
 public class PasswordChangeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Data data;
+	UserData data;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (UserData) getServletContext().getAttribute("data");
 		if (data == null) {
-			Data newdata = new Data();
+			UserData newdata = new UserData();
 			getServletContext().setAttribute("data", newdata);
 			data = newdata;
 		}
@@ -46,7 +46,7 @@ public class PasswordChangeController extends HttpServlet {
 		String newPword2 = request.getParameter("newPword2");
 		String pwError = null;
 		String npwError = null;
-		OperatoerDTO opr = null;
+		UserDTO opr = null;
 		boolean input = false;
 
 		if (pword != null) {
@@ -72,7 +72,7 @@ public class PasswordChangeController extends HttpServlet {
 		if (newPword1 != null || newPword2 != null) {
 			input = true;
 			if (newPword1.equals(newPword2)) {
-				if (!OperatoerDTO.checkPassword(newPword1)) {
+				if (!UserDTO.checkPassword(newPword1)) {
 					npwError = "passwordet skal indeholde mindst 3 af følgende: \n "
 							+ " Store bogstaver, små bogstaver, specialtegn eller tal.";
 				}

@@ -8,7 +8,7 @@ package admin.data;
  * data in the database
  * 
  */
-public interface IOperatoerDAO extends IDataReadOnly {
+public interface IUserDAO extends IUserReadOnly {
 	/**
 	 * Inserts a new operator entry into the database
 	 * 
@@ -17,7 +17,7 @@ public interface IOperatoerDAO extends IDataReadOnly {
 	 * @throws DALException
 	 *             if an operator with the same id already exist
 	 */
-	void createOperatoer(OperatoerDTO opr) throws DALException;
+	void createOperatoer(UserDTO opr) throws DALException;
 
 	/**
 	 * Updates an existing operator already in the database
@@ -27,7 +27,7 @@ public interface IOperatoerDAO extends IDataReadOnly {
 	 * @throws DALException
 	 *             if no operator with the same id exist
 	 */
-	void updateOperatoer(OperatoerDTO opr) throws DALException;
+	void updateOperatoer(UserDTO opr) throws DALException;
 	
 	/**
 	 * Deletes the operator with the given ID.

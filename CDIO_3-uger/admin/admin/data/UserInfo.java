@@ -13,7 +13,7 @@ public class UserInfo {
 		
 	}
 	
-	public UserInfo(OperatoerDTO operator){
+	public UserInfo(UserDTO operator){
 		id = operator.getOprId();
 		ini = operator.getIni();
 		name = operator.getOprNavn();

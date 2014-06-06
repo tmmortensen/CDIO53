@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Data implements IOperatoerDAO {
+public class UserData implements IUserDAO {
 
 	Map<Integer, Operator> operators;
 	int adminCount;
@@ -25,7 +25,7 @@ public class Data implements IOperatoerDAO {
 	Connection conn = null;
 	Statement stmt = null;
 
-	public Data() {
+	public UserData() {
 		// operators = new HashMap<Integer, Operator>();
 		// adminCount = 0;
 
@@ -94,7 +94,7 @@ public class Data implements IOperatoerDAO {
 	}
 
 	@Override
-	public synchronized OperatoerDTO getOperatoer(int oprId)
+	public synchronized UserDTO getOperatoer(int oprId)
 			throws DALException {
 		// get operator
 		try {
@@ -156,11 +156,11 @@ public class Data implements IOperatoerDAO {
 		Operator operator = operators.get(oprId);
 		if (operator == null)
 			throw new DALException("Id not found");
-		return new OperatoerDTO(oprId, operator);
+		return new UserDTO(oprId, operator);
 	}
 
 	@Override
-	public List<OperatoerDTO> getOperatoerList() throws DALException {
+	public List<UserDTO> getOperatoerList() throws DALException {
 		// Get operator list
 		try {
 			// Register JDBC driver
@@ -216,15 +216,15 @@ public class Data implements IOperatoerDAO {
 			}// end finally try
 		}// end try
 
-		List<OperatoerDTO> returnlist = new ArrayList<OperatoerDTO>();
+		List<UserDTO> returnlist = new ArrayList<UserDTO>();
 		for (Map.Entry<Integer, Operator> entry : operators.entrySet()) {
-			returnlist.add(new OperatoerDTO(entry.getKey(), entry.getValue()));
+			returnlist.add(new UserDTO(entry.getKey(), entry.getValue()));
 		}
 		return returnlist;
 	}
 
 	@Override
-	public synchronized void createOperatoer(OperatoerDTO opr)
+	public synchronized void createOperatoer(UserDTO opr)
 			throws DALException {
 		// creating the operator
 		try {
@@ -280,7 +280,7 @@ public class Data implements IOperatoerDAO {
 	}
 
 	@Override
-	public synchronized void updateOperatoer(OperatoerDTO opr)
+	public synchronized void updateOperatoer(UserDTO opr)
 			throws DALException {
 
 		// Update operator
@@ -429,23 +429,23 @@ public class Data implements IOperatoerDAO {
 
 	public void createDefaultOperators() {
 		try {
-			OperatoerDTO newOp = new OperatoerDTO(11, "Test Guy", "TG",
-					"1234567890", OperatoerDTO.generatePassword());
+			UserDTO newOp = new UserDTO(11, "Test Guy", "TG",
+					"1234567890", UserDTO.generatePassword());
 			createOperatoer(newOp);
 
-			newOp = new OperatoerDTO(12, "Test Guy 2", "TG2", "1234567890",
-					OperatoerDTO.generatePassword());
+			newOp = new UserDTO(12, "Test Guy 2", "TG2", "1234567890",
+					UserDTO.generatePassword());
 			createOperatoer(newOp);
 
-			newOp = new OperatoerDTO(13, "Test Guy 3", "TG3", "1234567890",
-					OperatoerDTO.generatePassword());
+			newOp = new UserDTO(13, "Test Guy 3", "TG3", "1234567890",
+					UserDTO.generatePassword());
 			createOperatoer(newOp);
 
-			newOp = new OperatoerDTO(14, "Test Guy 4", "TG4", "1234567890",
-					OperatoerDTO.generatePassword());
+			newOp = new UserDTO(14, "Test Guy 4", "TG4", "1234567890",
+					UserDTO.generatePassword());
 			createOperatoer(newOp);
 
-			newOp = new OperatoerDTO(10, "Admin", "AM", "1234567890",
+			newOp = new UserDTO(10, "Admin", "AM", "1234567890",
 					"adminpw", 0);
 			createOperatoer(newOp);
 		} catch (Exception e) {

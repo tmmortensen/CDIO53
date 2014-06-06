@@ -31,12 +31,12 @@
 	<%--Kun til test--%>
 	<%
 		out.print("Current Users <BR>");
-		Data data = (Data) request.getAttribute("data");
-		List<OperatoerDTO> operators = data.getOperatoerList();
+		UserData data = (UserData) request.getAttribute("data");
+		List<UserDTO> operators = data.getOperatoerList();
 		
-		for(OperatoerDTO op : operators){
+		for(UserDTO op : operators){
 			out.print("ID: " + op.getOprId() + " PW: " 
-						+ op.getPassword() + " Admin: " + op.isAdmin() + "<BR>");
+		+ op.getPassword() + " Admin: " + op.isAdmin() + "<BR>");
 		}
 	%>
 	

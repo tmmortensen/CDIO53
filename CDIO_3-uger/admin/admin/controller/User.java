@@ -1,18 +1,18 @@
 package admin.controller;
 
-import admin.data.IDataReadOnly;
-import admin.data.OperatoerDTO;
+import admin.data.IUserReadOnly;
+import admin.data.UserDTO;
 
 public class User {
 	private int userId;
 	private String password;
-	private IDataReadOnly data;
+	private IUserReadOnly data;
 	
 	public User(){
 		
 	}
 	
-	public void init(IDataReadOnly data){
+	public void init(IUserReadOnly data){
 		this.data = data;
 	}
 	
@@ -33,7 +33,7 @@ public class User {
 	
 	public boolean isLoggedIn(){
 		try{
-			OperatoerDTO operator = data.getOperatoer(userId);
+			UserDTO operator = data.getOperatoer(userId);
 			if (operator.getPassword().equals(password))
 				return true;
 		} catch (Exception e){}
@@ -42,7 +42,7 @@ public class User {
 	
 	public boolean isAdmin(){
 		try {
-			OperatoerDTO operator = data.getOperatoer(userId);
+			UserDTO operator = data.getOperatoer(userId);
 			return operator.isAdmin();
 		} catch (Exception e) {}
 		return false;

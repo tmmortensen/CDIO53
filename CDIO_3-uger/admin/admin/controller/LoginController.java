@@ -5,20 +5,20 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.Data;
-import admin.data.IDataReadOnly;
+import admin.data.UserData;
+import admin.data.IUserReadOnly;
 
 public class LoginController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	IDataReadOnly data;
+	IUserReadOnly data;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (IDataReadOnly) getServletContext().getAttribute("data");
+		data = (IUserReadOnly) getServletContext().getAttribute("data");
 		if (data == null){
-			Data newdata = new Data();
+			UserData newdata = new UserData();
 			getServletContext().setAttribute("data", newdata);
 			data = newdata;
 		}

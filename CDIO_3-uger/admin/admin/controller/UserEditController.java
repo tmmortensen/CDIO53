@@ -6,20 +6,20 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.DALException;
-import admin.data.Data;
-import admin.data.OperatoerDTO;
+import admin.data.UserData;
+import admin.data.UserDTO;
 import admin.data.UserInfo;
 
-public class EditUserController extends HttpServlet {
+public class UserEditController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Data data;
+	UserData data;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (UserData) getServletContext().getAttribute("data");
 		if (data == null) {
-			data = new Data();
+			data = new UserData();
 			getServletContext().setAttribute("data", data);
 		}
 	}
@@ -65,7 +65,7 @@ public class EditUserController extends HttpServlet {
 
 		if (request.getMethod().equals("GET")) {
 			try {
-				OperatoerDTO opr = data.getOperatoer(iOperatorId);
+				UserDTO opr = data.getOperatoer(iOperatorId);
 				sNewId = sOperatorId;
 				info = new UserInfo(opr);
 				request.setAttribute("info", info);
@@ -91,7 +91,7 @@ public class EditUserController extends HttpServlet {
 				anyError = true;
 			}
 			
-			OperatoerDTO operator;
+			UserDTO operator;
 			try {
 				operator = data.getOperatoer(iOperatorId);
 

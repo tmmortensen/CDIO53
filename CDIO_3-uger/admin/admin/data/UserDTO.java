@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * A data package containing info on an operator
  */
-public class OperatoerDTO extends Operator{
+public class UserDTO extends Operator{
 	int oprId;
 
 	/**
@@ -20,11 +20,11 @@ public class OperatoerDTO extends Operator{
 	 * @param pw
 	 *            The operator's password
 	 */
-	public OperatoerDTO(int id, String name, String ini, String cpr, String pw) throws DALException{
+	public UserDTO(int id, String name, String ini, String cpr, String pw) throws DALException{
 		this( id, name, ini, cpr, pw, 3);
 	}
 
-	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, int admin) throws DALException{
+	public UserDTO(int id, String name, String ini, String cpr, String pw, int admin) throws DALException{
 		super(name, ini, cpr, pw, admin);
 		setOprId(id);
 	}
@@ -38,7 +38,7 @@ public class OperatoerDTO extends Operator{
 	 *            The <code>Operator</code>-object containing the rest of the
 	 *            information
 	 */
-	public OperatoerDTO(int oprId, Operator op) throws DALException{
+	public UserDTO(int oprId, Operator op) throws DALException{
 		super(op);
 		setOprId(oprId);
 	}

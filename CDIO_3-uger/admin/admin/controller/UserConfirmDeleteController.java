@@ -6,20 +6,20 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.DALException;
-import admin.data.Data;
-import admin.data.OperatoerDTO;
+import admin.data.UserData;
+import admin.data.UserDTO;
 import admin.data.UserInfo;
 
-public class ConfirmDeleteController extends HttpServlet {
+public class UserConfirmDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Data data;
+	UserData data;
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		data = (Data) getServletContext().getAttribute("data");
+		data = (UserData) getServletContext().getAttribute("data");
 		if (data == null) {
-			data = new Data();
+			data = new UserData();
 			getServletContext().setAttribute("data", data);
 		}
 	}
@@ -46,7 +46,7 @@ public class ConfirmDeleteController extends HttpServlet {
 		}
 
 		String error = "";
-		OperatoerDTO opr;
+		UserDTO opr;
 		UserInfo userInfo;
 		boolean success = false;
 		
