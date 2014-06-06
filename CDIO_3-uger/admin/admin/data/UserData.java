@@ -84,13 +84,14 @@ public class UserData implements IUserDAO {
 			}// end finally try
 		}// end try
 
-		// createOperatoer(new OperatoerDTO(1, "Sysadmin", "SA", "1234567890",
-		// "adminpw", true));
-		// } catch (Exception e) {
-		// }
-		//
-		// // TODO remove this when done testing
-		// createDefaultOperators();
+		 try{
+			 createOperatoer(new UserDTO(1, "Sysadmin", "SA", "1234567890",
+		 "adminpw", 0));
+		 } catch (Exception e) {
+		 }
+		
+		 // TODO remove this when done testing
+		 createDefaultOperators();
 	}
 
 	@Override

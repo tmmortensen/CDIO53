@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ase"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/simulator"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/admin"/>
-        <property name="context-root" value="CDIO_3-uger"/>
         <property name="java-output-path" value="/CDIO_3-uger/build/classes"/>
+        <property name="context-root" value="CDIO"/>
     </wb-module>
 </project-modules>
