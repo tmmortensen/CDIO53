@@ -1,4 +1,13 @@
-public class ASEdata {
+package ase.data;
+
+public class ASEdata{
+	int OprId;
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -14,5 +23,5 @@ public class ASEdata {
 		return OprNavn;
 	}
 	
-
+	public get
 }
