@@ -24,7 +24,7 @@ public class OperatoerDTO extends Operator{
 		this( id, name, ini, cpr, pw, false);
 	}
 
-	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, boolean admin) throws DALException{
+	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, int admin) throws DALException{
 		super(name, ini, cpr, pw, admin);
 		setOprId(id);
 	}
@@ -86,5 +86,24 @@ public class OperatoerDTO extends Operator{
 		if (id > 99999999)
 			throw new DALException("ID skal være mindre end 99999999");
 		this.oprId = id;
+	}
+	public String getOprNavn(){
+		return oprNavn;
+	}
+
+	public String getIni() {
+		return ini;
+	}
+
+	public String getCpr() {
+		return cpr;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	
+	public int isAdmin(){
+		return admin;
 	}
 }
