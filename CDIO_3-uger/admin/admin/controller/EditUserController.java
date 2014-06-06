@@ -1,14 +1,14 @@
-package administration.controller;
+package admin.controller;
 
 import java.io.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import administration.data.DALException;
-import administration.data.Data;
-import administration.data.OperatoerDTO;
-import administration.data.UserInfo;
+import admin.data.DALException;
+import admin.data.Data;
+import admin.data.OperatoerDTO;
+import admin.data.UserInfo;
 
 public class EditUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

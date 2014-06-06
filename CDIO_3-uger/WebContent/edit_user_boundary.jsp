@@ -1,11 +1,11 @@
-<%@ page language="java" import="java.util.*, administration.data.*" 
+<%@ page language="java" import="java.util.*,admin.data.*" 
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="majorError" class="java.lang.String" scope="request"/>
 <jsp:useBean id="idError" class="java.lang.String" scope="request"/>
-<jsp:useBean id="error" class="administration.data.UserInfo" scope="request"/>
-<jsp:useBean id="info" class="administration.data.UserInfo" scope="request"/>
-<jsp:useBean id="old" class="administration.data.UserInfo" scope="request"/>
+<jsp:useBean id="error" class="admin.data.UserInfo" scope="request"/>
+<jsp:useBean id="info" class="admin.data.UserInfo" scope="request"/>
+<jsp:useBean id="old" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="newId" class="java.lang.String" scope="request"/>
 <jsp:useBean id="oldId" class="java.lang.String" scope="request"/>
 <% boolean complete = (Boolean) request.getAttribute("complete"); %>

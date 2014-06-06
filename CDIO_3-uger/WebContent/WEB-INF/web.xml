@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>CDIO4</display-name>
+  <display-name>CDIO</display-name>
   <welcome-file-list>
     <welcome-file>login</welcome-file>
   </welcome-file-list>
@@ -8,25 +8,25 @@
     <description>Login Page</description>
     <display-name>LoginController</display-name>
     <servlet-name>LoginController</servlet-name>
-    <servlet-class>controller.LoginController</servlet-class>
+    <servlet-class>admin.controller.LoginController</servlet-class>
   </servlet>
   <servlet>
     <description>User Administration</description>
     <display-name>UserAdminController</display-name>
     <servlet-name>UserAdminController</servlet-name>
-    <servlet-class>controller.UserAdminController</servlet-class>
+    <servlet-class>admin.controller.UserAdminController</servlet-class>
   </servlet>
   <servlet>
   	<description>Test Program</description>
   	<display-name>TestController</display-name>
   	<servlet-name>TestController</servlet-name>
-  	<servlet-class>controller.TestController</servlet-class>
+  	<servlet-class>admin.controller.TestController</servlet-class>
   </servlet>
    <servlet>
   	<description>Password Change</description>
   	<display-name>PasswordChangeController</display-name>
   	<servlet-name>PasswordChangeController</servlet-name>
-  	<servlet-class>controller.PasswordChangeController</servlet-class>
+  	<servlet-class>admin.controller.PasswordChangeController</servlet-class>
   </servlet>
   <servlet>
   	<description>Main menuen</description>
@@ -38,19 +38,19 @@
   	<description>Editing a user</description>
   	<display-name>EditUserController</display-name>
   	<servlet-name>EditUserController</servlet-name>
-  	<servlet-class>controller.EditUserController</servlet-class>
+  	<servlet-class>admin.controller.EditUserController</servlet-class>
   </servlet>
   <servlet>
   	<description>Corfirm deletion of user</description>
   	<display-name>ConfirmDeleteController</display-name>
   	<servlet-name>ConfirmDeleteController</servlet-name>
-  	<servlet-class>controller.ConfirmDeleteController</servlet-class>
+  	<servlet-class>admin.controller.ConfirmDeleteController</servlet-class>
   </servlet>
   <servlet>
   	<description>Creation of a new user</description>
   	<display-name>NewUserController</display-name>
   	<servlet-name>NewUserController</servlet-name>
-  	<servlet-class>controller.NewUserController</servlet-class>
+  	<servlet-class>admin.controller.NewUserController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginController</servlet-name>

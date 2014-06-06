@@ -1,4 +1,4 @@
-package administration.controller;
+package admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import administration.data.Data;
-import administration.data.IDataReadOnly;
-import administration.data.OperatoerDTO;
-import administration.data.UserInfo;
+import admin.data.Data;
+import admin.data.IDataReadOnly;
+import admin.data.OperatoerDTO;
+import admin.data.UserInfo;
 
 /**
  * Servlet implementation class UserAdminController

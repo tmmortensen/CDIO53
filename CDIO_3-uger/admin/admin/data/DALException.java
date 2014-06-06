@@ -1,4 +1,4 @@
-package administration.data;
+package admin.data;
 
 /**
  * Data Access Layer Exception is thrown when errors occur in the data layer

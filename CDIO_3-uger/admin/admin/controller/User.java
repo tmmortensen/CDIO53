@@ -1,7 +1,7 @@
-package administration.controller;
+package admin.controller;
 
-import administration.data.IDataReadOnly;
-import administration.data.OperatoerDTO;
+import admin.data.IDataReadOnly;
+import admin.data.OperatoerDTO;
 
 public class User {
 	private int userId;

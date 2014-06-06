@@ -1,13 +1,14 @@
-package administration.controller;
+package admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import administration.data.Data;
-import administration.data.IDataReadOnly;
-import administration.data.MenuOption;
+import admin.data.Data;
+import admin.data.IDataReadOnly;
+import admin.data.MenuOption;
 
 public class MainMenuController extends HttpServlet{
 

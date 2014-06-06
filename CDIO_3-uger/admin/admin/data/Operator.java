@@ -1,4 +1,4 @@
-package administration.data;
+package admin.data;
 
 /**
  * Storage class for info on an operator (not including the id)

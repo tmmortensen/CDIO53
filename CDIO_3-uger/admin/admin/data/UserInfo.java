@@ -1,4 +1,4 @@
-package administration.data;
+package admin.data;
 
 public class UserInfo {
 	public int id;
