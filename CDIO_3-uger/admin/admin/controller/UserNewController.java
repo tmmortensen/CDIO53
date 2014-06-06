@@ -10,7 +10,7 @@ import admin.data.UserData;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
 
-public class NewUserController extends HttpServlet {
+public class UserNewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	UserData data;

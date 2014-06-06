@@ -8,7 +8,7 @@ public class Operator {
 	String ini;
 	String cpr;
 	String password;
-	int admin;
+	int accessLevel;
 
 	/**
 	 * @param oprNavn
@@ -24,12 +24,12 @@ public class Operator {
 		this(oprNavn, ini, cpr, password, 3);
 	}
 	
-	public Operator(String oprNavn, String ini, String cpr, String password, int admin) throws DALException {
+	public Operator(String oprNavn, String ini, String cpr, String password, int access) throws DALException {
 		setOprNavn(oprNavn);
 		setIni(ini);
 		setCpr(cpr);
 		setPassword(password);
-		setAdmin(admin);
+		setAccessLevel(access);
 	}
 
 
@@ -46,7 +46,7 @@ public class Operator {
 		setIni(op.getIni());
 		setCpr(op.getCpr());
 		setPassword(op.getPassword());
-		setAdmin(op.getAdmin());
+		setAccessLevel(op.getAccesLevel());
 	}
 
 	public String getOprNavn(){
@@ -66,11 +66,11 @@ public class Operator {
 	}
 	
 	public boolean isAdmin(){
-		return admin == 0;
+		return accessLevel == 0;
 	}
 	
-	public int getAdmin(){
-		return admin;
+	public int getAccesLevel(){
+		return accessLevel;
 	}
 
 	public void setOprNavn(String newname)  throws DALException {
@@ -103,7 +103,7 @@ public class Operator {
 		this.password = newpassword;
 	}
 	
-	public void setAdmin(int admin){
-		this.admin = admin;
+	public void setAccessLevel(int access){
+		this.accessLevel = access;
 	}
 }

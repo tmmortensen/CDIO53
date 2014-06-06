@@ -103,12 +103,8 @@ public class UserDTO extends Operator{
 		return password;
 	}
 	
-	public boolean isAdmin(){
-		return admin == 0;
-	}
-
 	public void setAdmin(boolean admin) {
-		if (admin) this.admin = 0;
-		else this.admin = 3;
+		if (admin) this.accessLevel = 0;
+		else this.accessLevel = 3;
 	}
 }
