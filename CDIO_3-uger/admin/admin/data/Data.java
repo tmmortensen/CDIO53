@@ -243,10 +243,10 @@ public class Data implements IOperatoerDAO {
 					+ opr.getOprNavn() + " , " + opr.getIni() + " , "
 					+ opr.getCpr() + " , " + opr.getPassword() + " , "
 					+ opr.isAdmin() + ");";
-			ResultSet rs = stmt.executeUpdate(sql);
+//			ResultSet rs = stmt.executeUpdate(sql);
 
 			// Clean-up environment
-			rs.close();
+//			rs.close();
 			stmt.close();
 			conn.close();
 		} catch (SQLException se) {
@@ -446,7 +446,7 @@ public class Data implements IOperatoerDAO {
 			createOperatoer(newOp);
 
 			newOp = new OperatoerDTO(10, "Admin", "AM", "1234567890",
-					"adminpw", true);
+					"adminpw", 0);
 			createOperatoer(newOp);
 		} catch (Exception e) {
 		}

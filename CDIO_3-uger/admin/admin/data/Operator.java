@@ -8,7 +8,7 @@ public class Operator {
 	String ini;
 	String cpr;
 	String password;
-	boolean admin;
+	int admin;
 
 	/**
 	 * @param oprNavn
@@ -21,10 +21,10 @@ public class Operator {
 	 *            The operator's password
 	 */
 	public Operator(String oprNavn, String ini, String cpr, String password) throws DALException {
-		this(oprNavn, ini, cpr, password, false);
+		this(oprNavn, ini, cpr, password, 3);
 	}
 	
-	public Operator(String oprNavn, String ini, String cpr, String password, boolean admin) throws DALException {
+	public Operator(String oprNavn, String ini, String cpr, String password, int admin) throws DALException {
 		setOprNavn(oprNavn);
 		setIni(ini);
 		setCpr(cpr);
@@ -46,7 +46,7 @@ public class Operator {
 		setIni(op.getIni());
 		setCpr(op.getCpr());
 		setPassword(op.getPassword());
-		setAdmin(op.isAdmin());
+		setAdmin(op.getAdmin());
 	}
 
 	public String getOprNavn(){
@@ -66,6 +66,10 @@ public class Operator {
 	}
 	
 	public boolean isAdmin(){
+		return admin == 0;
+	}
+	
+	public int getAdmin(){
 		return admin;
 	}
 
@@ -99,7 +103,7 @@ public class Operator {
 		this.password = newpassword;
 	}
 	
-	public void setAdmin(boolean admin){
+	public void setAdmin(int admin){
 		this.admin = admin;
 	}
 }

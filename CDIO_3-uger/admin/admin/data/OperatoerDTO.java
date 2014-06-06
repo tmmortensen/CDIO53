@@ -21,7 +21,7 @@ public class OperatoerDTO extends Operator{
 	 *            The operator's password
 	 */
 	public OperatoerDTO(int id, String name, String ini, String cpr, String pw) throws DALException{
-		this( id, name, ini, cpr, pw, false);
+		this( id, name, ini, cpr, pw, 3);
 	}
 
 	public OperatoerDTO(int id, String name, String ini, String cpr, String pw, int admin) throws DALException{
@@ -103,7 +103,12 @@ public class OperatoerDTO extends Operator{
 		return password;
 	}
 	
-	public int isAdmin(){
-		return admin;
+	public boolean isAdmin(){
+		return admin == 0;
+	}
+
+	public void setAdmin(boolean admin) {
+		if (admin) this.admin = 0;
+		else this.admin = 3;
 	}
 }
