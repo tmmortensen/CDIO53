@@ -1,4 +1,4 @@
-package administration.data;
+package admin.data;
 
 
 // erstat konstanterne nedenfor

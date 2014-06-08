@@ -1,4 +1,4 @@
-package administration.data;
+package admin.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
