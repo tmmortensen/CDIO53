@@ -113,6 +113,7 @@
 			value="<%out.print(info.cpr);%>">
 		<label for="isAdmin">Administrator</label>
 		<input type="checkbox" name="newAdmin" id="isAdmin"
+		
 			value="true" >
 		<input type="submit" value="Rediger">
 	</form>
