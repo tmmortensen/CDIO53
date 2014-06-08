@@ -9,18 +9,18 @@ public interface IUserReadOnly {
 	/**
 	 * 
 	 * @param oprId
-	 *            the id of the operator to get info on
-	 * @return the in info on the operator with the given id
+	 *            the id of the user to get info on
+	 * @return the in info on the user with the given id
 	 * @throws DALException
-	 *             if the id is out of bounds or operator id doesn't exist in
+	 *             if the id is out of bounds or user id doesn't exist in
 	 *             the database
 	 */
-	UserDTO getOperatoer(int oprId) throws DALException;
+	UserDTO getUser(int userId) throws DALException;
 
 	/**
 	 * 
-	 * @return a list of all operators present in the database
+	 * @return a list of all users present in the database
 	 * @throws DALException
 	 */
-	List<UserDTO> getOperatoerList() throws DALException;
+	List<UserDTO> getUser() throws DALException;
 }

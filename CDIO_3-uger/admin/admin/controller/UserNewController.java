@@ -9,6 +9,7 @@ import admin.data.DALException;
 import admin.data.UserData;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
+import admin.data.UserType;
 
 public class UserNewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,28 +28,30 @@ public class UserNewController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null) {
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
+		UserSession userSession = (UserSession) request.getSession().getAttribute("user");
+		if (userSession == null) {
+			userSession = new UserSession();
+			userSession.init(data);
+			request.getSession().setAttribute("user", userSession);
 		}
 
-		if (!user.isLoggedIn()) {
+		if (!userSession.isLoggedIn()) {
 			response.sendRedirect("login");
 			return;
 		}
 
-		if (!user.isAdmin()) {
+		if (!userSession.isAdmin()) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 
 		String sNewId = "";
+		String sNewAccess = "";
 		UserInfo info = new UserInfo();
 		UserInfo error = new UserInfo();
 		String idError = "";
+		String accessError = "";
 		String majorError = "";
 		boolean anyError = false;
 		String password = UserDTO.generatePassword();
@@ -60,8 +63,7 @@ public class UserNewController extends HttpServlet {
 			info.ini = request.getParameter("newIni");
 			info.name = request.getParameter("newName");
 			info.cpr = request.getParameter("newCPR");
-			info.admin = (request.getParameter("newAdmin") != null &&
-					request.getParameter("newAdmin").equals("true"));
+			sNewAccess = request.getParameter("newAdmin");
 
 			try{
 				info.id = Integer.parseInt(sNewId);
@@ -72,47 +74,54 @@ public class UserNewController extends HttpServlet {
 			}
 			
 			try {
-				UserDTO operator = new UserDTO(1,"AA","AA","0000000000",password);
+				UserDTO user = new UserDTO(1,"AA","AA","0000000000",password);
 				try {
-					operator.setOprId(info.id);
+					user.setUserId(info.id);
 				} catch (DALException e){
 					idError = e.getMessage();
 					anyError = true;
 				}
 				
 				try {
-					operator.setIni(info.ini);
+					user.setIni(info.ini);
 				} catch (DALException e){
 					error.ini = e.getMessage();
 					anyError = true;
 				}
 				
 				try {
-					operator.setOprNavn(info.name);
+					user.setUsername(info.name);
 				} catch (DALException e){
 					error.name = e.getMessage();
 					anyError = true;
 				}
 				
 				try {
-					operator.setCpr(info.cpr);
+					user.setCpr(info.cpr);
 				} catch (DALException e){
 					error.cpr = e.getMessage();
 					anyError = true;
 				}
 				
-				operator.setAdmin(info.admin);
+				try {
+					info.access = UserType.valueOf(sNewAccess);
+					user.setAccessLevel(info.access);
+				} catch (IllegalArgumentException e) {
+					info.access = UserType.OPERATOR;
+					accessError = "Der skete en fejl med brugertypen";
+					anyError = true;
+				}
 				
 				if (!anyError){
 						try {
-							data.createOperatoer(operator);
+							data.createUser(user);
 						} catch (DALException e) {
 							idError = e.getMessage();
 							anyError = true;
 						}
 				} else {
 					try { 
-						data.getOperatoer(info.id);
+						data.getUser(info.id);
 						idError = "Dette id er optaget";
 					}
 					catch (DALException e) {}
@@ -122,12 +131,12 @@ public class UserNewController extends HttpServlet {
 			info.ini = "";
 			info.name = "";
 			info.cpr = "";
-
 		}
 		
 		request.setAttribute("majorError", majorError);
 		request.setAttribute("error", error);
 		request.setAttribute("idError", idError);
+		request.setAttribute("accessError", accessError);
 		request.setAttribute("complete", !anyError && request.getMethod().equals("POST"));
 		
 		request.setAttribute("newId", sNewId);

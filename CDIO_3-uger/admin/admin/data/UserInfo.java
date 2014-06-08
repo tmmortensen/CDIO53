@@ -5,7 +5,7 @@ public class UserInfo {
 	public String ini;
 	public String name;
 	public String cpr;
-	public boolean admin;
+	public UserType access;
 	public String deleURL;
 	public String editURL;
 	
@@ -14,11 +14,11 @@ public class UserInfo {
 	}
 	
 	public UserInfo(UserDTO operator){
-		id = operator.getOprId();
+		id = operator.getUserId();
 		ini = operator.getIni();
-		name = operator.getOprNavn();
+		name = operator.getUsername();
 		cpr = operator.getCpr();
-		admin = operator.isAdmin();
+		access = UserType.fromInt(operator.getAccesLevel());
 		deleURL = "confirm_delete?id=" + id;
 		editURL = "edit_user?id=" + id;
 	}

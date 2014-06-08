@@ -27,7 +27,7 @@
 				<th>Initialer</th>
 				<th>Navn</th>
 				<th>CPR-nummer</th>
-				<th>Administrator</th>
+				<th>Brugertype</th>
 			</tr>
 		<%
 			out.println("\t\t\t\t<tr>\n");
@@ -35,10 +35,7 @@
 			out.println("\t\t\t\t\t<td>" + old.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + old.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + old.cpr + "</td>\n");
-			if (old.admin)
-				out.println("\t\t\t\t\t<td>Ja</td>\n");
-			else
-				out.println("\t\t\t\t\t<td>Nej</td>\n");
+			out.println("\t\t\t\t\t<td>" + old.access.name() +"</td>\n");
 		%>
 		</tbody></table><br>
 		Er blevet rettet til:<br><br>
@@ -48,7 +45,7 @@
 				<th>Initialer</th>
 				<th>Navn</th>
 				<th>CPR-nummer</th>
-				<th>Administrator</th>
+				<th>Brugertype</th>
 			</tr>
 		<%
 			out.println("\t\t\t\t<tr>\n");
@@ -56,40 +53,67 @@
 			out.println("\t\t\t\t\t<td>" + info.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + info.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + info.cpr + "</td>\n");
-			if (info.admin)
-				out.println("\t\t\t\t\t<td>Ja</td>\n");
-			else
-				out.println("\t\t\t\t\t<td>Nej</td>\n");
+			out.println("\t\t\t\t\t<td>" + info.access.name() +"</td>\n");
 		%>
 		</tbody></table>
 
-	<% } else if (!majorError.equals("")){ %> 
+	<%
+		} else if (!majorError.equals("")){
+	%> 
 	<h1>Fejl under redigering af bruger!</h1>
 	<div class="error"> 
-		<% out.print(majorError); %> 
+		<%
+ 			out.print(majorError);
+ 		%> 
 	</div> 
-	<%} else { %>
+	<%
+ 		} else {
+ 	%>
 	<h1>Indtast nye brugeroplysninger</h1>
 	<form method="post">
-		<% if (!idError.equals("")){ %> <div class="error"> <% out.print(idError); %> </div> <%} %>
+		<%
+			if (!idError.equals("")){
+		%> <div class="error"> <%
+ 	out.print(idError);
+ %> </div> <%
+ 	}
+ %>
 		<label for="userid">Bruger ID</label>
 		<input type="text" name="newId" id="userid"
-			value="<% out.print(newId); %>">
-		<% if (error.ini != null){ %> <div class="error"> <% out.print(error.ini); %> </div> <%} %>
+			value="<%out.print(newId);%>">
+		<%
+			if (error.ini != null){
+		%> <div class="error"> <%
+ 	out.print(error.ini);
+ %> </div> <%
+ 	}
+ %>
 		<label for="userini">Bruger initialer</label>
 		<input type="text" name="newIni" id="userini"
-			value="<% out.print(info.ini); %>">
-		<% if (error.name != null){ %> <div class="error"> <% out.print(error.name); %> </div> <%} %>
+			value="<%out.print(info.ini);%>">
+		<%
+			if (error.name != null){
+		%> <div class="error"> <%
+ 	out.print(error.name);
+ %> </div> <%
+ 	}
+ %>
 		<label for="username">Brugernavn</label>
 		<input type="text" name="newName" id="username"
-			value="<% out.print(info.name); %>">
-		<% if (error.cpr != null){ %> <div class="error"> <% out.print(error.cpr); %> </div> <%} %>
+			value="<%out.print(info.name);%>">
+		<%
+			if (error.cpr != null){
+		%> <div class="error"> <%
+ 	out.print(error.cpr);
+ %> </div> <%
+ 	}
+ %>
 		<label for="usercpr">CPR</label>
 		<input type="text" name="newCPR" id="usercpr"
-			value="<% out.print(info.cpr); %>">
+			value="<%out.print(info.cpr);%>">
 		<label for="isAdmin">Administrator</label>
 		<input type="checkbox" name="newAdmin" id="isAdmin"
-			value="true" <% if(info.admin) out.print("checked");%>>
+			value="true" >
 		<input type="submit" value="Rediger">
 	</form>
 	<%} %>

@@ -55,7 +55,7 @@ public class PasswordChangeController extends HttpServlet {
 
 				int id = user.getId();
 				try {
-					opr = data.getOperatoer(id);
+					opr = data.getUser(id);
 					if (!opr.getPassword().equals(pword)) {
 						pwError = "Det indtastede password er ikke korrekt";
 					}

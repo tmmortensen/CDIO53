@@ -18,7 +18,7 @@ public class UserData implements IUserDAO {
 	}
 
 	@Override
-	public synchronized UserDTO getOperatoer(int oprId) throws DALException {
+	public synchronized UserDTO getUser(int oprId) throws DALException {
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM employees WHERE opr_id = " + oprId);
 		try {
@@ -35,7 +35,7 @@ public class UserData implements IUserDAO {
 	}
 
 	@Override
-	public List<UserDTO> getOperatoerList() throws DALException {
+	public List<UserDTO> getUser() throws DALException {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 
 		ResultSet rs = Connector
@@ -57,25 +57,25 @@ public class UserData implements IUserDAO {
 	}
 
 	@Override
-	public synchronized void createOperatoer(UserDTO opr) throws DALException {
-		Connector.doUpdate("INSERT INTO employees VALUES (" + opr.getOprId()
-				+ " , " + opr.getOprNavn() + " , " + opr.getIni() + " , "
+	public synchronized void createUser(UserDTO opr) throws DALException {
+		Connector.doUpdate("INSERT INTO employees VALUES (" + opr.getUserId()
+				+ " , " + opr.getUsername() + " , " + opr.getIni() + " , "
 				+ opr.getCpr() + " , " + opr.getPassword() + " , "
 				+ opr.isAdmin() + ");");
 
 	}
 
 	@Override
-	public synchronized void updateOperatoer(UserDTO opr) throws DALException {
+	public synchronized void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate("UPDATE employees " + "SET opr_id = "
-				+ opr.getOprId() + ", opr_navn = " + opr.getOprNavn()
+				+ opr.getUserId() + ", opr_navn = " + opr.getUsername()
 				+ ", opr_type = " + opr.isAdmin() + ", ini = " + opr.getIni()
 				+ ", cpr = " + opr.getCpr() + ", password = "
-				+ opr.getPassword() + "WHERE opr_id = " + opr.getOprId() + ";");
+				+ opr.getPassword() + "WHERE opr_id = " + opr.getUserId() + ";");
 	}
 
 	@Override
-	public synchronized void deleteOperatoer(int id) throws DALException {
+	public synchronized void deleteUser(int id) throws DALException {
 		Connector.doUpdate("DELETE FROM employees WHERE opr_id = " + id);
 	}
 

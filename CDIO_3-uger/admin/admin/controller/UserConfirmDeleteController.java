@@ -58,14 +58,14 @@ public class UserConfirmDeleteController extends HttpServlet {
 		}
 
 		try {
-			opr = data.getOperatoer(uid);
+			opr = data.getUser(uid);
 			userInfo = new UserInfo(opr);
 			request.setAttribute("userInfo", userInfo);
 
 			String confirmed = request.getParameter("confirmed");
 			if (confirmed != null && confirmed.equals("true")) {
 				try {
-					data.deleteOperatoer(uid);
+					data.deleteUser(uid);
 					success = true;
 				} catch (DALException e) {
 					error = "Der skete en fejl under sletning";

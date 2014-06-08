@@ -5,8 +5,14 @@ import java.util.Random;
 /**
  * A data package containing info on an operator
  */
-public class UserDTO extends Operator{
-	int oprId;
+public class UserDTO{
+	int userId;
+	String username;
+	String ini;
+	String cpr;
+	String password;
+	int accessLevel;
+
 
 	/**
 	 * @param id
@@ -24,9 +30,13 @@ public class UserDTO extends Operator{
 		this( id, name, ini, cpr, pw, 3);
 	}
 
-	public UserDTO(int id, String name, String ini, String cpr, String pw, int admin) throws DALException{
-		super(name, ini, cpr, pw, admin);
-		setOprId(id);
+	public UserDTO(int id, String name, String ini, String cpr, String pw, int access) throws DALException{
+		setUsername(username);
+		setIni(ini);
+		setCpr(cpr);
+		setPassword(password);
+		setAccessLevel(access);
+		setUserId(id);
 	}
 	/**
 	 * Creates a new <code>OperatoerDTO</code> with the info from the provided
@@ -39,11 +49,15 @@ public class UserDTO extends Operator{
 	 *            information
 	 */
 	public UserDTO(int oprId, Operator op) throws DALException{
-		super(op);
-		setOprId(oprId);
+		setUsername(op.getOprNavn());
+		setIni(op.getIni());
+		setCpr(op.getCpr());
+		setPassword(op.getPassword());
+		setAccessLevel(op.getAccesLevel());
+		setUserId(oprId);
 	}
 
-	public int getOprId() { return oprId; }
+	public int getUserId() { return userId; }
 
 	public static boolean checkPassword(String password){
 		int i = 0;
@@ -80,15 +94,16 @@ public class UserDTO extends Operator{
 		return returnString;
 	}
 	
-	public void setOprId(int id) throws DALException {
+	public void setUserId(int id) throws DALException {
 		if ( id < 1)
 			throw new DALException("ID skal være større end 0");
 		if (id > 99999999)
 			throw new DALException("ID skal være mindre end 99999999");
-		this.oprId = id;
+		this.userId = id;
 	}
-	public String getOprNavn(){
-		return oprNavn;
+	
+	public String getUsername(){
+		return username;
 	}
 
 	public String getIni() {
@@ -103,8 +118,50 @@ public class UserDTO extends Operator{
 		return password;
 	}
 	
-	public void setAdmin(boolean admin) {
-		if (admin) this.accessLevel = 0;
-		else this.accessLevel = 3;
+	public boolean isAdmin(){
+		return accessLevel == 0;
 	}
+	
+	public int getAccesLevel(){
+		return accessLevel;
+	}
+
+	public void setUsername(String newname)  throws DALException {
+		if (newname.length() < 2)
+			throw new DALException("Operatør navn er for kort");
+		if (newname.length() > 20)
+			throw new DALException("Operatør navn er for langt");
+		this.username = newname;
+	}
+
+	public void setIni(String newini)  throws DALException {
+		if (newini.length() < 2)
+			throw new DALException("Operatør initialer er for få");
+		if (newini.length() > 3)
+			throw new DALException("Operatør initialer er for mange");
+		this.ini = newini;
+	}
+
+	public void setCpr(String newcpr)  throws DALException {
+		if (!newcpr.matches("\\d{10}"))
+			throw new DALException("CPR-nummer er ikke 10 cifre");
+		this.cpr = newcpr;
+	}
+
+	public void setPassword(String newpassword)  throws DALException {
+		if (newpassword.length() < 7)
+			throw new DALException("Kodeord er for kort");
+		if (newpassword.length() > 8)
+			throw new DALException("Kodeord er for langt");
+		this.password = newpassword;
+	}
+	
+	public void setAccessLevel(int access){
+		this.accessLevel = access;
+	}
+
+	public void setAccessLevel(UserType type){
+		this.accessLevel = type.ordinal();
+	}
+
 }

@@ -35,8 +35,8 @@ public class UserSession {
 		return true;
 		//TODO restore this when data layer works
 		/*try{
-			UserDTO operator = data.getOperatoer(userId);
-			if (operator.getPassword().equals(password))
+			UserDTO user = data.getOperatoer(userId);
+			if (user.getPassword().equals(password))
 				return true;
 		} catch (Exception e){}
 		return false;*/

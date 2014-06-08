@@ -35,33 +35,33 @@ public class UserAdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null){
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
+		UserSession userSession = (UserSession) request.getSession().getAttribute("user");
+		if (userSession == null){
+			userSession = new UserSession();
+			userSession.init(data);
+			request.getSession().setAttribute("user", userSession);
 		}
 		
-		if (!user.isLoggedIn()){
+		if (!userSession.isLoggedIn()){
 			response.sendRedirect("login");
 			return;
 		} 
 		
-		if (!user.isAdmin()){
+		if (!userSession.isAdmin()){
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
 		
 		try {
-			List<UserDTO> operators = data.getOperatoerList();
-			List<UserInfo> users = new ArrayList<UserInfo>();
-			for (UserDTO operator : operators){
-				UserInfo userInfo = new UserInfo(operator);
-				users.add(userInfo);
+			List<UserDTO> users = data.getUser();
+			List<UserInfo> userInfos = new ArrayList<UserInfo>();
+			for (UserDTO user : users){
+				UserInfo userInfo = new UserInfo(user);
+				userInfos.add(userInfo);
 			}
 			
-			request.setAttribute("userlist", users);
+			request.setAttribute("userlist", userInfos);
 
 		} catch (Exception e){
 			

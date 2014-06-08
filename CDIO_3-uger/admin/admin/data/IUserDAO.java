@@ -10,29 +10,29 @@ package admin.data;
  */
 public interface IUserDAO extends IUserReadOnly {
 	/**
-	 * Inserts a new operator entry into the database
+	 * Inserts a new user entry into the database
 	 * 
-	 * @param opr
+	 * @param user
 	 *            the entry to be added to the database
 	 * @throws DALException
-	 *             if an operator with the same id already exist
+	 *             if an user with the same id already exist
 	 */
-	void createOperatoer(UserDTO opr) throws DALException;
+	void createUser(UserDTO user) throws DALException;
 
 	/**
-	 * Updates an existing operator already in the database
+	 * Updates an existing user already in the database
 	 * 
-	 * @param opr
-	 *            the new info on the operator
+	 * @param user
+	 *            the new info on the user
 	 * @throws DALException
-	 *             if no operator with the same id exist
+	 *             if no user with the same id exist
 	 */
-	void updateOperatoer(UserDTO opr) throws DALException;
+	void updateUser(UserDTO user) throws DALException;
 	
 	/**
-	 * Deletes the operator with the given ID.
-	 * @param id the ID of the operator to be deleted
-	 * @throws DALException if no operator with the given ID exist.
+	 * Deletes the user with the given ID.
+	 * @param id the ID of the user to be deleted
+	 * @throws DALException if no user with the given ID exist.
 	 */
-	void deleteOperatoer(int id) throws DALException;
+	void deleteUser(int id) throws DALException;
 }
