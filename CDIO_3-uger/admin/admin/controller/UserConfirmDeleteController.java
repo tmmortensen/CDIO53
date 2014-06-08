@@ -67,7 +67,7 @@ public class UserConfirmDeleteController extends AbstractController {
 		request.setAttribute("done", success);
 		request.setAttribute("error", error);
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/confirm_delete_boundary.jsp");
+				.getRequestDispatcher("/user_confirm_delete_boundary.jsp");
 		dispatcher.forward(request, response);
 		return;
 	}

@@ -87,6 +87,16 @@
   	<servlet-name>UserNewController</servlet-name>
   	<url-pattern>/user_new</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description>Editing or creation of a user</description>
+  	<display-name>Edit or new user</display-name>
+  	<servlet-name>UserEditOrNewController</servlet-name>
+  	<servlet-class>admin.controller.UserEditOrNewController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserEditOrNewController</servlet-name>
+  	<url-pattern>/user_edit_or_new</url-pattern>
+  </servlet-mapping>
   
   
   <!-- Product Batch Administration -->

@@ -37,7 +37,7 @@
 					}
 			%>
 		</tbody></table>
-		<A href="new_user">Opret ny bruger</A>
+		<A href="user_edit_or_new?id=new">Opret ny bruger</A>
 		<div class="buttons">
 			<A href="mainmenu">Hovedmenu</A>
 			<A href="login?logout=true">Log ud</A>

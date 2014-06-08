@@ -133,7 +133,7 @@ public class UserNewController extends AbstractController {
 		
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/new_user_boundary.jsp");
+				.getRequestDispatcher("/user_new_boundary.jsp");
 		dispatcher.forward(request, response);
 		
 	}

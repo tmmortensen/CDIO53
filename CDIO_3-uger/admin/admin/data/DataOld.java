@@ -13,7 +13,7 @@ public class DataOld implements IUserDAO {
 		
 		// creating the sysadmin
 		try {
-		createUser(new UserDTO(1,"Sysadmin", "SA", "1234567890", "adminpw",0));
+			createUser(new UserDTO(1,"Sysadmin", "SA", "1234567890", "adminpw",0));
 		} catch (Exception e) {}
 		
 		//TODO remove this when done testing
@@ -100,6 +100,8 @@ public class DataOld implements IUserDAO {
 		
 			newOp = new UserDTO(10,"Admin", "AM", "1234567890", "adminpw",0);
 			createUser(newOp);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
