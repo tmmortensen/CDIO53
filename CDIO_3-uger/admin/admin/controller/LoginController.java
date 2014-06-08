@@ -5,10 +5,9 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.UserData;
 import admin.data.IUserReadOnly;
 
-public class LoginController extends HttpServlet{
+public class LoginController extends AbstractController{
 
 	private static final long serialVersionUID = 1L;
 	IUserReadOnly data;
@@ -16,12 +15,7 @@ public class LoginController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (IUserReadOnly) getServletContext().getAttribute("data");
-		if (data == null){
-			UserData newdata = new UserData();
-			getServletContext().setAttribute("data", newdata);
-			data = newdata;
-		}
+		this.data = super.data;
 	}
 	
 	@Override

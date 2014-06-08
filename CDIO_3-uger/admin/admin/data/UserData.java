@@ -35,7 +35,7 @@ public class UserData implements IUserDAO {
 	}
 
 	@Override
-	public List<UserDTO> getUser() throws DALException {
+	public List<UserDTO> getUserList() throws DALException {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 
 		ResultSet rs = Connector

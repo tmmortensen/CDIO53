@@ -5,24 +5,18 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.UserData;
 import admin.data.IUserReadOnly;
 
 /**
  * Servlet implementation class TestController
  */
-public class TestController extends HttpServlet {
+public class TestController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 	IUserReadOnly data;
        
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (UserData) getServletContext().getAttribute("data");
-		if (data == null){
-			UserData newdata = new UserData();
-			getServletContext().setAttribute("data", newdata);
-			data = newdata;
-		}
+		this.data = super.data;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 

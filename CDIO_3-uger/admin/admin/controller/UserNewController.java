@@ -6,24 +6,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.DALException;
-import admin.data.UserData;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
 import admin.data.UserType;
 
-public class UserNewController extends HttpServlet {
+public class UserNewController extends AbstractController {
 	private static final long serialVersionUID = 1L;
-
-	UserData data;
-
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		data = (UserData) getServletContext().getAttribute("data");
-		if (data == null) {
-			data = new UserData();
-			getServletContext().setAttribute("data", data);
-		}
-	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

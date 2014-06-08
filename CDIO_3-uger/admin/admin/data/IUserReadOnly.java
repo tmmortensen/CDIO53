@@ -22,5 +22,5 @@ public interface IUserReadOnly {
 	 * @return a list of all users present in the database
 	 * @throws DALException
 	 */
-	List<UserDTO> getUser() throws DALException;
+	List<UserDTO> getUserList() throws DALException;
 }

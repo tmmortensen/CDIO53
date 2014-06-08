@@ -32,14 +32,12 @@ public class UserSession {
 	}
 	
 	public boolean isLoggedIn(){
-		return true;
-		//TODO restore this when data layer works
-		/*try{
-			UserDTO user = data.getOperatoer(userId);
+		try{
+			UserDTO user = data.getUser(userId);
 			if (user.getPassword().equals(password))
 				return true;
 		} catch (Exception e){}
-		return false;*/
+		return false;
 	}
 	
 	public boolean isAdmin(){
@@ -56,8 +54,11 @@ public class UserSession {
 	
 	
 	public int accessLevel(){
-		return 0;
-		//TODO remake this when data layer works
+		try{
+			UserDTO user = data.getUser(userId);
+			return user.getAccesLevel();
+		} catch (Exception e){}
+		return Integer.MAX_VALUE;
 	}
 	
 	public int getId(){

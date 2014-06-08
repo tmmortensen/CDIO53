@@ -1,7 +1,6 @@
 package admin.controller;
 
-import javax.servlet.http.HttpServlet;
+public class ProductBatchConfirmDeleteController extends AbstractController {
 
-public class ProductBatchConfirmDeleteController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 }

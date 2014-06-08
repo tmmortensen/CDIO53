@@ -1,7 +1,6 @@
 package admin.controller;
 
-import javax.servlet.http.HttpServlet;
+public class CommodityEditController extends AbstractController {
 
-public class CommodityEditController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 }

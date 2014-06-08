@@ -49,6 +49,14 @@ public class Operator {
 		setAccessLevel(op.getAccesLevel());
 	}
 
+	public Operator(UserDTO op) throws DALException {
+		setOprNavn(op.getUsername());
+		setIni(op.getIni());
+		setCpr(op.getCpr());
+		setPassword(op.getPassword());
+		setAccessLevel(op.getAccesLevel());
+	}
+
 	public String getOprNavn(){
 		return oprNavn;
 	}

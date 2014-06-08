@@ -6,23 +6,17 @@ import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.UserData;
 import admin.data.IUserReadOnly;
 import admin.data.MenuOption;
 
-public class MainMenuController extends HttpServlet{
+public class MainMenuController extends AbstractController{
 
 	private static final long serialVersionUID = 1L;
 	IUserReadOnly data;
 	
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (IUserReadOnly) getServletContext().getAttribute("data");
-		if (data == null){
-			UserData newdata = new UserData();
-			getServletContext().setAttribute("data", newdata);
-			data = newdata;
-		}
+		this.data = super.data;
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 

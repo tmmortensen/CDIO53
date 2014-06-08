@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.UserData;
 import admin.data.IUserReadOnly;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
@@ -15,18 +14,13 @@ import admin.data.UserInfo;
 /**
  * Servlet implementation class UserAdminController
  */
-public class UserAdminController extends HttpServlet {
+public class UserAdminController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 	IUserReadOnly data;
        
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		data = (UserData) getServletContext().getAttribute("data");
-		if (data == null){
-			UserData newdata = new UserData();
-			getServletContext().setAttribute("data", newdata);
-			data = newdata;
-		}
+		this.data = super.data;
 	}
 
 	/**
@@ -54,7 +48,7 @@ public class UserAdminController extends HttpServlet {
 		}
 		
 		try {
-			List<UserDTO> users = data.getUser();
+			List<UserDTO> users = data.getUserList();
 			List<UserInfo> userInfos = new ArrayList<UserInfo>();
 			for (UserDTO user : users){
 				UserInfo userInfo = new UserInfo(user);

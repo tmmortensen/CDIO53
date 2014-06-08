@@ -1,7 +1,6 @@
 package admin.controller;
 
-import javax.servlet.http.HttpServlet;
+public class PrescriptionAdminController extends AbstractController {
 
-public class PrescriptionAdminController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 }

@@ -6,25 +6,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.DALException;
-import admin.data.UserData;
 import admin.data.UserDTO;
 
 /**
  * Servlet implementation class TestController
  */
-public class PasswordChangeController extends HttpServlet {
+public class PasswordChangeController extends AbstractController {
 	private static final long serialVersionUID = 1L;
-	UserData data;
-
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		data = (UserData) getServletContext().getAttribute("data");
-		if (data == null) {
-			UserData newdata = new UserData();
-			getServletContext().setAttribute("data", newdata);
-			data = newdata;
-		}
-	}
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

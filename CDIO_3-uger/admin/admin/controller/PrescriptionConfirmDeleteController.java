@@ -1,7 +1,7 @@
 package admin.controller;
 
-import javax.servlet.http.HttpServlet;
 
-public class PrescriptionConfirmDeleteController extends HttpServlet {
+public class PrescriptionConfirmDeleteController extends AbstractController {
 
+	private static final long serialVersionUID = 1L;
 }

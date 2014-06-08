@@ -1,7 +1,7 @@
 package admin.controller;
 
-import javax.servlet.http.HttpServlet;
+public class BatchCommodityNewController extends AbstractController {
 
-public class BatchCommodityNewController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 }
