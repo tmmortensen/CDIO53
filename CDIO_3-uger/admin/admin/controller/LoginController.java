@@ -5,12 +5,12 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.IUserReadOnly;
+import admin.data.IUsersReadOnly;
 
 public class LoginController extends AbstractController{
 
 	private static final long serialVersionUID = 1L;
-	IUserReadOnly data;
+	IUsersReadOnly data;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{

@@ -1,18 +1,18 @@
 package admin.controller;
 
-import admin.data.IUserReadOnly;
+import admin.data.IUsersReadOnly;
 import admin.data.UserDTO;
 
 public class UserSession {
 	private int userId;
 	private String password;
-	private IUserReadOnly data;
+	private IUsersReadOnly data;
 	
 	public UserSession(){
 		
 	}
 	
-	public void init(IUserReadOnly data){
+	public void init(IUsersReadOnly data){
 		this.data = data;
 	}
 	

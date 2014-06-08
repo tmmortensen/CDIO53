@@ -8,7 +8,7 @@ package admin.data;
  * data in the database
  * 
  */
-public interface IUserDAO extends IUserReadOnly {
+public interface IUserDAO extends IUsersReadOnly {
 	/**
 	 * Inserts a new user entry into the database
 	 * 

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.IUserReadOnly;
+import admin.data.IUsersReadOnly;
 import admin.data.MenuOption;
 
 public class MainMenuController extends AbstractController{
 
 	private static final long serialVersionUID = 1L;
-	IUserReadOnly data;
+	IUsersReadOnly data;
 	
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);

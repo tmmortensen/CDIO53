@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The read-only interface to the data layer
  */
-public interface IUserReadOnly {
+public interface IUsersReadOnly {
 	/**
 	 * 
 	 * @param oprId

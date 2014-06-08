@@ -29,16 +29,16 @@
 	</div>
 	
 	<%--Kun til test--%>
-	<%--
+	<%
 		out.print("Current Users <BR>");
-		UserData data = (UserData) request.getAttribute("data");
-		List<UserDTO> operators = data.getOperatoerList();
+		IUsersReadOnly data = (IUsersReadOnly) request.getAttribute("data");
+		List<UserDTO> operators = data.getUserList();
 		
 		for(UserDTO op : operators){
-			out.print("ID: " + op.getOprId() + " PW: " 
+			out.print("ID: " + op.getUserId() + " PW: " 
 		+ op.getPassword() + " Admin: " + op.isAdmin() + "<BR>");
 		}
-	--%>
+	%>
 	
 </body>
 </html>
