@@ -61,60 +61,39 @@
 		} else if (!majorError.equals("")){
 	%> 
 	<h1>Fejl under redigering af bruger!</h1>
-	<div class="error"> 
-		<%
- 			out.print(majorError);
- 		%> 
-	</div> 
+	<div class="error"><%out.print(majorError);%></div> 
 	<%
  		} else {
  	%>
 	<h1>Indtast nye brugeroplysninger</h1>
 	<form method="post">
-		<%
-			if (!idError.equals("")){
-		%> <div class="error"> <%
- 	out.print(idError);
- %> </div> <%
- 	}
- %>
+		<% if (!idError.equals("")){ %> 
+		<div class="error"><%out.print(idError);%></div>
+		<% } %>
 		<label for="userid">Bruger ID</label>
 		<input type="text" name="newId" id="userid"
 			value="<%out.print(newId);%>">
-		<%
-			if (error.ini != null){
-		%> <div class="error"> <%
- 	out.print(error.ini);
- %> </div> <%
- 	}
- %>
+		<% if (error.ini != null){ %>
+		<div class="error"><%out.print(error.ini);%></div>
+		<% } %>
 		<label for="userini">Bruger initialer</label>
 		<input type="text" name="newIni" id="userini"
 			value="<%out.print(info.ini);%>">
-		<%
-			if (error.name != null){
-		%> <div class="error"> <%
- 	out.print(error.name);
- %> </div> <%
- 	}
- %>
+		<% if (error.name != null){	%>
+		<div class="error"><%out.print(error.name);%></div>
+		<% } %>
 		<label for="username">Brugernavn</label>
 		<input type="text" name="newName" id="username"
 			value="<%out.print(info.name);%>">
-		<%
-			if (error.cpr != null){
-		%> <div class="error"> <%
- 	out.print(error.cpr);
- %> </div> <%
- 	}
- %>
+		<% if (error.cpr != null){ %>
+		<div class="error"><%out.print(error.cpr);%></div>
+		<% } %>
 		<label for="usercpr">CPR</label>
 		<input type="text" name="newCPR" id="usercpr"
 			value="<%out.print(info.cpr);%>">
 		<label for="isAdmin">Administrator</label>
 		<input type="checkbox" name="newAdmin" id="isAdmin"
-		
-			value="true" >
+					value="true" >
 		<input type="submit" value="Rediger">
 	</form>
 	<%} %>
