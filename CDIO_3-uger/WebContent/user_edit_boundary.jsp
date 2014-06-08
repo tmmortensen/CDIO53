@@ -3,12 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="majorError" class="java.lang.String" scope="request"/>
 <jsp:useBean id="idError" class="java.lang.String" scope="request"/>
+<jsp:useBean id="accessError" class="java.lang.String" scope="request"/>
 <jsp:useBean id="error" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="info" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="old" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="newId" class="java.lang.String" scope="request"/>
 <jsp:useBean id="oldId" class="java.lang.String" scope="request"/>
+<jsp:useBean id="newPw" class="java.lang.String" scope="request"/>
 <% boolean complete = (Boolean) request.getAttribute("complete"); %>
+<% boolean create = (Boolean) request.getAttribute("create"); %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -19,7 +22,8 @@
 
 	
 <div class="dialog">
-	<% if (complete){ %> 
+	<% if (complete){ %>
+	<%   if (!create){ %>  
 	<h1>Redigering foretaget</h1>
 		<table border="1"><tbody>
 			<tr>
@@ -39,6 +43,9 @@
 		%>
 		</tbody></table><br>
 		Er blevet rettet til:<br><br>
+	<%   } else { %>
+		<h1>Brugeroprettelse foretaget</h1>
+	<%   } %>
 		<table border="1"><tbody>
 			<tr>
 				<th>ID</th>
@@ -56,15 +63,17 @@
 			out.println("\t\t\t\t\t<td>" + info.access.name() +"</td>\n");
 		%>
 		</tbody></table>
-
-	<%
-		} else if (!majorError.equals("")){
+	<%   if (create){ %>
+		Brugerens kodeord er:<br>
+		<h1><%out.println(newPw); %></h1>
+	
+	<%   }
+	   } else if (!majorError.equals("")){
 	%> 
-	<h1>Fejl under redigering af bruger!</h1>
+	<% if (create) {%>	<h1>Fejl under oprettelse af bruger!</h1>
+	<% } else { %><h1>Fejl under redigering af bruger!</h1> <% } %>
 	<div class="error"><%out.print(majorError);%></div> 
-	<%
- 		} else {
- 	%>
+	<% } else { %>
 	<h1>Indtast nye brugeroplysninger</h1>
 	<form method="post">
 		<% if (!idError.equals("")){ %> 
@@ -73,28 +82,41 @@
 		<label for="userid">Bruger ID</label>
 		<input type="text" name="newId" id="userid"
 			value="<%out.print(newId);%>">
+			
 		<% if (error.ini != null){ %>
 		<div class="error"><%out.print(error.ini);%></div>
 		<% } %>
 		<label for="userini">Bruger initialer</label>
 		<input type="text" name="newIni" id="userini"
 			value="<%out.print(info.ini);%>">
+			
 		<% if (error.name != null){	%>
 		<div class="error"><%out.print(error.name);%></div>
 		<% } %>
 		<label for="username">Brugernavn</label>
 		<input type="text" name="newName" id="username"
 			value="<%out.print(info.name);%>">
+			
 		<% if (error.cpr != null){ %>
 		<div class="error"><%out.print(error.cpr);%></div>
 		<% } %>
 		<label for="usercpr">CPR</label>
 		<input type="text" name="newCPR" id="usercpr"
 			value="<%out.print(info.cpr);%>">
-		<label for="isAdmin">Administrator</label>
-		<input type="checkbox" name="newAdmin" id="isAdmin"
-					value="true" >
-		<input type="submit" value="Rediger">
+			
+		<% if (!accessError.equals("")){ %>
+		<div class="error"><%out.print(accessError);%></div>
+		<% } %>
+		<label for="usertype">Bruger Typpe</label>
+		<select name="newAccess">
+		<option value="OPERATOR" selected>Operatør</option>
+		<option value="FOREMAN">Værkfører</option>
+		<option value="PHARMACIST" >Farmaceut</option>
+		<option value="ADMIN">Administrator</option>
+		</select>
+		<% if (create) {%>	<input type="submit" value="Opret">
+		<% } else { %><input type="submit" value="Rediger"> <% } %>
+	
 	</form>
 	<%} %>
 		<div class="buttons">

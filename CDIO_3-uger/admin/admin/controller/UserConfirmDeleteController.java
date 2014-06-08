@@ -56,7 +56,8 @@ public class UserConfirmDeleteController extends AbstractController {
 					data.deleteUser(uid);
 					success = true;
 				} catch (DALException e) {
-					error = "Der skete en fejl under sletning";
+					error = "Der skete en fejl under sletning<BR>";
+					error += e.getMessage();
 				}
 			} else {
 			}
