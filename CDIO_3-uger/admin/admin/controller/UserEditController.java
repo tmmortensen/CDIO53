@@ -27,9 +27,9 @@ public class UserEditController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User user = (User) request.getSession().getAttribute("user");
+		UserSession user = (UserSession) request.getSession().getAttribute("user");
 		if (user == null) {
-			user = new User();
+			user = new UserSession();
 			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}

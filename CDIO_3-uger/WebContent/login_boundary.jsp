@@ -29,7 +29,7 @@
 	</div>
 	
 	<%--Kun til test--%>
-	<%
+	<%--
 		out.print("Current Users <BR>");
 		UserData data = (UserData) request.getAttribute("data");
 		List<UserDTO> operators = data.getOperatoerList();
@@ -38,7 +38,7 @@
 			out.print("ID: " + op.getOprId() + " PW: " 
 		+ op.getPassword() + " Admin: " + op.isAdmin() + "<BR>");
 		}
-	%>
+	--%>
 	
 </body>
 </html>

@@ -28,9 +28,9 @@ public class MainMenuController extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		User user = (User) request.getSession().getAttribute("user");
+		UserSession user = (UserSession) request.getSession().getAttribute("user");
 		if (user == null){
-			user = new User();
+			user = new UserSession();
 			user.init(data);
 			request.getSession().setAttribute("user", user);
 		}
@@ -40,10 +40,18 @@ public class MainMenuController extends HttpServlet{
 		}
 		ArrayList<MenuOption> menuChoices = new ArrayList<MenuOption>();		
 		menuChoices.add( new MenuOption("Skift kodeord", "password_change") );
-		menuChoices.add( new MenuOption("Test", "test") );
+		//menuChoices.add( new MenuOption("Test", "test") );
 		menuChoices.add( new MenuOption("Log ud", "login?logout=true") );
+		if (user.isForeman()){
+			menuChoices.add(1, new MenuOption( "Produktbatchadministration", "productBatch_admin"));
+			menuChoices.add(1, new MenuOption( "Råvarebatchadministration", "commodityBatch_admin"));
+		}
+		if (user.isPharmacist()){
+			menuChoices.add(1, new MenuOption( "Receptadministration", "prescription_admin"));
+			menuChoices.add(1, new MenuOption( "Råvareadministration", "commodity_admin"));
+		}
 		if (user.isAdmin()){
-			menuChoices.add(1, new MenuOption( "Administrer brugere", "user_admin"));
+			menuChoices.add(1, new MenuOption( "Brugeradministration ", "user_admin"));
 		}
 		
 		request.setAttribute("Menulist", menuChoices);

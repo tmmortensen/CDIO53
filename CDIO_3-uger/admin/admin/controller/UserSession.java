@@ -3,12 +3,12 @@ package admin.controller;
 import admin.data.IUserReadOnly;
 import admin.data.UserDTO;
 
-public class User {
+public class UserSession {
 	private int userId;
 	private String password;
 	private IUserReadOnly data;
 	
-	public User(){
+	public UserSession(){
 		
 	}
 	
@@ -32,20 +32,32 @@ public class User {
 	}
 	
 	public boolean isLoggedIn(){
-		try{
+		return true;
+		//TODO restore this when data layer works
+		/*try{
 			UserDTO operator = data.getOperatoer(userId);
 			if (operator.getPassword().equals(password))
 				return true;
 		} catch (Exception e){}
-		return false;
+		return false;*/
 	}
 	
 	public boolean isAdmin(){
-		try {
-			UserDTO operator = data.getOperatoer(userId);
-			return operator.isAdmin();
-		} catch (Exception e) {}
-		return false;
+		return accessLevel() <= 0;
+	}
+	
+	public boolean isPharmacist(){
+		return accessLevel() <= 1;
+	}
+	
+	public boolean isForeman(){
+		return accessLevel() <= 2;
+	}
+	
+	
+	public int accessLevel(){
+		return 0;
+		//TODO remake this when data layer works
 	}
 	
 	public int getId(){

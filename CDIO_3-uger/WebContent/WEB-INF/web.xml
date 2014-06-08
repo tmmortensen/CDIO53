@@ -38,7 +38,7 @@
   	<description>the main menu</description>
   	<display-name>Main Menu</display-name>
   	<servlet-name>MainMenuController</servlet-name>
-  	<servlet-class>controller.MainMenuController</servlet-class>
+  	<servlet-class>admin.controller.MainMenuController</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>MainMenuController</servlet-name>
