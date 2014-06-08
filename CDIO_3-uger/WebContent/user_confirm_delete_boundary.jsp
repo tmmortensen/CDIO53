@@ -38,10 +38,7 @@
 			out.println("\t\t\t\t\t<td>" + userInfo.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + userInfo.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + userInfo.cpr + "</td>\n");
-			if (userInfo.admin)
-				out.println("\t\t\t\t\t<td>Ja</td>\n");
-			else
-				out.println("\t\t\t\t\t<td>Nej</td>\n");
+			out.println("\t\t\t\t\t<td>" + userInfo.access.name() +"</td>\n");
 		%>
 		</tbody></table>
 		<% if (!done) {%>

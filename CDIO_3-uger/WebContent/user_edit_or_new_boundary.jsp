@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:useBean id="majorError" class="java.lang.String" scope="request"/>
 <jsp:useBean id="idError" class="java.lang.String" scope="request"/>
+<jsp:useBean id="accessError" class="java.lang.String" scope="request"/>
 <jsp:useBean id="error" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="info" class="admin.data.UserInfo" scope="request"/>
 <jsp:useBean id="old" class="admin.data.UserInfo" scope="request"/>
@@ -43,7 +44,7 @@
 		</tbody></table><br>
 		Er blevet rettet til:<br><br>
 	<%   } else { %>
-		<h1>Bruger oprettelse foretaget</h1>
+		<h1>Brugeroprettelse foretaget</h1>
 	<%   } %>
 		<table border="1"><tbody>
 			<tr>
@@ -103,9 +104,19 @@
 		<input type="text" name="newCPR" id="usercpr"
 			value="<%out.print(info.cpr);%>">
 			
-		<label for="isAdmin">Administrator</label>
-		<input type="checkbox" name="newAdmin" id="isAdmin"	value="true" >
-		<input type="submit" value="Rediger">
+		<% if (!accessError.equals("")){ %>
+		<div class="error"><%out.print(accessError);%></div>
+		<% } %>
+		<label for="usertype">Bruger Typpe</label>
+		<select name="newAccess">
+		<option value="OPERATOR" selected>Operatør</option>
+		<option value="FOREMAN">Værkfører</option>
+		<option value="PHARMACIST" >Farmaceut</option>
+		<option value="ADMIN">Administrator</option>
+		</select>
+		<% if (create) {%>	<input type="submit" value="Opret">
+		<% } else { %><input type="submit" value="Rediger"> <% } %>
+	
 	</form>
 	<%} %>
 		<div class="buttons">

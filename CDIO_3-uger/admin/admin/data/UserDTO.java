@@ -31,10 +31,10 @@ public class UserDTO{
 	}
 
 	public UserDTO(int id, String name, String ini, String cpr, String pw, int access) throws DALException{
-		setUsername(username);
+		setUsername(name);
 		setIni(ini);
 		setCpr(cpr);
-		setPassword(password);
+		setPassword(pw);
 		setAccessLevel(access);
 		setUserId(id);
 	}

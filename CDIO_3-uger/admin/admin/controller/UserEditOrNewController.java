@@ -64,6 +64,9 @@ public class UserEditOrNewController extends AbstractController {
 		if (request.getMethod().equals("GET")) {
 			if (isNewUser) {
 				info = new UserInfo();
+				info.ini = "";
+				info.name = "";
+				info.cpr = "";
 			} else {
 				try {
 					UserDTO user = data.getUser(iUserId);
@@ -82,7 +85,7 @@ public class UserEditOrNewController extends AbstractController {
 			info.ini = request.getParameter("newIni");
 			info.name = request.getParameter("newName");
 			info.cpr = request.getParameter("newCPR");
-			sNewAccess = request.getParameter("newAdmin");
+			sNewAccess = request.getParameter("newAccess");
 
 			try {
 				info.id = Integer.parseInt(sNewId);
@@ -136,6 +139,10 @@ public class UserEditOrNewController extends AbstractController {
 					info.access = UserType.OPERATOR;
 					accessError = "Der skete en fejl med brugertypen";
 					anyError = true;
+				} catch (NullPointerException e) {
+					info.access = UserType.OPERATOR;
+					accessError = "Der blev ikke valgt nogen brugertype";
+					anyError = true;
 				}
 
 				if (!anyError) {
@@ -173,7 +180,9 @@ public class UserEditOrNewController extends AbstractController {
 					}
 				}
 			} catch (Exception e) {
-				majorError = "Brugeren med det givne id findes ikke længere";
+				//majorError = "Brugeren med det givne id findes ikke længere";
+				majorError = e.getMessage();
+				e.printStackTrace();
 			}
 		}
 

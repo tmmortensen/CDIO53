@@ -32,6 +32,7 @@ h1 {
 
 .dialog label, 
 .password_dialog label{
+	box-sizing: border-box;
 	display: inline-block;
 	margin: 4px 2px;
 	padding: 2px 5px;
@@ -40,10 +41,12 @@ h1 {
 	color: #fff;
 }
 
-.dialog input, 
+.dialog input,
+.dialog select, 
 .password_dialog input{
-	width: 51%;
+	width: 58%;
 	padding: 2px 5px;
+	box-sizing: border-box;
 }
 
 .dialog input[type="submit"] {
@@ -55,11 +58,13 @@ h1 {
 }
 
 .error {
-	margin: 4px;
+	margin: 4px 2px;
 	text-align: center;
 	color: white;
 	background: red;
 	border: 1px dashed white;
+	box-sizing: border-box;
+	padding: 2px 5px;
 }
 
 .buttons{
