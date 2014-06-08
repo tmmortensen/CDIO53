@@ -1,16 +1,10 @@
 package admin.data;
 
-
 // erstat konstanterne nedenfor
 
-public abstract class Constant
-{
-	public static final String
-		server					= "localhost",  // database-serveren
-		database				=  "weight",  //"jdbcdatabase", // navnet paa din database = dit studienummer
-		username				= "root", // dit brugernavn = dit studienummer 
-		password				= "1234"; // dit password som du har valgt til din database
-	
-	public static final int
-		port					= 3306;
+public abstract class Constant {
+	public static final String server = "localhost", database = "weight",
+			username = "root", password = "1234";
+
+	public static final int port = 3306;
 }
