@@ -80,9 +80,9 @@ public class UserData implements IUserDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO users VALUES ('" + opr.getUserId()
-				+ "' , '" + opr.getUsername() + "' , '" + opr.getIni() + "' , '"
-				+ opr.getCpr() + "' , '" + opr.getPassword() + "' , '"
-				+ opr.isAdmin() + "');");
+				+ "' , '" + opr.getUsername() + "' , '" + opr.getIni()
+				+ "' , '" + opr.getCpr() + "' , '" + opr.getPassword()
+				+ "' , '" + opr.isAdmin() + "');");
 		Connector.closeConnection();
 
 	}
@@ -96,10 +96,11 @@ public class UserData implements IUserDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("UPDATE users " + "SET user_id = " + opr.getUserId()
-				+ ", user_name = " + opr.getUsername() + ", ini = "
-				+ opr.getIni() + ", cpr = " + opr.getCpr() + ", password = "
-				+ opr.getPassword() + ", user_type = " + opr.isAdmin()
-				+ " WHERE opr_id = " + opr.getUserId() + ";");
+				+ ", user_name = " + "'" + opr.getUsername() + "'" + ", ini = "
+				+ "'" + opr.getIni() + "'" + ", cpr = " + "'" + opr.getCpr()
+				+ "'" + ", password = " + "'" + opr.getPassword() + "'"
+				+ ", user_type = " + opr.isAdmin() + " WHERE user_id = "
+				+ opr.getUserId() + ";");
 		Connector.closeConnection();
 	}
 
