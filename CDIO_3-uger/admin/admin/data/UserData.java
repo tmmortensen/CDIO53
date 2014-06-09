@@ -39,7 +39,7 @@ public class UserData implements IUserDAO {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 
 		ResultSet rs = Connector
-				.doQuery("SELECT id, first, last, age FROM Employees");
+				.doQuery("SELECT * FROM Employees;");
 		try {
 			while (rs.next()) {
 				list.add(new UserDTO(rs.getInt("opr_id"), rs
@@ -78,31 +78,31 @@ public class UserData implements IUserDAO {
 
 	@Override
 	public synchronized void deleteUser(int id) throws DALException {
-		Connector.doUpdate("DELETE FROM operatoer WHERE opr_id = " + id);
+		Connector.doUpdate("DELETE FROM operatoer WHERE opr_id = " + id + ";");
 	}
 
 	public void createDefaultOperators() {
 		try {
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(11,Test Guy, 2, TG, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(12,Test Guy 2, 3, TG2, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(13,Test Guy 3, 2, TG3, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(14,Test Guy 4, 3, TG4, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(15,Test Guy 5, 3, TG5, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
 					.doUpdate("INSERT INTO operatoer VALUES(16,Test Guy 6, 1, TG6, 1234567890, "
-							+ UserDTO.generatePassword());
+							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(10, Admin, 0, AM, 1234567890, adminpw ");
+					.doUpdate("INSERT INTO operatoer VALUES(10, Admin, 0, AM, 1234567890, adminpw; ");
 		} catch (Exception e) {
 		}
 	}
