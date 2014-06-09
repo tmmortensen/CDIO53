@@ -79,10 +79,10 @@ public class UserData implements IUserDAO {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("INSERT INTO users VALUES (" + opr.getUserId()
-				+ " , " + opr.getUsername() + " , " + opr.getIni() + " , "
-				+ opr.getCpr() + " , " + opr.getPassword() + " , "
-				+ opr.isAdmin() + ");");
+		Connector.doUpdate("INSERT INTO users VALUES ('" + opr.getUserId()
+				+ "' , '" + opr.getUsername() + "' , '" + opr.getIni() + "' , '"
+				+ opr.getCpr() + "' , '" + opr.getPassword() + "' , '"
+				+ opr.isAdmin() + "');");
 		Connector.closeConnection();
 
 	}
@@ -125,29 +125,30 @@ public class UserData implements IUserDAO {
 
 		try {
 			Connector
-					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'adminpw', 0; ");
+					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'adminpw', 0); ");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(11,'Test Guy', 'TG', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 2;");
+							+ UserDTO.generatePassword() + "', 2);");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(12,'Test Guy 2', 'TG2', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 3;");
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(13,'Test Guy 3', 'TG3', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 2;");
+							+ UserDTO.generatePassword() + "', 2);");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(14,'Test Guy 4', 'TG4', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 3;");
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(15,'Test Guy 5', 'TG5', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 3;");
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(16,'Test Guy 6', 'TG6', '1234567890', '"
-							+ UserDTO.generatePassword() + "', 1;");
+							+ UserDTO.generatePassword() + "', 1);");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'adminpw', 0; ");
+					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'adminpw', 0); ");
 			Connector.closeConnection();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
