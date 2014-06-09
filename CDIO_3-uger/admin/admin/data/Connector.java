@@ -50,7 +50,7 @@ public class Connector {
 				Constant.username, Constant.password);
 	}
 
-	public synchronized ResultSet doQuery(String cmd) throws DALException {
+	public static ResultSet doQuery(String cmd) throws DALException {
 		try {
 			return stm.executeQuery(cmd);
 		} catch (SQLException e) {
@@ -58,7 +58,7 @@ public class Connector {
 		}
 	}
 
-	public synchronized int doUpdate(String cmd) throws DALException {
+	public static int doUpdate(String cmd) throws DALException {
 		try {
 			return stm.executeUpdate(cmd);
 		} catch (SQLException e) {
