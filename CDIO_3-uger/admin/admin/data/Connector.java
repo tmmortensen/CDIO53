@@ -22,33 +22,32 @@ public class Connector {
 	 * @throws InstantiationException
 	 * @throws SQLException
 	 */
-	public synchronized Connection connectToDatabase(String url,
-			String username, String password) throws InstantiationException,
+	public static Connection connectToDatabase(String url, String username,
+			String password) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		// call the driver class' no argument constructor
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-
+		   Class.forName("com.mysql.jdbc.Driver").newInstance();
 		// get Connection-object via DriverManager
 		return (Connection) DriverManager
 				.getConnection(url, username, password);
 	}
 
-	private Connection conn;
-	private Statement stm;
+	private static Connection conn;
+	private static Statement stm;
 
-	public Connector(String server, int port, String database, String username,
-			String password) throws InstantiationException,
+	public static void connect() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
-		conn = connectToDatabase("jdbc:mysql://" + server + ":" + port + "/"
-				+ database, username, password);
+		conn = connectToDatabase("jdbc:mysql://" + Constant.server + ":"
+				+ Constant.port + "/" + Constant.database, Constant.username,
+				Constant.password);
 		stm = conn.createStatement();
 	}
 
-	public Connector() throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException, SQLException {
-		this(Constant.server, Constant.port, Constant.database,
-				Constant.username, Constant.password);
-	}
+	// public Connector() throws InstantiationException, IllegalAccessException,
+	// ClassNotFoundException, SQLException {
+	// this(Constant.server, Constant.port, Constant.database,
+	// Constant.username, Constant.password);
+	// }
 
 	public static ResultSet doQuery(String cmd) throws DALException {
 		try {
@@ -64,6 +63,15 @@ public class Connector {
 		} catch (SQLException e) {
 			throw new DALException(e);
 		}
+	}
+
+	public static void closeConnection() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+
+		}
+
 	}
 
 }
