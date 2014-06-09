@@ -6,11 +6,11 @@ public interface IProductBatchDAO {
 	
 	public void createProductBatch(ProductBatchDTO productBatch) throws DALException;
 	
-	public List<ProductBatchDTO> getCompletedProductBatch();
+	public List<ProductBatchDTO> getCompletedProductBatch() throws DALException;
 	
-	public List<ProductBatchDTO> getInitiatedProductBatch();
+	public List<ProductBatchDTO> getInitiatedProductBatch() throws DALException;
 	
-	public List<ProductBatchDTO> getUnInitializedProductBatch();
+	public List<ProductBatchDTO> getUnInitializedProductBatch() throws DALException;
 	
-	public void updateStatus(int pb_id);
+	public void updateStatus(int pb_id) throws DALException;
 }
