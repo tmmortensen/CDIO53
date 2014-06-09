@@ -9,7 +9,7 @@ public interface IPrescritpionDAO {
 	public void createPrescription(PrescriptionDTO prescription)
 			throws DALException;
 
-	public void getPrescription(PrescriptionDTO prescription)
+	public PrescriptionDTO getPrescription(int prescriptionId)
 			throws DALException;
 
 	public List<PrescriptionDTO> getAllPrescription(PrescriptionDTO prescription)
