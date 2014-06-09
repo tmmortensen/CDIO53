@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductBatchData implements IProductBatchDAO {
 
-	public void createProductBatch(ProductBatchDTO productBatch)
+	public synchronized void createProductBatch(ProductBatchDTO productBatch)
 			throws DALException {
 		Connector.doUpdate("INSERT INTO productbatch VALUES ( pb_id = "
 				+ productBatch.getPbId() + ", prescription_id = "
@@ -16,7 +16,7 @@ public class ProductBatchData implements IProductBatchDAO {
 
 	}
 
-	public List<ProductBatchDTO> getCompletedProductBatch() throws DALException {
+	public synchronized List<ProductBatchDTO> getCompletedProductBatch() throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE status = 2;");
@@ -32,7 +32,7 @@ public class ProductBatchData implements IProductBatchDAO {
 		return list;
 	}
 
-	public List<ProductBatchDTO> getInitiatedProductBatch() throws DALException {
+	public synchronized List<ProductBatchDTO> getInitiatedProductBatch() throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE status = 1;");
@@ -48,7 +48,7 @@ public class ProductBatchData implements IProductBatchDAO {
 		return list;
 	}
 
-	public List<ProductBatchDTO> getUnInitializedProductBatch()
+	public synchronized List<ProductBatchDTO> getUnInitializedProductBatch()
 			throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		ResultSet rs = Connector
@@ -65,7 +65,7 @@ public class ProductBatchData implements IProductBatchDAO {
 		return list;
 	}
 
-	public void updateStatus(int pb_id) throws DALException {
+	public synchronized void updateStatus(int pb_id) throws DALException {
 		// TODO Auto-generated method stub
 
 	}
