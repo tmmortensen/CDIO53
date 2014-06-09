@@ -13,45 +13,46 @@ public class PrescriptionData implements IPrescritpionDAO {
 	}
 
 	@Override
-	public void createPrescription(admin.data.PrescriptionDTO prescription)
+	public void createPrescription(PrescriptionDTO prescription)
+			throws DALException {
+		Connector.doUpdate("INSERT INTO prescription VALUES ( "
+				+ " prescription_id = " + prescription.getPrescriptionId()
+				+ " prescription_name = " + prescription.getPrescriptionName()
+				+ ");");
+	}
+
+	@Override
+	public PrescriptionDTO getPrescription(int prescriptionId)
 			throws DALException {
 		ResultSet rs = Connector
-				.doQuery("INSERT INTO TABLE prescription VALUES( )");
+				.doQuery("SELECT * FROM prescription WHERE prescription_id = "
+						+ prescriptionId + ";");
 		try {
-			if (!rs.first())
-				throw new DALException("does not exist");
-			return;
-
+			if (!rs.first()) {
+				throw new DALException("the commodity with the id = "
+						+ prescriptionId + " does not exist");
+			}
+			return new PrescriptionDTO(rs.getInt("prescription_id"),
+					rs.getString("prescription_name"));
 		} catch (SQLException e) {
 			throw new DALException(e);
 		}
-
 	}
 
 	@Override
-	public void getPrescription(admin.data.PrescriptionDTO prescription)
+	public List<PrescriptionDTO> getAllPrescription(PrescriptionDTO prescription)
 			throws DALException {
-
-	}
-
-	@Override
-	public List<PrescriptionDTO> getAllPrescription(
-			admin.data.PrescriptionDTO prescription) throws DALException {
 		List<PrescriptionDTO> list = new ArrayList<PrescriptionDTO>();
-
-		ResultSet rs = Connector.doQuery("SELECT * FROM prescription");
+		ResultSet rs = Connector.doQuery("SELECT * FROM prescription;");
 		try {
 			while (rs.next()) {
-				list.add(new PrescriptionDTO(rs.getInt("opr_id"), rs
-						.getString("opr_navn")));
-
+				list.add(new PrescriptionDTO(rs.getInt("prescription_id"), rs
+						.getString("prescription_name")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(e);
 		}
-
 		return list;
-
 	}
 
 }

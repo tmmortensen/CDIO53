@@ -9,4 +9,13 @@ public class PrescriptionDTO {
 		this.prescriptionId = prescriptionId;
 		this.prescriptionName = prescriptionName;
 	}
+
+	public int getPrescriptionId() {
+		return prescriptionId;
+	}
+
+	public String getPrescriptionName() {
+		return prescriptionName;
+	}
+
 }
