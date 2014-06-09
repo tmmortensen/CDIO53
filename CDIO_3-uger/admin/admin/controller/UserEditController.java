@@ -44,26 +44,39 @@ public class UserEditController extends AbstractController {
 		String accessError = "";
 		String majorError = "";
 		boolean anyError = false;
+		boolean isNewUser = false;
+		String password = "";
 
 		String sUserId = request.getParameter("id");
 		int iUserId = 0;
 
-		try {
-			iUserId = Integer.parseInt(sUserId);
-		} catch (NumberFormatException e) {
-			majorError = "Bruger id er ugyldigt";
-			anyError = true;
+		if (sUserId.equals("new")) {
+			isNewUser = true;
+		} else {
+			try {
+				iUserId = Integer.parseInt(sUserId);
+			} catch (NumberFormatException e) {
+				majorError = "Bruger id er ugyldigt";
+				anyError = true;
+			}
 		}
 
 		if (request.getMethod().equals("GET")) {
-			try {
-				UserDTO user = data.getUser(iUserId);
-				sNewId = sUserId;
-				info = new UserInfo(user);
-				request.setAttribute("info", info);
-			} catch (DALException e1) {
-				majorError = "Der findes ingen bruger med det angivne id";
-				anyError = true;
+			if (isNewUser) {
+				info = new UserInfo();
+				info.ini = "";
+				info.name = "";
+				info.cpr = "";
+			} else {
+				try {
+					UserDTO user = data.getUser(iUserId);
+					sNewId = sUserId;
+					info = new UserInfo(user);
+					request.setAttribute("info", info);
+				} catch (DALException e1) {
+					majorError = "Der findes ingen bruger med det angivne id";
+					anyError = true;
+				}
 			}
 		} else {
 			info = new UserInfo();
@@ -72,7 +85,7 @@ public class UserEditController extends AbstractController {
 			info.ini = request.getParameter("newIni");
 			info.name = request.getParameter("newName");
 			info.cpr = request.getParameter("newCPR");
-			sNewAccess = request.getParameter("newAdmin");
+			sNewAccess = request.getParameter("newAccess");
 
 			try {
 				info.id = Integer.parseInt(sNewId);
@@ -84,7 +97,12 @@ public class UserEditController extends AbstractController {
 
 			UserDTO user;
 			try {
-				user = data.getUser(iUserId);
+				if (isNewUser) {
+					password = UserDTO.generatePassword();
+					user = new UserDTO(1, "AA", "AA", "0000000000", password);
+				} else {
+					user = data.getUser(iUserId);
+				}
 
 				try {
 					user.setUserId(info.id);
@@ -121,24 +139,37 @@ public class UserEditController extends AbstractController {
 					info.access = UserType.OPERATOR;
 					accessError = "Der skete en fejl med brugertypen";
 					anyError = true;
+				} catch (NullPointerException e) {
+					info.access = UserType.OPERATOR;
+					accessError = "Der blev ikke valgt nogen brugertype";
+					anyError = true;
 				}
 
 				if (!anyError) {
-					old = new UserInfo(data.getUser(iUserId));
-					if (iUserId == info.id) {
+					if (isNewUser) {
 						try {
-							data.updateUser(user);
+							data.createUser(user);
 						} catch (DALException e) {
 							idError = e.getMessage();
 							anyError = true;
 						}
 					} else {
-						try {
-							data.createUser(user);
-							data.deleteUser(iUserId);
-						} catch (DALException e) {
-							idError = e.getMessage();
-							anyError = true;
+						old = new UserInfo(data.getUser(iUserId));
+						if (iUserId == info.id) {
+							try {
+								data.updateUser(user);
+							} catch (DALException e) {
+								idError = e.getMessage();
+								anyError = true;
+							}
+						} else {
+							try {
+								data.createUser(user);
+								data.deleteUser(iUserId);
+							} catch (DALException e) {
+								idError = e.getMessage();
+								anyError = true;
+							}
 						}
 					}
 				} else if (iUserId != info.id) {
@@ -149,7 +180,9 @@ public class UserEditController extends AbstractController {
 					}
 				}
 			} catch (Exception e) {
-				majorError = "Brugeren med det givne id findes ikke længere";
+				//majorError = "Brugeren med det givne id findes ikke længere";
+				majorError = e.getMessage();
+				e.printStackTrace();
 			}
 		}
 
@@ -159,14 +192,16 @@ public class UserEditController extends AbstractController {
 		request.setAttribute("accessError", accessError);
 		request.setAttribute("complete", !anyError
 				&& request.getMethod().equals("POST"));
-
+		request.setAttribute("create", isNewUser);
+		
 		request.setAttribute("newId", sNewId);
+		request.setAttribute("newPw", password);
 		request.setAttribute("oldId", sUserId);
 		request.setAttribute("info", info);
 		request.setAttribute("old", old);
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/edit_user_boundary.jsp");
+				.getRequestDispatcher("/user_edit_boundary.jsp");
 		dispatcher.forward(request, response);
 
 	}

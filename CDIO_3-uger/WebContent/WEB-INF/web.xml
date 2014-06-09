@@ -58,16 +58,6 @@
     <url-pattern>/user_admin</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description>Editing a user</description>
-  	<display-name>Edit User</display-name>
-  	<servlet-name>UserEditController</servlet-name>
-  	<servlet-class>admin.controller.UserEditController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>UserEditController</servlet-name>
-  	<url-pattern>/user_edit</url-pattern>
-  </servlet-mapping>
-  <servlet>
   	<description>Corfirm deletion of user</description>
   	<display-name>Delete User</display-name>
   	<servlet-name>UserConfirmDeleteController</servlet-name>
@@ -78,24 +68,14 @@
   	<url-pattern>/user_confirm_delete</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description>Creation of a new user</description>
-  	<display-name>New User</display-name>
-  	<servlet-name>UserNewController</servlet-name>
-  	<servlet-class>admin.controller.UserNewController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>UserNewController</servlet-name>
-  	<url-pattern>/user_new</url-pattern>
-  </servlet-mapping>
-  <servlet>
   	<description>Editing or creation of a user</description>
   	<display-name>Edit or new user</display-name>
-  	<servlet-name>UserEditOrNewController</servlet-name>
-  	<servlet-class>admin.controller.UserEditOrNewController</servlet-class>
+  	<servlet-name>UserEditController</servlet-name>
+  	<servlet-class>admin.controller.UserEditController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>UserEditOrNewController</servlet-name>
-  	<url-pattern>/user_edit_or_new</url-pattern>
+  	<servlet-name>UserEditController</servlet-name>
+  	<url-pattern>/user_edit</url-pattern>
   </servlet-mapping>
   
   
@@ -130,17 +110,7 @@
   	<servlet-name>ProductBatchConfirmDeleteController</servlet-name>
   	<url-pattern>/productBatch_confirm_delete</url-pattern>
   </servlet-mapping>
-  <servlet>
-  	<description>Creation of a new product batch</description>
-  	<display-name>New Product Batch</display-name>
-  	<servlet-name>ProductBatchNewController</servlet-name>
-  	<servlet-class>admin.controller.ProductBatchNewController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ProductBatchNewController</servlet-name>
-  	<url-pattern>/productBatch_new</url-pattern>
-  </servlet-mapping>
-  
+
   
   <!-- Prescription Administration -->
   <servlet>
@@ -172,16 +142,6 @@
   <servlet-mapping>
   	<servlet-name>PrescriptionConfirmDeleteController</servlet-name>
   	<url-pattern>/prescription_confirm_delete</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<description>Creation of a new prescription</description>
-  	<display-name>New Prescription</display-name>
-  	<servlet-name>PrescriptionNewController</servlet-name>
-  	<servlet-class>admin.controller.PrescriptionNewController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>PrescriptionNewController</servlet-name>
-  	<url-pattern>/prescription_new</url-pattern>
   </servlet-mapping>
   
   
@@ -216,16 +176,6 @@
   	<servlet-name>CommodityBatchConfirmDeleteController</servlet-name>
   	<url-pattern>/commodityBatch_confirm_delete</url-pattern>
   </servlet-mapping>
-  <servlet>
-  	<description>Creation of a new commodity batch</description>
-  	<display-name>New Commodity Batch</display-name>
-  	<servlet-name>CommodityBatchNewController</servlet-name>
-  	<servlet-class>admin.controller.CommodityBatchNewController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>CommodityBatchNewController</servlet-name>
-  	<url-pattern>/commodityBatch_new</url-pattern>
-  </servlet-mapping>
   
   
   	<!-- Commodity Administration -->
@@ -258,15 +208,5 @@
 	<servlet-mapping>
 		<servlet-name>CommodityConfirmDeleteController</servlet-name>
 		<url-pattern>/commodity_confirm_delete</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description>Creation of a new commodity</description>
-		<display-name>New Commodity</display-name>
-		<servlet-name>CommodityNewController</servlet-name>
-		<servlet-class>admin.controller.CommodityNewController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CommodityNewController</servlet-name>
-		<url-pattern>/commodity_new</url-pattern>
 	</servlet-mapping>
 </web-app>

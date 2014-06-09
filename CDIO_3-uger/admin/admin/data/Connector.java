@@ -33,8 +33,8 @@ public class Connector {
 				.getConnection(url, username, password);
 	}
 
-	private static Connection conn;
-	private static Statement stm;
+	private Connection conn;
+	private Statement stm;
 
 	public Connector(String server, int port, String database, String username,
 			String password) throws InstantiationException,
