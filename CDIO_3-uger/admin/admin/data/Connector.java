@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import com.mysql.jdbc.Driver;
 
 public class Connector {
 
@@ -27,8 +26,7 @@ public class Connector {
 			String password) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		// call the driver class' no argument constructor
-		// Class.forName("com.mysql.jdbc.Driver").newInstance();
-		new Driver();
+		   Class.forName("com.mysql.jdbc.Driver").newInstance();
 		// get Connection-object via DriverManager
 		return (Connection) DriverManager
 				.getConnection(url, username, password);
