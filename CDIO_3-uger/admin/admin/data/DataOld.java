@@ -2,7 +2,7 @@ package admin.data;
 
 import java.util.*;
 
-public class DataOld implements IUserDAO {
+public class DataOlds implements IUserDAO {
 
 	Map<Integer, Operator> operators;
 	int adminCount;
