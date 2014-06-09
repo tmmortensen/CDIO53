@@ -11,23 +11,23 @@ public class UserData implements IUserDAO {
 		// creating the sysadmin
 		try {
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(1,sysAdmin, 0, SM, 1234567890, adminpw ");
+					.doUpdate("INSERT INTO user VALUES(1,sysAdmin, 0, SM, 1234567890, adminpw ");
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
 
 	@Override
-	public synchronized UserDTO getUser(int oprId) throws DALException {
+	public synchronized UserDTO getUser(int user_id) throws DALException {
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
+				.doQuery("SELECT * FROM user WHERE user_id = " + user_id);
 		try {
 			if (!rs.first())
-				throw new DALException("the employee with user id: " + oprId
+				throw new DALException("the user with user id: " + user_id
 						+ "does not exist");
-			return new UserDTO(rs.getInt("opr_id"), rs.getString("opr_navn"),
+			return new UserDTO(rs.getInt("user_id"), rs.getString("user_name"),
 					rs.getString("ini"), rs.getString("cpr"),
-					rs.getString("password"), rs.getInt("opr_type"));
+					rs.getString("password"), rs.getInt("user_type"));
 
 		} catch (SQLException e) {
 			throw new DALException(e);
@@ -39,13 +39,13 @@ public class UserData implements IUserDAO {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Employees;");
+				.doQuery("SELECT * FROM user;");
 		try {
 			while (rs.next()) {
-				list.add(new UserDTO(rs.getInt("opr_id"), rs
-						.getString("opr_navn"), rs.getString("ini"), rs
+				list.add(new UserDTO(rs.getInt("user_id"), rs
+						.getString("user_name"), rs.getString("ini"), rs
 						.getString("cpr"), rs.getString("password"), rs
-						.getInt("opr_type")));
+						.getInt("user_type")));
 
 			}
 		} catch (SQLException e) {
@@ -58,7 +58,7 @@ public class UserData implements IUserDAO {
 
 	@Override
 	public synchronized void createUser(UserDTO opr) throws DALException {
-		Connector.doUpdate("INSERT INTO operatoer VALUES (" + opr.getUserId()
+		Connector.doUpdate("INSERT INTO user VALUES (" + opr.getUserId()
 				+ " , " + opr.getUsername() + " , " + opr.getIni() + " , "
 				+ opr.getCpr() + " , " + opr.getPassword() + " , "
 				+ opr.isAdmin() + ");");
@@ -68,41 +68,42 @@ public class UserData implements IUserDAO {
 	@Override
 	public synchronized void updateUser(UserDTO opr) throws DALException {
 		Connector
-				.doUpdate("UPDATE operatoer " + "SET opr_id = "
-						+ opr.getUserId() + ", opr_navn = " + opr.getUsername()
-						+ ", opr_type = " + opr.isAdmin() + ", ini = "
-						+ opr.getIni() + ", cpr = " + opr.getCpr()
+				.doUpdate("UPDATE user " + "SET user_id = "
+						+ opr.getUserId() + ", user_name = " + opr.getUsername()
+						+ ", ini = " + opr.getIni() 
+						+ ", cpr = " + opr.getCpr()
 						+ ", password = " + opr.getPassword()
-						+ "WHERE opr_id = " + opr.getUserId() + ";");
+						+ ", user_type = " + opr.isAdmin()
+						+ " WHERE opr_id = " + opr.getUserId() + ";");
 	}
 
 	@Override
 	public synchronized void deleteUser(int id) throws DALException {
-		Connector.doUpdate("DELETE FROM operatoer WHERE opr_id = " + id + ";");
+		Connector.doUpdate("DELETE FROM user WHERE user_id = " + id + ";");
 	}
 
 	public void createDefaultOperators() {
 		try {
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(11,Test Guy, 2, TG, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(11,Test Guy, 2, TG, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(12,Test Guy 2, 3, TG2, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(12,Test Guy 2, 3, TG2, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(13,Test Guy 3, 2, TG3, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(13,Test Guy 3, 2, TG3, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(14,Test Guy 4, 3, TG4, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(14,Test Guy 4, 3, TG4, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(15,Test Guy 5, 3, TG5, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(15,Test Guy 5, 3, TG5, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(16,Test Guy 6, 1, TG6, 1234567890, "
+					.doUpdate("INSERT INTO user VALUES(16,Test Guy 6, 1, TG6, 1234567890, "
 							+ UserDTO.generatePassword() + ";");
 			Connector
-					.doUpdate("INSERT INTO operatoer VALUES(10, Admin, 0, AM, 1234567890, adminpw; ");
+					.doUpdate("INSERT INTO user VALUES(10, Admin, 0, AM, 1234567890, adminpw; ");
 		} catch (Exception e) {
 		}
 	}
