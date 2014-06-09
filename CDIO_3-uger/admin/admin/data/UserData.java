@@ -125,27 +125,27 @@ public class UserData implements IUserDAO {
 
 		try {
 			Connector
-					.doUpdate("INSERT INTO users VALUES(1,sysAdmin, 0, SM, 1234567890, adminpw; ");
+					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'adminpw', 0; ");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(11,Test Guy, 2, TG, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(11,'Test Guy', 'TG', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 2;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(12,Test Guy 2, 3, TG2, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(12,'Test Guy 2', 'TG2', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(13,Test Guy 3, 2, TG3, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(13,'Test Guy 3', 'TG3', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 2;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(14,Test Guy 4, 3, TG4, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(14,'Test Guy 4', 'TG4', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(15,Test Guy 5, 3, TG5, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(15,'Test Guy 5', 'TG5', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(16,Test Guy 6, 1, TG6, 1234567890, "
-							+ UserDTO.generatePassword() + ";");
+					.doUpdate("INSERT INTO users VALUES(16,'Test Guy 6', 'TG6', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 1;");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(10, Admin, 0, AM, 1234567890, adminpw; ");
+					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'adminpw', 0; ");
 			Connector.closeConnection();
 		} catch (Exception e) {
 		}
