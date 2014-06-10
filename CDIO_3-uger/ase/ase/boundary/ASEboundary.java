@@ -31,14 +31,14 @@ public class ASEboundary {
 		return 5;
 	}
 
-	public void ulastet() {
+	public void aflastet() {
 		// Beder operatøren om at aflaste vægten og trykke op.
 		
 	}
 
 	public double beholder() {
 		// Skal bede operatøren om at sætte en beholder på vægten og trykke ok.
-		// Returnere en double tara
+		// Returnere en double for vægten.
 		return 2.2;
 	}
 
@@ -64,6 +64,10 @@ public class ASEboundary {
 	
 	public boolean stop(){
 		//Skal returnere true, hvis der bliver trykket cancel på vægten. "RM20_C"
+		return false;
+	}
+	public boolean newUser(){
+		//Skal spørge om man vil indtaste et andet brugerID.
 		return false;
 	}
 }
