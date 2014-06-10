@@ -71,24 +71,24 @@ LOCK TABLES `productbatch` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `productbatchkomponent`
+-- Table structure for table `productbatchcomponent`
 --
 
-DROP TABLE IF EXISTS `productbatchkomponent`;
+DROP TABLE IF EXISTS `productbatchcomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `productbatchkomponent` (
+CREATE TABLE `productbatchcomponent` (s
   `pb_id` int(11) DEFAULT NULL,
   `commoditybatch_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `tara` decimal(11,0) DEFAULT NULL,
   `netto` decimal(11,0) DEFAULT NULL,
-  KEY `pbkomponent_pb_idx` (`pb_id`),
-  KEY `pbkomponent_commoditybatch_id_idx` (`commoditybatch_id`),
-  KEY `pbkomponent_user_id_idx` (`user_id`),
-  CONSTRAINT `pbkomponent_pb_id` FOREIGN KEY (`pb_id`) REFERENCES `productbatch` (`pb_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pbkomponent_commoditybatch_id` FOREIGN KEY (`commoditybatch_id`) REFERENCES `commoditybatch` (`commoditybatch_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `pbkomponent_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `pbcomponent_pb_idx` (`pb_id`),
+  KEY `pbcomponent_commoditybatch_id_idx` (`commoditybatch_id`),
+  KEY `pbcomponent_user_id_idx` (`user_id`),
+  CONSTRAINT `pbcomponent_pb_id` FOREIGN KEY (`pb_id`) REFERENCES `productbatch` (`pb_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pbcomponent_commoditybatch_id` FOREIGN KEY (`commoditybatch_id`) REFERENCES `commoditybatch` (`commoditybatch_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `pbcomponent_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -96,9 +96,9 @@ CREATE TABLE `productbatchkomponent` (
 -- Dumping data for table `productbatchkomponent`
 --
 
-LOCK TABLES `productbatchkomponent` WRITE;
-/*!40000 ALTER TABLE `productbatchkomponent` DISABLE KEYS */;
-/*!40000 ALTER TABLE `productbatchkomponent` ENABLE KEYS */;
+LOCK TABLES `productbatchcomponent` WRITE;
+/*!40000 ALTER TABLE `productbatchcomponent` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productbatchcomponent` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
