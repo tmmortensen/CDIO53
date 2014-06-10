@@ -30,7 +30,7 @@
 						out.println("\t\t\t\t\t<td>" + user.ini + "</td>\n");
 						out.println("\t\t\t\t\t<td>" + user.name + "</td>\n");
 						out.println("\t\t\t\t\t<td>" + user.cpr + "</td>\n");
-						out.println("\t\t\t\t\t<td>" + user.access.name() +"</td>\n");
+						out.println("\t\t\t\t\t<td>" + user.access.uiName() +"</td>\n");
 						out.println("\t\t\t\t\t<td><A href=\"" + user.editURL + "\">Rediger</A></td>\n");
 						out.println("\t\t\t\t\t<td><A href=\"" + user.deleURL + "\">Slet</A></td>\n");
 						out.println("\t\t\t\t</tr>\n");
