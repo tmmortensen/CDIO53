@@ -91,12 +91,13 @@ public class UserData implements IUserDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("UPDATE users " + "SET user_id = " + opr.getUserId()
-				+ ", user_name = " + "'" + opr.getUsername() + "'" + ", ini = "
-				+ "'" + opr.getIni() + "'" + ", cpr = " + "'" + opr.getCpr()
-				+ "'" + ", password = " + "'" + opr.getPassword() + "'"
-				+ ", user_type = " + opr.isAdmin() + " WHERE user_id = "
-				+ opr.getUserId() + ";");
+		Connector.doUpdate("UPDATE users " 
+				+ "SET user_name = " + "'" + opr.getUsername() + "'" 
+				+ ", ini = " + "'" + opr.getIni() + "'" 
+				+ ", cpr = " + "'" + opr.getCpr() + "'" 
+				+ ", password = " + "'" + opr.getPassword() + "'" 
+				+ ", user_type = " + opr.isAdmin() 
+				+ " WHERE user_id = " + opr.getUserId() + ";");
 		Connector.closeConnection();
 	}
 
@@ -107,7 +108,8 @@ public class UserData implements IUserDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("DELETE FROM users WHERE user_id = " + id + ";");
+		Connector.doUpdate("UPDATE users SET user_type = 4  WHERE user_id = "
+				+ id + ";");
 		Connector.closeConnection();
 	}
 
