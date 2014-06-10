@@ -8,26 +8,34 @@ import java.util.List;
 public class UserData implements IUserDAO {
 
 	public UserData() {
-		// creating the sysadmin
+		// creating users for testing
 		try {
-			Connector
-					.doUpdate("INSERT INTO employees VALUES(1,sysAdmin, 0, SM, 1234567890, adminpw ");
+			createDefaultUsers();
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
 
 	@Override
-	public synchronized UserDTO getUser(int oprId) throws DALException {
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM employees WHERE opr_id = " + oprId);
+	public synchronized UserDTO getUser(int user_id) throws DALException {
 		try {
-			if (!rs.first())
-				throw new DALException("the employee with user id: " + oprId
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+
+			ResultSet rs = Connector
+					.doQuery("SELECT * FROM users WHERE user_id = " + user_id
+							+ ";");
+			Connector.closeConnection();
+			if (!rs.first()) {
+				throw new DALException("the user with user id: " + user_id
 						+ "does not exist");
-			return new UserDTO(rs.getInt("opr_id"), rs.getString("opr_navn"),
+			}
+			return new UserDTO(rs.getInt("user_id"), rs.getString("user_name"),
 					rs.getString("ini"), rs.getString("cpr"),
-					rs.getString("password"), rs.getInt("opr_type"));
+					rs.getString("password"), rs.getInt("user_type"));
 
 		} catch (SQLException e) {
 			throw new DALException(e);
@@ -36,16 +44,21 @@ public class UserData implements IUserDAO {
 
 	@Override
 	public List<UserDTO> getUserList() throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		List<UserDTO> list = new ArrayList<UserDTO>();
 
-		ResultSet rs = Connector
-				.doQuery("SELECT id, first, last, age FROM Employees");
+		ResultSet rs = Connector.doQuery("SELECT * FROM users;");
+		Connector.closeConnection();
 		try {
 			while (rs.next()) {
-				list.add(new UserDTO(rs.getInt("opr_id"), rs
-						.getString("opr_navn"), rs.getString("ini"), rs
+				list.add(new UserDTO(rs.getInt("user_id"), rs
+						.getString("user_name"), rs.getString("ini"), rs
 						.getString("cpr"), rs.getString("password"), rs
-						.getInt("opr_type")));
+						.getInt("user_type")));
 
 			}
 		} catch (SQLException e) {
@@ -58,51 +71,81 @@ public class UserData implements IUserDAO {
 
 	@Override
 	public synchronized void createUser(UserDTO opr) throws DALException {
-		Connector.doUpdate("INSERT INTO employees VALUES (" + opr.getUserId()
-				+ " , " + opr.getUsername() + " , " + opr.getIni() + " , "
-				+ opr.getCpr() + " , " + opr.getPassword() + " , "
-				+ opr.isAdmin() + ");");
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("INSERT INTO users VALUES ('" + opr.getUserId()
+				+ "' , '" + opr.getUsername() + "' , '" + opr.getIni()
+				+ "' , '" + opr.getCpr() + "' , '" + opr.getPassword()
+				+ "' , '" + opr.isAdmin() + "');");
+		Connector.closeConnection();
 
 	}
 
 	@Override
 	public synchronized void updateUser(UserDTO opr) throws DALException {
-		Connector.doUpdate("UPDATE employees " + "SET opr_id = "
-				+ opr.getUserId() + ", opr_navn = " + opr.getUsername()
-				+ ", opr_type = " + opr.isAdmin() + ", ini = " + opr.getIni()
-				+ ", cpr = " + opr.getCpr() + ", password = "
-				+ opr.getPassword() + "WHERE opr_id = " + opr.getUserId() + ";");
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("UPDATE users " 
+				+ "SET user_name = " + "'" + opr.getUsername() + "'" 
+				+ ", ini = " + "'" + opr.getIni() + "'" 
+				+ ", cpr = " + "'" + opr.getCpr() + "'" 
+				+ ", password = " + "'" + opr.getPassword() + "'" 
+				+ ", user_type = " + opr.isAdmin() 
+				+ " WHERE user_id = " + opr.getUserId() + ";");
+		Connector.closeConnection();
 	}
 
 	@Override
 	public synchronized void deleteUser(int id) throws DALException {
-		Connector.doUpdate("DELETE FROM employees WHERE opr_id = " + id);
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("UPDATE users SET user_type = 4  WHERE user_id = "
+				+ id + ";");
+		Connector.closeConnection();
 	}
 
-	public void createDefaultOperators() {
+	public synchronized void createDefaultUsers() {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 		try {
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(11,Test Guy, 2, TG, 1234567890, "
-							+ UserDTO.generatePassword());
+					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'adminpw', 0); ");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(12,Test Guy 2, 3, TG2, 1234567890, "
-							+ UserDTO.generatePassword());
+					.doUpdate("INSERT INTO users VALUES(11,'Test Guy', 'TG', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 2);");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(13,Test Guy 3, 2, TG3, 1234567890, "
-							+ UserDTO.generatePassword());
+					.doUpdate("INSERT INTO users VALUES(12,'Test Guy 2', 'TG2', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(14,Test Guy 4, 3, TG4, 1234567890, "
-							+ UserDTO.generatePassword());
+					.doUpdate("INSERT INTO users VALUES(13,'Test Guy 3', 'TG3', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 2);");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(15,Test Guy 5, 3, TG5, 1234567890, "
-							+ UserDTO.generatePassword());
+					.doUpdate("INSERT INTO users VALUES(14,'Test Guy 4', 'TG4', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(16,Test Guy 6, 1, TG6, 1234567890, "
-							+ UserDTO.generatePassword());
-
+					.doUpdate("INSERT INTO users VALUES(15,'Test Guy 5', 'TG5', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 3);");
 			Connector
-					.doUpdate("INSERT INTO employees VALUES(10, Admin, 0, AM, 1234567890, adminpw ");
+					.doUpdate("INSERT INTO users VALUES(16,'Test Guy 6', 'TG6', '1234567890', '"
+							+ UserDTO.generatePassword() + "', 1);");
+			Connector
+					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'adminpw', 0); ");
+			Connector.closeConnection();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
