@@ -8,10 +8,20 @@ import java.util.List;
 public class UserData implements IUserDAO {
 
 	public UserData() {
-		// creating users for testing
+		// if there are no users in the database, create a sysadmin
 		try {
-			createDefaultUsers();
-		} catch (Exception e) {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			ResultSet rs = Connector.doQuery("SELECT * FROM users");
+			Connector.closeConnection();
+			if(rs.getFetchSize()>0){
+				// creating users for testing
+				createDefaultUsers();	
+			}
+		} catch(Exception e){
 			e.getMessage();
 		}
 	}
