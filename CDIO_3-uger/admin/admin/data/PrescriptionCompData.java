@@ -8,21 +8,33 @@ import java.util.List;
 public class PrescriptionCompData implements IPrescriptionCompDAO {
 
 	@Override
-	public void createPrescriptionComp(PrescriptionCompDTO prescription)
+	public synchronized void createPrescriptionComp(PrescriptionCompDTO prescription)
 			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		Connector.doUpdate("INSERT INTO prescriptioncomponent VALUES ( "
 				+ " prescription_id = " + prescription.getPrescriptionId()
 				+ ", commidity_id = " + prescription.getCommodityId()
 				+ ", nom_netto = " + prescription.getNomNetto()
 				+ ", tolerance = " + prescription.getTolerance() + ");");
+		Connector.closeConnection();
 	}
 
 	@Override
-	public PrescriptionCompDTO getPrescriptionComp(int prescriptionId)
+	public synchronized PrescriptionCompDTO getPrescriptionComp(int prescriptionId)
 			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescriptioncomponent WHERE prescription_id = "
 						+ prescriptionId + ";");
+		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
 				throw new DALException("the commodity with the id = "
@@ -37,11 +49,17 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 	}
 
 	@Override
-	public List<PrescriptionCompDTO> getAllPrescription(
+	public synchronized List<PrescriptionCompDTO> getAllPrescription(
 			PrescriptionCompDTO prescription) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		List<PrescriptionCompDTO> list = new ArrayList<PrescriptionCompDTO>();
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescriptioncomponent;");
+		Connector.closeConnection();
 		try {
 			while (rs.next()) {
 				list.add(new PrescriptionCompDTO(rs.getInt("prescription_id"),
