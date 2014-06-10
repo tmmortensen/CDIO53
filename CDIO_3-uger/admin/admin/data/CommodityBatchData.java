@@ -10,12 +10,11 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 	@Override
 	public CommodityBatchDTO getCommodityBatch(int commoditybatch_id)
 			throws DALException {
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM user WHERE commodity_id = "
-						+ commoditybatch_id + ";");
+		ResultSet rs = Connector.doQuery("SELECT * FROM commoditybatch WHERE "
+				+ "commoditybatch_id = " + commoditybatch_id + ";");
 		try {
 			if (!rs.first()) {
-				throw new DALException("the commodity with the id = "
+				throw new DALException("the commoditybatch with the id = "
 						+ commoditybatch_id + " does not exist");
 			}
 			return new CommodityBatchDTO(rs.getInt("commoditybatch_id"),
@@ -27,12 +26,13 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 
 	@Override
 	public List<CommodityBatchDTO> getComBatchList() throws DALException {
-		List<CommodityDTO> list = new ArrayList<CommodityDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM user;");
+		List<CommodityBatchDTO> list = new ArrayList<CommodityBatchDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM commoditybatch;");
 		try {
 			while (rs.next()) {
-				list.add(new CommodityDTO(rs.getInt("commodity_id"), rs
-						.getString("commodity_name"), rs.getString("supplier")));
+				list.add(new CommodityBatchDTO(rs
+						.getInt("productbatchbatch_id"), rs
+						.getInt("commoditybatch_"), rs.getInt("supplier")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(e);
@@ -43,7 +43,10 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 	@Override
 	public void createCommodityBatch(CommodityBatchDTO commodity)
 			throws DALException {
-		// TODO Auto-generated method stub
+		Connector.doUpdate("INSERT INTO user VALUES ( commoditybatch_id = "
+				+ commodity.getCommodityBatchId() + ", commodity_id = "
+				+ commodity.commodityId + ", amount = " + commodity.getAmount()
+				+ ");");
 
 	}
 
