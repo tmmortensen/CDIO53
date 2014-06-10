@@ -15,9 +15,10 @@ public class UserData implements IUserDAO {
 			e1.printStackTrace();
 		}
 		try {
-			ResultSet rs = Connector.doQuery("SELECT * FROM users");
+			ResultSet rs = Connector.doQuery("SELECT COUNT(*) FROM users");
 			Connector.closeConnection();
-			if(rs.getFetchSize()>0){
+			if(rs.next()){
+				if(!(rs.getInt(1)>0))
 				// creating users for testing
 				createDefaultUsers();	
 			}
@@ -132,7 +133,7 @@ public class UserData implements IUserDAO {
 
 		try {
 			Connector
-					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'adminpw', 0); ");
+					.doUpdate("INSERT INTO users VALUES(1,'sysAdmin', 'SM', '1234567890', 'Adminpw1', 0); ");
 			Connector
 					.doUpdate("INSERT INTO users VALUES(11,'Test Guy', 'TG', '1234567890', '"
 							+ UserDTO.generatePassword() + "', 2);");
@@ -152,7 +153,7 @@ public class UserData implements IUserDAO {
 					.doUpdate("INSERT INTO users VALUES(16,'Test Guy 6', 'TG6', '1234567890', '"
 							+ UserDTO.generatePassword() + "', 1);");
 			Connector
-					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'adminpw', 0); ");
+					.doUpdate("INSERT INTO users VALUES(10, 'Admin', 'AM', '1234567890', 'Adminpw1', 0); ");
 			Connector.closeConnection();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

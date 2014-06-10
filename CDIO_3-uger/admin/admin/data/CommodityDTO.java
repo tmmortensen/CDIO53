@@ -11,6 +11,18 @@ public class CommodityDTO {
 
 	}
 
+	public void setCommodity_id(int commodity_id) {
+		this.commodity_id = commodity_id;
+	}
+
+	public void setCommodity_name(String commodity_name) {
+		this.commodity_name = commodity_name;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
 	public int getComId() {
 		return commodity_id;
 	}

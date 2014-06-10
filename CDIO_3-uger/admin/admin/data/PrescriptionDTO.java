@@ -10,6 +10,14 @@ public class PrescriptionDTO {
 		this.prescriptionName = prescriptionName;
 	}
 
+	public void setPrescriptionId(int prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+
+	public void setPrescriptionName(String prescriptionName) {
+		this.prescriptionName = prescriptionName;
+	}
+
 	public int getPrescriptionId() {
 		return prescriptionId;
 	}

@@ -40,7 +40,6 @@ public class PasswordChangeController extends AbstractController {
 		if (pword != null) {
 			input = true;
 			if (!pword.equals("")) {
-
 				int id = user.getId();
 				try {
 					opr = data.getUser(id);
@@ -60,10 +59,7 @@ public class PasswordChangeController extends AbstractController {
 		if (newPword1 != null || newPword2 != null) {
 			input = true;
 			if (newPword1.equals(newPword2)) {
-				if (!UserDTO.checkPassword(newPword1)) {
-					npwError = "passwordet skal indeholde mindst 3 af følgende: \n "
-							+ " Store bogstaver, små bogstaver, specialtegn eller tal.";
-				}
+				npwError = UserDTO.chkPassWithMsg(newPword1);
 			} else {
 				npwError = "De to nye passwords er ikke ens";
 			}
@@ -74,11 +70,15 @@ public class PasswordChangeController extends AbstractController {
 		if (input && pwError == null && npwError == null) {
 			try {
 				opr.setPassword(newPword1);
+				data.updateUser(opr);
 				success = true;
+				user.login(user.getId(), newPword1);
 			} catch (DALException e) {
 			}
 		}
 
+		if (npwError != null)
+			npwError = npwError.replace("\n", "<BR>");
 		request.setAttribute("success", success);
 		request.setAttribute("newPword1", newPword1);
 		request.setAttribute("newPword2", newPword2);

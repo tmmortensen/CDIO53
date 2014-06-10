@@ -23,11 +23,13 @@
 		<%}else{  %>
 		<h1>Her kan du ændre password</h1>
 		<form method="post">
-		<% if (pwError != null){ %> <div class="pwError"> <% out.print(pwError); %> </div> <%} %>
+		<% if (pwError != null && !pwError.equals("")){ %> 
+		<div class="error"> <% out.print(pwError); %> </div> <%} %>
 			<label for="pword">Nuværende password</label>
 			<input type="password" name="password" id="pword"
-				value="<% out.print(newPword1); %>">
-		<% if (npwError != null){ %> <div class="npwError"> <% out.print(npwError); %> </div> <%} %>
+				value="<% out.print(password); %>">
+		<% if (npwError != null && !npwError.equals("")){ %> 
+		<div class="error"> <% out.print(npwError); %> </div> <%} %>
 			<label for="newPword1">Nyt password</label>
 			<input type="password" name="newPword1" id="newPword1"
 				value="<% out.print(newPword1); %>">
