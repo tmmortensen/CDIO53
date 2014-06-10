@@ -61,6 +61,11 @@ public class ASEboundary {
 		// Spørg om han vil veje mere, return true hvis han trykker ok.
 		return false;
 	}
+	
+	public boolean stop(){
+		//Skal returnere true, hvis der bliver trykket cancel på vægten. "RM20_C"
+		return false;
+	}
 }
 
 //
