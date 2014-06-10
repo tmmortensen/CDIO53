@@ -12,9 +12,9 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 			throws DALException {
 		Connector.doUpdate("INSERT INTO prescriptioncomponent VALUES ( "
 				+ " prescription_id = " + prescription.getPrescriptionId()
-				+ " commidity_id = " + prescription.getCommodityId()
-				+ " nom_netto = " + prescription.getNomNetto()
-				+ " tolerance = " + prescription.getTolerance() + ");");
+				+ ", commidity_id = " + prescription.getCommodityId()
+				+ ", nom_netto = " + prescription.getNomNetto()
+				+ ", tolerance = " + prescription.getTolerance() + ");");
 	}
 
 	@Override

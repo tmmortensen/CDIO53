@@ -10,7 +10,7 @@ public class CommodityData implements ICommodityDAO {
 	@Override
 	public synchronized CommodityDTO getCommodity(int commodity_id) throws DALException {
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM user WHERE commodity_id = "
+				.doQuery("SELECT * FROM commodity WHERE commodity_id = "
 						+ commodity_id + ";");
 		try {
 			if (!rs.first()) {
@@ -27,7 +27,7 @@ public class CommodityData implements ICommodityDAO {
 	@Override
 	public synchronized List<CommodityDTO> getComList() throws DALException {
 		List<CommodityDTO> list = new ArrayList<CommodityDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM user;");
+		ResultSet rs = Connector.doQuery("SELECT * FROM commodity;");
 		try {
 			while (rs.next()) {
 				list.add(new CommodityDTO(rs.getInt("commodity_id"), rs
@@ -42,10 +42,10 @@ public class CommodityData implements ICommodityDAO {
 
 	@Override
 	public synchronized void createCommodity(CommodityDTO commodity) throws DALException {
-		Connector.doUpdate("INSERT INTO user VALUES ( commodity_id = "
-				+ commodity.getComId() + " commodity_name = "
-				+ commodity.getComName() + " supplier = "
-				+ commodity.getSupplier() + ");");
+		Connector.doUpdate("INSERT INTO commodity VALUES ( commodity_id = "
+				+ commodity.getComId() + ", commodity_name = '"
+				+ commodity.getComName() + "', supplier = '"
+				+ commodity.getSupplier() + "');");
 
 	}
 
