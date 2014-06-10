@@ -8,10 +8,16 @@ import java.util.List;
 public class CommodityBatchData implements ICommodityBatchDAO {
 
 	@Override
-	public CommodityBatchDTO getCommodityBatch(int commoditybatch_id)
-			throws DALException {
+	public synchronized CommodityBatchDTO getCommodityBatch(
+			int commoditybatch_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		ResultSet rs = Connector.doQuery("SELECT * FROM commoditybatch WHERE "
 				+ "commoditybatch_id = " + commoditybatch_id + ";");
+		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
 				throw new DALException("the commoditybatch with the id = "
@@ -25,7 +31,13 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 	}
 
 	@Override
-	public List<CommodityBatchDTO> getComBatchList() throws DALException {
+	public synchronized List<CommodityBatchDTO> getComBatchList()
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		List<CommodityBatchDTO> list = new ArrayList<CommodityBatchDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM commoditybatch;");
 		try {
@@ -37,17 +49,23 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 		} catch (SQLException e) {
 			throw new DALException(e);
 		}
+		Connector.closeConnection();
 		return list;
 	}
 
 	@Override
-	public void createCommodityBatch(CommodityBatchDTO commodity)
+	public synchronized void createCommodityBatch(CommodityBatchDTO commodity)
 			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		Connector.doUpdate("INSERT INTO user VALUES ( commoditybatch_id = "
 				+ commodity.getCommodityBatchId() + ", commodity_id = "
 				+ commodity.commodityId + ", amount = " + commodity.getAmount()
 				+ ");");
-
+		Connector.closeConnection();
 	}
 
 }
