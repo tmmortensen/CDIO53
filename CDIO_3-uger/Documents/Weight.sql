@@ -78,8 +78,8 @@ DROP TABLE IF EXISTS `productbatchcomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatchcomponent` (s
-  `pb_id` int(11) DEFAULT NULL,
-  `commoditybatch_id` int(11) DEFAULT NULL,
+  `pb_id` int(11) NOT NULL,
+  `commoditybatch_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `tara` decimal(11,0) DEFAULT NULL,
   `netto` decimal(11,0) DEFAULT NULL,
