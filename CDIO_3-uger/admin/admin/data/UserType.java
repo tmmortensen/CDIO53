@@ -1,7 +1,7 @@
 package admin.data;
 
 public enum UserType {
-	ADMIN, PHARMACIST,FOREMAN,OPERATOR;
+	ADMIN, PHARMACIST,FOREMAN,OPERATOR,INACTIVE;
 	
 	public static int getLevel(UserType type){
 		return type.ordinal();
