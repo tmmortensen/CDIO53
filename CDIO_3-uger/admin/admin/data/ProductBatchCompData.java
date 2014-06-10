@@ -8,12 +8,18 @@ import java.util.List;
 public class ProductBatchCompData implements IProductBatchCompDAO {
 
 	@Override
-	public ProductBatchCompDTO getProductBathComp(int pb_id,
+	public synchronized ProductBatchCompDTO getProductBathComp(int pb_id,
 			int commoditybatch_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = "
 						+ pb_id + " AND commoditybatch_id = "
 						+ commoditybatch_id + ";");
+		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
 				throw new DALException(
@@ -30,38 +36,96 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 	}
 
 	@Override
-	public List<ProductBatchCompDTO> getCertainProductBatchComps(int pb_id)
+	public synchronized List<ProductBatchCompDTO> getCertainProductBatchComps(int pb_id)
 			throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = " + pb_id +";");
+		Connector.closeConnection();
+		try {
+			while(rs.next()){
+				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"),
+					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
+					rs.getInt("tara"), rs.getInt("netto")));
+			}
+		}catch(SQLException e){
+			throw new DALException(e);
+		}
+		return list;
 	}
 
 	@Override
-	public List<ProductBatchCompDTO> getAllProductBatchComps()
+	public synchronized List<ProductBatchCompDTO> getAllProductBatchComps()
 			throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent;");
+		Connector.closeConnection();
+		try {
+			while(rs.next()){
+				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"),
+					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
+					rs.getInt("tara"), rs.getInt("netto")));
+			}
+		}catch(SQLException e){
+			throw new DALException(e);
+		}
+		return list;
 	}
 
 	@Override
-	public void createProductBatchComp(ProductBatchCompDTO productBatchComp)
+	public synchronized void createProductBatchComp(ProductBatchCompDTO productBatchComp)
 			throws DALException {
-		// TODO Auto-generated method stub
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("INSERT INTO productbatchcomponent VALUES ( "
+				+ "pb_id = " + productBatchComp.getPb_id() 
+				+ ", commoditybatch_id = " +productBatchComp.getCommoditybatch_id()
+				+ ", user_id = " + productBatchComp.getUser_id()
+				+ ", tara = 0 "
+				+", netto = 0);");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void updateProductBatchComp(ProductBatchCompDTO productBatchComp)
+	public synchronized void updateProductBatchComp(ProductBatchCompDTO productBatchComp)
 			throws DALException {
-		// TODO Auto-generated method stub
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("UPDATE productbatchcomponent "
+				+ "set user_id = " + productBatchComp.getUser_id() 
+				+ ", tara = " + productBatchComp.getTara() 
+				+ ", netto = " + productBatchComp.getNetto()+";");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void deleteProductBatchComp(int pb_id, int commoditybatch_id)
+	public synchronized void deleteProductBatchComp(int pb_id, int commoditybatch_id)
 			throws DALException {
-		// TODO Auto-generated method stub
-
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("DELETE *  FROM productbatchcomponent WHERE pb_id = " + pb_id 
+				+ " AND commoditybatch_id = " + commoditybatch_id +";");
+		Connector.closeConnection();
 	}
 
 }
