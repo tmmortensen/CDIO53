@@ -8,9 +8,9 @@ import java.util.List;
 public class UserData implements IUserDAO {
 
 	public UserData() {
-		// creating the sysadmin
+		// creating users for testing
 		try {
-			createDefaultOperators();
+			createDefaultUsers();
 		} catch (Exception e) {
 			e.getMessage();
 		}
@@ -21,7 +21,6 @@ public class UserData implements IUserDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
@@ -48,7 +47,6 @@ public class UserData implements IUserDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		List<UserDTO> list = new ArrayList<UserDTO>();
@@ -76,7 +74,6 @@ public class UserData implements IUserDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO users VALUES ('" + opr.getUserId()
@@ -92,7 +89,6 @@ public class UserData implements IUserDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("UPDATE users " + "SET user_id = " + opr.getUserId()
@@ -109,18 +105,16 @@ public class UserData implements IUserDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("DELETE FROM users WHERE user_id = " + id + ";");
 		Connector.closeConnection();
 	}
 
-	public synchronized void createDefaultOperators() {
+	public synchronized void createDefaultUsers() {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
