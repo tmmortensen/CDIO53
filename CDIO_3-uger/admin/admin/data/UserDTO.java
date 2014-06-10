@@ -40,19 +40,6 @@ public class UserDTO{
 		setAccessLevel(access);
 		setUserId(id);
 	}
-	/**
-	 * Creates a new <code>OperatoerDTO</code> with the info from the provided
-	 * <code>Operator</code>-object and the given id
-	 * 
-	 * @param oprId
-	 *            the id of the operator
-	 * @param op
-	 *            The <code>Operator</code>-object containing the rest of the
-	 *            information
-	 */
-	public UserDTO(int oprId, Operator op) throws DALException{
-		this(oprId, op.getOprNavn(),op.getIni(),op.getCpr(),op.getPassword(),op.getAccesLevel());
-	}
 
 	public int getUserId() { return userId; }
 
