@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 
 import admin.data.DALException;
 import admin.data.UserDTO;
+import admin.data.UserType;
 
 /**
  * Servlet implementation class TestController
@@ -15,13 +16,13 @@ public class PasswordChangeController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	protected UserType requiredAccessLevel() {
+		return null;
+	}
+	
+	@Override
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-
-		if (!userSession.isLoggedIn()) {
-			response.sendRedirect("login");
-			return;
-		}
 
 		String pword = request.getParameter("password");
 		String newPword1 = request.getParameter("newPword1");
@@ -36,7 +37,7 @@ public class PasswordChangeController extends AbstractController {
 			if (!pword.equals("")) {
 				int id = userSession.getId();
 				try {
-					opr = data.getUser(id);
+					opr = users.getUser(id);
 					if (!opr.getPassword().equals(pword)) {
 						pwError = "Det indtastede password er ikke korrekt";
 					}
@@ -64,7 +65,7 @@ public class PasswordChangeController extends AbstractController {
 		if (input && pwError == null && npwError == null) {
 			try {
 				opr.setPassword(newPword1);
-				data.updateUser(opr);
+				users.updateUser(opr);
 				success = true;
 				userSession.login(userSession.getId(), newPword1);
 			} catch (DALException e) {

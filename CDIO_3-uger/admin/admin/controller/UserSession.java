@@ -31,7 +31,7 @@ public class UserSession {
 	public boolean isLoggedIn(){
 		try{
 			UserDTO user = data.getUser(userId);
-			if (user.getPassword().equals(password))
+			if (user.getPassword().equals(password) && user.getUserType() != UserType.INACTIVE)
 				return true;
 		} catch (Exception e){}
 		return false;

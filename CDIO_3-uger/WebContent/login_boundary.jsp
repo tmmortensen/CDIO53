@@ -31,8 +31,8 @@
 	<%--Kun til test--%>
 	<%
 		out.print("Current Users <BR>");
-		IUsersReadOnly data = (IUsersReadOnly) request.getAttribute("data");
-		List<UserDTO> operators = data.getUserList();
+		IUsersReadOnly users = (IUsersReadOnly) request.getAttribute("users");
+		List<UserDTO> operators = users.getUserList();
 		
 		for(UserDTO op : operators){
 			out.print("ID: " + op.getUserId() + " PW: " 

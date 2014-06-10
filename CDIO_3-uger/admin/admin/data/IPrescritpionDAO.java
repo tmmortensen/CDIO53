@@ -12,7 +12,7 @@ public interface IPrescritpionDAO {
 	public PrescriptionDTO getPrescription(int prescriptionId)
 			throws DALException;
 
-	public List<PrescriptionDTO> getAllPrescription(PrescriptionDTO prescription)
+	public List<PrescriptionDTO> getPrescriptionList()
 			throws DALException;
 
 }

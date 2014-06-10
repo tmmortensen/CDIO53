@@ -14,19 +14,13 @@ public class UserEditController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	protected UserType requiredAccessLevel() {
+		return UserType.ADMIN;
+	}
+	
+	@Override
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-
-		if (!userSession.isLoggedIn()) {
-			response.sendRedirect("login");
-			return;
-		}
-
-		if (!userSession.isAdmin()) {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
-		}
 
 		String sNewId = "";
 		String sNewAccess = "";
@@ -62,7 +56,7 @@ public class UserEditController extends AbstractController {
 				info.cpr = "";
 			} else {
 				try {
-					UserDTO user = data.getUser(iUserId);
+					UserDTO user = users.getUser(iUserId);
 					sNewId = sUserId;
 					info = new UserInfo(user);
 					request.setAttribute("info", info);
@@ -94,7 +88,7 @@ public class UserEditController extends AbstractController {
 					password = UserDTO.generatePassword();
 					user = new UserDTO(1, "AA", "AA", "0000000000", password);
 				} else {
-					user = data.getUser(iUserId);
+					user = users.getUser(iUserId);
 				}
 
 				try {
@@ -141,24 +135,24 @@ public class UserEditController extends AbstractController {
 				if (!anyError) {
 					if (isNewUser) {
 						try {
-							data.createUser(user);
+							users.createUser(user);
 						} catch (DALException e) {
 							idError = e.getMessage();
 							anyError = true;
 						}
 					} else {
-						old = new UserInfo(data.getUser(iUserId));
+						old = new UserInfo(users.getUser(iUserId));
 						if (iUserId == info.id) {
 							try {
-								data.updateUser(user);
+								users.updateUser(user);
 							} catch (DALException e) {
 								idError = e.getMessage();
 								anyError = true;
 							}
 						} else {
 							try {
-								data.createUser(user);
-								data.deleteUser(iUserId);
+								users.createUser(user);
+								users.deleteUser(iUserId);
 							} catch (DALException e) {
 								idError = e.getMessage();
 								anyError = true;
@@ -167,7 +161,7 @@ public class UserEditController extends AbstractController {
 					}
 				} else if (iUserId != info.id) {
 					try {
-						data.getUser(info.id);
+						users.getUser(info.id);
 						idError = "Dette id er optaget";
 					} catch (DALException e) {
 					}

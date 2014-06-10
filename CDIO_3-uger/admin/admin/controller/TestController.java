@@ -1,32 +1,26 @@
 package admin.controller;
 
-import java.io.IOException;
+import admin.data.UserType;
 
+import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import admin.data.IUsersReadOnly;
 
 /**
  * Servlet implementation class TestController
  */
 public class TestController extends AbstractController {
 	private static final long serialVersionUID = 1L;
-	IUsersReadOnly data;
-       
-	public void init(ServletConfig config) throws ServletException{
-		super.init(config);
-		this.data = super.data;
+
+	@Override
+	protected UserType requiredAccessLevel() {
+		return null;
 	}
 
 	@Override
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-		
-		if (!userSession.isLoggedIn()){
-			response.sendRedirect("login");
-			return;
-		} 
 		
 		String error = "";
 		

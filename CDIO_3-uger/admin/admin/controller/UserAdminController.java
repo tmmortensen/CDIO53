@@ -10,36 +10,32 @@ import javax.servlet.http.*;
 import admin.data.IUsersReadOnly;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
+import admin.data.UserType;
 
 /**
  * Servlet implementation class UserAdminController
  */
 public class UserAdminController extends AbstractController {
 	private static final long serialVersionUID = 1L;
-	IUsersReadOnly data;
+	IUsersReadOnly userData;
        
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
-		this.data = super.data;
+		this.userData = super.users;
+	}
+
+	@Override
+	protected UserType requiredAccessLevel() {
+		return UserType.ADMIN;
 	}
 
 	@Override
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		
-		if (!userSession.isLoggedIn()){
-			response.sendRedirect("login?redirect=user_admin");
-			return;
-		} 
-		
-		if (!userSession.isAdmin()){
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
-		}
 		
 		try {
-			List<UserDTO> users = data.getUserList();
+			List<UserDTO> users = userData.getUserList();
 			List<UserInfo> userInfos = new ArrayList<UserInfo>();
 			for (UserDTO user : users){
 				UserInfo userInfo = new UserInfo(user);
@@ -57,4 +53,5 @@ public class UserAdminController extends AbstractController {
 		dispatcher.forward(request, response);
 
 	}
+
 }

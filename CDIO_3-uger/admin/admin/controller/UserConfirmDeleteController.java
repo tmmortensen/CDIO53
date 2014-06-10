@@ -8,24 +8,19 @@ import javax.servlet.http.*;
 import admin.data.DALException;
 import admin.data.UserDTO;
 import admin.data.UserInfo;
+import admin.data.UserType;
 
 public class UserConfirmDeleteController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	protected UserType requiredAccessLevel() {
+		return UserType.ADMIN;
+	}
+
+	@Override
 	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-
-		if (!userSession.isLoggedIn()) {
-			response.sendRedirect("login");
-			return;
-		}
-
-		if (!userSession.isAdmin()) {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
-		}
 
 		String error = "";
 		UserDTO opr;
@@ -40,14 +35,14 @@ public class UserConfirmDeleteController extends AbstractController {
 		}
 
 		try {
-			opr = data.getUser(uid);
+			opr = users.getUser(uid);
 			userInfo = new UserInfo(opr);
 			request.setAttribute("userInfo", userInfo);
 
 			String confirmed = request.getParameter("confirmed");
 			if (confirmed != null && confirmed.equals("true")) {
 				try {
-					data.deleteUser(uid);
+					users.deleteUser(uid);
 					success = true;
 				} catch (DALException e) {
 					error = "Der skete en fejl under sletning<BR>";

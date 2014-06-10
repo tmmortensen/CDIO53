@@ -166,5 +166,9 @@ public class UserDTO{
 	public void setAccessLevel(UserType type){
 		this.accessLevel = type.ordinal();
 	}
+	
+	public UserType getUserType(){
+		return UserType.values()[accessLevel];
+	}
 
 }

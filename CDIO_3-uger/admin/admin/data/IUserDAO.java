@@ -5,7 +5,7 @@ package admin.data;
  * The read and write access interface to the database.
  * <p>
  * The interface extends <code>IDataReadOnly</code> with methods needed to edit
- * data in the database
+ * users in the database
  * 
  */
 public interface IUserDAO extends IUsersReadOnly {

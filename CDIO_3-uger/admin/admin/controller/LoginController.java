@@ -11,12 +11,10 @@ import admin.data.UserType;
 public class LoginController extends AbstractController{
 
 	private static final long serialVersionUID = 1L;
-	IUsersReadOnly data;
 	
 	@Override
-	public void init(ServletConfig config) throws ServletException{
-		super.init(config);
-		this.data = super.data;
+	protected UserType requiredAccessLevel() {
+		return null;
 	}
 	
 	@Override
@@ -27,15 +25,16 @@ public class LoginController extends AbstractController{
 
 		String redirect = request.getParameter("redirect");
 		if (redirect == null)
-			redirect = "mainmenu";
+			redirect = "/mainmenu";
 
 		String logout = request.getParameter("logout");
 		if (logout != null && logout.toLowerCase().equals("true")){
 			userSession.logout();
 		}
 
+		String context = request.getContextPath();
 		if (userSession.isLoggedIn()){
-			response.sendRedirect(redirect);
+			response.sendRedirect(context + redirect);
 			return;
 		}
 
@@ -50,7 +49,7 @@ public class LoginController extends AbstractController{
 					loginError = "Denne bruger er deaktiveret";
 					userSession.logout();
 				}else{
-					response.sendRedirect(redirect);
+					response.sendRedirect(context + redirect);
 					return;
 				}
 			} catch (Exception e){
@@ -62,7 +61,8 @@ public class LoginController extends AbstractController{
 		}
 		
 		// TODO fjern dette
-		request.setAttribute("data", data);
+		IUsersReadOnly users = super.users;
+		request.setAttribute("users", users);
 		// ^^ er kun til test
 		
 		request.setAttribute("error", loginError);

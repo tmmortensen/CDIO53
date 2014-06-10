@@ -52,7 +52,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 	}
 
 	@Override
-	public synchronized List<PrescriptionDTO> getAllPrescription(PrescriptionDTO prescription)
+	public synchronized List<PrescriptionDTO> getPrescriptionList()
 			throws DALException {
 		try {
 			Connector.connect();
