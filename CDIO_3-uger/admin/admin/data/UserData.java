@@ -15,9 +15,10 @@ public class UserData implements IUserDAO {
 			e1.printStackTrace();
 		}
 		try {
-			ResultSet rs = Connector.doQuery("SELECT * FROM users");
+			ResultSet rs = Connector.doQuery("SELECT COUNT(*) FROM users");
 			Connector.closeConnection();
-			if(rs.getFetchSize()>0){
+			if(rs.next()){
+				if(rs.getInt(1)<0)
 				// creating users for testing
 				createDefaultUsers();	
 			}
