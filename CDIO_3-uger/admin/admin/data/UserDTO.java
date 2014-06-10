@@ -34,7 +34,9 @@ public class UserDTO{
 		setUsername(name);
 		setIni(ini);
 		setCpr(cpr);
-		setPassword(pw);
+		//setPassword(pw);
+		// på denne måde kan man oprette instanser af UserDTO med passwords der ikke overholder regler.
+		password = pw;
 		setAccessLevel(access);
 		setUserId(id);
 	}
@@ -49,33 +51,48 @@ public class UserDTO{
 	 *            information
 	 */
 	public UserDTO(int oprId, Operator op) throws DALException{
-		setUsername(op.getOprNavn());
-		setIni(op.getIni());
-		setCpr(op.getCpr());
-		setPassword(op.getPassword());
-		setAccessLevel(op.getAccesLevel());
-		setUserId(oprId);
+		this(oprId, op.getOprNavn(),op.getIni(),op.getCpr(),op.getPassword(),op.getAccesLevel());
 	}
 
 	public int getUserId() { return userId; }
 
 	public static boolean checkPassword(String password){
-		int i = 0;
-		if (password.matches(".*[0-9]+.*"))
-			i++;
-		if (password.matches(".*[a-z]+.*"))
-			i++;
-		if (password.matches(".*[A-Z]+.*"))
-			i++;
-		if (password.matches(".*[\\W_]+.*"))
-			i++;
-		if (password.contains(" ") || password.length() < 7 || password.length() > 8)
-			i=0;
-		if(i >= 3)
-			return true;
-		else
-			return false;
+		return chkPassWithMsg(password) == null;
 	}
+	
+	public static String chkPassWithMsg(String password){
+		int i = 4;
+		String msg = "";
+		if (!password.matches(".*[0-9]+.*")){
+			i--;
+			msg += "Password har ingen tal\n";
+		}
+		if (!password.matches(".*[a-z]+.*")){
+			i--;
+			msg += "Password har ingen små bogstaver\n";
+		}
+		if (!password.matches(".*[A-Z]+.*")){
+			i--;
+			msg += "Password har ingen store bogstaver\n";
+		}
+		if (!password.matches(".*[\\W_]+.*")){
+			i--;
+			msg += "Password har ingen specialtegn\n";
+		}
+		if (password.length() < 5){
+			i=0;
+			msg += "Password er for kort (midre end 5 karakterer)";
+		}
+		if (password.length() > 8){
+			i=0;
+			msg += "Password er for langt (mrer end 8 karakterer)";
+		}
+		if(i >= 3)
+			return null;
+		else
+			return msg;
+	}
+	
 	
 	public static String generatePassword(){
 		String numbers = "0123456789";
@@ -149,10 +166,9 @@ public class UserDTO{
 	}
 
 	public void setPassword(String newpassword)  throws DALException {
-		if (newpassword.length() < 7)
-			throw new DALException("Kodeord er for kort");
-		if (newpassword.length() > 8)
-			throw new DALException("Kodeord er for langt");
+		String msg = chkPassWithMsg(newpassword);
+		if (msg != null)
+			throw new DALException(msg);
 		this.password = newpassword;
 	}
 	
