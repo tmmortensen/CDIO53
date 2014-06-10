@@ -12,22 +12,16 @@ import admin.data.UserInfo;
 public class UserConfirmDeleteController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null) {
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
-		}
-
-		if (!user.isLoggedIn()) {
+		if (!userSession.isLoggedIn()) {
 			response.sendRedirect("login");
 			return;
 		}
 
-		if (!user.isAdmin()) {
+		if (!userSession.isAdmin()) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
@@ -71,10 +65,5 @@ public class UserConfirmDeleteController extends AbstractController {
 				.getRequestDispatcher("/user_confirm_delete_boundary.jsp");
 		dispatcher.forward(request, response);
 		return;
-	}
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
 	}
 }

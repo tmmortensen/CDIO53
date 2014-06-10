@@ -90,7 +90,7 @@ public class UserData implements IUserDAO {
 		Connector.doUpdate("INSERT INTO users VALUES ('" + opr.getUserId()
 				+ "' , '" + opr.getUsername() + "' , '" + opr.getIni()
 				+ "' , '" + opr.getCpr() + "' , '" + opr.getPassword()
-				+ "' , '" + opr.isAdmin() + "');");
+				+ "' , '" + opr.getAccesLevel() + "');");
 		Connector.closeConnection();
 
 	}
@@ -107,7 +107,7 @@ public class UserData implements IUserDAO {
 				+ ", ini = " + "'" + opr.getIni() + "'" 
 				+ ", cpr = " + "'" + opr.getCpr() + "'" 
 				+ ", password = " + "'" + opr.getPassword() + "'" 
-				+ ", user_type = " + opr.isAdmin() 
+				+ ", user_type = " + opr.getAccesLevel() 
 				+ " WHERE user_id = " + opr.getUserId() + ";");
 		Connector.closeConnection();
 	}

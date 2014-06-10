@@ -13,16 +13,9 @@ import admin.data.UserType;
 public class UserEditController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		UserSession userSession = (UserSession) request.getSession()
-				.getAttribute("user");
-		if (userSession == null) {
-			userSession = new UserSession();
-			userSession.init(data);
-			request.getSession().setAttribute("user", userSession);
-		}
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 
 		if (!userSession.isLoggedIn()) {
 			response.sendRedirect("login");
@@ -204,10 +197,5 @@ public class UserEditController extends AbstractController {
 				.getRequestDispatcher("/user_edit_boundary.jsp");
 		dispatcher.forward(request, response);
 
-	}
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
 	}
 }

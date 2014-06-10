@@ -38,7 +38,7 @@
 			out.println("\t\t\t\t\t<td>" + userInfo.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + userInfo.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + userInfo.cpr + "</td>\n");
-			out.println("\t\t\t\t\t<td>" + userInfo.access.name() +"</td>\n");
+			out.println("\t\t\t\t\t<td>" + userInfo.access.uiName() +"</td>\n");
 		%>
 		</tbody></table>
 		<% if (!done) {%>

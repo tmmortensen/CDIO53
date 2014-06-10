@@ -39,7 +39,7 @@
 			out.println("\t\t\t\t\t<td>" + old.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + old.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + old.cpr + "</td>\n");
-			out.println("\t\t\t\t\t<td>" + old.access.name() +"</td>\n");
+			out.println("\t\t\t\t\t<td>" + old.access.uiName() +"</td>\n");
 		%>
 		</tbody></table><br>
 		Er blevet rettet til:<br><br>
@@ -60,7 +60,7 @@
 			out.println("\t\t\t\t\t<td>" + info.ini + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + info.name + "</td>\n");
 			out.println("\t\t\t\t\t<td>" + info.cpr + "</td>\n");
-			out.println("\t\t\t\t\t<td>" + info.access.name() +"</td>\n");
+			out.println("\t\t\t\t\t<td>" + info.access.uiName() +"</td>\n");
 		%>
 		</tbody></table>
 	<%   if (create){ %>
@@ -109,10 +109,11 @@
 		<% } %>
 		<label for="usertype">Bruger Typpe</label>
 		<select name="newAccess">
-		<option value="OPERATOR" selected>Operatør</option>
-		<option value="FOREMAN">Værkfører</option>
-		<option value="PHARMACIST" >Farmaceut</option>
-		<option value="ADMIN">Administrator</option>
+		<option value="OPERATOR" selected><%out.print(UserType.OPERATOR.uiName());%></option>
+		<option value="FOREMAN"><%out.print(UserType.FOREMAN.uiName());%></option>
+		<option value="PHARMACIST" ><%out.print(UserType.PHARMACIST.uiName());%></option>
+		<option value="ADMIN"><%out.print(UserType.ADMIN.uiName());%></option>
+		<option value="INACTIVE"><%out.print(UserType.INACTIVE.uiName());%></option>
 		</select>
 		<% if (create) {%>	<input type="submit" value="Opret">
 		<% } else { %><input type="submit" value="Rediger"> <% } %>

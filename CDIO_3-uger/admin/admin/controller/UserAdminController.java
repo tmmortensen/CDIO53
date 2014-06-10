@@ -23,21 +23,12 @@ public class UserAdminController extends AbstractController {
 		this.data = super.data;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-
-		UserSession userSession = (UserSession) request.getSession().getAttribute("user");
-		if (userSession == null){
-			userSession = new UserSession();
-			userSession.init(data);
-			request.getSession().setAttribute("user", userSession);
-		}
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		
 		if (!userSession.isLoggedIn()){
-			response.sendRedirect("login");
+			response.sendRedirect("login?redirect=user_admin");
 			return;
 		} 
 		
@@ -66,12 +57,4 @@ public class UserAdminController extends AbstractController {
 		dispatcher.forward(request, response);
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
-	}
-
 }

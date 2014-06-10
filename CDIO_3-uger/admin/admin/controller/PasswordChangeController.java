@@ -14,17 +14,11 @@ import admin.data.UserDTO;
 public class PasswordChangeController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null) {
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
-		}
-
-		if (!user.isLoggedIn()) {
+		if (!userSession.isLoggedIn()) {
 			response.sendRedirect("login");
 			return;
 		}
@@ -40,7 +34,7 @@ public class PasswordChangeController extends AbstractController {
 		if (pword != null) {
 			input = true;
 			if (!pword.equals("")) {
-				int id = user.getId();
+				int id = userSession.getId();
 				try {
 					opr = data.getUser(id);
 					if (!opr.getPassword().equals(pword)) {
@@ -72,7 +66,7 @@ public class PasswordChangeController extends AbstractController {
 				opr.setPassword(newPword1);
 				data.updateUser(opr);
 				success = true;
-				user.login(user.getId(), newPword1);
+				userSession.login(userSession.getId(), newPword1);
 			} catch (DALException e) {
 			}
 		}
@@ -89,11 +83,6 @@ public class PasswordChangeController extends AbstractController {
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/password_change_boundary.jsp");
 		dispatcher.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

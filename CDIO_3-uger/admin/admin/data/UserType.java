@@ -5,9 +5,9 @@ public enum UserType {
 	
 	String[] uiNames = { "Administrator",
 			"Farmaceut",
-			"Værkfører",
-			"Operatør",
-			"Inaktiv"
+			"VÃ¦rkfÃ¸rer",
+			"OperatÃ¸r",
+			"-deaktiveret-"
 	};
 	
 	public static int getLevel(UserType type){

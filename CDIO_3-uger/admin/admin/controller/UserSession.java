@@ -2,15 +2,12 @@ package admin.controller;
 
 import admin.data.IUsersReadOnly;
 import admin.data.UserDTO;
+import admin.data.UserType;
 
 public class UserSession {
 	private int userId;
 	private String password;
 	private IUsersReadOnly data;
-	
-	public UserSession(){
-		
-	}
 	
 	public void init(IUsersReadOnly data){
 		this.data = data;
@@ -41,15 +38,15 @@ public class UserSession {
 	}
 	
 	public boolean isAdmin(){
-		return accessLevel() <= 0;
+		return accessLevel() <= UserType.ADMIN.ordinal();
 	}
 	
 	public boolean isPharmacist(){
-		return accessLevel() <= 1;
+		return accessLevel() <= UserType.PHARMACIST.ordinal();
 	}
 	
 	public boolean isForeman(){
-		return accessLevel() <= 2;
+		return accessLevel() <= UserType.FOREMAN.ordinal();
 	}
 	
 	

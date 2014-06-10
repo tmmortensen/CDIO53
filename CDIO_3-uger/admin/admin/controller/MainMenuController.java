@@ -19,15 +19,10 @@ public class MainMenuController extends AbstractController{
 		this.data = super.data;
 	}
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		
-		UserSession userSession = (UserSession) request.getSession().getAttribute("user");
-		if (userSession == null){
-			userSession = new UserSession();
-			userSession.init(data);
-			request.getSession().setAttribute("user", userSession);
-		}
 		if (!userSession.isLoggedIn()){
 			response.sendRedirect("login");
 			return;
@@ -54,9 +49,4 @@ public class MainMenuController extends AbstractController{
 		dispatcher.forward(request, response);
 
 	}
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
-	
 }

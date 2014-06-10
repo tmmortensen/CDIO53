@@ -19,17 +19,11 @@ public class TestController extends AbstractController {
 		this.data = super.data;
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null){
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
-		}
+	@Override
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		
-		if (!user.isLoggedIn()){
+		if (!userSession.isLoggedIn()){
 			response.sendRedirect("login");
 			return;
 		} 
@@ -77,10 +71,6 @@ public class TestController extends AbstractController {
 		dispatcher.forward(request, response);
 
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import admin.data.IUsersReadOnly;
+import admin.data.UserType;
 
 public class LoginController extends AbstractController{
 
@@ -19,49 +20,38 @@ public class LoginController extends AbstractController{
 	}
 	
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) 
+	public void doRequest(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-		
-		UserSession user = (UserSession) request.getSession().getAttribute("user");
-		if (user == null){
-			user = new UserSession();
-			user.init(data);
-			request.getSession().setAttribute("user", user);
-		}
-		
+
 		String loginError = "";
-		
-		if (!user.isinitialized()){
-			user.init(data);
-		}
 
-		String redirect;
-		if (request.getParameter("redirect") != null)
-			redirect = request.getParameter("redirect");
-		else
+		String redirect = request.getParameter("redirect");
+		if (redirect == null)
 			redirect = "mainmenu";
-
-		String uid = request.getParameter("userId");
-		String pword = request.getParameter("password");
 
 		String logout = request.getParameter("logout");
 		if (logout != null && logout.toLowerCase().equals("true")){
-			user.logout();
+			userSession.logout();
 		}
 
-		if (user.isLoggedIn()){
+		if (userSession.isLoggedIn()){
 			response.sendRedirect(redirect);
 			return;
 		}
 
+		String uid = request.getParameter("userId");
+		String pword = request.getParameter("password");
 		if (uid != null && pword != null)
 			try {
 				int iUid = Integer.parseInt(uid);
-				if (user.login(iUid, pword)){
+				if (!userSession.login(iUid, pword)){
+					loginError = "Det indtastede bruger id og kodeord er ikke korrekt";
+				} else if (!(userSession.accessLevel() < UserType.INACTIVE.ordinal())){
+					loginError = "Denne bruger er deaktiveret";
+					userSession.logout();
+				}else{
 					response.sendRedirect(redirect);
 					return;
-				} else{
-					loginError = "Det indtastede bruger id og kodeord er ikke korrekt";	
 				}
 			} catch (Exception e){
 				loginError = "Bruger ID er ikke et tal";	
@@ -86,8 +76,4 @@ public class LoginController extends AbstractController{
 		dispatcher.forward(request, response);
 	}
 	
-	public void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException{
-		doPost(request, response);
-	}
 }
