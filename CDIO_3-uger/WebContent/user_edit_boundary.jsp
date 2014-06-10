@@ -106,14 +106,20 @@
 			
 		<% if (!accessError.equals("")){ %>
 		<div class="error"><%out.print(accessError);%></div>
-		<% } %>
+		<% }
+		String access = info.access.name();%>
 		<label for="usertype">Bruger Typpe</label>
 		<select name="newAccess">
-		<option value="OPERATOR" selected><%out.print(UserType.OPERATOR.uiName());%></option>
-		<option value="FOREMAN"><%out.print(UserType.FOREMAN.uiName());%></option>
-		<option value="PHARMACIST" ><%out.print(UserType.PHARMACIST.uiName());%></option>
-		<option value="ADMIN"><%out.print(UserType.ADMIN.uiName());%></option>
-		<option value="INACTIVE"><%out.print(UserType.INACTIVE.uiName());%></option>
+		<option value="OPERATOR" <% if (access.equals("OPERATOR")) out.print("selected");%>>
+		<%out.print(UserType.OPERATOR.uiName());%></option>
+		<option value="FOREMAN" <% if (access.equals("FOREMAN")) out.print("selected");%>>
+		<%out.print(UserType.FOREMAN.uiName());%></option>
+		<option value="PHARMACIST" <% if (access.equals("PHARMACIST")) out.print("selected");%>>
+		<%out.print(UserType.PHARMACIST.uiName());%></option>
+		<option value="ADMIN" <% if (access.equals("ADMIN")) out.print("selected");%>>
+		<%out.print(UserType.ADMIN.uiName());%></option>
+		<option value="INACTIVE" <% if (access.equals("INACTIVE")) out.print("selected");%>>
+		<%out.print(UserType.INACTIVE.uiName());%></option>
 		</select>
 		<% if (create) {%>	<input type="submit" value="Opret">
 		<% } else { %><input type="submit" value="Rediger"> <% } %>

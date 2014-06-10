@@ -37,7 +37,7 @@ public class UserEditController extends AbstractController {
 		String sUserId = request.getParameter("id");
 		int iUserId = 0;
 
-		if (sUserId.equals("new")) {
+		if (sUserId != null && sUserId.equals("new")) {
 			isNewUser = true;
 		} else {
 			try {

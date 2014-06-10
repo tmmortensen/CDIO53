@@ -2,28 +2,28 @@ package admin.data;
 
 public class PrescriptionDTO {
 
-	int prescriptionId;
-	String prescriptionName;
+	int id;
+	String name;
 
-	public PrescriptionDTO(int prescriptionId, String prescriptionName) {
-		this.prescriptionId = prescriptionId;
-		this.prescriptionName = prescriptionName;
+	public PrescriptionDTO(int id, String name) {
+		this.id = id;
+		this.name = name;
 	}
 
-	public void setPrescriptionId(int prescriptionId) {
-		this.prescriptionId = prescriptionId;
+	public void setId(int prescriptionId) {
+		this.id = prescriptionId;
 	}
 
-	public void setPrescriptionName(String prescriptionName) {
-		this.prescriptionName = prescriptionName;
+	public void setName(String prescriptionName) {
+		this.name = prescriptionName;
 	}
 
-	public int getPrescriptionId() {
-		return prescriptionId;
+	public int getId() {
+		return id;
 	}
 
-	public String getPrescriptionName() {
-		return prescriptionName;
+	public String getName() {
+		return name;
 	}
 
 }
