@@ -77,7 +77,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `productbatchcomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `productbatchcomponent` (s
+CREATE TABLE `productbatchcomponent` (
   `pb_id` int(11) NOT NULL,
   `commoditybatch_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
