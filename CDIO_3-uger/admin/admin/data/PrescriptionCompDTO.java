@@ -13,6 +13,22 @@ public class PrescriptionCompDTO {
 		this.nomNetto = nomNetto;
 	}
 
+	public void setPrescriptionId(int prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+
+	public void setCommodityId(int commodityId) {
+		this.commodityId = commodityId;
+	}
+
+	public void setNomNetto(double nomNetto) {
+		this.nomNetto = nomNetto;
+	}
+
+	public void setTolerance(double tolerance) {
+		this.tolerance = tolerance;
+	}
+
 	public int getPrescriptionId() {
 		return prescriptionId;
 	}

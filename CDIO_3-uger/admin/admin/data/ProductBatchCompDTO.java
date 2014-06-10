@@ -14,6 +14,26 @@ public class ProductBatchCompDTO {
 
 	}
 
+	public void setPb_id(int pb_id) {
+		this.pb_id = pb_id;
+	}
+
+	public void setCommoditybatch_id(int commoditybatch_id) {
+		this.commoditybatch_id = commoditybatch_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public void setTara(double tara) {
+		this.tara = tara;
+	}
+
+	public void setNetto(double netto) {
+		this.netto = netto;
+	}
+
 	public int getPb_id() {
 		return pb_id;
 	}
