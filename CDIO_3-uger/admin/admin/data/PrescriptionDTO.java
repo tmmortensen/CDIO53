@@ -4,6 +4,10 @@ public class PrescriptionDTO {
 
 	int id;
 	String name;
+	
+	public PrescriptionDTO() {
+		this(0,"");
+	}
 
 	public PrescriptionDTO(int id, String name) {
 		this.id = id;

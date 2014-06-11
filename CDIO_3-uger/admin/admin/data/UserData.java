@@ -17,12 +17,12 @@ public class UserData implements IUserDAO {
 		try {
 			ResultSet rs = Connector.doQuery("SELECT COUNT(*) FROM users");
 			Connector.closeConnection();
-			if(rs.next()){
-				if(!(rs.getInt(1)>0))
-				// creating users for testing
-				createDefaultUsers();	
+			if (rs.next()) {
+				if (!(rs.getInt(1) > 0))
+					// creating users for testing
+					createDefaultUsers();
 			}
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
@@ -102,13 +102,12 @@ public class UserData implements IUserDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("UPDATE users " 
-				+ "SET user_name = " + "'" + opr.getUsername() + "'" 
-				+ ", ini = " + "'" + opr.getIni() + "'" 
-				+ ", cpr = " + "'" + opr.getCpr() + "'" 
-				+ ", password = " + "'" + opr.getPassword() + "'" 
-				+ ", user_type = " + opr.getAccesLevel() 
-				+ " WHERE user_id = " + opr.getUserId() + ";");
+		Connector.doUpdate("UPDATE users " + "SET user_name = " + "'"
+				+ opr.getUsername() + "'" + ", ini = " + "'" + opr.getIni()
+				+ "'" + ", cpr = " + "'" + opr.getCpr() + "'" + ", password = "
+				+ "'" + opr.getPassword() + "'" + ", user_type = "
+				+ opr.getAccesLevel() + " WHERE user_id = " + opr.getUserId()
+				+ ";");
 		Connector.closeConnection();
 	}
 
@@ -119,9 +118,30 @@ public class UserData implements IUserDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("UPDATE users SET user_type = 4  WHERE user_id = "
-				+ id + ";");
-		Connector.closeConnection();
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM users where user_id in ( SELECT user_id from productbatchcomponent );");
+		try {
+			if (!rs.first()) {
+				Connector.doUpdate("DELETE FROM users WHERE user_id = " + id
+						+ ";");
+
+			} else {
+				throw new DALException(
+						"You cannot delete the user, because it has a productbatchcomponent attached to it's id");
+			}
+
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+
+		// try {
+		// Connector.connect();
+		// } catch (Exception e1) {
+		// e1.printStackTrace();
+		// }
+		// Connector.doUpdate("UPDATE users SET user_type = 4  WHERE user_id = "
+		// + id + ";");
+		// Connector.closeConnection();
 	}
 
 	public synchronized void createDefaultUsers() {
