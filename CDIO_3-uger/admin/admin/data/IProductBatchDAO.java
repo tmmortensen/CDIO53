@@ -13,4 +13,6 @@ public interface IProductBatchDAO {
 	public List<ProductBatchDTO> getUnInitializedProductBatch() throws DALException;
 	
 	public void updateStatus(int pb_id) throws DALException;
+	
+	public void deleteBatch(int pb_id) throws DALException; 
 }
