@@ -75,7 +75,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("UPDATE prescriptioncomponent SET "
+		Connector.doUpdate("UPDATE prescription SET "
 				+ "prescription_id = " + prescription.getId()
 				+", prescription_name = '" + prescription.getName()+"'"
 				+" WHERE prescription_id = " + prescription.getId() + ";");
