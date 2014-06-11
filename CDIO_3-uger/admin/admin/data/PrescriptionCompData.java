@@ -16,10 +16,10 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO prescriptioncomponent VALUES ( "
-				+ " prescription_id = " + prescription.getPrescriptionId()
-				+ ", commidity_id = " + prescription.getCommodityId()
-				+ ", nom_netto = " + prescription.getNomNetto()
-				+ ", tolerance = " + prescription.getTolerance() + ");");
+				+ prescription.getPrescriptionId()
+				+ ", " + prescription.getCommodityId()
+				+ ", " + prescription.getNomNetto()
+				+ ", " + prescription.getTolerance() + ");");
 		Connector.closeConnection();
 	}
 
@@ -111,6 +111,12 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		}catch(DALException e){
 			e.getMessage();		
 			}
+	}
+
+	@Override
+	public void deletePrescriptionComp(int prescriptionId) throws DALException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

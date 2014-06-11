@@ -81,6 +81,7 @@ public class PrescriptionEditController extends AbstractController {
 				try {
 					components = presComps.getComponentList(iOldId);
 				} catch (DALException e) {
+					System.err.println(e.getMessage());
 				}
 			}
 		} else {
