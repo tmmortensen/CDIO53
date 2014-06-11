@@ -10,7 +10,7 @@ public class PrescriptionCompDTO {
 		this.prescriptionId = prescriptionId;
 		this.commodityId = commodityId;
 		this.nomNetto = nomNetto;
-		this.nomNetto = nomNetto;
+		this.tolerance = tolerance;
 	}
 
 	public void setPrescriptionId(int prescriptionId) {

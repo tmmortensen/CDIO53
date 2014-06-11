@@ -84,4 +84,10 @@ public class PrescriptionData implements IPrescritpionDAO {
 		
 	}
 
+	@Override
+	public void deletePrescription(int id) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

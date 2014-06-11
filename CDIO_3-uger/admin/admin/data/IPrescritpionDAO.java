@@ -16,6 +16,8 @@ public interface IPrescritpionDAO {
 	public void updatePrescription(PrescriptionDTO prescription)
 			throws DALException;
 
+	public void deletePrescription(int id)
+			throws DALException;
 
 
 }

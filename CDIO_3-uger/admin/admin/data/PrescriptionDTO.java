@@ -14,11 +14,11 @@ public class PrescriptionDTO {
 		this.name = name;
 	}
 
-	public void setId(int prescriptionId) {
+	public void setId(int prescriptionId) throws DALException{
 		this.id = prescriptionId;
 	}
 
-	public void setName(String prescriptionName) {
+	public void setName(String prescriptionName) throws DALException{
 		this.name = prescriptionName;
 	}
 
