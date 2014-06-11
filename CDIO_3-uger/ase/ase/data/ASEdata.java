@@ -5,13 +5,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import admin.data.CommodityBatchData;
+import admin.data.Connector;
 import admin.data.DALException;
 import admin.data.ProductBatchData;
 import admin.data.UserDTO;
 import admin.data.UserData;
 import admin.data.UserInfo;
+import admin.data.UserType;
 
 public class ASEdata {
 	private String sentence, varenavn, choice;
@@ -77,5 +81,32 @@ public class ASEdata {
 //		return Productbatchname;
 //		
 //	}
+	public UserDTO UserDTOgetUser(int user_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
 
+			ResultSet rs = Connector
+					.doQuery("SELECT * FROM users WHERE user_id = " + user_id
+							+ ";");
+			Connector.closeConnection();
+			if (!rs.first()) {
+				throw new DALException("the user with user id: " + user_id
+						+ "does not exist");
+			}
+			return new UserDTO(rs.getInt("user_id"), rs.getString("user_name"),
+					rs.getString("ini"), rs.getString("cpr"),
+					rs.getString("password"), rs.getInt("user_type"));
+
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+	}
+	public String UserInfo(UserDTO operator){
+		String name = operator.getUsername();
+		return name;
+	}
 }

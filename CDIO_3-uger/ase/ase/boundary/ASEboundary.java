@@ -16,14 +16,14 @@ public class ASEboundary {
 	private BufferedReader inFromServer;
 	private DataOutputStream outToServer;
 	private int tempProduktBatch;
-
+	int tempOpr_ID;
 	ASEcontroller controller;
 
 	public boolean name() {
 		// Skal bede om ID pÃ¥ bruger, sÃ¦tte navnet pÃ¥ vÃ¦gten og bede om at
 		// godkende.
 
-		int tempOpr_ID = 0;
+
 //		try {
 			sentence = "RM20 4 \"indtast operatoer nummer\" \"dette slettes\" \"nr\"";
 			// outToServer.writeBytes(sentence + "\r\n");
@@ -37,50 +37,58 @@ public class ASEboundary {
 			// tempOpr_ID =
 			// Integer.parseInt(modifiedSentence.substring(7).trim());
 			tempOpr_ID = 1;
+			System.out.println("NÃ¥r vi hertil? " + tempOpr_ID);
+			int opr_ID = tempOpr_ID;
+			sendOprIDToDB();
+			
 //		}
 //
 //		catch (IOException e) {
 //			e.getMessage();
 //		}
-
-		String oprName = controller.getOprName(tempOpr_ID);
-		try {
-			System.out.println("Goddag " + oprName
-					+ "hvis dette er dem tryk 1, ellers tryk 2");
-			// outToServer.writeBytes("RM20 8 \"Goddag \" " + oprName
-			// + "\"hvis dette er dem tryk 1, ellers tryk 2\"");
-			// modifiedSentence = inFromServer.readLine().trim();
-			modifiedSentence = "1";
-			if (modifiedSentence.equals("1")) {
-				return true;
-			} else {
-
-				if (modifiedSentence.equals("2")) {
-					sentence = "RM20 4 \"Dette var ikke dem. vi starter forfra \" \"dette slettes\" \"nr\"";
-					outToServer.writeBytes(sentence + "\r\n");
-					name();
-				}
-
-			}
-
-			return false;
-		}
-
-		catch (IOException e) {
-			e.getMessage();
-		}
+//		String oprName = controller.getOprName(opr_ID);
+//		try {
+//			System.out.println("Goddag " + oprName
+//					+ "hvis dette er dem tryk 1, ellers tryk 2");
+//			// outToServer.writeBytes("RM20 8 \"Goddag \" " + oprName
+//			// + "\"hvis dette er dem tryk 1, ellers tryk 2\"");
+//			// modifiedSentence = inFromServer.readLine().trim();
+//			modifiedSentence = "1";
+//			if (modifiedSentence.equals("1")) {
+//				return true;
+//			} else {
+//
+//				if (modifiedSentence.equals("2")) {
+//					sentence = "RM20 4 \"Dette var ikke dem. vi starter forfra \" \"dette slettes\" \"nr\"";
+//					outToServer.writeBytes(sentence + "\r\n");
+//					name();
+//				}
+//
+//			}
+//
+//			return false;
+//		}
+//
+//		catch (IOException e) {
+//			e.getMessage();
+//		}
 		return false;
 
 	}
+public int sendOprIDToDB(){
+	//ID sendt til controlleren
+	return tempOpr_ID;
+	
+}	
 
 	// public int produktbatch() {
-	// // Skal vise navnet på produktbatch på vægt og returnere produktbatch
+	// // Skal vise navnet pï¿½ produktbatch pï¿½ vï¿½gt og returnere produktbatch
 	// // nummeret.
 	//
 	// int inputproductbatch = 0;
 	// try {
 	// sentence =
-	// "RM20 4 \"indtast det øsnkede produktbatch nummer\" \"dette slettes\" \"nr\"";
+	// "RM20 4 \"indtast det ï¿½snkede produktbatch nummer\" \"dette slettes\" \"nr\"";
 	// outToServer.writeBytes(sentence + "\r\n");
 	// modifiedSentence = inFromServer.readLine();
 	//

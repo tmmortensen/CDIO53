@@ -5,10 +5,12 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import admin.data.UserDTO;
 import ase.boundary.ASEboundary;
 import ase.data.ASEdata;
 
 public class ASEcontroller {
+	
 	private boolean done = false, doMore = true, name = false;
 	private int tempProductBatch, tempRaavareBatch;
 	private BufferedReader inFromServer;
@@ -17,9 +19,19 @@ public class ASEcontroller {
 
 	ASEboundary bound = new ASEboundary();
 	ASEdata data = new ASEdata();
-
+	
+	
 	public ASEcontroller() {
+		int oprID = bound.sendOprIDToDB();
 		while (!done == true) {
+			try{
+				UserDTO test = data.UserDTOgetUser(oprID);
+				System.out.println(data.UserInfo(test));
+			}
+			catch(Exception e){
+				System.out.println("Hov hov du.");
+			}
+			
 			if (bound.name() == true) {
 				name = true;
 			}
@@ -50,21 +62,9 @@ public class ASEcontroller {
 		}
 
 	}
-	
-	public String getOprName(int OprID){
-		
-		String OprName = data.getDBName(OprID);
-		
-		return OprName;
-	}
-	
-//	public String getProductbatchname(int productbatch){
-//		
-//		String Productbatchname = data.getproductbatchname(productbatch);
-//		
-//		return Productbatchname;
+//	public String getOprName(int oprID){
+//		oprID = this.oprID;
+//		String OprName = data.getDBName(oprID);
+//		return OprName;
 //	}
-
-
-
 }
