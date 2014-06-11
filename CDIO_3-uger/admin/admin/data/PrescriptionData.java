@@ -8,11 +8,6 @@ import java.util.List;
 public class PrescriptionData implements IPrescritpionDAO {
 
 	@Override
-	public void PrescriptionDTO() throws DALException {
-
-	}
-
-	@Override
 	public synchronized void createPrescription(PrescriptionDTO prescription)
 			throws DALException {
 		try {
