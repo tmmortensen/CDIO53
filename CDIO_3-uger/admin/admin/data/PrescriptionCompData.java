@@ -24,7 +24,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 	}
 
 	@Override
-	public synchronized PrescriptionCompDTO getPrescriptionComp(int prescriptionId)
+	public synchronized PrescriptionCompDTO getPrescriptionComp(int prescription_id, int commodity_id)
 			throws DALException {
 		try {
 			Connector.connect();
@@ -33,12 +33,12 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescriptioncomponent WHERE prescription_id = "
-						+ prescriptionId + ";");
+						+ prescription_id + " AND commodity_id = " + commodity_id +";");
 		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
 				throw new DALException("the commodity with the id = "
-						+ prescriptionId + " does not exist");
+						+ prescription_id + " does not exist");
 			}
 			return new PrescriptionCompDTO(rs.getInt("prescription_id"),
 					rs.getInt("commodity_id"), rs.getDouble("nom_netto"),
@@ -49,8 +49,32 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 	}
 
 	@Override
-	public synchronized List<PrescriptionCompDTO> getAllPrescription(
-			PrescriptionCompDTO prescription) throws DALException {
+	public List<PrescriptionCompDTO> getComponentList(int prescriptionId)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		List<PrescriptionCompDTO> list = new ArrayList<PrescriptionCompDTO>();
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM prescriptioncomponent "
+						+ "WHERE prescription_id = "+prescriptionId+";");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new PrescriptionCompDTO(rs.getInt("prescription_id"),
+						rs.getInt("commodity_id"), rs.getDouble("nom_netto"),
+						rs.getDouble("tolerance")));
+			}
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+		return list;
+	}
+
+	@Override
+	public List<PrescriptionCompDTO> getComponentList() throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -70,6 +94,23 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 			throw new DALException(e);
 		}
 		return list;
+	}
+
+	@Override
+	public void deletePrescriptionComp(int prescriptionId, int commodityId)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try{
+		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 
+							+ " AND commodity_id = " + commodityId + ";" );
+		Connector.closeConnection();
+		}catch(DALException e){
+			e.getMessage();		
+			}
 	}
 
 }
