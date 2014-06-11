@@ -70,4 +70,26 @@ public class ProductBatchData implements IProductBatchDAO {
 
 	}
 
+	@Override
+	public void deleteBatch(int pb_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch "
+											+ "WHERE pb_id in(SELECT pb_id from productbatchcomponent);");
+		try {
+			if(!rs.first()){
+				Connector.doUpdate("DELETE FROM productbatch WHERE pb_id = " +pb_id + ";");
+				Connector.closeConnection();
+			}
+			else {
+				throw new DALException("you cannot delete that productbatch because it has been begun");
+			}
+		}catch(SQLException e){
+			throw new DALException(e);
+		}
+	}
+
 }
