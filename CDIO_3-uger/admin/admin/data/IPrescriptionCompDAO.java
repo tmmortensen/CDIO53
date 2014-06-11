@@ -67,4 +67,13 @@ public interface IPrescriptionCompDAO {
 	public void deletePrescriptionComp(int prescriptionId, int commodityId)
 			throws DALException;
 
+	/**
+	 * Removes all prescription components tied to a certain prescription
+	 * 
+	 * @param prescriptionId
+	 *            the id of the prescription that is to have all its components
+	 *            removed
+	 * @throws DALException
+	 */
+	public void deletePrescriptionComp(int prescriptionId) throws DALException;
 }
