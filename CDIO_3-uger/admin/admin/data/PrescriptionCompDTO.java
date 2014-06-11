@@ -5,7 +5,7 @@ public class PrescriptionCompDTO {
 	int prescriptionId, commodityId;
 	double nomNetto, tolerance;
 
-	PrescriptionCompDTO(int prescriptionId, int commodityId, double nomNetto,
+	public PrescriptionCompDTO(int prescriptionId, int commodityId, double nomNetto,
 			double tolerance) {
 		this.prescriptionId = prescriptionId;
 		this.commodityId = commodityId;
