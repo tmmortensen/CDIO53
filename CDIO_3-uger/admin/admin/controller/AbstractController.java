@@ -110,7 +110,7 @@ public abstract class AbstractController extends HttpServlet {
 		if (!userSession.isLoggedIn() && !path.equals("/login")) {
 			String querry = request.getQueryString();
 			if (querry != null)
-				path += querry;
+				path += "?" + querry;
 			response.sendRedirect("login?redirect=" + path);
 			return;
 		}
