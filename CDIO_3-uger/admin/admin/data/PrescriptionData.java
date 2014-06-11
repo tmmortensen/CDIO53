@@ -16,9 +16,8 @@ public class PrescriptionData implements IPrescritpionDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO prescription VALUES ( "
-				+ " prescription_id = " + prescription.getId()
-				+ ", prescription_name = '" + prescription.getName()
-				+ "');");
+				+prescription.getId()
+				+ ",'" + prescription.getName()	+ "');");
 		Connector.closeConnection();
 	}
 
