@@ -124,7 +124,7 @@ public class UserData implements IUserDAO {
 			if (!rs.first()) {
 				Connector.doUpdate("DELETE FROM users WHERE user_id = " + id
 						+ ";");
-
+				Connector.closeConnection();
 			} else {
 				throw new DALException(
 						"You cannot delete the user, because it has a productbatchcomponent attached to it's id");

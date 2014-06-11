@@ -68,4 +68,20 @@ public class PrescriptionData implements IPrescritpionDAO {
 		return list;
 	}
 
+	@Override
+	public void updatePrescription(PrescriptionDTO prescription)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		Connector.doUpdate("UPDATE prescriptioncomponent SET "
+				+ "prescription_id = " + prescription.getId()
+				+", prescription_name = '" + prescription.getName()+"'"
+				+" WHERE prescription_id = " + prescription.getId() + ";");
+		Connector.closeConnection();
+		
+	}
+
 }
