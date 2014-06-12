@@ -13,7 +13,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO prescription VALUES ( "
 				+ prescription.getId() + ",'" + prescription.getName() + "');");
@@ -26,7 +26,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescription WHERE prescription_id = "
@@ -34,13 +34,13 @@ public class PrescriptionData implements IPrescritpionDAO {
 		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
-				throw new DALException("the commodity with the id = "
-						+ prescriptionId + " does not exist");
+				throw new DALException("råvaren med råvare id = "
+						+ prescriptionId + " kunne ikke findes i databasen");
 			}
 			return new PrescriptionDTO(rs.getInt("prescription_id"),
 					rs.getString("prescription_name"));
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 	}
 
@@ -50,7 +50,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		List<PrescriptionDTO> list = new ArrayList<PrescriptionDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM prescription;");
@@ -61,7 +61,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 						.getString("prescription_name")));
 			}
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 		return list;
 	}
@@ -72,7 +72,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE prescription SET " + "prescription_id = "
 				+ prescription.getId() + ", prescription_name = '"
@@ -87,7 +87,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 //		try {
 //			Connector.connect();
 //		} catch (Exception e1) {
-//			e1.printStackTrace();
+//			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 //		}
 //		ResultSet rs = Connector
 //				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
@@ -106,7 +106,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 			Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
 			Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + id +";");

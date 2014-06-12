@@ -13,7 +13,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = "
@@ -23,15 +23,15 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			if (!rs.first()) {
 				throw new DALException(
-						"The product batch component with the pb_id = " + pb_id
-								+ " and the commoditybatch_id = "
-								+ commoditybatch_id + " does not exist");
+						"Produkt batchen med det givne produkt batch id = " + pb_id
+								+ " og det tilsvarende råvare batch id = "
+								+ commoditybatch_id + " eksisterer ikke i databasen");
 			}
 			return new ProductBatchCompDTO(rs.getInt("pb_id"),
 					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
 					rs.getInt("tara"), rs.getInt("netto"));
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 	}
 
@@ -42,7 +42,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = " + pb_id +";");
 		Connector.closeConnection();
@@ -53,7 +53,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 					rs.getInt("tara"), rs.getInt("netto")));
 			}
 		}catch(SQLException e){
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 		return list;
 	}
@@ -65,7 +65,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent;");
 		Connector.closeConnection();
@@ -76,7 +76,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 					rs.getInt("tara"), rs.getInt("netto")));
 			}
 		}catch(SQLException e){
-			throw new DALException(e);
+			throw new DALException("der skete en fejl i forbindelse med databasen");
 		}
 		return list;
 	}
@@ -87,14 +87,15 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO productbatchcomponent VALUES ( "
 				+ productBatchComp.getPb_id() 
 				+ "," + productBatchComp.getCommoditybatch_id()
-				+ ","+ productBatchComp.getUser_id()
-				+ ", 0 "
-				+ ", 0);");
+				+ "," + productBatchComp.getUser_id()
+				+ "," + productBatchComp.getTara()
+				+ "," + productBatchComp.getNetto() 
+				+ ");");
 		Connector.closeConnection();
 
 	}
@@ -105,7 +106,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE productbatchcomponent "
 				+ "set user_id = " + productBatchComp.getUser_id() 
@@ -121,7 +122,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("DELETE *  FROM productbatchcomponent WHERE pb_id = " + pb_id 
 				+ " AND commoditybatch_id = " + commoditybatch_id +";");

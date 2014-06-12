@@ -44,7 +44,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 					rs.getInt("commodity_id"), rs.getDouble("nom_netto"),
 					rs.getDouble("tolerance"));
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en forbindelse med databasen");
 		}
 	}
 
@@ -68,7 +68,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 						rs.getDouble("tolerance")));
 			}
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 		return list;
 	}
@@ -91,7 +91,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 						rs.getDouble("tolerance")));
 			}
 		} catch (SQLException e) {
-			throw new DALException(e);
+			throw new DALException("Der skete en fejl i forbindelse med databasen");
 		}
 		return list;
 	}
@@ -105,17 +105,22 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		try{
-		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 
+		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 
 							+ " AND commodity_id = " + commodityId + ";" );
 		Connector.closeConnection();
 		}catch(DALException e){
-			e.getMessage();		
+			throw new DALException("brugeren kunne ikke slettes");
 			}
 	}
 
 	@Override
 	public void deletePrescriptionComp(int prescriptionId) throws DALException {
-		// TODO Auto-generated method stub
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
 		
 	}
 

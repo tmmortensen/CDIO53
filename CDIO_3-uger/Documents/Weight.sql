@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `user_name` varchar(45) DEFAULT NULL,
-  `ini` varchar(45) DEFAULT NULL,
-  `cpr` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `user_type` int(11) DEFAULT NULL,
+  `user_id` int(99999999) NOT NULL DEFAULT '0',
+  `user_name` varchar(20) DEFAULT NULL,
+  `ini` varchar(4) DEFAULT NULL,
+  `cpr` varchar(10) DEFAULT NULL,
+  `password` varchar(8) DEFAULT NULL,
+  `user_type` int(4) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,9 +52,9 @@ DROP TABLE IF EXISTS `productbatch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatch` (
-  `pb_id` int(11) NOT NULL,
-  `prescription_id` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `pb_id` int(99999999) NOT NULL,
+  `prescription_id` int(99999999) DEFAULT NULL,
+  `status` int(3) DEFAULT NULL,
   PRIMARY KEY (`pb_id`),
   KEY `pbatch_prescription_id_idx` (`prescription_id`),
   CONSTRAINT `pbatch_prescription_id` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -78,11 +78,11 @@ DROP TABLE IF EXISTS `productbatchcomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatchcomponent` (
-  `pb_id` int(11) NOT NULL,
-  `commoditybatch_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `tara` decimal(11,0) DEFAULT NULL,
-  `netto` decimal(11,0) DEFAULT NULL,
+  `pb_id` int(99999999) NOT NULL,
+  `commoditybatch_id` int(99999999) NOT NULL,
+  `user_id` int(99999999) NOT NULL,
+  `tara` decimal(11,0000) DEFAULT NULL,
+  `netto` decimal(11,0000) DEFAULT NULL,
   KEY `pbcomponent_pb_idx` (`pb_id`),
   KEY `pbcomponent_commoditybatch_id_idx` (`commoditybatch_id`),
   KEY `pbcomponent_user_id_idx` (`user_id`),
@@ -109,9 +109,9 @@ DROP TABLE IF EXISTS `commodity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commodity` (
-  `commodity_id` int(11) NOT NULL,
-  `commodity_name` varchar(45) DEFAULT NULL,
-  `supplier` varchar(45) DEFAULT NULL,
+  `commodity_id` int(99999999) NOT NULL,
+  `commodity_name` varchar(20) DEFAULT NULL,
+  `supplier` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`commodity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -133,9 +133,9 @@ DROP TABLE IF EXISTS `commoditybatch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commoditybatch` (
-  `commoditybatch_id` int(11) NOT NULL,
-  `commodity_id` int(11) NOT NULL,
-  `amount` decimal(11,0) DEFAULT NULL,
+  `commoditybatch_id` int(99999999) NOT NULL,
+  `commodity_id` int(99999999) NOT NULL,
+  `amount` decimal(1000,0000) DEFAULT NULL,
   PRIMARY KEY (`commoditybatch_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -159,8 +159,8 @@ DROP TABLE IF EXISTS `prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescription` (
-  `prescription_id` int(11) NOT NULL,
-  `prescription_name` varchar(45) DEFAULT NULL,
+  `prescription_id` int(99999999) NOT NULL,
+  `prescription_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`prescription_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -182,10 +182,10 @@ DROP TABLE IF EXISTS `prescriptioncomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescriptioncomponent` (
-  `prescription_id` int(11) DEFAULT NULL,
-  `commodity_id` int(11) DEFAULT NULL,
-  `nom_netto` decimal(11,0) DEFAULT NULL,
-  `tolerance` decimal(11,0) DEFAULT NULL,
+  `prescription_id` int(99999999) DEFAULT NULL,
+  `commodity_id` int(99999999) DEFAULT NULL,
+  `nom_netto` decimal(11,0000) DEFAULT NULL,
+  `tolerance` decimal(11,00) DEFAULT NULL,
   KEY `prescription_id_idx` (`prescription_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
