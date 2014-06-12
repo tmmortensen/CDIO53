@@ -19,6 +19,11 @@ public class UserDataTest {
 	// New UserDTO object needed for test
 	private UserDTO user100, user200, user300;
 
+	/**
+	 * Sets up the entities needed for the test
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		this.user100 = new UserDTO(100, "UserTestGuy100", "U1", "1111111111",
@@ -29,6 +34,11 @@ public class UserDataTest {
 				"12345678", 1);
 	}
 
+	/**
+	 * Cleans up what is used for testing
+	 * 
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		this.user100 = new UserDTO(100, "UserTestGuy1", "UTG", "2111822231",
@@ -39,9 +49,14 @@ public class UserDataTest {
 				"12345678", 1);
 	}
 
+	/**
+	 * Test of entities
+	 */
 	@Test
 	public void testEntities() {
 		Assert.assertNotNull(this.user100);
+		Assert.assertNotNull(this.user200);
+		Assert.assertNotNull(this.user300);
 	}
 
 	@Test

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IProductBatchCompDAO {
 	
-	public ProductBatchCompDTO getProductBathComp(int pb_id, int commoditybatch_id) throws DALException;
+	public ProductBatchCompDTO getProductBatchComp(int pb_id, int commoditybatch_id) throws DALException;
 	
 	public List<ProductBatchCompDTO> getCertainProductBatchComps(int pb_id) throws DALException;
 	
