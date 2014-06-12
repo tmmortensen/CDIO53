@@ -34,7 +34,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 		Connector.closeConnection();
 		try {
 			if (!rs.first()) {
-				throw new DALException("r�varen med r�vare id = "
+				throw new DALException("råvaren med råvare id = "
 						+ prescriptionId + " kunne ikke findes i databasen");
 			}
 			return new PrescriptionDTO(rs.getInt("prescription_id"),

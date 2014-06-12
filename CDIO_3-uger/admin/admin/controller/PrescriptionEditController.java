@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import admin.data.DALException;
 import admin.data.PrescriptionCompDTO;
 import admin.data.PrescriptionDTO;
-import admin.data.UserDTO;
-import admin.data.UserInfo;
 import admin.data.UserType;
 
 public class PrescriptionEditController extends AbstractController {
