@@ -29,6 +29,11 @@ public interface ICommodityBatchDAO {
 	 */
 	public List<CommodityBatchDTO> getComBatchList() throws DALException;
 
-	public void createCommodityBatch(CommodityBatchDTO commodity)
+	public void createCommodityBatch(CommodityBatchDTO commoditybatch)
 			throws DALException;
+
+	public void updateCommodityBatch(CommodityBatchDTO commoditybatch)
+			throws DALException;
+
+	public void deleteCommodityBatch(int commoditybatch_id) throws DALException;
 }
