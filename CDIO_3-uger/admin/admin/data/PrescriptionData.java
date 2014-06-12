@@ -40,7 +40,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 			return new PrescriptionDTO(rs.getInt("prescription_id"),
 					rs.getString("prescription_name"));
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i getPrescription(int prescripttionId)" +e.getMessage());
 		}
 	}
 
@@ -61,7 +61,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 						.getString("prescription_name")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i getPrescriptionList()" +e.getMessage());
 		}
 		return list;
 	}
@@ -84,34 +84,23 @@ public class PrescriptionData implements IPrescritpionDAO {
 
 	@Override
 	public void deletePrescription(int id) throws DALException {
-//		try {
-//			Connector.connect();
-//		} catch (Exception e1) {
-//			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
-//		}
-//		ResultSet rs = Connector
-//				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
-//						+ "(SELECT prescription_id from prescriptioncomponent);");
-//		try {
-//			if(!rs.next()){
-//				Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
-//				Connector.closeConnection();
-//			}
-//		}catch(SQLException e){
-//			throw new DALException("Noget gik galt i forbindelse med databasen.");
-//		}
-		
-		// v�lg en af de 2 metoder
-		
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-			Connector.doUpdate("DELETE FROM prescription WHERE prescription_id = " + id +";");
-			Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + id +";");
-			Connector.closeConnection();
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
+						+ "(SELECT prescription_id from prescriptioncomponent);");
+		try {
+			if(!rs.next()){
+				Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
+				Connector.closeConnection();
+			}
+		}catch(SQLException e){
+			throw new DALException("Noget gik galt i forbindelse med databasen.");
+		}
 		
-	}
 
+	}
 }
