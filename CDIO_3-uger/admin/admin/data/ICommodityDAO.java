@@ -9,5 +9,9 @@ public interface ICommodityDAO {
 	public List<CommodityDTO> getComList() throws DALException;
 
 	public void createCommodity(CommodityDTO commodity) throws DALException;
+	
+	public void updateCommodity(CommodityDTO commodity) throws DALException;
+	
+	public void deleteCommodity(int commodity_id) throws DALException;
 
 }
