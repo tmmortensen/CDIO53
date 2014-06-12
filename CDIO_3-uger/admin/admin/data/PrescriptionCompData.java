@@ -13,7 +13,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO prescriptioncomponent VALUES ( "
 				+ prescription.getPrescriptionId()
@@ -29,7 +29,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescriptioncomponent WHERE prescription_id = "
@@ -54,7 +54,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		List<PrescriptionCompDTO> list = new ArrayList<PrescriptionCompDTO>();
 		ResultSet rs = Connector
@@ -78,7 +78,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		List<PrescriptionCompDTO> list = new ArrayList<PrescriptionCompDTO>();
 		ResultSet rs = Connector
@@ -102,7 +102,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		try{
 		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 

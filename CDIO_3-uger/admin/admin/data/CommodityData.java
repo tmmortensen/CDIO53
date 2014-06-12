@@ -12,7 +12,7 @@ public class CommodityData implements ICommodityDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM commodity WHERE commodity_id = "
@@ -35,7 +35,7 @@ public class CommodityData implements ICommodityDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		List<CommodityDTO> list = new ArrayList<CommodityDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM commodity;");
@@ -49,7 +49,6 @@ public class CommodityData implements ICommodityDAO {
 			throw new DALException(e);
 		}
 		return list;
-
 	}
 
 	@Override
@@ -57,14 +56,12 @@ public class CommodityData implements ICommodityDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO commodity VALUES ( "
 				+ commodity.getComId() 
 				+ ", '" + commodity.getComName() 
 				+ "','" + commodity.getSupplier() + "');");
 		Connector.closeConnection();
-
 	}
-
 }
