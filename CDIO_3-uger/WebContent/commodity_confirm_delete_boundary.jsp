@@ -43,10 +43,10 @@
 			<form method="post">
 				<input type="submit" value="Slet">
 			</form>
-			<a href="user_admin">Annullér</a>
+			<a href="commodity_admin">Annullér</a>
 		</div>
 		<%} else { %>
-		<a href="user_admin">Tilbage</a>
+		<a href="commodity_admin">Tilbage</a>
 		<%}
 		} %>
 	</div>
