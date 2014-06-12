@@ -38,7 +38,7 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()" +e.getMessage());
 		}
 		return list;
 	}
@@ -59,7 +59,7 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatch i metoden getInitiatedProductBatch()" +e.getMessage());
 		}
 		return list;
 	}
@@ -81,7 +81,7 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatch i metoden getUnInitializedProductBatch()" +e.getMessage());
 		}
 		return list;
 	}
@@ -109,7 +109,7 @@ public class ProductBatchData implements IProductBatchDAO {
 				throw new DALException("you cannot delete that productbatch because it has been begun");
 			}
 		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatch i metoden deleteBatch(int pb_id)" +e.getMessage());
 		}
 	}
 

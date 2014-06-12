@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductBatchCompData implements IProductBatchCompDAO {
 
 	@Override
-	public synchronized ProductBatchCompDTO getProductBathComp(int pb_id,
+	public synchronized ProductBatchCompDTO getProductBatchComp(int pb_id,
 			int commoditybatch_id) throws DALException {
 		try {
 			Connector.connect();
@@ -24,14 +24,14 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			if (!rs.first()) {
 				throw new DALException(
 						"Produkt batchen med det givne produkt batch id = " + pb_id
-								+ " og det tilsvarende råvare batch id = "
+								+ " og det tilsvarende rï¿½vare batch id = "
 								+ commoditybatch_id + " eksisterer ikke i databasen");
 			}
 			return new ProductBatchCompDTO(rs.getInt("pb_id"),
 					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
 					rs.getInt("tara"), rs.getInt("netto"));
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getProductBatch(int pb_id, int commoditybatch_id)" + e.getMessage());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 					rs.getInt("tara"), rs.getInt("netto")));
 			}
 		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getCertainProductBatchComps(int pb_id)" + e.getMessage());
 		}
 		return list;
 	}
@@ -76,7 +76,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 					rs.getInt("tara"), rs.getInt("netto")));
 			}
 		}catch(SQLException e){
-			throw new DALException("der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getAllProductBatchComps()" + e.getMessage());
 		}
 		return list;
 	}

@@ -26,7 +26,7 @@ public class CommodityData implements ICommodityDAO {
 			return new CommodityDTO(rs.getInt("commodity_id"),
 					rs.getString("commodity_name"), rs.getString("supplier"));
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i Commodity i metoden getCommodity()" +e.getMessage());
 		}
 	}
 
@@ -46,7 +46,7 @@ public class CommodityData implements ICommodityDAO {
 						.getString("commodity_name"), rs.getString("supplier")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i Commodity i metoden getComList()" +e.getMessage());
 		}
 		return list;
 	}

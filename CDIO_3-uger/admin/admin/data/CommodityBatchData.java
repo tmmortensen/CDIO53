@@ -26,7 +26,7 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 			return new CommodityBatchDTO(rs.getInt("commoditybatch_id"),
 					rs.getInt("commodity_id"), rs.getInt("amount"));
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i CommodityBatchData i getCommodityBatch" + e.getMessage());
 		}
 	}
 
@@ -47,7 +47,7 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 						.getInt("commoditybatch_"), rs.getInt("supplier")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i forbindelse med databasen");
+			throw new DALException("Der skete en fejl i CommodityBatchData i getComBatchList()" + e.getMessage());
 		}
 		Connector.closeConnection();
 		return list;

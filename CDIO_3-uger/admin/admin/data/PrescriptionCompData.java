@@ -59,7 +59,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		List<PrescriptionCompDTO> list = new ArrayList<PrescriptionCompDTO>();
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM prescriptioncomponent "
-						+ "WHERE prescription_id = "+prescriptionId+";");
+						+ "WHERE prescription_id = " +prescriptionId + ";");
 		Connector.closeConnection();
 		try {
 			while (rs.next()) {
@@ -105,7 +105,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
 		try{
-		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 
+		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId 
 							+ " AND commodity_id = " + commodityId + ";" );
 		Connector.closeConnection();
 		}catch(DALException e){
@@ -120,7 +120,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
+		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
 		
 	}
 
