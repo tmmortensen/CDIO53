@@ -26,7 +26,7 @@ public class Connector {
 			String password) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		// call the driver class' no argument constructor
-		   Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		// get Connection-object via DriverManager
 		return (Connection) DriverManager
 				.getConnection(url, username, password);
@@ -35,6 +35,14 @@ public class Connector {
 	private static Connection conn;
 	private static Statement stm;
 
+	/**
+	 * Connects with info on server, database, username and password
+	 * 
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void connect() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		conn = connectToDatabase("jdbc:mysql://" + Constant.server + ":"
@@ -43,12 +51,14 @@ public class Connector {
 		stm = conn.createStatement();
 	}
 
-	// public Connector() throws InstantiationException, IllegalAccessException,
-	// ClassNotFoundException, SQLException {
-	// this(Constant.server, Constant.port, Constant.database,
-	// Constant.username, Constant.password);
-	// }
-
+	/**
+	 * Gets a resultset from when you do a query
+	 * 
+	 * @param cmd
+	 *            string with the query
+	 * @return
+	 * @throws DALException
+	 */
 	public static ResultSet doQuery(String cmd) throws DALException {
 		try {
 			return stm.executeQuery(cmd);
@@ -57,6 +67,14 @@ public class Connector {
 		}
 	}
 
+	/**
+	 * Used for updating tuples in data base
+	 * 
+	 * @param cmd
+	 *            string with the query
+	 * @return
+	 * @throws DALException
+	 */
 	public static int doUpdate(String cmd) throws DALException {
 		try {
 			return stm.executeUpdate(cmd);
@@ -65,13 +83,14 @@ public class Connector {
 		}
 	}
 
+	/**
+	 * Close connection to data base
+	 */
 	public static void closeConnection() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
 
 		}
-
 	}
-
 }
