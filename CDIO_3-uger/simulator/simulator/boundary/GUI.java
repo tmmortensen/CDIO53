@@ -29,6 +29,9 @@ public class GUI implements IBoundary {
 
 	private long lastRefresh = 0;
 	IProgramState programState;
+	int buttonCounter0, buttonCounter1, buttonCounter2, buttonCounter3,
+			buttonCounter4, buttonCounter5, buttonCounter6, buttonCounter7,
+			buttonCounter8, buttonCounter9 = 0;
 
 	// set up frames buttons and panels
 	JFrame f = new JFrame("Vægtsimulator");
@@ -211,13 +214,73 @@ public class GUI implements IBoundary {
 			String inputtext = digits.getText();
 
 			if (e.getSource() == b0) {
-				digits.setText(inputtext + b0.getText());
+				buttonCounter0++;
+				switch (buttonCounter0) {
+				case 1:
+					digits.setText(inputtext + b0.getText());
+					break;
+				case 2:
+					digits.setText(" ");
+					buttonCounter0 = 0;
+					break;
+				default:
+					break;
+				}
 			} else if (e.getSource() == b1) {
-				digits.setText(inputtext + b1.getText());
+				buttonCounter1++;
+				switch (buttonCounter1) {
+				case 1:
+					digits.setText(inputtext + b1.getText());
+					break;
+				case 2:
+					digits.setText(inputtext + ".");
+					break;
+				case 3:
+					digits.setText("/");
+					break;
+				case 4:
+					digits.setText("&");
+					buttonCounter1 = 0;
+					break;
+				default:
+					break;
+				}
 			} else if (e.getSource() == b2) {
-				digits.setText(inputtext + b2.getText());
+				buttonCounter2++;
+				switch (buttonCounter2) {
+				case 1:
+					digits.setText(inputtext + b2.getText());
+					break;
+				case 2:
+					digits.setText("a");
+					break;
+				case 3:
+					digits.setText("b");
+					break;
+				case 4:
+					digits.setText("c");
+					break;
+				default:
+					break;
+				}
 			} else if (e.getSource() == b3) {
-				digits.setText(inputtext + b3.getText());
+				buttonCounter3++;
+				switch (buttonCounter3) {
+				case 1:
+					digits.setText(inputtext + b3.getText());
+					break;
+				case 2:
+					digits.setText("d");
+					break;
+				case 3:
+					digits.setText("e");
+					break;
+				case 4:
+					digits.setText("f");
+					break;
+				default:
+					break;
+				}
 			} else if (e.getSource() == b4) {
 				digits.setText(inputtext + b4.getText());
 			} else if (e.getSource() == b5) {

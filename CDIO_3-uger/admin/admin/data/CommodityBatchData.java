@@ -78,7 +78,17 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 	@Override
 	public void updateCommodityBatch(CommodityBatchDTO commoditybatch)
 			throws DALException {
-		// TODO Auto-generated method stub
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE commoditybatch " + "set commodity_id = "
+				+ commoditybatch.getCommodityBatchId() + ", commodity_name = "
+				+ commoditybatch.commodityId + ", commodity_id = "
+				+ commoditybatch.amount + ";");
+		Connector.closeConnection();
 
 	}
 

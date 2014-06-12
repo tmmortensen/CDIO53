@@ -86,7 +86,6 @@ public class CommodityData implements ICommodityDAO {
 				+ commodity.getComName() + ", supplier = "
 				+ commodity.getSupplier() + ";");
 		Connector.closeConnection();
-
 	}
 
 	@Override
