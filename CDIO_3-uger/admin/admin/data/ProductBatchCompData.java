@@ -90,11 +90,11 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO productbatchcomponent VALUES ( "
-				+ "pb_id = " + productBatchComp.getPb_id() 
-				+ ", commoditybatch_id = " +productBatchComp.getCommoditybatch_id()
-				+ ", user_id = " + productBatchComp.getUser_id()
-				+ ", tara = 0 "
-				+", netto = 0);");
+				+ productBatchComp.getPb_id() 
+				+ "," + productBatchComp.getCommoditybatch_id()
+				+ ","+ productBatchComp.getUser_id()
+				+ ", 0 "
+				+ ", 0);");
 		Connector.closeConnection();
 
 	}
