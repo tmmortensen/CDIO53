@@ -1,9 +1,9 @@
 package admin.test;
 
-import static org.junit.Assert.fail;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -16,6 +16,7 @@ import admin.data.UserDTO;
 
 public class UserDataTest {
 
+	// New UserDTO object needed for test
 	private UserDTO user100, user200, user300;
 
 	@Before
@@ -72,13 +73,6 @@ public class UserDataTest {
 		int actual = this.user200.getUserId();
 		Assert.assertEquals(expected, actual);
 
-		// user200.setAccessLevel(1);
-		// user200.setCpr("3333333333");
-		// user200.setIni("u3");
-		// user200.setPassword("r2A)DLR");
-		// user200.setUserId(300);
-		// user200.setUsername("UserTestGuy3");
-
 		// Perform the action to be tested
 		try {
 			Connector.connect();
@@ -109,8 +103,34 @@ public class UserDataTest {
 	}
 
 	@Test
-	public void testGetUserList() {
-		fail("Not yet implemented");
+	public void testGetUserList() throws DALException {
+		int expected = 1;
+		int actual = this.user200.getUserId();
+		Assert.assertEquals(expected, actual);
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		List<UserDTO> list = new ArrayList<UserDTO>();
+
+		ResultSet rs = Connector.doQuery("SELECT * FROM users;");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new UserDTO(rs.getInt("user_id"), rs
+						.getString("user_name"), rs.getString("ini"), rs
+						.getString("cpr"), rs.getString("password"), rs
+						.getInt("user_type")));
+
+			}
+		} catch (SQLException e) {
+			throw new DALException(e);
+		}
+		expected = 1;
+		actual = this.user200.getUserId();
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
