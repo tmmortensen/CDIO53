@@ -42,6 +42,33 @@
 				%>
 			</tbody>
 		</table>
+				<div class="compList">
+			Receptkomponenter:
+			<table>
+				<tr>
+					<th>Råvare ID</th>
+					<th>Nettovægt</th>
+					<th>Tollerance</th>
+				</tr>
+		<%			int i = 0;
+					if (components != null && !components.isEmpty()){
+						for (PrescriptionCompDTO comp : components){%>
+				<tr>
+					<td>
+						<%out.print(comp.getCommodityId());%>
+					</td>
+					<td>
+						<%out.print(comp.getNomNetto());%>
+					</td>
+					<td>
+						<%out.print(comp.getTolerance());%>
+					</td>
+				</tr>
+			<%			i++;
+						} 
+					} %>	
+			</table>
+		</div>
 		<% 	} else if (!majorError.equals("")) {
 		   		if (create) { %>
 		<h1>Fejl under oprettelse af recept!</h1>
@@ -70,13 +97,12 @@
 				name="newName" id="username"
 				value="<%out.print(prescription.getName());%>">
 		</form>
-		<% 		if (components != null) { %>
 		<div class="compList">
 			Receptkomponenter:
 			<table>
 				<tr>
 					<th></th>
-					<th>Vare ID</th>
+					<th>Råvare ID</th>
 					<th>Nettovægt</th>
 					<th>Tollerance</th>
 				</tr>
@@ -139,7 +165,6 @@
 			</table>
 		</div>
 		<%
-			}
 				if (create) {
 		%>
 		<input type="submit" value="Opret" form="main">

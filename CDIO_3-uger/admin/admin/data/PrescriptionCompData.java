@@ -120,7 +120,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
+		Connector.doUpdate("DELETE FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
 		
 	}
 
