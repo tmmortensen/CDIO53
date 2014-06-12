@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="delete_dialog">
-		<% if (error != ""){ %>
+		<% if (!error.equals("")){ %>
 		<h1>Bruger sletning</h1>
 		<%  out.print(error); %>
 		<a href="user_admin">OK</a>
