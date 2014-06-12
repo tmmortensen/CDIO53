@@ -9,10 +9,10 @@ public class ProductBatchData implements IProductBatchDAO {
 
 	public synchronized void createProductBatch(ProductBatchDTO productBatch)
 			throws DALException {
-		Connector.doUpdate("INSERT INTO productbatch VALUES ( pb_id = "
-				+ productBatch.getPbId() + ", prescription_id = "
-				+ productBatch.getPrescriptionId() + ", status = "
-				+ productBatch.getStatus() + ");");
+		Connector.doUpdate("INSERT INTO productbatch VALUES ( "
+				+ productBatch.getPbId() 
+				+ ", "+ productBatch.getPrescriptionId() 
+				+ ", "+ productBatch.getStatus() + ");");
 
 	}
 

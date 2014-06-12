@@ -5,27 +5,38 @@ public class PrescriptionCompDTO {
 	int prescriptionId, commodityId;
 	double nomNetto, tolerance;
 
+	public PrescriptionCompDTO(){
+		prescriptionId = 0;
+		commodityId = 0;
+		nomNetto = 0;
+		tolerance = 0;
+	}
+	
 	public PrescriptionCompDTO(int prescriptionId, int commodityId, double nomNetto,
-			double tolerance) {
+			double tolerance) throws DALException {
 		this.prescriptionId = prescriptionId;
 		this.commodityId = commodityId;
 		this.nomNetto = nomNetto;
 		this.tolerance = tolerance;
 	}
 
-	public void setPrescriptionId(int prescriptionId) {
+	public void setPrescriptionId (int prescriptionId) 
+			throws DALException{
 		this.prescriptionId = prescriptionId;
 	}
 
-	public void setCommodityId(int commodityId) {
+	public void setCommodityId(int commodityId) 
+			throws DALException{
 		this.commodityId = commodityId;
 	}
 
-	public void setNomNetto(double nomNetto) {
+	public void setNomNetto(double nomNetto) 
+			throws DALException{
 		this.nomNetto = nomNetto;
 	}
 
-	public void setTolerance(double tolerance) {
+	public void setTolerance(double tolerance) 
+			throws DALException{
 		this.tolerance = tolerance;
 	}
 

@@ -59,10 +59,10 @@ public class CommodityData implements ICommodityDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("INSERT INTO commodity VALUES ( commodity_id = "
-				+ commodity.getComId() + ", commodity_name = '"
-				+ commodity.getComName() + "', supplier = '"
-				+ commodity.getSupplier() + "');");
+		Connector.doUpdate("INSERT INTO commodity VALUES ( "
+				+ commodity.getComId() 
+				+ ", '" + commodity.getComName() 
+				+ "','" + commodity.getSupplier() + "');");
 		Connector.closeConnection();
 
 	}

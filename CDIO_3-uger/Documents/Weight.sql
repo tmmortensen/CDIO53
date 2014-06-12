@@ -188,7 +188,7 @@ CREATE TABLE `prescriptioncomponent` (
   `tolerance` decimal(11,0) DEFAULT NULL,
   KEY `prescription_id_idx` (`prescription_id`),
   KEY `commodity_id_idx` (`commodity_id`),
-  CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commoditybatch` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `rckomponent_prescription_id` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

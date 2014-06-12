@@ -61,9 +61,10 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("INSERT INTO user VALUES ( commoditybatch_id = "
-				+ commodity.getCommodityBatchId() + ", commodity_id = "
-				+ commodity.commodityId + ", amount = " + commodity.getAmount()
+		Connector.doUpdate("INSERT INTO user VALUES ( "
+				+ commodity.getCommodityBatchId() 
+				+ ", " + commodity.getCommodityId() 
+				+ ", " + commodity.getAmount()
 				+ ");");
 		Connector.closeConnection();
 	}

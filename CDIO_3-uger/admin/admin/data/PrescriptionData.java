@@ -16,8 +16,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 			e1.printStackTrace();
 		}
 		Connector.doUpdate("INSERT INTO prescription VALUES ( "
-				+prescription.getId()
-				+ ",'" + prescription.getName()	+ "');");
+				+ prescription.getId() + ",'" + prescription.getName() + "');");
 		Connector.closeConnection();
 	}
 
@@ -75,17 +74,43 @@ public class PrescriptionData implements IPrescritpionDAO {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		Connector.doUpdate("UPDATE prescriptioncomponent SET "
-				+ "prescription_id = " + prescription.getId()
-				+", prescription_name = '" + prescription.getName()+"'"
-				+" WHERE prescription_id = " + prescription.getId() + ";");
+		Connector.doUpdate("UPDATE prescription SET " + "prescription_id = "
+				+ prescription.getId() + ", prescription_name = '"
+				+ prescription.getName() + "'" + " WHERE prescription_id = "
+				+ prescription.getId() + ";");
 		Connector.closeConnection();
-		
+
 	}
 
 	@Override
 	public void deletePrescription(int id) throws DALException {
-		// TODO Auto-generated method stub
+//		try {
+//			Connector.connect();
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
+//		ResultSet rs = Connector
+//				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
+//						+ "(SELECT prescription_id from prescriptioncomponent);");
+//		try {
+//			if(!rs.next()){
+//				Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
+//				Connector.closeConnection();
+//			}
+//		}catch(SQLException e){
+//			throw new DALException("Noget gik galt i forbindelse med databasen.");
+//		}
+		
+		// vælg en af de 2 metoder
+		
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+			Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
+			Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + id +";");
+			Connector.closeConnection();
 		
 	}
 
