@@ -3,7 +3,6 @@ package ase.controller;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -48,10 +47,10 @@ public class ConnectionSetup{
 //	@Override
 //	public void run() {
 //		try {
-//			System.out.println("Venter på connection på port "
+//			System.out.println("Venter pï¿½ connection pï¿½ port "
 //					+ programState.getPort());
 //			System.out.println("Indtast eventuel portnummer som 1. argument");
-//			System.out.println("på kommando linien for andet portnr");
+//			System.out.println("pï¿½ kommando linien for andet portnr");
 //			socket = listener.accept();
 //			// indtil viddere regner vi kun med ï¿½n forbindelse.
 //			listener.close();

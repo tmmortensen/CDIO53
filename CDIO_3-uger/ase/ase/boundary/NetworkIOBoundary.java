@@ -50,9 +50,10 @@ public class NetworkIOBoundary implements IBoundary {
 		// Start af Socket
 		try {
 			listener = new ServerSocket(programState.getPort());
-//			System.out.println("Venter på connection på port "+ programState.getPort());
-//			System.out.println("Indtast eventuel portnummer som 1. argument");
-//			System.out.println("pÃ¥ kommando linien for andet portnr");
+			// System.out.println("Venter pï¿½ connection pï¿½ port "+
+			// programState.getPort());
+			// System.out.println("Indtast eventuel portnummer som 1. argument");
+			// System.out.println("pÃ¥ kommando linien for andet portnr");
 			sock = listener.accept();
 			// indtil viddere regner vi kun med ï¿½n forbindelse.
 			listener.close();
@@ -67,7 +68,7 @@ public class NetworkIOBoundary implements IBoundary {
 			return;
 		}
 
-		// håndtering af input fra socket
+		// hï¿½ndtering af input fra socket
 		try {
 			String netString;
 			while (programState.isRunning()) {

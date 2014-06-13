@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.ResultSet;
 
+import admin.data.CommodityDTO;
 import admin.data.Connector;
 import admin.data.DALException;
 import admin.data.UserDTO;
@@ -21,6 +22,7 @@ public class ProgramState implements IProgramState {
 	String display = "";
 	String netString = "";
 	String userInput = "";
+int temp_id, commodityID;
 
 	int port = 0;
 	InetAddress address;
@@ -36,8 +38,8 @@ public class ProgramState implements IProgramState {
 	
 	
 	public String UserInfo(UserDTO operator){
-		String name = operator.getUsername();
-		return name;
+		String userName = operator.getUsername();
+		return userName;
 	}
 	
 	public UserDTO UserDTOgetUser(int temp_id) throws DALException {
@@ -65,6 +67,14 @@ public class ProgramState implements IProgramState {
 		}
 	}
 	
+	public CommodityDTO comOperator(int temp_commodityID) {
+		
+		return null;
+	}
+	public String comOperator(CommodityDTO comOperator){
+		String comName = comOperator.getComName();
+		return comName;
+	}
 	
 	
 	
@@ -75,11 +85,7 @@ public class ProgramState implements IProgramState {
 		lastUpdate = System.currentTimeMillis();
 	}
 
-	@Override
-	public String getNetString() {
-		return netString;
-	}
-
+	
 	@Override
 	public boolean hasDisplayUpdated(Long since) {
 		return lastUpdate > since;
@@ -123,7 +129,17 @@ public class ProgramState implements IProgramState {
 		gross = weight;
 		lastUpdate = System.currentTimeMillis();
 		
-		// kald til SQL-databasen der indsætter gross
+	}
+	
+	public void setSQLInfo(int temp_id, commodityID){
+		
+		// metode der gÃ¥r ned i SQL med alt info
+		
+	}
+	
+	public void setCommodityID(int comID){
+		
+		commodityID = comID;
 		
 	}
 
@@ -176,5 +192,9 @@ public class ProgramState implements IProgramState {
 		userInput = text;
 		lastInput = System.currentTimeMillis();
 	}
+
+
+
+	
 
 }

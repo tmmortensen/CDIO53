@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 
+import admin.data.CommodityDTO;
 import admin.data.UserDTO;
 import ase.data.ProgramState;
 import simulator.data.IProgramState;
@@ -15,7 +16,7 @@ import simulator.data.IProgramState;
  * 
  */
 public class InputBoundary implements IBoundary {
-	boolean IDforesp�rgelse = false;
+	boolean IDforespørgelse = false, commoditycheck = false;
 	BufferedReader consoleReader;
 	IProgramState iprogramState;
 	private DataOutputStream consoleOutput;
@@ -49,7 +50,7 @@ public class InputBoundary implements IBoundary {
 	@Override
 	public void run() {
 		while (iprogramState.isRunning()) {
-			while (IDforesp�rgelse == false) {
+			while (IDforespørgelse == false) {
 
 				int temp_id = 0;
 				try {
@@ -78,7 +79,7 @@ public class InputBoundary implements IBoundary {
 						modifiedSentence = consoleReader.readLine().trim();
 
 						if (modifiedSentence == "1") {
-							IDforesp�rgelse = true;
+							IDforespørgelse = true;
 						}
 
 						else {
@@ -94,6 +95,46 @@ public class InputBoundary implements IBoundary {
 				} catch (Exception e) {
 				}
 
+			}
+			while(commoditycheck==false){
+				try{
+				String sentence = "RM20 4 \"indtast batchnummer på det de øsnker at afveje \" \"\" \"nr\"";
+				consoleOutput.writeBytes(sentence + "\r\n");
+				modifiedSentence = consoleReader.readLine();
+
+				while (!modifiedSentence.substring(0, 6)
+						.equalsIgnoreCase("RM20 A")) {
+					modifiedSentence = consoleReader.readLine();
+				}
+
+				int temp_commodityID = Integer.parseInt(modifiedSentence
+						.substring(7).trim());
+				
+				
+				CommodityDTO comOperator = programstate.comOperator(temp_commodityID);
+
+				String comName = programstate.comOperator(comOperator);
+
+				consoleOutput
+						.writeBytes("RM20 8 \"er dette den rigtige batch? \" "
+								+ comName
+								+ "\"hvis det er det tryk 1, ellers tryk 2\"");
+				modifiedSentence = consoleReader.readLine().trim();
+
+				if (modifiedSentence == "1") {
+					commoditycheck = true;
+				}
+
+				else {
+					sentence = "RM20 4 \"Prøv at skriv batchnummeret igen \" \"\" \"nr\"";
+					consoleOutput.writeBytes(sentence + "\r\n");
+
+				}
+				
+				
+				} catch (Exception e) {
+					
+				}
 			}
 
 			try {
