@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `user_id` VARBINARY(8) NOT NULL DEFAULT '0',
+  `user_id` INT(11) NOT NULL DEFAULT '0',
   `user_name` varchar(20) DEFAULT NULL,
   `ini` varchar(4) DEFAULT NULL,
   `cpr` varchar(10) DEFAULT NULL,
@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `productbatch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatch` (
-  `pb_id` VARBINARY(8) NOT NULL,
+  `pb_id` INT(11) NOT NULL,
   `prescription_id` BINARY(8) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
   PRIMARY KEY (`pb_id`),
@@ -78,9 +78,9 @@ DROP TABLE IF EXISTS `productbatchcomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatchcomponent` (
-  `pb_id` VARBINARY(8) NOT NULL,
-  `commoditybatch_id` VARBINARY(8) NOT NULL,
-  `user_id` VARBINARY(8) NOT NULL,
+  `pb_id` INT(11) NOT NULL,
+  `commoditybatch_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `tara` decimal(5,4) DEFAULT NULL,
   `netto` decimal(5,4) DEFAULT NULL,
   KEY `pbcomponent_pb_idx` (`pb_id`),
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `commodity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commodity` (
-  `commodity_id` VARBINARY(8) NOT NULL,
+  `commodity_id` INT(11) NOT NULL,
   `commodity_name` varchar(20) DEFAULT NULL,
   `supplier` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`commodity_id`)
@@ -133,8 +133,8 @@ DROP TABLE IF EXISTS `commoditybatch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commoditybatch` (
-  `commoditybatch_id` VARBINARY(8) NOT NULL,
-  `commodity_id` VARBINARY(8) NOT NULL,
+  `commoditybatch_id` INT(11) NOT NULL,
+  `commodity_id` INT(11) NOT NULL,
   `amount` decimal(8,4) DEFAULT NULL,
   PRIMARY KEY (`commoditybatch_id`),
   KEY `commodity_id_idx` (`commodity_id`),
@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `prescription`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescription` (
-  `prescription_id` VARBINARY(8) NOT NULL,
+  `prescription_id` INT(11) NOT NULL,
   `prescription_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`prescription_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -182,10 +182,10 @@ DROP TABLE IF EXISTS `prescriptioncomponent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prescriptioncomponent` (
-  `prescription_id` VARBINARY(8) DEFAULT NULL,
-  `commodity_id` VARBINARY(8) DEFAULT NULL,
-  `nom_netto` decimal(5,4) DEFAULT NULL,
-  `tolerance` decimal(5,4) DEFAULT NULL,
+  `prescription_id` INT(11) DEFAULT NULL,
+  `commodity_id` INT(11) DEFAULT NULL,
+  `nom_netto` decimal(9,4) DEFAULT NULL,
+  `tolerance` decimal(9,4) DEFAULT NULL,
   KEY `prescription_id_idx` (`prescription_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
