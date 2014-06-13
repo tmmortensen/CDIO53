@@ -109,7 +109,7 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 							+ " AND commodity_id = " + commodityId + ";" );
 		Connector.closeConnection();
 		}catch(DALException e){
-			throw new DALException("brugeren kunne ikke slettes");
+			throw new DALException("recept komponenten kunne ikke slettes ");
 			}
 	}
 
@@ -123,5 +123,6 @@ public class PrescriptionCompData implements IPrescriptionCompDAO {
 		Connector.doUpdate("DELETE * FROM prescriptioncomponent WHERE prescription_id = " + prescriptionId + ";");
 		
 	}
+	
 
 }

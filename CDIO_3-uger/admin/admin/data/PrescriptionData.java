@@ -89,17 +89,16 @@ public class PrescriptionData implements IPrescritpionDAO {
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector
+		try{
+		 Connector
 				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
 						+ "(SELECT prescription_id from prescriptioncomponent);");
-		try {
-			if(!rs.next()){
+		}catch(DALException e){
 				Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
 				Connector.closeConnection();
-			}
-		}catch(SQLException e){
-			throw new DALException("Noget gik galt i forbindelse med databasen.");
 		}
+		throw new DALException("du kan ikke slette den ønskede recept");
+		
 		
 		
 	}
