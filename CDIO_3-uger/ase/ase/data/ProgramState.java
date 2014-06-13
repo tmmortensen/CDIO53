@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.sql.SQLException;
 
 import com.mysql.jdbc.ResultSet;
-
 import admin.data.CommodityDTO;
 import admin.data.Connector;
 import admin.data.DALException;
@@ -22,7 +21,10 @@ public class ProgramState implements IProgramState {
 	String display = "";
 	String netString = "";
 	String userInput = "";
-int temp_id, commodityID;
+	String receptName;
+	int temp_id, commodityID;
+
+	CommodityDTO commodity = new CommodityDTO();
 
 	int port = 0;
 	InetAddress address;
@@ -35,13 +37,11 @@ int temp_id, commodityID;
 		lastUpdate = System.currentTimeMillis();
 	}
 
-	
-	
-	public String UserInfo(UserDTO operator){
+	public String UserInfo(UserDTO operator) {
 		String userName = operator.getUsername();
 		return userName;
 	}
-	
+
 	public UserDTO UserDTOgetUser(int temp_id) throws DALException {
 		try {
 			Connector.connect();
@@ -67,25 +67,16 @@ int temp_id, commodityID;
 		}
 	}
 	
-	public CommodityDTO comOperator(int temp_commodityID) {
-		
-		return null;
-	}
-	public String comOperator(CommodityDTO comOperator){
-		String comName = comOperator.getComName();
-		return comName;
-	}
 	
+	// Mangler metode til at hente receptnavn fra Databasen
 	
-	
-	
+
 	@Override
 	public void setNetString(String netString) {
 		this.netString = netString;
 		lastUpdate = System.currentTimeMillis();
 	}
 
-	
 	@Override
 	public boolean hasDisplayUpdated(Long since) {
 		return lastUpdate > since;
@@ -119,8 +110,8 @@ int temp_id, commodityID;
 	}
 
 	@Override
-	public void tare() {
-		tare = gross;
+	public void tare(double Tweight) {
+		tare = Tweight;
 		lastUpdate = System.currentTimeMillis();
 	}
 
@@ -128,29 +119,13 @@ int temp_id, commodityID;
 	public void setGross(double weight) {
 		gross = weight;
 		lastUpdate = System.currentTimeMillis();
-		
+
 	}
-	
-	public void setSQLInfo(int temp_id, commodityID){
-		
-		// metode der går ned i SQL med alt info
-		
-	}
-	
-	public void setCommodityID(int comID){
-		
+
+	public void setCommodityID(int comID) {
+
 		commodityID = comID;
-		
-	}
 
-	@Override
-	public double getGross() {
-		return gross;
-	}
-
-	@Override
-	public double getNet() {
-		return gross - tare;
 	}
 
 	@Override
@@ -193,8 +168,10 @@ int temp_id, commodityID;
 		lastInput = System.currentTimeMillis();
 	}
 
-
-
-	
+	@Override
+	public String getNetString() {
+		
+		return null;
+	}
 
 }

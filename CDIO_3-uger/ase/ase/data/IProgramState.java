@@ -78,27 +78,10 @@ public interface IProgramState {
 	/**
 	 * Sets the tare weight to current load on the scale
 	 */
-	public void tare();
-
-	/**
-	 * set the current load on the weight
-	 * 
-	 * @param weight
-	 */
 	public void setGross(double weight);
 
 	/**
 	 * @return the current load on the scale
-	 */
-	public double getGross();
-
-	/**
-	 * @return the net weight on the scale (gross - tare)
-	 */
-	public double getNet();
-
-	/**
-	 * @return the current text on the display
 	 */
 	public String getDisplayText();
 
@@ -142,5 +125,7 @@ public interface IProgramState {
 	 *         <code>false</code> after <code>quit()</code> has been executed.
 	 */
 	public boolean isRunning();
+
+	void tare(double Tweight);
 
 }
