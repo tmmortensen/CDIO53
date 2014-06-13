@@ -92,7 +92,7 @@ public class PrescriptionData implements IPrescritpionDAO {
 				.doQuery("SELECT * FROM prescription WHERE prescription_id IN "
 						+ "(SELECT prescription_id from prescriptioncomponent);");
 		}catch(DALException e){
-				Connector.doUpdate("DELETE * FROM prescription WHERE prescription_id = " + id +";");
+				Connector.doUpdate("DELETE FROM prescription WHERE prescription_id = " + id +";");
 				Connector.closeConnection();
 		}
 		throw new DALException("du kan ikke slette den ønskede recept");
