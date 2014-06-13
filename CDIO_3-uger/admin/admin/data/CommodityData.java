@@ -103,7 +103,7 @@ public class CommodityData implements ICommodityDAO {
 		try {
 			if (!rs.next()) {
 				Connector
-						.doUpdate("DELETE * FROM commodity WHERE commodity_id = "
+						.doUpdate("DELETE FROM commodity WHERE commodity_id = "
 								+ commodity_id + ";");
 				Connector.closeConnection();
 			}

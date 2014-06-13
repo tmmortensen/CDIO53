@@ -124,7 +124,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("DELETE *  FROM productbatchcomponent WHERE pb_id = " + pb_id 
+		Connector.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = " + pb_id 
 				+ " AND commoditybatch_id = " + commoditybatch_id +";");
 		Connector.closeConnection();
 	}

@@ -260,7 +260,7 @@ public class PrescriptionEditController extends AbstractController {
 						// This is where we update an existing one with no ID
 						// change
 						prescriptions.updatePrescription(prescription);
-
+						
 						// we now need to update all the components. the easiest
 						// way to do that is to remove the old ones and insert
 						// the new ones

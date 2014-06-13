@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `productbatch`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbatch` (
   `pb_id` INT(11) NOT NULL,
-  `prescription_id` BINARY(8) DEFAULT NULL,
+  `prescription_id` INT(11) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
   PRIMARY KEY (`pb_id`),
   KEY `pbatch_prescription_id_idx` (`prescription_id`),
@@ -81,8 +81,8 @@ CREATE TABLE `productbatchcomponent` (
   `pb_id` INT(11) NOT NULL,
   `commoditybatch_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
-  `tara` decimal(5,4) DEFAULT NULL,
-  `netto` decimal(5,4) DEFAULT NULL,
+  `tara` decimal(7,4) DEFAULT NULL,
+  `netto` decimal(7,4) DEFAULT NULL,
   KEY `pbcomponent_pb_idx` (`pb_id`),
   KEY `pbcomponent_commoditybatch_id_idx` (`commoditybatch_id`),
   KEY `pbcomponent_user_id_idx` (`user_id`),
@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `commoditybatch`;
 CREATE TABLE `commoditybatch` (
   `commoditybatch_id` INT(11) NOT NULL,
   `commodity_id` INT(11) NOT NULL,
-  `amount` decimal(8,4) DEFAULT NULL,
+  `amount` decimal(12,4) DEFAULT NULL,
   PRIMARY KEY (`commoditybatch_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -184,8 +184,8 @@ DROP TABLE IF EXISTS `prescriptioncomponent`;
 CREATE TABLE `prescriptioncomponent` (
   `prescription_id` INT(11) DEFAULT NULL,
   `commodity_id` INT(11) DEFAULT NULL,
-  `nom_netto` decimal(9,4) DEFAULT NULL,
-  `tolerance` decimal(9,4) DEFAULT NULL,
+  `nom_netto` decimal(7,4) DEFAULT NULL,
+  `tolerance` decimal(7,4) DEFAULT NULL,
   KEY `prescription_id_idx` (`prescription_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
