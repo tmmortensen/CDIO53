@@ -101,6 +101,6 @@ public class PrescriptionData implements IPrescritpionDAO {
 			throw new DALException("Noget gik galt i forbindelse med databasen.");
 		}
 		
-
+		
 	}
 }

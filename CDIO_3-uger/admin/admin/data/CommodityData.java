@@ -81,10 +81,11 @@ public class CommodityData implements ICommodityDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE commodity " + "set commodity_id = "
-				+ commodity.getComId() + ", commodity_name = "
-				+ commodity.getComName() + ", supplier = "
-				+ commodity.getSupplier() + ";");
+		Connector.doUpdate("UPDATE commodity " + "SET"
+				+ " commodity_name = '" + commodity.getComName() 
+				+ "', supplier = '" + commodity.getSupplier() 
+				+ "' WHERE commodity_id = " + commodity.getComId() 
+				+ ";");
 		Connector.closeConnection();
 	}
 
@@ -105,6 +106,9 @@ public class CommodityData implements ICommodityDAO {
 						.doUpdate("DELETE * FROM commodity WHERE commodity_id = "
 								+ commodity_id + ";");
 				Connector.closeConnection();
+			}
+			else {
+				throw new DALException("id'et er allerede blevet brugt i nogle afvejninger");
 			}
 		} catch (SQLException e) {
 			throw new DALException(
