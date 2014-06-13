@@ -74,12 +74,10 @@ public class PrescriptionData implements IPrescritpionDAO {
 		} catch (Exception e1) {
 			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE prescription SET " + "prescription_id = "
-				+ prescription.getId() + ", prescription_name = '"
-				+ prescription.getName() + "'" + " WHERE prescription_id = "
-				+ prescription.getId() + ";");
+		Connector.doUpdate("UPDATE prescription SET "  
+				+ ", prescription_name = '" + prescription.getName() + "'" 
+				+ " WHERE prescription_id = " + prescription.getId() + ";");
 		Connector.closeConnection();
-
 	}
 
 	@Override
