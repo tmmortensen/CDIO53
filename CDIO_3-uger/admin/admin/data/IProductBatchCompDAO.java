@@ -16,5 +16,6 @@ public interface IProductBatchCompDAO {
 	
 	public void deleteProductBatchComp(int pb_id, int commoditybatch_id) throws DALException;
 	
+	public String getName(int pb_id) throws DALException;
 	
 }

@@ -129,4 +129,21 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		Connector.closeConnection();
 	}
 
+	@Override
+	public String getName(int pb_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+		}
+		try{
+		ResultSet rs = Connector.doQuery("SELECT prescription_name FROM prescription WHERE prescription_id IN "
+										+ "(SELECT prescription_id FROM productbatch WHERE pb_id =" + pb_id + ");");
+		return rs.getString("prescription_name");
+		}catch(SQLException e){
+			throw new DALException("Der skete en fejl i forbindele med databasen" + e.getMessage());
+		}
+		
+	}
+
 }
