@@ -36,7 +36,7 @@
 		
 		for(UserDTO op : operators){
 			out.print("ID: " + op.getUserId() + " PW: " 
-		+ op.getPassword() + " Admin: " + op.isAdmin() + "<BR>");
+		+ op.getPassword() + " Brugertype: " + UserType.fromInt(op.getAccesLevel()) + "<BR>");
 		}
 	%>
 	
