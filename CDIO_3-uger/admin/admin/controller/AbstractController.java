@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.data.CommodityBatchData;
 import admin.data.CommodityData;
+import admin.data.DALException;
 import admin.data.ICommodityBatchDAO;
 import admin.data.ICommodityDAO;
 import admin.data.IPrescriptionCompDAO;
@@ -28,7 +29,7 @@ public abstract class AbstractController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	UserSession userSession;
-	
+
 	ICommodityDAO commodities;
 	ICommodityBatchDAO comBatches;
 	IPrescritpionDAO prescriptions;
@@ -40,37 +41,43 @@ public abstract class AbstractController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
-		commodities = (ICommodityDAO) getServletContext().getAttribute("commodities");
+		commodities = (ICommodityDAO) getServletContext().getAttribute(
+				"commodities");
 		if (commodities == null) {
 			commodities = new CommodityData();
 			getServletContext().setAttribute("commodities", commodities);
 		}
 
-		comBatches = (ICommodityBatchDAO) getServletContext().getAttribute("comBatches");
+		comBatches = (ICommodityBatchDAO) getServletContext().getAttribute(
+				"comBatches");
 		if (comBatches == null) {
 			comBatches = new CommodityBatchData();
 			getServletContext().setAttribute("comBatches", comBatches);
 		}
 
-		prescriptions = (IPrescritpionDAO) getServletContext().getAttribute("prescriptions");
+		prescriptions = (IPrescritpionDAO) getServletContext().getAttribute(
+				"prescriptions");
 		if (prescriptions == null) {
 			prescriptions = new PrescriptionData();
 			getServletContext().setAttribute("prescriptions", prescriptions);
 		}
 
-		presComps = (IPrescriptionCompDAO) getServletContext().getAttribute("presComps");
+		presComps = (IPrescriptionCompDAO) getServletContext().getAttribute(
+				"presComps");
 		if (presComps == null) {
 			presComps = new PrescriptionCompData();
 			getServletContext().setAttribute("presComps", presComps);
 		}
 
-		products = (IProductBatchDAO) getServletContext().getAttribute("products");
+		products = (IProductBatchDAO) getServletContext().getAttribute(
+				"products");
 		if (products == null) {
 			products = new ProductBatchData();
 			getServletContext().setAttribute("products", products);
 		}
 
-		prodComps = (IProductBatchCompDAO) getServletContext().getAttribute("prodComps");
+		prodComps = (IProductBatchCompDAO) getServletContext().getAttribute(
+				"prodComps");
 		if (prodComps == null) {
 			prodComps = new ProductBatchCompData();
 			getServletContext().setAttribute("prodComps", prodComps);
@@ -125,20 +132,27 @@ public abstract class AbstractController extends HttpServlet {
 		}
 
 		// do the stuff needed for the specific controller
-		doRequest(request, response);
+		try {
+			doRequest(request, response);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Each controller have to specify a required access level
 	 * 
-	 * @return the UserType required or null if none is required
-	 * (inactive users will never have access)
+	 * @return the UserType required or null if none is required (inactive users
+	 *         will never have access)
 	 */
 	protected abstract UserType requiredAccessLevel();
 
 	/**
 	 * Implement this to do the controller stuff
+	 * 
+	 * @throws DALException
 	 */
 	public abstract void doRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException;
+			HttpServletResponse response) throws ServletException, IOException,
+			DALException;
 }

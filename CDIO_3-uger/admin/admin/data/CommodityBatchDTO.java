@@ -5,10 +5,26 @@ public class CommodityBatchDTO {
 	int commodityBatchId, commodityId;
 	double amount;
 
-	public CommodityBatchDTO(int commodityBatchId, int commodityId, double amount) {
-		this.amount = amount;
-		this.commodityBatchId = commodityBatchId;
-		this.commodityId = commodityId;
+	/**
+	 * Constructor with no parameters and no error checks
+	 */
+	public CommodityBatchDTO() {
+
+	}
+
+	/**
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param commodityBatchId
+	 * @param commodityId
+	 * @param amount
+	 * @throws DALException
+	 */
+	public CommodityBatchDTO(int commodityBatchId, int commodityId,
+			double amount) throws DALException {
+		setAmount(amount);
+		setCommodityBatchId(commodityBatchId);
+		setCommodityId(commodityId);
 	}
 
 	public int getCommodityBatchId() {
@@ -31,7 +47,7 @@ public class CommodityBatchDTO {
 		return amount;
 	}
 
-	public void setAmount(int amount) throws DALException {
+	public void setAmount(double amount) throws DALException {
 		this.amount = amount;
 	}
 }

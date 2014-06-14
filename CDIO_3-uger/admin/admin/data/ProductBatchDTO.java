@@ -4,10 +4,26 @@ public class ProductBatchDTO {
 
 	int pb_id, prescription_id, status;
 
-	public ProductBatchDTO(int pb_id, int prescription_id, int status) {
-		this.pb_id = pb_id;
-		this.prescription_id = prescription_id;
-		this.status = status;
+	/**
+	 * Constructor with no parameters and no error checks
+	 */
+	public ProductBatchDTO() {
+
+	}
+
+	/**
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param pb_id
+	 * @param prescription_id
+	 * @param status
+	 * @throws DALException
+	 */
+	public ProductBatchDTO(int pb_id, int prescription_id, int status)
+			throws DALException {
+		setPb_id(pb_id);
+		setPrescription_id(prescription_id);
+		setStatus(status);
 	}
 
 	public void setPb_id(int pb_id) throws DALException {
@@ -33,5 +49,4 @@ public class ProductBatchDTO {
 	public int getStatus() {
 		return status;
 	}
-
 }

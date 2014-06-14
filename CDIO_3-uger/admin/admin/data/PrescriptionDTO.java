@@ -4,21 +4,33 @@ public class PrescriptionDTO {
 
 	int id;
 	String name;
-	
-	public PrescriptionDTO() {
-		this(0,"");
+
+	/**
+	 * Constructor with no parameters
+	 * 
+	 * @throws DALException
+	 */
+	public PrescriptionDTO() throws DALException {
+		this(0, "");
 	}
 
-	public PrescriptionDTO(int id, String name) {
-		this.id = id;
-		this.name = name;
+	/**
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param id
+	 * @param name
+	 * @throws DALException
+	 */
+	public PrescriptionDTO(int id, String name) throws DALException {
+		setId(id);
+		setName(name);
 	}
 
-	public void setId(int prescriptionId) throws DALException{
+	public void setId(int prescriptionId) throws DALException {
 		this.id = prescriptionId;
 	}
 
-	public void setName(String prescriptionName) throws DALException{
+	public void setName(String prescriptionName) throws DALException {
 		this.name = prescriptionName;
 	}
 

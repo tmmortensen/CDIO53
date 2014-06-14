@@ -5,38 +5,46 @@ public class PrescriptionCompDTO {
 	int prescriptionId, commodityId;
 	double nomNetto, tolerance;
 
-	public PrescriptionCompDTO(){
+	/**
+	 * Constructor with no parameters and no error checks
+	 */
+	public PrescriptionCompDTO() {
 		prescriptionId = 0;
 		commodityId = 0;
 		nomNetto = 0;
 		tolerance = 0;
 	}
-	
-	public PrescriptionCompDTO(int prescriptionId, int commodityId, double nomNetto,
-			double tolerance) throws DALException {
+
+	/**
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param prescriptionId
+	 * @param commodityId
+	 * @param nomNetto
+	 * @param tolerance
+	 * @throws DALException
+	 */
+	public PrescriptionCompDTO(int prescriptionId, int commodityId,
+			double nomNetto, double tolerance) throws DALException {
+		setPrescriptionId(prescriptionId);
+		setCommodityId(commodityId);
+		setNomNetto(nomNetto);
+		setTolerance(tolerance);
+	}
+
+	public void setPrescriptionId(int prescriptionId) throws DALException {
 		this.prescriptionId = prescriptionId;
-		this.commodityId = commodityId;
-		this.nomNetto = nomNetto;
-		this.tolerance = tolerance;
 	}
 
-	public void setPrescriptionId (int prescriptionId) 
-			throws DALException{
-		this.prescriptionId = prescriptionId;
-	}
-
-	public void setCommodityId(int commodityId) 
-			throws DALException{
+	public void setCommodityId(int commodityId) throws DALException {
 		this.commodityId = commodityId;
 	}
 
-	public void setNomNetto(double nomNetto) 
-			throws DALException{
+	public void setNomNetto(double nomNetto) throws DALException {
 		this.nomNetto = nomNetto;
 	}
 
-	public void setTolerance(double tolerance) 
-			throws DALException{
+	public void setTolerance(double tolerance) throws DALException {
 		this.tolerance = tolerance;
 	}
 
