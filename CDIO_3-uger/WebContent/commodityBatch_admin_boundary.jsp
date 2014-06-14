@@ -21,19 +21,21 @@
 				<th>Rediger</th>
 				<th>Slet</th>
 			</tr>
-			<tr>
 			<%
 				for (CommodityBatchDTO comBatch : cBList){
-								out.println("\t\t\t\t\t<td>" + comBatch.getCommodityBatchId() + "</td>\n");
-								out.println("\t\t\t\t\t<td>" + comBatch.getCommodityId() + "</td>\n");
-								out.println("\t\t\t\t\t<td>" + comBatch.getAmount() + "</td>\n");
-								out.println("\t\t\t\t\t<td><A href=\"commodityBatch_edit?id=" + comBatch.getCommodityBatchId() + "\">Rediger</A></td>\n");
-								out.println("\t\t\t\t\t<td><A href=\"commodityBatch_confirm_delete?id=" + comBatch.getCommodityBatchId() + "\">Slet</A></td>\n");
-							}
 			%>
-			</tr>
+				<tr>
+			<%		out.println("\t\t\t\t\t<td>" + comBatch.getCommodityBatchId() + "</td>\n");
+					out.println("\t\t\t\t\t<td>" + comBatch.getCommodityId() + "</td>\n");
+					out.println("\t\t\t\t\t<td>" + comBatch.getAmount() + "</td>\n");
+					out.println("\t\t\t\t\t<td><A href=\"commodityBatch_edit?id=" + comBatch.getCommodityBatchId() + "\">Rediger</A></td>\n");
+					out.println("\t\t\t\t\t<td><A href=\"commodityBatch_confirm_delete?id=" + comBatch.getCommodityBatchId() + "\">Slet</A></td>\n");
+			%>
+				</tr>					
+			<%	} %>
+			
 		</tbody></table>
-		<A href="commodityBatch_edit?id=new">Opret ny råvare</A>
+		<A href="commodityBatch_edit?id=new">Opret nyt råvarebatch</A>
 		<div class="buttons">
 			<A href="mainmenu">Hovedmenu</A>
 			<A href="login?logout=true">Log ud</A>
