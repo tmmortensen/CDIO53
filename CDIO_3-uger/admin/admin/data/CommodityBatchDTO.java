@@ -14,7 +14,7 @@ public class CommodityBatchDTO {
 		return commodityBatchId;
 	}
 
-	public void setCommodityBatchId(int commodityBatchId) {
+	public void setCommodityBatchId(int commodityBatchId) throws DALException {
 		this.commodityBatchId = commodityBatchId;
 	}
 
@@ -22,7 +22,7 @@ public class CommodityBatchDTO {
 		return commodityId;
 	}
 
-	public void setCommodityId(int commodityId) {
+	public void setCommodityId(int commodityId) throws DALException {
 		this.commodityId = commodityId;
 	}
 
@@ -30,7 +30,7 @@ public class CommodityBatchDTO {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(int amount) throws DALException {
 		this.amount = amount;
 	}
 }

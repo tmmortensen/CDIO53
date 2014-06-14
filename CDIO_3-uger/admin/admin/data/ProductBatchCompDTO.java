@@ -14,23 +14,23 @@ public class ProductBatchCompDTO {
 
 	}
 
-	public void setPb_id(int pb_id) {
+	public void setPb_id(int pb_id) throws DALException {
 		this.pb_id = pb_id;
 	}
 
-	public void setCommoditybatch_id(int commoditybatch_id) {
+	public void setCommoditybatch_id(int commoditybatch_id) throws DALException {
 		this.commoditybatch_id = commoditybatch_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUser_id(int user_id) throws DALException {
 		this.user_id = user_id;
 	}
 
-	public void setTara(double tara) {
+	public void setTara(double tara) throws DALException {
 		this.tara = tara;
 	}
 
-	public void setNetto(double netto) {
+	public void setNetto(double netto) throws DALException {
 		this.netto = netto;
 	}
 

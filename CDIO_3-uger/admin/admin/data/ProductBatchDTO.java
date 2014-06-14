@@ -10,15 +10,15 @@ public class ProductBatchDTO {
 		this.status = status;
 	}
 
-	public void setPb_id(int pb_id) {
+	public void setPb_id(int pb_id) throws DALException {
 		this.pb_id = pb_id;
 	}
 
-	public void setPrescription_id(int prescription_id) {
+	public void setPrescription_id(int prescription_id) throws DALException {
 		this.prescription_id = prescription_id;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(int status) throws DALException {
 		this.status = status;
 	}
 

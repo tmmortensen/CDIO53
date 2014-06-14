@@ -13,7 +13,8 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = "
@@ -23,37 +24,46 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			if (!rs.first()) {
 				throw new DALException(
-						"Produkt batchen med det givne produkt batch id = " + pb_id
+						"Produkt batchen med det givne produkt batch id = "
+								+ pb_id
 								+ " og det tilsvarende r�vare batch id = "
-								+ commoditybatch_id + " eksisterer ikke i databasen");
+								+ commoditybatch_id
+								+ " eksisterer ikke i databasen");
 			}
 			return new ProductBatchCompDTO(rs.getInt("pb_id"),
 					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
 					rs.getInt("tara"), rs.getInt("netto"));
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getProductBatch(int pb_id, int commoditybatch_id)" + e.getMessage());
+			throw new DALException(
+					"Der skete en fejl i ProductBatchCompData i metoden getProductBatch(int pb_id, int commoditybatch_id)"
+							+ e.getMessage());
 		}
 	}
 
 	@Override
-	public synchronized List<ProductBatchCompDTO> getCertainProductBatchComps(int pb_id)
-			throws DALException {
+	public synchronized List<ProductBatchCompDTO> getCertainProductBatchComps(
+			int pb_id) throws DALException {
 		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = " + pb_id +";");
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id = "
+						+ pb_id + ";");
 		Connector.closeConnection();
 		try {
-			while(rs.next()){
-				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"),
-					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
-					rs.getInt("tara"), rs.getInt("netto")));
+			while (rs.next()) {
+				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"), rs
+						.getInt("commoditybatch_id"), rs.getInt("user_id"), rs
+						.getInt("tara"), rs.getInt("netto")));
 			}
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getCertainProductBatchComps(int pb_id)" + e.getMessage());
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatchCompData i metoden getCertainProductBatchComps(int pb_id)"
+							+ e.getMessage());
 		}
 		return list;
 	}
@@ -65,85 +75,98 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent;");
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatchcomponent;");
 		Connector.closeConnection();
 		try {
-			while(rs.next()){
-				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"),
-					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
-					rs.getInt("tara"), rs.getInt("netto")));
+			while (rs.next()) {
+				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"), rs
+						.getInt("commoditybatch_id"), rs.getInt("user_id"), rs
+						.getInt("tara"), rs.getInt("netto")));
 			}
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i ProductBatchCompData i metoden getAllProductBatchComps()" + e.getMessage());
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatchCompData i metoden getAllProductBatchComps()"
+							+ e.getMessage());
 		}
 		return list;
 	}
 
 	@Override
-	public synchronized void createProductBatchComp(ProductBatchCompDTO productBatchComp)
-			throws DALException {
+	public synchronized void createProductBatchComp(
+			ProductBatchCompDTO productBatchComp) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO productbatchcomponent VALUES ( "
-				+ productBatchComp.getPb_id() 
-				+ "," + productBatchComp.getCommoditybatch_id()
-				+ "," + productBatchComp.getUser_id()
-				+ "," + productBatchComp.getTara()
-				+ "," + productBatchComp.getNetto() 
-				+ ");");
+				+ productBatchComp.getPb_id() + ","
+				+ productBatchComp.getCommoditybatch_id() + ","
+				+ productBatchComp.getUser_id() + ","
+				+ productBatchComp.getTara() + ","
+				+ productBatchComp.getNetto() + ");");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public synchronized void updateProductBatchComp(ProductBatchCompDTO productBatchComp)
-			throws DALException {
+	public synchronized void updateProductBatchComp(
+			ProductBatchCompDTO productBatchComp) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE productbatchcomponent "
-				+ "set user_id = " + productBatchComp.getUser_id() 
-				+ ", tara = " + productBatchComp.getTara() 
-				+ ", netto = " + productBatchComp.getNetto()+";");
+		Connector.doUpdate("UPDATE productbatchcomponent " + "set user_id = "
+				+ productBatchComp.getUser_id() + ", tara = "
+				+ productBatchComp.getTara() + ", netto = "
+				+ productBatchComp.getNetto() + ";");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public synchronized void deleteProductBatchComp(int pb_id, int commoditybatch_id)
-			throws DALException {
+	public synchronized void deleteProductBatchComp(int pb_id,
+			int commoditybatch_id) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = " + pb_id 
-				+ " AND commoditybatch_id = " + commoditybatch_id +";");
+		Connector
+				.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = "
+						+ pb_id + " AND commoditybatch_id = "
+						+ commoditybatch_id + ";");
 		Connector.closeConnection();
 	}
 
 	@Override
-	public String getName(int pb_id) throws DALException {
+	public synchronized String getName(int pb_id) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		try{
-		ResultSet rs = Connector.doQuery("SELECT prescription_name FROM prescription WHERE prescription_id IN "
-										+ "(SELECT prescription_id FROM productbatch WHERE pb_id =" + pb_id + ");");
-		return rs.getString("prescription_name");
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i forbindele med databasen" + e.getMessage());
+		try {
+			ResultSet rs = Connector
+					.doQuery("SELECT prescription_name FROM prescription WHERE prescription_id IN "
+							+ "(SELECT prescription_id FROM productbatch WHERE pb_id ="
+							+ pb_id + ");");
+			return rs.getString("prescription_name");
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i forbindele med databasen"
+							+ e.getMessage());
 		}
-		
+
 	}
 
 }
