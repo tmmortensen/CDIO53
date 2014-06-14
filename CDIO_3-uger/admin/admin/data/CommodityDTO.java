@@ -13,11 +13,19 @@ public class CommodityDTO {
 		supplier = "";
 	}
 
-	// this constructor should use the set Methods and thus do error checks
-	public CommodityDTO(int commodity_id, String commodity_name, String supplier) {
-		this.commodity_id = commodity_id;
-		this.commodity_name = commodity_name;
-		this.supplier = supplier;
+	/**
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param commodity_id
+	 * @param commodity_name
+	 * @param supplier
+	 * @throws DALException
+	 */
+	public CommodityDTO(int commodity_id, String commodity_name, String supplier)
+			throws DALException {
+		setCommodity_id(commodity_id);
+		setCommodity_name(commodity_name);
+		setSupplier(supplier);
 	}
 
 	public void setCommodity_id(int commodity_id) throws DALException {

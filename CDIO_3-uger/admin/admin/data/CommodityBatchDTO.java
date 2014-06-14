@@ -5,17 +5,26 @@ public class CommodityBatchDTO {
 	int commodityBatchId, commodityId;
 	double amount;
 
-	public CommodityBatchDTO(int commodityBatchId, int commodityId, double amount) {
-		this.amount = amount;
-		this.commodityBatchId = commodityBatchId;
-		this.commodityId = commodityId;
+	/**
+	 * Constructor with no parameters and no error checks
+	 */
+	public CommodityBatchDTO() {
+
 	}
 
 	/**
-	 * empty contructor with no error checks
+	 * Constructor with parameters from set methods and thus error checks
+	 * 
+	 * @param commodityBatchId
+	 * @param commodityId
+	 * @param amount
+	 * @throws DALException
 	 */
-	public CommodityBatchDTO() {
-		// TODO Auto-generated constructor stub
+	public CommodityBatchDTO(int commodityBatchId, int commodityId,
+			double amount) throws DALException {
+		setAmount(amount);
+		setCommodityBatchId(commodityBatchId);
+		setCommodityId(commodityId);
 	}
 
 	public int getCommodityBatchId() {

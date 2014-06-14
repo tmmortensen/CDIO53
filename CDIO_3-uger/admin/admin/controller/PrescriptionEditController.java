@@ -25,7 +25,8 @@ public class PrescriptionEditController extends AbstractController {
 
 	@Override
 	public void doRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws ServletException, IOException,
+			DALException {
 
 		boolean isNew = false;
 		boolean anyError = false;
@@ -181,14 +182,15 @@ public class PrescriptionEditController extends AbstractController {
 					// before we add the component to the list we check if it
 					// has the same commodity id as any of the others
 					int j = 1;
-					for (PrescriptionCompDTO oldComp: components){
-						if (oldComp.getCommodityId() == component.getCommodityId()){
+					for (PrescriptionCompDTO oldComp : components) {
+						if (oldComp.getCommodityId() == component
+								.getCommodityId()) {
 							comIdError += "Samme vareID som #" + j + "<BR>";
 						}
 						j++;
 					}
 					request.setAttribute("comIdError" + i, comIdError);
-					
+
 					// finally add the component to the list and increment our
 					// counter
 					components.add(component);
@@ -260,7 +262,7 @@ public class PrescriptionEditController extends AbstractController {
 						// This is where we update an existing one with no ID
 						// change
 						prescriptions.updatePrescription(prescription);
-						
+
 						// we now need to update all the components. the easiest
 						// way to do that is to remove the old ones and insert
 						// the new ones
