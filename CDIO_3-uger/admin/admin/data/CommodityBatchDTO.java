@@ -27,13 +27,6 @@ public class CommodityBatchDTO {
 		setCommodityId(commodityId);
 	}
 
-	/**
-	 * empty contructor with no error checks
-	 */
-	public CommodityBatchDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public int getCommodityBatchId() {
 		return commodityBatchId;
 	}
