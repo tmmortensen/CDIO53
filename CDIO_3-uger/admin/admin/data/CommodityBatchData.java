@@ -46,9 +46,8 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM commoditybatch;");
 		try {
 			while (rs.next()) {
-				list.add(new CommodityBatchDTO(rs
-						.getInt("productbatchbatch_id"), rs
-						.getInt("commoditybatch_"), rs.getInt("supplier")));
+				list.add(new CommodityBatchDTO(rs.getInt("commoditybatch_id"),
+						rs.getInt("commodity_id"), rs.getDouble("amount")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -84,8 +83,8 @@ public class CommodityBatchData implements ICommodityBatchDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE commoditybatch " + "SET "
-				+" amount = " + commoditybatch.getAmount() +";"); 
+		Connector.doUpdate("UPDATE commoditybatch " + "SET " + " amount = "
+				+ commoditybatch.getAmount() + ";");
 		Connector.closeConnection();
 	}
 
