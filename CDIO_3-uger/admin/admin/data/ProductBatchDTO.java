@@ -2,7 +2,8 @@ package admin.data;
 
 public class ProductBatchDTO {
 
-	int pb_id, prescription_id, status;
+	int pb_id, prescription_id; 
+	StatusType status;
 
 	/**
 	 * Constructor with no parameters and no error checks
@@ -34,8 +35,12 @@ public class ProductBatchDTO {
 		this.prescription_id = prescription_id;
 	}
 
-	public void setStatus(int status) throws DALException {
+	public void setStatus(StatusType status) throws DALException {
 		this.status = status;
+	}
+
+	public void setStatus(int status) throws DALException {
+		this.status = StatusType.fromInt(status);
 	}
 
 	public int getPbId() {
@@ -46,7 +51,7 @@ public class ProductBatchDTO {
 		return prescription_id;
 	}
 
-	public int getStatus() {
+	public StatusType getStatus() {
 		return status;
 	}
 }
