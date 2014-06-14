@@ -4,9 +4,6 @@ import java.util.List;
 
 public interface IProductBatchDAO {
 
-	public void createProductBatch(ProductBatchDTO productBatch)
-			throws DALException;
-
 	public List<ProductBatchDTO> getAllProductBatches() throws DALException;
 
 	/**
@@ -18,14 +15,19 @@ public interface IProductBatchDAO {
 	 */
 	public List<ProductBatchDTO> getListByOperator(int operatorId);
 
-	public List<ProductBatchDTO> getCompletedProductBatch() throws DALException;
+	/**
+	 * Get all product batches with the specified status
+	 * 
+	 * @param status
+	 *            the StatusType of the desired product batches
+	 * @return a list of all product batches that have the specified status
+	 */
+	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status);
 
-	public List<ProductBatchDTO> getInitiatedProductBatch() throws DALException;
-
-	public List<ProductBatchDTO> getUnInitializedProductBatch()
+	public void createProductBatch(ProductBatchDTO productBatch)
 			throws DALException;
 
-	public void updateStatus(int pb_id) throws DALException;
+	public void updateProductBatch(ProductBatchDTO product) throws DALException;
 
 	public void deleteBatch(int pb_id) throws DALException;
 }
