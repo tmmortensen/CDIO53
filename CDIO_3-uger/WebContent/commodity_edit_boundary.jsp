@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="style.css">
-<title>Edit user</title>
+<title>Redigering af råvare</title>
 </head>
 <body>
 

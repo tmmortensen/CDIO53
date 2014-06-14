@@ -27,9 +27,7 @@ public class CommodityAdminController extends AbstractController {
 		try {
 			List<CommodityDTO> commodityList = commodities.getComList();
 			request.setAttribute("commodityList", commodityList);
-
 		} catch (Exception e){
-			
 		}
 		
 		RequestDispatcher dispatcher =

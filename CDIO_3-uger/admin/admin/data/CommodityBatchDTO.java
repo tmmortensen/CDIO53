@@ -11,6 +11,13 @@ public class CommodityBatchDTO {
 		this.commodityId = commodityId;
 	}
 
+	/**
+	 * empty contructor with no error checks
+	 */
+	public CommodityBatchDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getCommodityBatchId() {
 		return commodityBatchId;
 	}
@@ -31,7 +38,7 @@ public class CommodityBatchDTO {
 		return amount;
 	}
 
-	public void setAmount(int amount) throws DALException {
+	public void setAmount(double amount) throws DALException {
 		this.amount = amount;
 	}
 }

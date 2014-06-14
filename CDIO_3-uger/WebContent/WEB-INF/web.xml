@@ -149,31 +149,31 @@
   <servlet>
     <description>Commodity Batch Administration</description>
     <display-name>Commodity Batch Admin</display-name>
-    <servlet-name>CommodityBatchAdminController</servlet-name>
-    <servlet-class>admin.controller.CommodityBatchAdminController</servlet-class>
+    <servlet-name>BatchCommodityAdminController</servlet-name>
+    <servlet-class>admin.controller.BatchCommodityAdminController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CommodityBatchAdminController</servlet-name>
+    <servlet-name>BatchCommodityAdminController</servlet-name>
     <url-pattern>/commodityBatch_admin</url-pattern>
   </servlet-mapping>
   <servlet>
   	<description>Editing a commodity batch</description>
   	<display-name>Edit Commodity Batch</display-name>
-  	<servlet-name>CommodityBatchEditController</servlet-name>
-  	<servlet-class>admin.controller.CommodityBatchEditController</servlet-class>
+  	<servlet-name>BatchCommodityEditController</servlet-name>
+  	<servlet-class>admin.controller.BatchCommodityEditController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>CommodityBatchEditController</servlet-name>
+  	<servlet-name>BatchCommodityEditController</servlet-name>
   	<url-pattern>/commodityBatch_edit</url-pattern>
   </servlet-mapping>
   <servlet>
   	<description>Corfirm deletion of commodity batch</description>
   	<display-name>Delete Commodity Batch</display-name>
-  	<servlet-name>CommodityBatchConfirmDeleteController</servlet-name>
-  	<servlet-class>admin.controller.CommodityBatchConfirmDeleteController</servlet-class>
+  	<servlet-name>BatchCommodityConfirmDeleteController</servlet-name>
+  	<servlet-class>admin.controller.BatchCommodityConfirmDeleteController</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>CommodityBatchConfirmDeleteController</servlet-name>
+  	<servlet-name>BatchCommodityConfirmDeleteController</servlet-name>
   	<url-pattern>/commodityBatch_confirm_delete</url-pattern>
   </servlet-mapping>
   
