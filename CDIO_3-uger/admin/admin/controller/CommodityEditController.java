@@ -57,7 +57,7 @@ public class CommodityEditController extends AbstractController {
 				commodity = commodities.getCommodity(iOldId);
 				sNewId = sComId;
 			} catch (DALException e1) {
-				majorError = "Der findes ingen bruger med det angivne id";
+				majorError = "Der findes ingen råvare med det angivne id";
 				anyError = true;
 			}
 		}
@@ -71,7 +71,7 @@ public class CommodityEditController extends AbstractController {
 				iNewId = Integer.parseInt(sNewId);
 				commodity.setCommodity_id(iNewId);
 			} catch (NumberFormatException e) {
-				idError = "Det indtastede bruger id er ikke et tal";
+				idError = "Det indtastede råvare id er ikke et tal";
 				anyError = true;
 			} catch (DALException e) {
 				idError = e.getMessage();
