@@ -2,9 +2,10 @@ package admin.data;
 
 public class CommodityBatchDTO {
 
-	int commodityBatchId, commodityId, amount;
+	int commodityBatchId, commodityId;
+	double amount;
 
-	public CommodityBatchDTO(int commodityBatchId, int commodityId, int amount) {
+	public CommodityBatchDTO(int commodityBatchId, int commodityId, double amount) {
 		this.amount = amount;
 		this.commodityBatchId = commodityBatchId;
 		this.commodityId = commodityId;
@@ -26,7 +27,7 @@ public class CommodityBatchDTO {
 		this.commodityId = commodityId;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
