@@ -34,18 +34,14 @@ public class InputBoundary {
 
 	}
 	
-	public int getID() {
-		try {
+	public int getID() throws IOException {
+		
 			String sentence = "RM20 4 \"indtast operatoer nummer\" \"\" \"nr\"";
 			consoleOutput.writeBytes(sentence + "\r\n");
 
 			modifiedSentence = consoleReader.readLine();
 
 			userID = Integer.parseInt(modifiedSentence.substring(7).trim());
-
-		} catch (Exception e) {
-
-		}
 
 		return userID;
 	}
@@ -68,30 +64,26 @@ public class InputBoundary {
 		
 	}
 
-	public int getProductBatchID() {
-		try {
+	public int getProductBatchID() throws IOException {
+		
 			String sentence = "RM20 4 \"indtast batchnummer på det de øsnker at afveje \" \"\" \"nr\"";
 			consoleOutput.writeBytes(sentence + "\r\n");
 			modifiedSentence = consoleReader.readLine();
 
 			productBatchID = Integer.parseInt(modifiedSentence.substring(7)
 					.trim());
-		} catch (Exception e) {
-
-		}
+		
 		return productBatchID;
 	}
 
-	public void drainWeight() {
-		try {
+	public void drainWeight() throws IOException {
+		
 			String sentence = "RM20 4 \"Tøm venligst vægten og tryk 'ok'\" \"\" \"nr\"";
 			consoleOutput.writeBytes(sentence + "\r\n");
 			
 			do modifiedSentence = consoleReader.readLine().trim();
 			while(!modifiedSentence.equalsIgnoreCase("RM20A"));
 		
-		} catch (Exception e) {
-		}
 
 	}
 
