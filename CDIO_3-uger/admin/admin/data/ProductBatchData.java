@@ -12,22 +12,26 @@ public class ProductBatchData implements IProductBatchDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO productbatch VALUES ( "
-				+ productBatch.getPbId() 
-				+ ", "+ productBatch.getPrescriptionId() 
-				+ ", "+ productBatch.getStatus() + ");");
+				+ productBatch.getPbId() + ", "
+				+ productBatch.getPrescriptionId() + ", "
+				+ productBatch.getStatus() + ", "
+				+ productBatch.getCurrentDate() + ");");
 		Connector.closeConnection();
-		
+
 	}
 
-	public synchronized List<ProductBatchDTO> getCompletedProductBatch() throws DALException {
+	public synchronized List<ProductBatchDTO> getCompletedProductBatch()
+			throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE status = 2;");
@@ -38,17 +42,21 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()" +e.getMessage());
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()"
+							+ e.getMessage());
 		}
 		return list;
 	}
 
-	public synchronized List<ProductBatchDTO> getInitiatedProductBatch() throws DALException {
+	public synchronized List<ProductBatchDTO> getInitiatedProductBatch()
+			throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE status = 1;");
@@ -59,7 +67,9 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i ProductBatch i metoden getInitiatedProductBatch()" +e.getMessage());
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden getInitiatedProductBatch()"
+							+ e.getMessage());
 		}
 		return list;
 	}
@@ -70,7 +80,8 @@ public class ProductBatchData implements IProductBatchDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE status = 0;");
@@ -81,7 +92,9 @@ public class ProductBatchData implements IProductBatchDAO {
 						.getInt("prescription_id"), rs.getInt("status")));
 			}
 		} catch (SQLException e) {
-			throw new DALException("Der skete en fejl i ProductBatch i metoden getUnInitializedProductBatch()" +e.getMessage());
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden getUnInitializedProductBatch()"
+							+ e.getMessage());
 		}
 		return list;
 	}
@@ -96,21 +109,57 @@ public class ProductBatchData implements IProductBatchDAO {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
-			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch "
-											+ "WHERE pb_id in(SELECT pb_id from productbatchcomponent);");
+				+ "WHERE pb_id in(SELECT pb_id from productbatchcomponent);");
 		try {
-			if(!rs.first()){
-				Connector.doUpdate("DELETE FROM productbatch WHERE pb_id = " +pb_id + ";");
+			if (!rs.first()) {
+				Connector.doUpdate("DELETE FROM productbatch WHERE pb_id = "
+						+ pb_id + ";");
 				Connector.closeConnection();
+			} else {
+				throw new DALException(
+						"you cannot delete that productbatch because it has been begun");
 			}
-			else {
-				throw new DALException("you cannot delete that productbatch because it has been begun");
-			}
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i ProductBatch i metoden deleteBatch(int pb_id)" +e.getMessage());
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden deleteBatch(int pb_id)"
+							+ e.getMessage());
 		}
+	}
+
+	@Override
+	public List<ProductBatchDTO> getAllProductBatches() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductBatchDTO> getListByOperator(int operatorId)
+			throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status)
+			throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductBatchDTO getProductBatch(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateProductBatch(ProductBatchDTO product) throws DALException {
+		// TODO Auto-generated method stub
+
 	}
 
 }
