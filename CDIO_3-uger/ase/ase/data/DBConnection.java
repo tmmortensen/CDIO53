@@ -34,14 +34,16 @@ public class DBConnection implements IDBConnection {
 
 	// test
 	@Override
-	public String checkName() throws DALException {
-		String userName = userData.getUser(userId).getUsername();
+	public String checkName(int id) throws DALException {
+		String userName = userData.getUser(id).getUsername();
 		return userName;
 	}
 
 	@Override
-	public void checkProduktBatchID(int produktBatchID) throws DALException {
-		// TODO Auto-generated method stub
+	public int checkProduktBatchID(int produktBatchID) throws DALException {
+		int produktBatch = 1;
+
+		return produktBatch;
 
 	}
 
@@ -52,9 +54,10 @@ public class DBConnection implements IDBConnection {
 	}
 
 	@Override
-	public void checkRaavareBatchID(int id) throws DALException {
-		commodityBatchData.getCommodityBatch(id);
-
+	public int checkRaavareBatchID(int id) throws DALException {
+		int batchID = commodityBatchData.getCommodityBatch(id)
+				.getCommodityBatchId();
+		return batchID;
 	}
 
 	@Override
@@ -69,6 +72,14 @@ public class DBConnection implements IDBConnection {
 	@Override
 	public void produktStatus(String afslutte) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void getNetto() {
+
+	}
+
+	public void getTolerance() {
 
 	}
 

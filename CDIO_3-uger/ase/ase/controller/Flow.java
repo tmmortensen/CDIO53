@@ -1,25 +1,25 @@
 package ase.controller;
 
-import ase.boundary.InputBoundary;
+import ase.boundary.ASEBoundary;
 import ase.data.DBConnection;
 
 public class Flow {
 
-	private boolean done = false, confirm = false;
+	private boolean done, reset, confirm = false;
 	private boolean step_done, step2_done, step3_done, step4_done = false;
 	private boolean step5_done, step6_done, step7_done = false;
 
 	public void start() {
 		DBConnection DB = new DBConnection();
-		InputBoundary bound = new InputBoundary();
+		ASEBoundary bound = new ASEBoundary();
 		while (!done) {
-			boolean reset = false; // Bliver sat til true, hvis vi ønsker at
+			reset = false; // Bliver sat til true, hvis vi ønsker at
 									// genstarte.
 			
 			while (!reset && !step_done) { //Step 1
 				int id = bound.getID();
 				String username = DB.checkName(id);
-				confirm = bound.send(username);
+				confirm = bound.sendUsername(username);
 				if (confirm)
 					step_done = true;
 			}
@@ -27,7 +27,7 @@ public class Flow {
 
 			while (!reset && !step2_done && step_done) { // step 2 Produktbatch input
 															// state
-				int produktBatchID = bound.getProduktBatchID();
+				int produktBatchID = bound.getProductBatchID();
 				int produktBatchID2 = DB.checkProduktBatchID(produktBatchID);
 				if (produktBatchID == produktBatchID2) {// Punktet her
 																// skal tjekke
@@ -47,15 +47,17 @@ public class Flow {
 
 			while (!reset && !step3_done && step2_done) { // step 3. Raavarebatch input
 															// state
-				boolean result = bound.zero(); // I boundary skal operatøren
-												// bedes om at tømme vægten og
+				bound.drainWeight();						 // I boundary skal operatøren
+				bound.getTara();							// bedes om at tømme vægten og
 												// trykke "ok", og derefter
 												// tareres vægten
-				if (!result) {
-					reset = true;
-					step2_done = false;
+//				if (!result) {
+//					reset = true;
+//					step2_done = false;
+				step3_done = true;
+				step2_done = false;
 				}
-				double t = bound.tara(); // Operatøren bedes at placeres tara og
+				double t = bound.getTara(); // Operatøren bedes at placeres tara og
 											// trykke ok.
 				step2_done = false;
 				step3_done = true;
@@ -66,10 +68,9 @@ public class Flow {
 			}
 			while(!reset && !step5_done && step4_done){// step 5. Indtast på varebatch ID state
 				DB.getRaavareID();
-				bound.outRaavareID();
 				int id = bound.getRaavareBatchID();
 				int id2 = DB.checkRaavareBatchID(id);
-					if(id == id2){
+				if(id == id2){
 						if(bound.retry)
 							continue;
 						else 
@@ -79,11 +80,13 @@ public class Flow {
 					else{
 						step4_done = false;
 						step5_done = true;
+						bound.outRaavareID(id);
 					}
 			}
 			
 			
 			while(!reset && !step5_done && step5_done){ //step 6
+				
 				double n = bound.getNettoWeight(); //På de værdier vi får fra step4.
 				double dataNetto = data.getNetto();
 				double dataTolerance = data.getTolerance();
@@ -116,4 +119,4 @@ public class Flow {
 			}
 		}
 	}
-}
+
