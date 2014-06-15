@@ -18,7 +18,7 @@ public class UserInfo {
 		ini = operator.getIni();
 		name = operator.getUsername();
 		cpr = operator.getCpr();
-		access = UserType.fromInt(operator.getAccesLevel());
+		access = operator.getUserType();
 		deleURL = "user_confirm_delete?id=" + id;
 		editURL = "user_edit?id=" + id;
 	}
