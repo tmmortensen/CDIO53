@@ -95,7 +95,7 @@ public interface IProgramState {
 	 * Sets the tare weight to current load on the scale
 	 * @param tweight 
 	 */
-	public void tare(double tweight);
+	public void tare();
 
 	/**
 	 * set the current load on the weight

@@ -12,7 +12,7 @@ public interface IASEBoundary {
 
 	/**
 	 * 
-	 * asks the operator for ID and returns what he entered to the controller
+	 * Asks the operator for User ID and returns what he entered
 	 * 
 	 * @return userID
 	 * @throws IOException
@@ -20,9 +20,9 @@ public interface IASEBoundary {
 	public int getID() throws IOException;
 
 	/**
-	 * Gives the Operators name that correspond to the ID that he gave. returns
-	 * true if the Operator presses enter and returns false if he presses
-	 * anything but enter
+	 * Gives the Operator his name that correspond to the ID that he entered.
+	 * returns true if the Operator presses enter 
+	 * returns false if he presses anything but enter
 	 * 
 	 * @param UserName
 	 * @return true/false
@@ -41,15 +41,16 @@ public interface IASEBoundary {
 	public int getProductBatchID() throws IOException;
 
 	/**
-	 * Asks the operator to empty the weight and press enter afterwards won't
-	 * continue if the operator doesn't press enter
+	 * Asks the operator to empty the weight and press enter afterwards. 
+	 * It won't continue if the operator doesn't press enter
 	 * 
 	 * @throws IOException
 	 */
 	public void drainWeight() throws IOException;
 
 	/**
-	 * Receives the tara weight and sends it to the controller
+	 * Receives the tara weight
+	 * Tares the weight.
 	 * 
 	 * 
 	 * @return taraWeight
@@ -58,7 +59,7 @@ public interface IASEBoundary {
 	public double getTara() throws IOException;
 
 	/**
-	 * Receives the net weight and sends it to the controller
+	 * Receives the net weight of the desired commodity
 	 * 
 	 * @return nettoWeight
 	 * @throws IOException
@@ -75,7 +76,7 @@ public interface IASEBoundary {
 	public void outRaavareID(int raavareID) throws IOException;
 
 	/**
-	 * Asks the operator to enter the commoditybatch ID
+	 * Asks the operator to enter the commodity batch ID
 	 * 
 	 * @return raavareBatchID
 	 * @throws IOException
