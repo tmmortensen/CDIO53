@@ -71,7 +71,7 @@ public class Flow {
 				int id = bound.getRaavareBatchID();
 				int id2 = DB.checkRaavareBatchID(id);
 				if(id == id2){
-						if(bound.retry)
+						if(bound.retry())
 							continue;
 						else 
 							break;
@@ -92,7 +92,7 @@ public class Flow {
 				double dataTolerance = data.getTolerance();
 				//En sammenligning fra værdien på vægten og det vi har fra databasen.
 					if(n =< dataNetto*(1+dataTolerance) && n >= dataNetto*(1-dataTolerance))
-						if(bound.retry)
+						if(bound.retry())
 							continue;
 						else{
 							reset = true;

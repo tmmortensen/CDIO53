@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import simulator.data.IProgramState;
 
 /**
@@ -15,18 +17,23 @@ import simulator.data.IProgramState;
 public class ASEBoundary implements IASEBoundary {
 	boolean IDforespørgelse = false, commoditycheck = false;
 	BufferedReader consoleReader;
-	IProgramState iprogramState;
 	private DataOutputStream consoleOutput;
 	private String modifiedSentence;
 	private int userID, productBatchID;
+	private Socket sock;
 
 	/**
 	 * Constructor that makes the program ready for user inputs
 	 */
 	public ASEBoundary() {
-
+		try{
+		sock = new Socket("localhost", 8080);
+//		consoleOutput =  new PrintWriter(sock.getOutputStream(), true);
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
-
+		}
+		catch(Exception e){
+			System.out.println("Kunne ikke forbinde til vægten.");
+		}
 	}
 
 	@Override
