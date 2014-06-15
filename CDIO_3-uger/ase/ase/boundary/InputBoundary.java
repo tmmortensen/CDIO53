@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import ase.data.ProgramState;
 import simulator.data.IProgramState;
 
 /**
@@ -29,14 +28,12 @@ public class InputBoundary {
 	 * @param programState
 	 *            changes state of the program depending on the input
 	 */
-	public InputBoundary(IProgramState programState) {
-		this.iprogramState = programState;
+	public InputBoundary() {
+		
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
 	}
 	
-	ProgramState programstate = new ProgramState();
-
 	public int getID() {
 		try {
 			String sentence = "RM20 4 \"indtast operatoer nummer\" \"\" \"nr\"";

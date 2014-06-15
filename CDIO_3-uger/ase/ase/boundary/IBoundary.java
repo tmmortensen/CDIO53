@@ -20,4 +20,22 @@ public interface IBoundary extends Runnable {
 	 */
 	public void closeResources();
 
+	public int getID();
+	
+	public boolean sendUsername(String UserName);
+	
+	public int getProductBatchID();
+	
+	public void drainWeight();
+	
+	public double getTara();
+	
+	public double getNettoWeight();
+	
+	public void outRaavareID(int raavareID);
+	
+	public int getRaavareBatchID();
+	
+	public boolean getQuit();
+	
 }
