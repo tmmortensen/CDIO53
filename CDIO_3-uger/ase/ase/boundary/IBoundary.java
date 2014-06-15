@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author Gruppe 53
  * 
  */
-public interface IBoundary extends Runnable {
+public interface IBoundary {
 
 	/**
 	 * 
