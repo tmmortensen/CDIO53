@@ -11,7 +11,7 @@ public class UserDTO{
 	String ini;
 	String cpr;
 	String password;
-	int accessLevel;
+	UserType type;
 
 
 	/**
@@ -123,11 +123,11 @@ public class UserDTO{
 	}
 	
 	public boolean isAdmin(){
-		return accessLevel == 0;
+		return type == UserType.ADMIN;
 	}
 	
 	public int getAccesLevel(){
-		return accessLevel;
+		return type.ordinal();
 	}
 
 	public void setUsername(String newname)  throws DALException {
@@ -160,15 +160,15 @@ public class UserDTO{
 	}
 	
 	public void setAccessLevel(int access){
-		this.accessLevel = access;
+		this.type = UserType.values()[access];
 	}
 
 	public void setAccessLevel(UserType type){
-		this.accessLevel = type.ordinal();
+		this.type = type;
 	}
 	
 	public UserType getUserType(){
-		return UserType.values()[accessLevel];
+		return type;
 	}
 
 }

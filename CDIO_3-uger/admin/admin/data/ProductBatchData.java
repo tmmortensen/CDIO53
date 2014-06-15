@@ -21,7 +21,9 @@ public class ProductBatchData implements IProductBatchDAO {
 		Connector.closeConnection();
 		
 	}
+	
 
+	// TODO samle følgende 3 metoder til én med navnet getProductBatchByStatus(StatusType status)
 	public synchronized List<ProductBatchDTO> getCompletedProductBatch() throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
@@ -86,11 +88,6 @@ public class ProductBatchData implements IProductBatchDAO {
 		return list;
 	}
 
-	public synchronized void updateStatus(int pb_id) throws DALException {
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public void deleteBatch(int pb_id) throws DALException {
 		try {
@@ -111,6 +108,53 @@ public class ProductBatchData implements IProductBatchDAO {
 		}catch(SQLException e){
 			throw new DALException("Der skete en fejl i ProductBatch i metoden deleteBatch(int pb_id)" +e.getMessage());
 		}
+	}
+
+	@Override
+	public List<ProductBatchDTO> getAllProductBatches() throws DALException {
+		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException("Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatch;");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
+						.getInt("prescription_id"), rs.getInt("status")));
+			}
+		} catch (SQLException e) {
+			throw new DALException("Der skete en fejl i ProductBatch i metoden getAllProductBatches()" +e.getMessage());
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductBatchDTO> getListByOperator(int operatorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateProductBatch(ProductBatchDTO product) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ProductBatchDTO getProductBatch(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

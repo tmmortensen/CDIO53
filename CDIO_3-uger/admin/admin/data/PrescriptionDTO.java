@@ -6,12 +6,11 @@ public class PrescriptionDTO {
 	String name;
 
 	/**
-	 * Constructor with no parameters
-	 * 
-	 * @throws DALException
+	 * Constructor with no parameters and no error checks
 	 */
-	public PrescriptionDTO() throws DALException {
-		this(0, "");
+	public PrescriptionDTO(){
+		id = 0;
+		name = "";
 	}
 
 	/**

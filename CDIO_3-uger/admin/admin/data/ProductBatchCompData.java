@@ -169,4 +169,10 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 
 	}
 
+	@Override
+	public void deleteByBatchID(int productBatchId) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
