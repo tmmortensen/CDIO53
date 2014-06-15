@@ -21,12 +21,7 @@ public class ASEBoundary implements IASEBoundary {
 	private int userID, productBatchID;
 
 	/**
-	 * Constuctor that makes the program ready for user inputs
-	 * 
-	 * @param in
-	 *            is a scanner that recieves keyboardinput
-	 * @param programState
-	 *            changes state of the program depending on the input
+	 * Constructor that makes the program ready for user inputs
 	 */
 	public ASEBoundary() {
 
