@@ -1,18 +1,19 @@
 package ase.controller;
 
-public class Flow implements Runnable {
+import ase.data.DBConnection;
 
-	private boolean done = false, sub_step_done, confirm = false;
-	private boolean step_done = false;
-	private boolean step2_done = false, step3_done = false, step4_done = false;
-	private boolean step7_done, step5_done = false, step6_done = false;
+public class Flow {
 
-	public void run() {
+	private boolean done = false, confirm = false;
+	private boolean step_done, step2_done, step3_done, step4_done = false;
+	private boolean step5_done, step6_done, step7_done = false;
 
+	public void start() {
+		DBConnection DB = new DBConnection();
 		while (!done) {
 			boolean reset = false; // Bliver sat til true, hvis vi ønsker at
 									// genstarte.
-			step_done;
+			
 			while (!reset && !step_done) { //Step 1
 				int id = bound.getID();
 				String username = DB.checkName(id);
