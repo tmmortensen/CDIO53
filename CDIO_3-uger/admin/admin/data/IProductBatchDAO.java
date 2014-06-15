@@ -13,7 +13,8 @@ public interface IProductBatchDAO {
 	 *            the id of the operator assigned to the product batches
 	 * @return list of product batches assigned to the specified operator
 	 */
-	public List<ProductBatchDTO> getListByOperator(int operatorId);
+	public List<ProductBatchDTO> getListByOperator(int operatorId)
+			throws DALException;
 
 	/**
 	 * Get all product batches with the specified status
@@ -22,7 +23,10 @@ public interface IProductBatchDAO {
 	 *            the StatusType of the desired product batches
 	 * @return a list of all product batches that have the specified status
 	 */
-	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status);
+	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status)
+			throws DALException;
+
+	public ProductBatchDTO getProductBatch(int id) throws DALException;
 
 	public void createProductBatch(ProductBatchDTO productBatch)
 			throws DALException;
