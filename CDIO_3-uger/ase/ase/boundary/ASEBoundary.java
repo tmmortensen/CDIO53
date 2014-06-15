@@ -12,7 +12,7 @@ import simulator.data.IProgramState;
  * @author Gruppe 53
  * 
  */
-public class InputBoundary implements IBoundary {
+public class ASEBoundary implements IASEBoundary {
 	boolean IDforespørgelse = false, commoditycheck = false;
 	BufferedReader consoleReader;
 	IProgramState iprogramState;
@@ -28,7 +28,7 @@ public class InputBoundary implements IBoundary {
 	 * @param programState
 	 *            changes state of the program depending on the input
 	 */
-	public InputBoundary() {
+	public ASEBoundary() {
 
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
