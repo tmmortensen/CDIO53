@@ -1,9 +1,15 @@
 package admin.data;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 public class ProductBatchDTO {
 
-	int pb_id, prescription_id; 
+	int pb_id, prescription_id;
 	StatusType status;
+	// create a sql date object so we can use it in our INSERT statement
+	Calendar calendar = Calendar.getInstance();
+	Date currentDate = new Date(calendar.getTime().getTime());
 
 	/**
 	 * Constructor with no parameters and no error checks
@@ -25,6 +31,14 @@ public class ProductBatchDTO {
 		setPb_id(pb_id);
 		setPrescription_id(prescription_id);
 		setStatus(status);
+	}
+
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
 	}
 
 	public void setPb_id(int pb_id) throws DALException {
