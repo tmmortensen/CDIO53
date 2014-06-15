@@ -154,6 +154,7 @@ public class ProductBatchEditController extends AbstractController {
 				} catch (Exception e) {
 					// Post an error message if something else went wrong
 					statusError = "der skete en fejl med den nye status";
+					statusError += e.getMessage();
 					anyError = true;
 				}
 

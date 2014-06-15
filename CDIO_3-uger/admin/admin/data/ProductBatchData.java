@@ -17,7 +17,7 @@ public class ProductBatchData implements IProductBatchDAO {
 		Connector.doUpdate("INSERT INTO productbatch VALUES ( "
 				+ productBatch.getPbId() 
 				+ ", "+ productBatch.getPrescriptionId() 
-				+ ", "+ productBatch.getStatus() + ");");
+				+ ", "+ productBatch.getStatus().ordinal() + ");");
 		Connector.closeConnection();
 		
 	}

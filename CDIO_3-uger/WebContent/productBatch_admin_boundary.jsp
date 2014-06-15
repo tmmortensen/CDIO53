@@ -17,7 +17,7 @@
 			<tr>
 				<th>Batch ID</th>
 				<th>Recept ID</th>
-				<th>Satust</th>
+				<th>Satus</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -26,15 +26,15 @@
 					out.println("\t\t\t\t<tr>\n");
 					out.println("\t\t\t\t\t<td>" + product.getPbId() + "</td>\n");
 					out.println("\t\t\t\t\t<td>" + product.getPrescriptionId() + "</td>\n");
-					out.println("\t\t\t\t\t<td>" + product.getStatus().uiName() + "</td>\n");
+					out.println("\t\t\t\t\t<td class=\"status\">" + product.getStatus().uiName() + "</td>\n");
 					if (product.getStatus() == StatusType.NEW){			
-						out.println("\t\t\t\t\t<td><A href=\"prescription_edit?id=" + product.getPbId() + "\">Rediger</A></td>\n");
-						out.println("\t\t\t\t\t<td><A href=\"prescription_confirm_delete?id=" + product.getPbId() + "\">Slet</A></td>\n");
+						out.println("\t\t\t\t\t<td><A href=\"productBatch_edit?id=" + product.getPbId() + "\">Rediger</A></td>\n");
+						out.println("\t\t\t\t\t<td><A href=\"productBatch_confirm_delete?id=" + product.getPbId() + "\">Slet</A></td>\n");
 					} else if (product.getStatus() == StatusType.PAUSED) {
-						out.println("\t\t\t\t\t<td><A href=\"prescription_edit?id=" + product.getPbId() + "\">Rediger</A></td>\n");
+						out.println("\t\t\t\t\t<td><A href=\"productBatch_edit?id=" + product.getPbId() + "\">Rediger</A></td>\n");
 						out.println("\t\t\t\t\t<td></td>\n");
 					} else {
-						out.println("\t\t\t\t\t<td><A href=\"prescription_edit?id=" + product.getPbId() + "\">Vis Detajler</A></td>\n");
+						out.println("\t\t\t\t\t<td><A href=\"productBatch_edit?id=" + product.getPbId() + "\">Vis Detajler</A></td>\n");
 						out.println("\t\t\t\t\t<td></td>\n");
 					}
 					out.println("\t\t\t\t</tr>\n");

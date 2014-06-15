@@ -48,8 +48,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<%		if (!create) { %>
 		<div class="compList">
-			Produktbatchkomponenter:
+			Foretagede vejninger:
 			<table>
 				<tr>
 					<th>Råvarebatch ID</th>
@@ -58,39 +59,22 @@
 					<th>Tara vægt</th>
 				</tr>
 				<%
-					int i = 0;
 						if (components != null && !components.isEmpty()) {
 							for (ProductBatchCompDTO comp : components) {
 				%>
 				<tr>
-					<td>
-						<%
-							out.print(comp.getCommoditybatch_id());
-						%>
-					</td>
-					<td>
-						<%
-							out.print(comp.getUser_id());
-						%>
-					</td>
-					<td>
-						<%
-							out.print(comp.getNetto());
-						%>
-					</td>
-					<td>
-						<%
-							out.print(comp.getTara());
-						%>
-					</td>
+					<td><% out.print(comp.getCommoditybatch_id()); %></td>
+					<td><% out.print(comp.getUser_id()); %></td>
+					<td><% out.print(comp.getNetto()); %></td>
+					<td><% out.print(comp.getTara()); %></td>
 				</tr>
 				<%
-					i++;
 							}
 						}
 				%>
 			</table>
 		</div>
+		<%		} %>
 		<%
 			} else if (!majorError.equals("")) {
 				if (create) {
@@ -131,7 +115,7 @@
 			<div class="error">	<% out.print(statusError); %> </div>
 			<% } %> 
 			<label for="usertype">Status</label>
-			<select name="newAccess">
+			<select name="newStatus">
 				<option value="NEW" <% if (newStatus.equals("NEW")) out.print("selected");%>>
 				<%out.print(StatusType.NEW.uiName());%></option>
 				<option value="IN_PRODUCTION" <% if (newStatus.equals("IN_PRODUCTION")) out.print("selected");%>>
@@ -141,7 +125,6 @@
 				<option value="FINISHED" <% if (newStatus.equals("FINISHED")) out.print("selected");%>>
 				<%out.print(StatusType.FINISHED.uiName());%></option>
 			</select>
-		</form>
 		<div class="compList">
 			Udførte vejninger:
 			<% if (compError != null && !compError.equals("")) { %>
@@ -174,8 +157,9 @@
 		<input type="submit" value="Gem" >
 		<%		}
 			} %>
+		</form>
 		<div class="buttons">
-			<A href="producBatch_admin">Tilbage</A> 
+			<A href="productBatch_admin">Tilbage</A> 
 			<A href="login?logout=true">Log	ud</A>
 		</div>
 	</div>
