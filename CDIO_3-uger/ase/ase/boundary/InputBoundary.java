@@ -4,11 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import admin.data.CommodityDTO;
-import admin.data.PrescriptionData;
-import admin.data.ProductBatchCompDTO;
-import admin.data.UserDTO;
 import ase.data.ProgramState;
 import simulator.data.IProgramState;
 
@@ -16,10 +11,9 @@ import simulator.data.IProgramState;
  * Class to take input from a client
  * 
  * @author Gruppe 53
- * @param <temp_id>
  * 
  */
-public class InputBoundary<temp_id> {
+public class InputBoundary {
 	boolean IDforespørgelse = false, commoditycheck = false;
 	BufferedReader consoleReader;
 	IProgramState iprogramState;
@@ -40,7 +34,7 @@ public class InputBoundary<temp_id> {
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
 	}
-
+	
 	ProgramState programstate = new ProgramState();
 
 	public int getID() {
@@ -291,4 +285,4 @@ public class InputBoundary<temp_id> {
 	// }
 	// }
 	// }
-}
+	}
