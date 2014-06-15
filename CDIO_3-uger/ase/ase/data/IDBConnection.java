@@ -10,13 +10,13 @@ import admin.data.DALException;
  */
 public interface IDBConnection {
 
-	public String checkName() throws DALException;
+	public String checkName(int id) throws DALException;
 
-	public void checkProduktBatchID(int produktBatchID) throws DALException;
+	public int checkProduktBatchID(int id) throws DALException;
 
 	public void getRaavareID() throws DALException;
 
-	public void checkRaavareBatchID(int id) throws DALException;
+	public int checkRaavareBatchID(int id) throws DALException;
 
 	public void saveData() throws DALException;
 
