@@ -138,4 +138,17 @@ public class ASEBoundary implements IASEBoundary {
 		} else
 			return true;
 	}
+
+	public boolean retry() throws IOException {
+
+		String sentence = "RM20 8 \"Hov der skete en fejl, vil du prøve igen? for ja tryk 'ok'. For nej tryk  '1' \" "
+				+ "\"\"";
+		consoleOutput.writeBytes(sentence + "\r\n");
+
+		if (!modifiedSentence.equalsIgnoreCase("RM20 A")) {
+			return false;
+		} else
+			return true;
+	}
+
 }
