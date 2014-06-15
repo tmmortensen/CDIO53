@@ -1,5 +1,6 @@
 package ase.controller;
 
+import ase.boundary.InputBoundary;
 import ase.data.DBConnection;
 
 public class Flow {
@@ -10,6 +11,7 @@ public class Flow {
 
 	public void start() {
 		DBConnection DB = new DBConnection();
+		InputBoundary bound = new InputBoundary();
 		while (!done) {
 			boolean reset = false; // Bliver sat til true, hvis vi ønsker at
 									// genstarte.
@@ -26,7 +28,8 @@ public class Flow {
 			while (!reset && !step2_done && step_done) { // step 2 Produktbatch input
 															// state
 				int produktBatchID = bound.getProduktBatchID();
-				if (!DB.checkProduktBatchID(produktBatchID)) {// Punktet her
+				int produktBatchID2 = DB.checkProduktBatchID(produktBatchID);
+				if (produktBatchID == produktBatchID2) {// Punktet her
 																// skal tjekke
 																// på
 																// produktbatch
@@ -65,7 +68,7 @@ public class Flow {
 				DB.getRaavareID();
 				bound.outRaavareID();
 				int id = bound.getRaavareBatchID();
-				int id2 = DB.getRaavareBatchID();
+				int id2 = DB.checkRaavareBatchID(id);
 					if(id == id2){
 						if(bound.retry)
 							continue;
@@ -81,9 +84,11 @@ public class Flow {
 			
 			
 			while(!reset && !step5_done && step5_done){ //step 6
-				double n = b.getNetto(double netto, double tolerance); //På de værdier vi får fra step4.
-//				En sammenligning fra værdien på vægten og det vi har fra databasen.
-					if(fail)
+				double n = bound.getNettoWeight(); //På de værdier vi får fra step4.
+				double dataNetto = data.getNetto();
+				double dataTolerance = data.getTolerance();
+				//En sammenligning fra værdien på vægten og det vi har fra databasen.
+					if(n =< dataNetto*(1+dataTolerance) && n >= dataNetto*(1-dataTolerance))
 						if(bound.retry)
 							continue;
 						else{
