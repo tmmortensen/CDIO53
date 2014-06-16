@@ -26,11 +26,12 @@ public class ProductBatchDTO {
 	 * @param status
 	 * @throws DALException
 	 */
-	public ProductBatchDTO(int pb_id, int prescription_id, int status)
+	public ProductBatchDTO(int pb_id, int prescription_id, int status, Date date)
 			throws DALException {
 		setPb_id(pb_id);
 		setPrescription_id(prescription_id);
 		setStatus(status);
+		setCurrentDate(date);
 	}
 
 	public Date getCurrentDate() {
