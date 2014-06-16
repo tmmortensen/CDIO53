@@ -17,7 +17,8 @@
 			<tr>
 				<th>Batch ID</th>
 				<th>Recept ID</th>
-				<th>Satus</th>
+				<th>Bruger ID</th>
+				<th>Status</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -26,6 +27,7 @@
 					out.println("\t\t\t\t<tr>\n");
 					out.println("\t\t\t\t\t<td>" + product.getPbId() + "</td>\n");
 					out.println("\t\t\t\t\t<td>" + product.getPrescriptionId() + "</td>\n");
+					out.println("\t\t\t\t\t<td>" + product.getUserId() + "</td>\n");
 					out.println("\t\t\t\t\t<td class=\"status\">" + product.getStatus().uiName() + "</td>\n");
 					if (product.getStatus() == StatusType.NEW){			
 						out.println("\t\t\t\t\t<td><A href=\"productBatch_edit?id=" + product.getPbId() + "\">Rediger</A></td>\n");

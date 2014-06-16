@@ -148,10 +148,11 @@ public class ProductBatchData implements IProductBatchDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE productbatch SET " + " status = "
-				+ StatusType.getValue(product.getStatus())
-				+ ",  current_date = " + product.getCreationDate()
-				+ ", user_id = " + product.getUserId() + ";");
+		Connector.doUpdate("UPDATE productbatch SET " + 
+		"prescription_id = " + product.getPrescriptionId() + 
+		", status = " + product.getStatus().ordinal() + 
+		", user_id = " + product.getUserId() + 
+		" WHERE pb_id = " + product.getPbId() + ";");
 		Connector.closeConnection();
 
 	}
@@ -166,13 +167,11 @@ public class ProductBatchData implements IProductBatchDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM productbatch WHERE pb_id IN"
-						+ "(SELECT pb_id FROM productbatchcomponent WHERE user_id = "
-						+ id + ");");
+				.doQuery("SELECT * FROM productbatch WHERE pb_id = " + id + ";");
 		try {
 			if (!rs.first()) {
 				throw new DALException(
-						"Der er ikke nogen bruger med det id som arbejder på en productbatch");
+						"Der er ikke noget productbatch med det id");
 			}
 			return new ProductBatchDTO(rs.getInt("pb_id"),
 					rs.getInt("prescription_id"), rs.getInt("status"),

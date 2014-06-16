@@ -87,7 +87,7 @@ public class NetworkIOBoundary implements IBoundary {
 
 				programState.setNetString(netString);
 
-				if (netString.startsWith("RM20 8")) {
+				if (netString.startsWith("RM20")) {
 					String argString;
 					String args[];
 					try {
@@ -97,7 +97,8 @@ public class NetworkIOBoundary implements IBoundary {
 						outstream.writeBytes("RM20 L\r\n");
 						continue;
 					}
-					if (args.length == 3 && args[2].equals("&3\"")) {
+					// if (args.length == 3 && args[2].equals("&3\"")) {
+					if (args.length == 3) {
 						outstream.writeBytes("RM20 B\r\n");
 						programState.setDisplayText(args[0]);
 						needResponse = true;

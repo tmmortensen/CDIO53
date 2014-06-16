@@ -35,6 +35,7 @@ public class ProductBatchEditController extends AbstractController {
 		String presIdError = "";
 		String statusError = "";
 		String compError = "";
+		String userError = "";
 
 		ProductBatchDTO product = null;
 		List<ProductBatchCompDTO> components = null;
@@ -42,6 +43,7 @@ public class ProductBatchEditController extends AbstractController {
 		String sNewId = "";
 		String sNewPresId = "";
 		String sNewStatus = "";
+		String sNewUserId = "";
 
 		String sOldId = request.getParameter("id");
 		int iOldId = 0;
@@ -75,8 +77,9 @@ public class ProductBatchEditController extends AbstractController {
 					sNewId = sOldId;
 					sNewPresId = "" + product.getPrescriptionId();
 					sNewStatus = product.getStatus().name();
-				} catch (DALException e1) {
-					majorError = "Der findes ingen recept med det angivne id";
+					sNewUserId = "" + product.getUserId();
+				} catch (DALException e) {
+					majorError = "Der findes intet produktbatch med det angivne id";
 					anyError = true;
 				}
 				// and we have to fetch the list of components associated with
@@ -93,7 +96,8 @@ public class ProductBatchEditController extends AbstractController {
 			sNewId = request.getParameter("newId");
 			sNewPresId = request.getParameter("newPresId");
 			sNewStatus = request.getParameter("newStatus");
-
+			sNewUserId = request.getParameter("newUserId");
+			
 			// check if the entered id is a number
 			int iNewId = 0;
 			try {
@@ -143,7 +147,22 @@ public class ProductBatchEditController extends AbstractController {
 					anyError = true;
 				}
 
-				// Try to insert the new prescription id into our DTO
+				// Try to insert the new user id into our DTO
+				try {
+					int iNewUserId = Integer.parseInt(sNewUserId);
+					product.setUserId(iNewUserId);
+				} catch (NumberFormatException e) {
+					// Post an error message if we can't convert the input to an
+					// int
+					presIdError = "det indtastede bruger id er ikke et tal";
+					anyError = true;
+				} catch (DALException e) {
+					// Post an error message if we can't set the id
+					userError = e.getMessage();
+					anyError = true;
+				}
+
+				// Try to insert the new status into our DTO
 				try {
 					StatusType status = StatusType.valueOf(sNewStatus);
 					product.setStatus(status);
@@ -193,6 +212,7 @@ public class ProductBatchEditController extends AbstractController {
 						// we don't change any of the components since they are
 						// still connected to the same batch ID
 					}
+					//product = products.getProductBatch(product.getPbId());
 				}
 			} catch (DALException e) {
 				idError = e.getMessage();
@@ -209,10 +229,12 @@ public class ProductBatchEditController extends AbstractController {
 		request.setAttribute("presIdError", presIdError);
 		request.setAttribute("statusError", statusError);
 		request.setAttribute("compError", compError);
+		request.setAttribute("userError", userError);
 		
 		request.setAttribute("newId", sNewId);
 		request.setAttribute("newPresId", sNewPresId);
 		request.setAttribute("newStatus", sNewStatus);
+		request.setAttribute("newUserId", sNewUserId);
 		
 		request.setAttribute("product", product);
 		request.setAttribute("components", components);

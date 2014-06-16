@@ -1,8 +1,6 @@
 package ase.controller;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.io.IOException;
 
 import admin.data.CommodityBatchData;
@@ -34,7 +32,7 @@ public class ASEController {
 	static IProductBatchCompDAO proComps = new ProductBatchCompData();
 
 	public static void main(String args[]) throws IOException {
-		ASEBoundary bound = new ASEBoundary(args[1]);
+		ASEBoundary bound = new ASEBoundary(args[0]);
 
 		while (!done) {
 			reset = false; // Bliver sat til true, hvis vi ønsker at
@@ -108,7 +106,7 @@ public class ASEController {
 
 			}
 
-			while (!subRoutineDone) {
+			while (!subRoutineDone && !reset) {
 				// step 12,5
 				PrescriptionCompDTO component = null;
 

@@ -32,6 +32,7 @@ public class ProductBatchDTO {
 		setPrescription_id(prescription_id);
 		setStatus(status);
 		setCreationDate(date);
+		setUserId(user_id);
 	}
 
 	public Date getCreationDate() {
@@ -74,7 +75,7 @@ public class ProductBatchDTO {
 		return user_id; 
 	}
 
-	public void setUserId(int user_id) {
+	public void setUserId(int user_id) throws DALException {
 		this.user_id = user_id;
 	}
 }

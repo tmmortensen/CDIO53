@@ -5,12 +5,14 @@
 <jsp:useBean id="idError" class="java.lang.String" scope="request" />
 <jsp:useBean id="presIdError" class="java.lang.String" scope="request" />
 <jsp:useBean id="statusError" class="java.lang.String" scope="request" />
+<jsp:useBean id="userError" class="java.lang.String" scope="request" />
 <jsp:useBean id="compError" class="java.lang.String" scope="request" />
 <jsp:useBean id="product" class="admin.data.ProductBatchDTO"
 	scope="request" />
 <jsp:useBean id="newId" class="java.lang.String" scope="request" />
 <jsp:useBean id="newPresId" class="java.lang.String" scope="request" />
 <jsp:useBean id="newStatus" class="java.lang.String" scope="request" />
+<jsp:useBean id="newUserId" class="java.lang.String" scope="request" />
 <%
 	boolean complete = (Boolean) request.getAttribute("complete");
 	boolean create = (Boolean) request.getAttribute("create");
@@ -37,12 +39,14 @@
 				<tr>
 					<th>Batch ID</th>
 					<th>Recept ID</th>
+					<th>Bruger ID</th>
 					<th>Status</th>
 				</tr>
 				<tr>
 				<%
 				out.println("\t\t\t\t\t<td>" + product.getPbId() + "</td>\n");
 				out.println("\t\t\t\t\t<td>" + product.getPrescriptionId() + "</td>\n");
+				out.println("\t\t\t\t\t<td>" + product.getUserId() + "</td>\n");
 				out.println("\t\t\t\t\t<td>" + product.getStatus().uiName() + "</td>\n");
 				%>
 				</tr>
@@ -110,6 +114,13 @@
 			<label for="presId">Recept ID</label> <input type="text"
 				name="newPresId" id="presId"
 				value="<%out.print(newPresId);%>">
+
+			<% if (!userError.equals("")) { %>
+			<div class="error">	<% out.print(userError); %> </div>
+			<% } %>
+			<label for="userId">Bruger ID</label> <input type="text"
+				name="newUserId" id="userId"
+				value="<%out.print(newUserId);%>">
 
 			<% if (!statusError.equals("")) { %>
 			<div class="error">	<% out.print(statusError); %> </div>
