@@ -56,9 +56,11 @@ CREATE TABLE `productbatch` (
   `prescription_id` INT(11) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
   `current_date` DATE DEFAULT NULL,
+  `user_id` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`pb_id`),
   KEY `pbatch_prescription_id_idx` (`prescription_id`),
-  CONSTRAINT `pbatch_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `pbatch_user_id_idx` (`user_id`),
+  CONSTRAINT `pbatch_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pbatch_prescription_id` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
