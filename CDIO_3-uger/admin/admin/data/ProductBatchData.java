@@ -24,86 +24,6 @@ public class ProductBatchData implements IProductBatchDAO {
 
 	}
 
-	// TODO samle følgende 3 metoder til én med navnet
-	// getProductBatchByStatus(StatusType status)
-	public synchronized List<ProductBatchDTO> getCompletedProductBatch()
-			throws DALException {
-		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM productbatch WHERE status = 2;");
-		Connector.closeConnection();
-		try {
-			while (rs.next()) {
-				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
-						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
-			}
-		} catch (SQLException e) {
-			throw new DALException(
-					"Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()"
-							+ e.getMessage());
-		}
-		return list;
-	}
-
-	public synchronized List<ProductBatchDTO> getInitiatedProductBatch()
-			throws DALException {
-		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM productbatch WHERE status = 1;");
-		Connector.closeConnection();
-		try {
-			while (rs.next()) {
-				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
-						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
-			}
-		} catch (SQLException e) {
-			throw new DALException(
-					"Der skete en fejl i ProductBatch i metoden getInitiatedProductBatch()"
-							+ e.getMessage());
-		}
-		return list;
-	}
-
-	public synchronized List<ProductBatchDTO> getUnInitializedProductBatch()
-			throws DALException {
-		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM productbatch WHERE status = 0;");
-		Connector.closeConnection();
-		try {
-			while (rs.next()) {
-				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
-						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
-			}
-		} catch (SQLException e) {
-			throw new DALException(
-					"Der skete en fejl i ProductBatch i metoden getUnInitializedProductBatch()"
-							+ e.getMessage());
-		}
-		return list;
-	}
-
 	@Override
 	public void deleteBatch(int pb_id) throws DALException {
 		try {
@@ -156,27 +76,93 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public List<ProductBatchDTO> getListByOperator(int operatorId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductBatchDTO> getListByOperator(int operatorId) throws DALException {
+		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatch WHERE pb_id IN "
+						+ " (SELECT pb_id FROM productbatchcomponent WHERE user_id = " + operatorId + " );");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
+						.getInt("prescription_id"), rs.getInt("status"), rs
+						.getDate("date")));
+			}
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()"
+							+ e.getMessage());
+		}
+		return list;
 	}
 
 	@Override
-	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status) throws DALException {
+		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatch WHERE status  = " + StatusType.getValue(status) +" ;");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
+						.getInt("prescription_id"), rs.getInt("status"), rs
+						.getDate("date")));
+			}
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatch i metoden getCompletedProductBatch()"
+							+ e.getMessage());
+		}
+		return list;
 	}
 
 	@Override
 	public void updateProductBatch(ProductBatchDTO product) throws DALException {
-		// TODO Auto-generated method stub
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE productbatch SET "
+						+ " status = " + StatusType.getValue(product.getStatus())
+						+ ",  date = " + product.getCurrentDate() + ";");
+		Connector.closeConnection();
 
 	}
 
 	@Override
 	public ProductBatchDTO getProductBatch(int id) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch WHERE pb_id IN"
+										+ "(SELECT pb_id FROM productbatchcomponent WHERE user_id = " + id +");");
+		try {
+			if(!rs.first()){
+				throw new DALException("Der er ikke nogen bruger med det id som arbejder på en productbatch");
+			}
+			return new ProductBatchDTO(rs.getInt("pb_id"), rs
+						.getInt("prescription_id"), rs.getInt("status"), rs
+						.getDate("date"));
+		}catch(SQLException e){
+			throw new DALException("Der skete en fejl i forbindelse med databasen " +e.getMessage());
+		}
 	}
 
 }
