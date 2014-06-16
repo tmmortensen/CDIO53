@@ -70,8 +70,13 @@ public class ProductBatchDTO {
 		return status;
 	}
 
+<<<<<<< HEAD
 	public int getUserId(){
 		return user_id; 
+=======
+	public int getUserId() {
+		return user_id;
+>>>>>>> branch 'master' of https://github.com/tmmortensen/CDIO53.git
 	}
 
 	public void setUserId(int user_id) {
