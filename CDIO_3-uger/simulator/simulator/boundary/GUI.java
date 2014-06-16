@@ -91,7 +91,7 @@ public class GUI implements IBoundary {
 		fromweight.setFocusable(false);
 		digits.setBackground(Color.black);
 		digits.setForeground(Color.green);
-		digits.setFocusable(false);
+		digits.setFocusable(true);
 		digits.setToolTipText("Displays input from numpad on the weight");
 		enterWeight.setToolTipText("Enter brutto weight here");
 
@@ -243,7 +243,6 @@ public class GUI implements IBoundary {
 				programState.setUserInput(digits.getText());
 				programState.confirmed();
 				digits.setText("");
-				inputtext = digits.getText();
 			} else if (e.getSource() == cancel) {
 				programState.confirmed();
 			}
