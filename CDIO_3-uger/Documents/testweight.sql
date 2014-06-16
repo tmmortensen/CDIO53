@@ -1,5 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `testweight` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `weight`;
+USE `testweight`;
 -- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
 --
 -- Host: 127.0.0.1    Database: weight
@@ -26,11 +26,11 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `user_id` INT(11) NOT NULL DEFAULT '0',
-  `user_name` varchar(20) DEFAULT NULL,
-  `ini` varchar(4) DEFAULT NULL,
-  `cpr` varchar(10) DEFAULT NULL,
-  `password` varchar(8) DEFAULT NULL,
-  `user_type` int(4) DEFAULT NULL,
+  `user_name` VARCHAR(20) DEFAULT NULL,
+  `ini` VARCHAR(4) DEFAULT NULL,
+  `cpr` VARCHAR(10) DEFAULT NULL,
+  `password` VARCHAR(8) DEFAULT NULL,
+  `user_type` INT(4) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,9 +54,11 @@ DROP TABLE IF EXISTS `productbatch`;
 CREATE TABLE `productbatch` (
   `pb_id` INT(11) NOT NULL,
   `prescription_id` INT(11) DEFAULT NULL,
-  `status` int(3) DEFAULT NULL,
+  `status` INT(3) DEFAULT NULL,
+  `current_date` DATE DEFAULT NULL,
   PRIMARY KEY (`pb_id`),
   KEY `pbatch_prescription_id_idx` (`prescription_id`),
+  CONSTRAINT `pbatch_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
   CONSTRAINT `pbatch_prescription_id` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -110,8 +112,8 @@ DROP TABLE IF EXISTS `commodity`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commodity` (
   `commodity_id` INT(11) NOT NULL,
-  `commodity_name` varchar(20) DEFAULT NULL,
-  `supplier` varchar(20) DEFAULT NULL,
+  `commodity_name` VARCHAR(20) DEFAULT NULL,
+  `supplier` VARCHAR(20) DEFAULT NULL,
   PRIMARY KEY (`commodity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -184,8 +186,8 @@ DROP TABLE IF EXISTS `prescriptioncomponent`;
 CREATE TABLE `prescriptioncomponent` (
   `prescription_id` INT(11) DEFAULT NULL,
   `commodity_id` INT(11) DEFAULT NULL,
-  `nom_netto` decimal(7,4) DEFAULT NULL,
-  `tolerance` decimal(7,4) DEFAULT NULL,
+  `nom_netto` DECIMAL(7,4) DEFAULT NULL,
+  `tolerance` DECIMAL(7,4) DEFAULT NULL,
   KEY `prescription_id_idx` (`prescription_id`),
   KEY `commodity_id_idx` (`commodity_id`),
   CONSTRAINT `rckomponent_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,

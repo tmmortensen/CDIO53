@@ -69,7 +69,11 @@ public class ProductBatchDTO {
 	public StatusType getStatus() {
 		return status;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/tmmortensen/CDIO53.git
 	public int getUserId(){
 		return user_id; 
 	}

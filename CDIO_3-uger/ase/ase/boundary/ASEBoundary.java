@@ -82,7 +82,7 @@ public class ASEBoundary implements IASEBoundary {
 	}
 
 	@Override
-	public void drainWeight() throws IOException {
+	public boolean clearWeight() throws IOException {
 
 		String sentence = "RM20 4 \"Tøm venligst vægten og tryk 'ok'\" \"\" \"nr\"";
 		consoleOutput.writeBytes(sentence + "\r\n");
@@ -90,11 +90,16 @@ public class ASEBoundary implements IASEBoundary {
 		do
 			modifiedSentence = consoleReader.readLine().trim();
 		while (!modifiedSentence.equalsIgnoreCase("RM20A"));
-
+		// Indsæt metode til at tarere
+		return true;
 	}
 
 	@Override
 	public double getTara() throws IOException {
+		//Send besked om at sætte tara på vægten.
+		//TODO vent på okay
+		//TODO tjek om okay
+		//TODO Hvis okay, så tarer. Ellers retuner -1
 		consoleReader.readLine().substring(2).trim()
 				.equalsIgnoreCase("T S" + "\r\n");
 
@@ -123,9 +128,12 @@ public class ASEBoundary implements IASEBoundary {
 	}
 
 	@Override
-	public int getRaavareBatchID() throws IOException {
+	public int getRaavareBatchID(int commodityID) throws IOException {
 
-		String sentence = "RM20 8 \"indtast raavarebatch id \" " + "\"\"";
+		String sentence = "RM20 8 \"RaavareID:" + commodityID + "\" " + "\"\"";
+		consoleOutput.writeBytes(sentence + "\r\n");
+
+		sentence = "RM20 8 \"indtast raavarebatch id \" " + "\"\"";
 		consoleOutput.writeBytes(sentence + "\r\n");
 
 		int raavareBatchID = Integer.parseInt(modifiedSentence.substring(7)
@@ -157,6 +165,16 @@ public class ASEBoundary implements IASEBoundary {
 			return false;
 		} else
 			return true;
+	}
+
+	public void sendError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean sendConfirm(String msg) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }
