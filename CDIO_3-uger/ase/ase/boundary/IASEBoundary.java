@@ -46,7 +46,7 @@ public interface IASEBoundary {
 	 * 
 	 * @throws IOException
 	 */
-	public void drainWeight() throws IOException;
+	public boolean clearWeight() throws IOException;
 
 	/**
 	 * Receives the tara weight
@@ -81,7 +81,7 @@ public interface IASEBoundary {
 	 * @return raavareBatchID
 	 * @throws IOException
 	 */
-	public int getRaavareBatchID() throws IOException;
+	public int getRaavareBatchID(int commodityID) throws IOException;
 
 	/**
 	 * Asks the operator if he is finished
