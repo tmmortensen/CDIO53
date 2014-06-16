@@ -58,7 +58,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"), rs
 						.getInt("commoditybatch_id"), rs.getInt("user_id"), rs
-						.getInt("tara"), rs.getInt("netto")));
+						.getDouble("tara"), rs.getDouble("netto")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(

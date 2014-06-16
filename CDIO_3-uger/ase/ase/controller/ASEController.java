@@ -26,8 +26,7 @@ public class ASEController {
 
 	private static boolean done, reset = false;
 	private static boolean step_done, subRoutineDone;
-	private static int userID, productBatchID, commodityID,
-			commodityBatchID;
+	private static int userID, productBatchID, commodityID, commodityBatchID;
 	private static double tare, netto;
 
 	static IProductBatchDAO products = new ProductBatchData();
@@ -155,7 +154,8 @@ public class ASEController {
 						reset = true;
 					}
 					try {
-						CommodityBatchDTO comBatch = commBatch.getCommodityBatch(commodityBatchID);
+						CommodityBatchDTO comBatch = commBatch
+								.getCommodityBatch(commodityBatchID);
 						if (!reset && comBatch.getCommodityId() != commodityID) {
 							bound.sendError("BatchID forkert.");
 							if (bound.retry()) {
@@ -164,6 +164,7 @@ public class ASEController {
 								reset = true;
 							}
 						}
+						step_done = true;
 					} catch (DALException e) {
 						bound.sendError("Der skete en fejl");
 						reset = true;
@@ -199,6 +200,7 @@ public class ASEController {
 									productBatchID, commodityBatchID, userID,
 									tare, netto);
 							proComps.createProductBatchComp(saveData);
+							step_done = true;
 						} catch (DALException e) {
 							bound.sendError("Kunne ikke gemme");
 							if (bound.retry())
@@ -211,8 +213,7 @@ public class ASEController {
 					}
 				}
 
-				step_done = false;
-				while (!reset && !step_done) { // step 14,5
+				while (!reset) { // step 14,5
 					if (bound.getQuit()) {
 						reset = true;
 						try {

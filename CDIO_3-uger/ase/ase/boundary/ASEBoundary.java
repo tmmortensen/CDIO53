@@ -43,11 +43,12 @@ public class ASEBoundary {
 		do
 			input = socketReader.readLine();
 		while (input.equals("") || input.startsWith("RM20 B"));
-		
+
 		if (input.equals("RM20 C"))
 			return -1;
 
-		input = input.substring(input.indexOf("\"")+1, input.lastIndexOf("\""));
+		input = input.substring(input.indexOf("\"") + 1,
+				input.lastIndexOf("\""));
 		try {
 			int id = Integer.parseInt(input);
 			return id;
@@ -68,7 +69,8 @@ public class ASEBoundary {
 			input = socketReader.readLine();
 		while (input.equals("") || input.startsWith("RM20 B"));
 
-		input = input.substring(input.indexOf("\"")+1, input.lastIndexOf("\""));
+		input = input.substring(input.indexOf("\"") + 1,
+				input.lastIndexOf("\""));
 		try {
 			int id = Integer.parseInt(input);
 			return id;
@@ -131,23 +133,30 @@ public class ASEBoundary {
 		String sentence = "P111 \"" + target + "kg\t" + sTol + "%\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 		String input;
-		do
-			input = socketReader.readLine().trim();
-		while (input.equals(""));
-		if (!input.startsWith("RM20A"))
-			return -1.0;
 
-		socketOutput.writeBytes("S\r\n");
-		do
-			input = socketReader.readLine().trim();
-		while (input.equals(""));
-		if (input.startsWith("SS")) {
+		double netto = -1.0;
+		do {
+			socketOutput.writeBytes("S\r\n");
+			input = socketReader.readLine();
+			if (input.startsWith("S S"))
+				netto = Double.parseDouble(input.replaceAll("[^\\d\\.]", ""));
 			try {
-				return Double.parseDouble(input.substring(2));
-			} catch (NumberFormatException e) {
-			}
-		}
-		return -1.0;
+				Thread.sleep(100);
+			} catch (InterruptedException e) {}
+		} while (netto < (target * (1 - (tolerance / 100)))
+				|| netto > (target * (1 +(tolerance / 100))));
+				
+		return netto;
+		/*
+		 * do input = socketReader.readLine().trim(); while (input.equals(""));
+		 * if (!input.startsWith("RM20 A")) return -1.0;
+		 * 
+		 * socketOutput.writeBytes("S\r\n"); do input =
+		 * socketReader.readLine().trim(); while (input.equals("")); if
+		 * (input.startsWith("SS")) { try { return
+		 * Double.parseDouble(input.substring(2)); } catch
+		 * (NumberFormatException e) { } } return -1.0;
+		 */
 	}
 
 	public int getRaavareBatchID(int commodityID) throws IOException {
@@ -162,7 +171,8 @@ public class ASEBoundary {
 		if (!input.startsWith("RM20 A"))
 			return -1;
 
-		input = input.substring(input.indexOf("\"")+1, input.lastIndexOf("\""));
+		input = input.substring(input.indexOf("\"") + 1,
+				input.lastIndexOf("\""));
 		try {
 			int id = Integer.parseInt(input);
 			return id;
@@ -177,9 +187,9 @@ public class ASEBoundary {
 
 		String input;
 		do
-			input = socketReader.readLine().trim();
-		while (input.equals(""));
-		if (input.startsWith("RM20AJ"))
+			input = socketReader.readLine();
+		while (input.equals("") || input.startsWith("RM20 B"));
+		if (input.startsWith("RM20 A \"J\""))
 			return false;
 		return true;
 	}

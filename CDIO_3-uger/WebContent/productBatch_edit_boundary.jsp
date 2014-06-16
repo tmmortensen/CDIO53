@@ -153,10 +153,10 @@
 							for (ProductBatchCompDTO comp : components) {
 				%>
 				<tr>
-					<td> <% comp.getCommoditybatch_id(); %></td>
-					<td> <% comp.getUser_id(); %></td>
-					<td> <% comp.getNetto(); %></td>
-					<td> <% comp.getTara(); %></td>
+					<td> <% out.print(comp.getCommoditybatch_id()); %></td>
+					<td> <% out.print(comp.getUser_id()); %></td>
+					<td> <% out.print(comp.getNetto()); %></td>
+					<td> <% out.print(comp.getTara()); %></td>
 				</tr>
 				<%			}
 						} %>
