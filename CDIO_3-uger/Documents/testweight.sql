@@ -54,7 +54,8 @@ DROP TABLE IF EXISTS `productbatch`;
 CREATE TABLE `productbatch` (
   `pb_id` INT(11) NOT NULL,
   `prescription_id` INT(11) DEFAULT NULL,
-  `status` int(3) DEFAULT NULL,
+  `status` INT(3) DEFAULT NULL,
+  `current_date` DATE DEFAULT NULL,
   PRIMARY KEY (`pb_id`),
   KEY `pbatch_prescription_id_idx` (`prescription_id`),
   CONSTRAINT `pbatch_prescription_id` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
