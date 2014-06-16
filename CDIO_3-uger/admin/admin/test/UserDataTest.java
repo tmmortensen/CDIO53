@@ -99,16 +99,19 @@ public class UserDataTest {
 
 	@Test
 	public void testUpdateUser() throws DALException {
+		UserData userdata = new UserData();
 		String expected = "1111111111";
 		String actual = this.user100.getCpr();
 		Assert.assertEquals(expected, actual);
+		userdata.createUser(user100);
 
 		// Perform the action to be tested
 		user100.setCpr("1111111112");
 		userData.updateUser(user100);
 
 		expected = "1111111112";
-		actual = this.user100.getCpr();
+		actual = userdata.getUser(user100.getUserId()).getCpr();
+		
 		Assert.assertEquals(expected, actual);
 	}
 

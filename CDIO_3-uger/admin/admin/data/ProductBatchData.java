@@ -15,17 +15,22 @@ public class ProductBatchData implements IProductBatchDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
+		try{
 		Connector.doUpdate("INSERT INTO productbatch VALUES ( "
 				+ productBatch.getPbId() + ", "
 				+ productBatch.getPrescriptionId() + ", "
-				+ productBatch.getStatus() + productBatch.getCurrentDate()
-				+ ");");
+				+ StatusType.getValue(productBatch.getStatus()) + ",'"
+				+ productBatch.getCurrentDate()
+				+ "');");
+		}catch(DALException e){
+			throw new DALException("recept id'et findes ikke så det givne product batch kan ikke oprettes");
+		}
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void deleteBatch(int pb_id) throws DALException {
+	public synchronized void deleteBatch(int pb_id) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -51,7 +56,7 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public List<ProductBatchDTO> getAllProductBatches() throws DALException {
+	public synchronized List<ProductBatchDTO> getAllProductBatches() throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -65,7 +70,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
+						.getDate("current_date")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -76,7 +81,7 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public List<ProductBatchDTO> getListByOperator(int operatorId) throws DALException {
+	public synchronized List<ProductBatchDTO> getListByOperator(int operatorId) throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -92,7 +97,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
+						.getDate("current_date")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -103,7 +108,7 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public List<ProductBatchDTO> getProductBatchByStatus(StatusType status) throws DALException {
+	public synchronized List<ProductBatchDTO> getProductBatchByStatus(StatusType status) throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -118,7 +123,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date")));
+						.getDate("current_date")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -129,7 +134,7 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public void updateProductBatch(ProductBatchDTO product) throws DALException {
+	public synchronized void updateProductBatch(ProductBatchDTO product) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -138,13 +143,13 @@ public class ProductBatchData implements IProductBatchDAO {
 		}
 		Connector.doUpdate("UPDATE productbatch SET "
 						+ " status = " + StatusType.getValue(product.getStatus())
-						+ ",  date = " + product.getCurrentDate() + ";");
+						+ ",  current_date = " + product.getCurrentDate() + ";");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public ProductBatchDTO getProductBatch(int id) throws DALException {
+	public synchronized ProductBatchDTO getProductBatch(int id) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -159,7 +164,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			}
 			return new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("date"));
+						.getDate("current_date"));
 		}catch(SQLException e){
 			throw new DALException("Der skete en fejl i forbindelse med databasen " +e.getMessage());
 		}
