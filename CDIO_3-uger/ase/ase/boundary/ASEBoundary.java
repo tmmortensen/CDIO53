@@ -28,8 +28,9 @@ public class ASEBoundary implements IASEBoundary {
 	public ASEBoundary() {
 		try{
 		sock = new Socket("localhost", 8080);
-//		consoleOutput =  new PrintWriter(sock.getOutputStream(), true);
 		consoleReader = new BufferedReader(new InputStreamReader(System.in));
+		consoleOutput =  new DataOutputStream(sock.getOutputStream());
+		
 		}
 		catch(Exception e){
 			System.out.println("Kunne ikke forbinde til vægten.");
