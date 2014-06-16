@@ -5,11 +5,11 @@ import java.util.Calendar;
 
 public class ProductBatchDTO {
 
-	int pb_id, prescription_id,user_id;
+	int pb_id, prescription_id, user_id;
 	StatusType status;
 	// create a sql date object so we can use it in our INSERT statement
 	Calendar calendar = Calendar.getInstance();
-	Date currentDate = new Date(calendar.getTime().getTime());
+	Date creationDate = new Date(calendar.getTime().getTime());
 
 	/**
 	 * Constructor with no parameters and no error checks
@@ -26,20 +26,20 @@ public class ProductBatchDTO {
 	 * @param status
 	 * @throws DALException
 	 */
-	public ProductBatchDTO(int pb_id, int prescription_id, int status, Date date, int user_id)
-			throws DALException {
+	public ProductBatchDTO(int pb_id, int prescription_id, int status,
+			Date date, int user_id) throws DALException {
 		setPb_id(pb_id);
 		setPrescription_id(prescription_id);
 		setStatus(status);
-		setCurrentDate(date);
+		setCreationDate(date);
 	}
 
-	public Date getCurrentDate() {
-		return currentDate;
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public void setCurrentDate(Date currentDate) {
-		this.currentDate = currentDate;
+	public void setCreationDate(Date currentDate) {
+		this.creationDate = currentDate;
 	}
 
 	public void setPb_id(int pb_id) throws DALException {
@@ -70,11 +70,11 @@ public class ProductBatchDTO {
 		return status;
 	}
 
-	public int getUserId(){
-		return user_id; 
+	public int getUserId() {
+		return user_id;
 	}
-	
-	public void setUserId(int user_id){
-		this.user_id=user_id; 
+
+	public void setUserId(int user_id) {
+		this.user_id = user_id;
 	}
 }
