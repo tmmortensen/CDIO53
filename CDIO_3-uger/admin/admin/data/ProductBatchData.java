@@ -20,7 +20,8 @@ public class ProductBatchData implements IProductBatchDAO {
 				+ productBatch.getPbId() + ", "
 				+ productBatch.getPrescriptionId() + ", "
 				+ StatusType.getValue(productBatch.getStatus()) + ",'"
-				+ productBatch.getCurrentDate()
+				+ productBatch.getCurrentDate() +", "
+				+ productBatch.getUserId()
 				+ "');");
 		}catch(DALException e){
 			throw new DALException("recept id'et findes ikke så det givne product batch kan ikke oprettes");
@@ -70,7 +71,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date")));
+						.getDate("current_date"),rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -97,7 +98,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date")));
+						.getDate("current_date"),rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -123,7 +124,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date")));
+						.getDate("current_date"),rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -143,7 +144,9 @@ public class ProductBatchData implements IProductBatchDAO {
 		}
 		Connector.doUpdate("UPDATE productbatch SET "
 						+ " status = " + StatusType.getValue(product.getStatus())
-						+ ",  current_date = " + product.getCurrentDate() + ";");
+						+ ",  current_date = " + product.getCurrentDate() 
+						+ ", user_id = " + product.getUserId()
+						+ ";");
 		Connector.closeConnection();
 
 	}
@@ -164,7 +167,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			}
 			return new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date"));
+						.getDate("current_date"),rs.getInt("user_id"));
 		}catch(SQLException e){
 			throw new DALException("Der skete en fejl i forbindelse med databasen " +e.getMessage());
 		}
