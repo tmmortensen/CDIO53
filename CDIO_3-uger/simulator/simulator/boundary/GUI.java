@@ -36,7 +36,7 @@ public class GUI implements IBoundary {
 	JPanel buttonPanel = new JPanel();
 	JPanel mainPanel = new JPanel();
 	JPanel taraPanel = new JPanel();
-	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara, b00;
+	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara, cancel;
 	JTextPane toweight, fromweight, digits;
 	JSpinner enterWeight = new JSpinner();
 	Eventhandler handler = new Eventhandler();
@@ -69,6 +69,7 @@ public class GUI implements IBoundary {
 		clear = new JButton("CLEAR");
 		enter = new JButton("ENTER");
 		tara = new JButton("<T>");
+		cancel = new JButton("CANCEL");
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
 		digits = new JTextPane();
@@ -76,9 +77,10 @@ public class GUI implements IBoundary {
 				1.0));
 
 		// define attributes on components
-		clear.setToolTipText("Push to clear");
+		clear.setToolTipText("Push to clear input");
 		enter.setToolTipText("Push to send");
 		tara.setToolTipText("Push to tara weight");
+		cancel.setToolTipText("Push to cancel");
 		toweight.setBackground(Color.black);
 		toweight.setForeground(Color.green);
 		toweight.setFocusable(false);
@@ -122,6 +124,7 @@ public class GUI implements IBoundary {
 		viewPanel.add(fromweight);
 		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(taraPanel);
+		taraPanel.add(cancel);
 		taraPanel.add(tara);
 		taraPanel.add(enterWeight);
 
@@ -138,6 +141,7 @@ public class GUI implements IBoundary {
 		b9.addActionListener(handler);
 		enter.addActionListener(handler);
 		clear.addActionListener(handler);
+		cancel.addActionListener(handler);
 		tara.addActionListener(handler);
 		enterWeight.addChangeListener(handler);
 
@@ -246,9 +250,9 @@ public class GUI implements IBoundary {
 		public void stateChanged(ChangeEvent ce) {
 
 			if (ce.getSource() == enterWeight) {
-
 				programState.setGross(Double.parseDouble(enterWeight.getValue()
 						.toString()));
+			} else if (ce.getSource() == cancel) {
 			}
 		}
 	}
