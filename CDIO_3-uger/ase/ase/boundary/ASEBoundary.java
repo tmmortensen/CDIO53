@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
-import simulator.data.IProgramState;
 
 /**
  * Class to take input from a client
@@ -15,24 +13,22 @@ import simulator.data.IProgramState;
  * 
  */
 public class ASEBoundary implements IASEBoundary {
-	boolean IDforespørgelse = false, commoditycheck = false;
-	BufferedReader consoleReader;
-	private DataOutputStream consoleOutput;
-	private String modifiedSentence;
-	private int userID, productBatchID;
-	private Socket sock;
+	BufferedReader socketReader;
+	private DataOutputStream socketOutput;
 
 	/**
 	 * Constructor that makes the program ready for user inputs
 	 */
-	public ASEBoundary() {
-		try{
-		sock = new Socket("localhost", 8080);
-		consoleReader = new BufferedReader(new InputStreamReader(System.in));
-		consoleOutput =  new DataOutputStream(sock.getOutputStream());
-		
-		}
-		catch(Exception e){
+	public ASEBoundary(String adress) {
+		try {
+
+			@SuppressWarnings("resource")
+			Socket sock = new Socket(adress, 8080);
+			socketReader = new BufferedReader(new InputStreamReader(
+					sock.getInputStream()));
+			socketOutput = new DataOutputStream(sock.getOutputStream());
+
+		} catch (Exception e) {
 			System.out.println("Kunne ikke forbinde til vægten.");
 		}
 	}
@@ -40,28 +36,37 @@ public class ASEBoundary implements IASEBoundary {
 	@Override
 	public int getID() throws IOException {
 
-		String sentence = "RM20 4 \"indtast operatoer nummer\" \"\" \"nr\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
+		String sentence = "RM20 4 \"Indtast operatoer id\" \"\" \"nr\"";
+		socketOutput.writeBytes(sentence + "\r\n");
 
-		modifiedSentence = consoleReader.readLine();
+		String input;
+		do
+			input = socketReader.readLine();
+		while (input.equals(""));
 
-		userID = Integer.parseInt(modifiedSentence.substring(7).trim());
+		if (input.equals("RM20_C"))
+			return -1;
 
-		return userID;
+		try {
+			int id = Integer.parseInt(input.substring(7).trim());
+			return id;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public boolean sendUsername(String userName) throws IOException {
 
-		String sentence = "RM20 8 \"Goddag  \" " + userName + "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
+		String sentence = "RM20 8 \"Goddag\" \"" + userName + "\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
 
 		while (true) {
-			modifiedSentence = consoleReader.readLine().trim();
-			if (modifiedSentence.equalsIgnoreCase("")) {
+			String input = socketReader.readLine();
+			if (input.equals("")) {
 				continue;
 			}
-			if (modifiedSentence.equalsIgnoreCase("RM20A")) {
+			if (input.startsWith("RM20 A")) {
 				return true;
 			} else
 				return false;
@@ -72,109 +77,167 @@ public class ASEBoundary implements IASEBoundary {
 	@Override
 	public int getProductBatchID() throws IOException {
 
-		String sentence = "RM20 4 \"indtast batchnummer på det de øsnker at afveje \" \"\" \"nr\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
-		modifiedSentence = consoleReader.readLine();
+		String sentence = "RM20 4 \"Indtast batchnummer\" \"\" \"nr\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine();
+		while (input.equals(""));
 
-		productBatchID = Integer.parseInt(modifiedSentence.substring(7).trim());
-
-		return productBatchID;
+		try {
+			int id = Integer.parseInt(input.substring(7).trim());
+			return id;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public boolean clearWeight() throws IOException {
 
-		String sentence = "RM20 4 \"Tøm venligst vægten og tryk 'ok'\" \"\" \"nr\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
+		String sentence = "RM20 4 \"Toem vaegt\" \"Tryk OK\" \"nr\"";
+		socketOutput.writeBytes(sentence + "\r\n");
 
+		String input;
 		do
-			modifiedSentence = consoleReader.readLine().trim();
-		while (!modifiedSentence.equalsIgnoreCase("RM20A"));
-		// Indsæt metode til at tarere
-		return true;
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+
+		if (input.startsWith("RM20A")) {
+			socketOutput.writeBytes("T\r\n");
+			return true;
+		} else
+			return false;
+
 	}
 
 	@Override
 	public double getTara() throws IOException {
-		//Send besked om at sætte tara på vægten.
-		//TODO vent på okay
-		//TODO tjek om okay
-		//TODO Hvis okay, så tarer. Ellers retuner -1
-		consoleReader.readLine().substring(2).trim()
-				.equalsIgnoreCase("T S" + "\r\n");
+		String sentence = "RM20 8 \"Placer beholder\" \"OK/Cancel\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (!input.startsWith("RM20 A"))
+			return -1.0;
 
-		double tareWeight = Double.parseDouble(consoleReader.readLine()
-				.substring(2).trim());
-
-		return tareWeight;
-	}
-
-	@Override
-	public double getNettoWeight() throws IOException {
-		consoleReader.readLine().substring(2).trim()
-				.equalsIgnoreCase("S S" + "\r\n");
-
-		double nettoWeight = Double.parseDouble(consoleReader.readLine()
-				.substring(2).trim());
-
-		return nettoWeight;
+		socketOutput.writeBytes("T\r\n");
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (input.startsWith("TS")) {
+			try {
+				return Double.parseDouble(input.substring(2));
+			} catch (NumberFormatException e) {
+			}
+		}
+		return -1.0;
 
 	}
 
 	@Override
-	public void outRaavareID(int raavareID) throws IOException {
-		String sentence = "RM20 8 \"Afvej raavare \" " + raavareID + "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
+	public double getNettoWeight(double target, double tolerance)
+			throws IOException {
+		String sTol = "" + tolerance;
+		String sTar = "" + target;
+		try {
+			sTol = sTol.substring(0, sTol.indexOf(".") + 2);
+			sTar = sTar.substring(0, sTar.indexOf(".") + 5);
+		} catch (IndexOutOfBoundsException e) {
+		}
+		String sentence = "P111 \"" + target + "kg\t" + sTol + "%\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (!input.startsWith("RM20A"))
+			return -1.0;
+
+		socketOutput.writeBytes("S\r\n");
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (input.startsWith("SS")) {
+			try {
+				return Double.parseDouble(input.substring(2));
+			} catch (NumberFormatException e) {
+			}
+		}
+		return -1.0;
 	}
 
 	@Override
 	public int getRaavareBatchID(int commodityID) throws IOException {
+		String sentence = "RM20 4 \"Indtast batch id\" \"Raavare id:"
+				+ commodityID + "\" \"ID\"";
+		socketOutput.writeBytes(sentence + "\r\n");
 
-		String sentence = "RM20 8 \"RaavareID:" + commodityID + "\" " + "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (!input.startsWith("RM20A"))
+			return -1;
 
-		sentence = "RM20 8 \"indtast raavarebatch id \" " + "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
-
-		int raavareBatchID = Integer.parseInt(modifiedSentence.substring(7)
-				.trim());
-
-		return raavareBatchID;
+		try {
+			int id = Integer.parseInt(input.substring(7));
+			return id;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public boolean getQuit() throws IOException {
+		String sentence = "RM20 8 \"Fortsaet Afvejning?\" \"J/N\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
 
-		String sentence = "RM20 8 \"er du færdig? for ja tryk 'ok' for nej tryk  '1' \" "
-				+ "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
-
-		if (!modifiedSentence.equalsIgnoreCase("RM20 A")) {
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (input.startsWith("RM20AJ"))
 			return false;
-		} else
-			return true;
+		return true;
 	}
 
 	public boolean retry() throws IOException {
 
-		String sentence = "RM20 8 \"Hov der skete en fejl, vil du prøve igen? for ja tryk 'ok'. For nej tryk  '1' \" "
-				+ "\"\"";
-		consoleOutput.writeBytes(sentence + "\r\n");
-
-		if (!modifiedSentence.equalsIgnoreCase("RM20 A")) {
-			return false;
-		} else
+		String sentence = "RM20 8 \"Vil du proeve igen?\" \"J/N\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (input.startsWith("RM20AJ"))
 			return true;
+		return false;
+
 	}
 
-	public void sendError(String msg) {
-		// TODO Auto-generated method stub
-		
+	public void sendError(String msg) throws IOException {
+		String sentence = "RM20 8 \"" + msg + "\" \"\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+
 	}
 
-	public boolean sendConfirm(String msg) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean sendConfirm(String msg) throws IOException {
+		String sentence = "RM20 8 \"" + msg + "\" \"\" \"\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		String input;
+		do
+			input = socketReader.readLine().trim();
+		while (input.equals(""));
+		if (input.startsWith("RM20A"))
+			return true;
+		return false;
+
 	}
 
 }

@@ -15,16 +15,16 @@ public class ProductBatchData implements IProductBatchDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		try{
-		Connector.doUpdate("INSERT INTO productbatch VALUES ( "
-				+ productBatch.getPbId() + ", "
-				+ productBatch.getPrescriptionId() + ", "
-				+ StatusType.getValue(productBatch.getStatus()) + ",'"
-				+ productBatch.getCurrentDate() +", "
-				+ productBatch.getUserId()
-				+ "');");
-		}catch(DALException e){
-			throw new DALException("recept id'et findes ikke så det givne product batch kan ikke oprettes");
+		try {
+			Connector.doUpdate("INSERT INTO productbatch VALUES ( "
+					+ productBatch.getPbId() + ", "
+					+ productBatch.getPrescriptionId() + ", "
+					+ StatusType.getValue(productBatch.getStatus()) + ",'"
+					+ productBatch.getCreationDate() + "', "
+					+ productBatch.getUserId() + ");");
+		} catch (DALException e) {
+			throw new DALException(
+					"recept id'et findes ikke så det givne product batch kan ikke oprettes");
 		}
 		Connector.closeConnection();
 
@@ -47,7 +47,7 @@ public class ProductBatchData implements IProductBatchDAO {
 				Connector.closeConnection();
 			} else {
 				throw new DALException(
-						"you cannot delete that productbatch because it has been begun");
+						"Du kan ikke slette denne produkt batch da den allerede er påbegyndt");
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -57,7 +57,8 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public synchronized List<ProductBatchDTO> getAllProductBatches() throws DALException {
+	public synchronized List<ProductBatchDTO> getAllProductBatches()
+			throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -71,7 +72,7 @@ public class ProductBatchData implements IProductBatchDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date"),rs.getInt("user_id")));
+						.getDate("current_date"), rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -82,7 +83,8 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public synchronized List<ProductBatchDTO> getListByOperator(int operatorId) throws DALException {
+	public synchronized List<ProductBatchDTO> getListByOperator(int operatorId)
+			throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -92,13 +94,14 @@ public class ProductBatchData implements IProductBatchDAO {
 		}
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM productbatch WHERE pb_id IN "
-						+ " (SELECT pb_id FROM productbatchcomponent WHERE user_id = " + operatorId + " );");
+						+ " (SELECT pb_id FROM productbatchcomponent WHERE user_id = "
+						+ operatorId + " );");
 		Connector.closeConnection();
 		try {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date"),rs.getInt("user_id")));
+						.getDate("current_date"), rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -109,7 +112,8 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public synchronized List<ProductBatchDTO> getProductBatchByStatus(StatusType status) throws DALException {
+	public synchronized List<ProductBatchDTO> getProductBatchByStatus(
+			StatusType status) throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		try {
 			Connector.connect();
@@ -118,13 +122,14 @@ public class ProductBatchData implements IProductBatchDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM productbatch WHERE status  = " + StatusType.getValue(status) +" ;");
+				.doQuery("SELECT * FROM productbatch WHERE status  = "
+						+ StatusType.getValue(status) + " ;");
 		Connector.closeConnection();
 		try {
 			while (rs.next()) {
 				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs
 						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date"),rs.getInt("user_id")));
+						.getDate("current_date"), rs.getInt("user_id")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(
@@ -135,41 +140,47 @@ public class ProductBatchData implements IProductBatchDAO {
 	}
 
 	@Override
-	public synchronized void updateProductBatch(ProductBatchDTO product) throws DALException {
+	public synchronized void updateProductBatch(ProductBatchDTO product)
+			throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE productbatch SET "
-						+ " status = " + StatusType.getValue(product.getStatus())
-						+ ",  current_date = " + product.getCurrentDate() 
-						+ ", user_id = " + product.getUserId()
-						+ ";");
+		Connector.doUpdate("UPDATE productbatch SET " + " status = "
+				+ StatusType.getValue(product.getStatus())
+				+ ",  current_date = " + product.getCreationDate()
+				+ ", user_id = " + product.getUserId() + ";");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public synchronized ProductBatchDTO getProductBatch(int id) throws DALException {
+	public synchronized ProductBatchDTO getProductBatch(int id)
+			throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch WHERE pb_id IN"
-										+ "(SELECT pb_id FROM productbatchcomponent WHERE user_id = " + id +");");
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatch WHERE pb_id IN"
+						+ "(SELECT pb_id FROM productbatchcomponent WHERE user_id = "
+						+ id + ");");
 		try {
-			if(!rs.first()){
-				throw new DALException("Der er ikke nogen bruger med det id som arbejder på en productbatch");
+			if (!rs.first()) {
+				throw new DALException(
+						"Der er ikke nogen bruger med det id som arbejder på en productbatch");
 			}
-			return new ProductBatchDTO(rs.getInt("pb_id"), rs
-						.getInt("prescription_id"), rs.getInt("status"), rs
-						.getDate("current_date"),rs.getInt("user_id"));
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i forbindelse med databasen " +e.getMessage());
+			return new ProductBatchDTO(rs.getInt("pb_id"),
+					rs.getInt("prescription_id"), rs.getInt("status"),
+					rs.getDate("current_date"), rs.getInt("user_id"));
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i forbindelse med databasen "
+							+ e.getMessage());
 		}
 	}
 

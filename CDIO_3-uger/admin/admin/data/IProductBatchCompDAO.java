@@ -20,6 +20,6 @@ public interface IProductBatchCompDAO {
 	
 	public String getName(int pb_id) throws DALException;
 	
-	public List<PrescriptionCompDTO> getUnFulfilledComps(int pb_id) throws DALException;
+	public List<PrescriptionCompDTO> getUnfulfilledComps(int pb_id) throws DALException;
 	
 }

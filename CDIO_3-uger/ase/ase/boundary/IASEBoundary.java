@@ -64,16 +64,7 @@ public interface IASEBoundary {
 	 * @return nettoWeight
 	 * @throws IOException
 	 */
-	public double getNettoWeight() throws IOException;
-
-	/**
-	 * 
-	 * Tells the operator which commodity that shall be the next to weight
-	 * 
-	 * @param raavareID
-	 * @throws IOException
-	 */
-	public void outRaavareID(int raavareID) throws IOException;
+	public double getNettoWeight(double target,double tolerance) throws IOException;
 
 	/**
 	 * Asks the operator to enter the commodity batch ID
