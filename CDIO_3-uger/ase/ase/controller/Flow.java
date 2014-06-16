@@ -16,7 +16,7 @@ public class Flow {
 			reset = false; // Bliver sat til true, hvis vi ønsker at
 									// genstarte.
 			
-			while (!reset && !step_done) { //Step 1
+			while (!reset && !step_done) { //Step 3+4
 				int id = bound.getID();
 				String username = DB.checkName(id);
 				confirm = bound.sendUsername(username);
@@ -25,7 +25,7 @@ public class Flow {
 			}
 
 
-			while (!reset && !step2_done && step_done) { // step 2 Produktbatch input
+			while (!reset && !step2_done && step_done) { // step 5+6 Produktbatch input
 															// state
 				int produktBatchID = bound.getProductBatchID();
 				int produktBatchID2 = DB.checkProduktBatchID(produktBatchID);
@@ -37,7 +37,7 @@ public class Flow {
 						continue;
 					else{
 						reset = true;
-						step_done = false;
+						step_done = false; //Mangler et punkt 6 der smider navn på produktbatch ud.
 						break;
 						}
 				} else
@@ -45,7 +45,7 @@ public class Flow {
 					step2_done = true;
 			}
 
-			while (!reset && !step3_done && step2_done) { // step 3. Raavarebatch input
+			while (!reset && !step3_done && step2_done) { // step 7+8. Raavarebatch input
 															// state
 				bound.drainWeight();						 // I boundary skal operatøren
 				bound.getTara();							// bedes om at tømme vægten og
@@ -57,16 +57,16 @@ public class Flow {
 				step3_done = true;
 				step2_done = false;
 				}
-				double t = bound.getTara(); // Operatøren bedes at placeres tara og
+				double t = bound.getTara(); // step 9+10+11 Operatøren bedes at placeres tara og
 											// trykke ok.
 				step2_done = false;
 				step3_done = true;
 			}
-			while (!reset && !step4_done && step3_done) {// step 4. Finde receptkomponent og huske den.				
+			while (!reset && !step4_done && step3_done) {// step 12,5. Finde receptkomponent og huske den.				
 				step3_done = false;
 				step4_done = true;
 			}
-			while(!reset && !step5_done && step4_done){// step 5. Indtast på varebatch ID state
+			while(!reset && !step5_done && step4_done){// step 13. Indtast på varebatch ID state
 				DB.getRaavareID();
 				int id = bound.getRaavareBatchID();
 				int id2 = DB.checkRaavareBatchID(id);
@@ -85,7 +85,7 @@ public class Flow {
 			}
 			
 			
-			while(!reset && !step5_done && step5_done){ //step 6
+			while(!reset && !step5_done && step5_done){ //step 14
 				
 				double n = bound.getNettoWeight(); //På de værdier vi får fra step4.
 				double dataNetto = data.getNetto();
@@ -103,13 +103,13 @@ public class Flow {
 					step6_done = true;
 					}
 			}
-			while(!reset && !step7_done && step6_done){ //Step 7. Step hvor data gemmes.
+			while(!reset && !step7_done && step6_done){ //Step 14.25. Step hvor data gemmes.
 				DB.saveData();
 				step6_done = false;
 				step7_done = true;
 			}
 			
-			while(!reset && step7_done){
+			while(!reset && step7_done){ //step 14,5
 
 				boolean quit = bound.getQuit();
 					if(quit){
