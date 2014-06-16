@@ -171,8 +171,14 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 
 	@Override
 	public void deleteByBatchID(int productBatchId) throws DALException {
-		// TODO Auto-generated method stub
-		
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = " + productBatchId +";");
+		Connector.closeConnection();
 	}
 
 	@Override
@@ -189,13 +195,13 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 				+ "(SELECT prescription_id FROM productbatch WHERE pb_id = " + pb_id +")"
 				+ " AND commodity_id IN (SELECT commodity_id FROM commoditybatch WHERE commoditybatch_id NOT IN "
 				+ "(SELECT commoditybatch_id FROM productbatchcomponent WHERE pb_id = " + pb_id +"));");
-		
+		Connector.closeConnection();
 		try {
 			while(rs.next()){
 				list.add(new PrescriptionCompDTO(rs.getInt("prescription_id"),rs.getInt("commodity_id"),rs.getDouble("nom_netto"),rs.getDouble("tolerance")));
 			}
 		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i forbindelse med databasen " +e.getMessage());
+			throw new DALException("Der skete en fejl i unFulfilledComps " +e.getMessage());
 		}
 		return list; 
 	}
