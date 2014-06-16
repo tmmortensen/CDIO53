@@ -143,4 +143,9 @@ public class ProgramState implements IProgramState {
 		lastInput = System.currentTimeMillis();
 	}
 
+	@Override
+	public void confirmed() {
+
+	}
+
 }

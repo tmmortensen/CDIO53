@@ -93,7 +93,8 @@ public interface IProgramState {
 
 	/**
 	 * Sets the tare weight to current load on the scale
-	 * @param tweight 
+	 * 
+	 * @param tweight
 	 */
 	public void tare();
 
@@ -160,4 +161,5 @@ public interface IProgramState {
 	 */
 	public boolean isRunning();
 
+	public void confirmed();
 }

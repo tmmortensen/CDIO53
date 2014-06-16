@@ -240,9 +240,12 @@ public class GUI implements IBoundary {
 			} else if (e.getSource() == tara) {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
-				programState.setUserInput(inputtext);
+				programState.setUserInput(digits.getText());
+				programState.confirmed();
 				digits.setText("");
 				inputtext = digits.getText();
+			} else if (e.getSource() == cancel) {
+				programState.confirmed();
 			}
 		}
 
@@ -252,7 +255,6 @@ public class GUI implements IBoundary {
 			if (ce.getSource() == enterWeight) {
 				programState.setGross(Double.parseDouble(enterWeight.getValue()
 						.toString()));
-			} else if (ce.getSource() == cancel) {
 			}
 		}
 	}
