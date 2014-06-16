@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductBatchCompData implements IProductBatchCompDAO {
-	
+
 	@Override
 	public synchronized ProductBatchCompDTO getProductBatchComp(int pb_id,
 			int commoditybatch_id) throws DALException {
@@ -177,7 +177,8 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = " + productBatchId +";");
+		Connector.doUpdate("DELETE FROM productbatchcomponent WHERE pb_id = "
+				+ productBatchId + ";");
 		Connector.closeConnection();
 	}
 
@@ -191,19 +192,24 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector.doQuery("SELECT * FROM prescriptioncomponent WHERE prescription_id IN "
-				+ "(SELECT prescription_id FROM productbatch WHERE pb_id = " + pb_id +")"
-				+ " AND commodity_id IN (SELECT commodity_id FROM commoditybatch WHERE commoditybatch_id NOT IN "
-				+ "(SELECT commoditybatch_id FROM productbatchcomponent WHERE pb_id = " + pb_id +"));");
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM prescriptioncomponent WHERE prescription_id IN "
+						+ "(SELECT prescription_id from productbatch WHERE pb_id = " + pb_id + ") " 
+						+ " AND commodity_id NOT IN (SELECT commodity_id FROM "
+						+ "productbatchcomponent NATURAL JOIN commoditybatch WHERE pb_id = "
+						+ pb_id + ");");
 		Connector.closeConnection();
 		try {
-			while(rs.next()){
-				list.add(new PrescriptionCompDTO(rs.getInt("prescription_id"),rs.getInt("commodity_id"),rs.getDouble("nom_netto"),rs.getDouble("tolerance")));
+			while (rs.next()) {
+				list.add(new PrescriptionCompDTO(rs.getInt("prescription_id"),
+						rs.getInt("commodity_id"), rs.getDouble("nom_netto"),
+						rs.getDouble("tolerance")));
 			}
-		}catch(SQLException e){
-			throw new DALException("Der skete en fejl i unFulfilledComps " +e.getMessage());
+		} catch (SQLException e) {
+			throw new DALException("Der skete en fejl i unFulfilledComps "
+					+ e.getMessage());
 		}
-		return list; 
+		return list;
 	}
 
 }

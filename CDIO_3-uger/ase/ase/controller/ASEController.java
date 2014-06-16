@@ -3,6 +3,7 @@ package ase.controller;
 import java.util.List;
 import java.io.IOException;
 
+import admin.data.CommodityBatchDTO;
 import admin.data.CommodityBatchData;
 import admin.data.DALException;
 import admin.data.ICommodityBatchDAO;
@@ -25,7 +26,8 @@ public class ASEController {
 
 	private static boolean done, reset = false;
 	private static boolean step_done, subRoutineDone;
-	private static int userID, productBatchID, presID, commodityID, commodityBatchID;
+	private static int userID, productBatchID, commodityID,
+			commodityBatchID;
 	private static double tare, netto;
 
 	static IProductBatchDAO products = new ProductBatchData();
@@ -78,8 +80,10 @@ public class ASEController {
 						} else {
 							reset = true;
 						}
-					} else if (item.getStatus() != StatusType.NEW && item.getStatus() != StatusType.PAUSED){
-						bound.sendError("Fejl i status:"+ item.getStatus().ordinal());
+					} else if (item.getStatus() != StatusType.NEW
+							&& item.getStatus() != StatusType.PAUSED) {
+						bound.sendError("Fejl i status:"
+								+ item.getStatus().ordinal());
 						if (bound.retry()) {
 							continue;
 						} else {
@@ -112,12 +116,13 @@ public class ASEController {
 
 				try {
 					List<PrescriptionCompDTO> preCompList = proComps
-							.getUnfulfilledComps(presID);
+							.getUnfulfilledComps(productBatchID);
 					if (preCompList.isEmpty()) {
-						bound.sendError("Batch afsluttet"); 
-						ProductBatchDTO product = products.getProductBatch(productBatchID);
+						bound.sendError("Batch afsluttet");
+						ProductBatchDTO product = products
+								.getProductBatch(productBatchID);
 						product.setStatus(StatusType.FINISHED);
-						products.updateProductBatch(product);							
+						products.updateProductBatch(product);
 						reset = true;
 					} else {
 						component = preCompList.get(0);
@@ -130,15 +135,15 @@ public class ASEController {
 
 				// step 7-12. Raavarebatch input
 				// state
-				if (!bound.clearWeight()) {
+				if (!reset && !bound.clearWeight()) {
 					reset = true;
 				}
 
-				tare = bound.getTara();
+				if (!reset)
+					tare = bound.getTara();
 				if (tare < 0) {
 					reset = true;
 				}
-
 
 				step_done = false;
 				while (!reset && !step_done) {// step 13. Indtast på varebatch
@@ -146,12 +151,12 @@ public class ASEController {
 												// state
 					ICommodityBatchDAO commBatch = new CommodityBatchData();
 					commodityBatchID = bound.getRaavareBatchID(commodityID);
-					if (commodityBatchID == -1){
+					if (commodityBatchID == -1) {
 						reset = true;
 					}
 					try {
-						if (commBatch.getCommodityBatch(commodityBatchID)
-								.getCommodityId() != commodityID) {
+						CommodityBatchDTO comBatch = commBatch.getCommodityBatch(commodityBatchID);
+						if (!reset && comBatch.getCommodityId() != commodityID) {
 							bound.sendError("BatchID forkert.");
 							if (bound.retry()) {
 								continue;
@@ -172,16 +177,16 @@ public class ASEController {
 					double dataNetto = component.getNomNetto();
 					double dataTolerance = component.getTolerance();
 					netto = bound.getNettoWeight(dataNetto, dataTolerance);
-					if (netto == -1.0){
+					if (netto == -1.0) {
 						reset = true;
-					} else if (netto >= dataNetto * (1 + dataTolerance / 100)){
+					} else if (netto >= dataNetto * (1 + dataTolerance / 100)) {
 						bound.sendError("Nettovaegt for stor");
 						if (bound.retry())
 							continue;
 						else {
 							reset = true;
 						}
-					}else if (netto <= dataNetto * (1 - dataTolerance / 100)) {
+					} else if (netto <= dataNetto * (1 - dataTolerance / 100)) {
 						bound.sendError("Nettovaegt for lav");
 						if (bound.retry())
 							continue;
@@ -190,7 +195,9 @@ public class ASEController {
 						}
 					} else {
 						try {
-							ProductBatchCompDTO saveData = new ProductBatchCompDTO(productBatchID,commodityBatchID,userID,tare,netto);
+							ProductBatchCompDTO saveData = new ProductBatchCompDTO(
+									productBatchID, commodityBatchID, userID,
+									tare, netto);
 							proComps.createProductBatchComp(saveData);
 						} catch (DALException e) {
 							bound.sendError("Kunne ikke gemme");
@@ -199,7 +206,7 @@ public class ASEController {
 							else {
 								reset = true;
 							}
-							
+
 						}
 					}
 				}
@@ -209,20 +216,21 @@ public class ASEController {
 					if (bound.getQuit()) {
 						reset = true;
 						try {
-							ProductBatchDTO product = products.getProductBatch(productBatchID);
+							ProductBatchDTO product = products
+									.getProductBatch(productBatchID);
 							List<PrescriptionCompDTO> preCompList = proComps
-									.getUnfulfilledComps(presID);
+									.getUnfulfilledComps(productBatchID);
 							if (preCompList.isEmpty()) {
 								product.setStatus(StatusType.FINISHED);
 							} else {
 								product.setStatus(StatusType.PAUSED);
 							}
-							products.updateProductBatch(product);							
+							products.updateProductBatch(product);
 						} catch (DALException e) {
 							bound.sendError("Uventet fejl!");
 							reset = true;
 						}
-					} else 
+					} else
 						break;
 				}
 			}

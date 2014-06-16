@@ -101,7 +101,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (!input.startsWith("RM20") || input.startsWith("RM20 B"));
 		if (!input.startsWith("RM20 A"))
 			return -1.0;
 
@@ -111,7 +111,7 @@ public class ASEBoundary {
 		while (input.equals(""));
 		if (input.startsWith("T S")) {
 			try {
-				return Double.parseDouble(input.substring(2));
+				return Double.parseDouble(input.replaceAll("[^\\d\\.]", ""));
 			} catch (NumberFormatException e) {
 			}
 		}
@@ -157,9 +157,9 @@ public class ASEBoundary {
 
 		String input;
 		do
-			input = socketReader.readLine().trim();
-		while (input.equals(""));
-		if (!input.startsWith("RM20A"))
+			input = socketReader.readLine();
+		while (input.equals("") || input.startsWith("RM20 B"));
+		if (!input.startsWith("RM20 A"))
 			return -1;
 
 		input = input.substring(input.indexOf("\"")+1, input.lastIndexOf("\""));
@@ -204,7 +204,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals(""));
+		while (input.equals("") || input.startsWith("RM20 B"));
 
 	}
 
