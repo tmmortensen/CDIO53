@@ -20,9 +20,9 @@ public class ProductBatchData implements IProductBatchDAO {
 				+ productBatch.getPbId() + ", "
 				+ productBatch.getPrescriptionId() + ", "
 				+ StatusType.getValue(productBatch.getStatus()) + ",'"
-				+ productBatch.getCurrentDate() +", "
+				+ productBatch.getCurrentDate() +"', "
 				+ productBatch.getUserId()
-				+ "');");
+				+ ");");
 		}catch(DALException e){
 			throw new DALException("recept id'et findes ikke så det givne product batch kan ikke oprettes");
 		}
@@ -47,7 +47,7 @@ public class ProductBatchData implements IProductBatchDAO {
 				Connector.closeConnection();
 			} else {
 				throw new DALException(
-						"you cannot delete that productbatch because it has been begun");
+						"Du kan ikke slette denne produkt batch da den allerede er påbegyndt");
 			}
 		} catch (SQLException e) {
 			throw new DALException(
