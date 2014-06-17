@@ -75,6 +75,11 @@ public class UserDataTest {
 		Assert.assertNotNull(this.user600);
 	}
 
+	/**
+	 * Method to test the creation of users in DB
+	 * 
+	 * @throws DALException
+	 */
 	@Test
 	public void testCreateUser() throws DALException {
 		int expected = 100;
@@ -87,6 +92,8 @@ public class UserDataTest {
 		expected = 100;
 		actual = userData.getUser(user100.getUserId()).getUserId();
 		Assert.assertEquals(expected, actual);
+
+		// Delete from DB
 		userData.deleteUser(user100.getUserId());
 	}
 
@@ -103,6 +110,8 @@ public class UserDataTest {
 		expected = 200;
 		actual = userData.getUser(user200.getUserId()).getUserId();
 		Assert.assertEquals(expected, actual);
+
+		// Delete from DB
 		userData.deleteUser(user200.getUserId());
 	}
 

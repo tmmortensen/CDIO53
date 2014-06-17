@@ -13,22 +13,29 @@ public class PrescriptionCompDataTest {
 
 	// Objects needed for testing
 	private PrescriptionCompDTO prescriptionComp100, prescriptionComp200,
-			prescriptionComp300;
+			prescriptionComp300, prescriptionComp400, prescriptionComp500,
+			prescriptionComp600;
 	private PrescriptionCompData prescriptionCompData;
 
 	@Before
 	public void setUp() throws Exception {
-		this.prescriptionComp100 = new PrescriptionCompDTO();
-		this.prescriptionComp200 = new PrescriptionCompDTO();
-		this.prescriptionComp300 = new PrescriptionCompDTO();
+		this.prescriptionComp100 = new PrescriptionCompDTO(100, 100, 11.1, 1.1);
+		this.prescriptionComp200 = new PrescriptionCompDTO(200, 200, 22.2, 2.2);
+		this.prescriptionComp300 = new PrescriptionCompDTO(300, 300, 33.3, 3.3);
+		this.prescriptionComp400 = new PrescriptionCompDTO(400, 400, 44.4, 4.4);
+		this.prescriptionComp500 = new PrescriptionCompDTO(500, 500, 55.5, 5.5);
+		this.prescriptionComp600 = new PrescriptionCompDTO(600, 600, 66.6, 6.6);
 		this.prescriptionCompData = new PrescriptionCompData();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.prescriptionComp100 = new PrescriptionCompDTO();
-		this.prescriptionComp200 = new PrescriptionCompDTO();
-		this.prescriptionComp300 = new PrescriptionCompDTO();
+		this.prescriptionComp100 = new PrescriptionCompDTO(100, 100, 11.1, 1.1);
+		this.prescriptionComp200 = new PrescriptionCompDTO(200, 200, 22.2, 2.2);
+		this.prescriptionComp300 = new PrescriptionCompDTO(300, 300, 33.3, 3.3);
+		this.prescriptionComp400 = new PrescriptionCompDTO(400, 400, 44.4, 4.4);
+		this.prescriptionComp500 = new PrescriptionCompDTO(500, 500, 55.5, 5.5);
+		this.prescriptionComp600 = new PrescriptionCompDTO(600, 600, 66.6, 6.6);
 		this.prescriptionCompData = new PrescriptionCompData();
 	}
 
