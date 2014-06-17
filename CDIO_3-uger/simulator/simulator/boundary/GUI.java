@@ -5,17 +5,15 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextPane;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import simulator.data.IProgramState;
 
@@ -38,7 +36,8 @@ public class GUI implements IBoundary {
 	JPanel taraPanel = new JPanel();
 	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, clear, enter, tara, cancel;
 	JTextPane toweight, fromweight, digits;
-	JSpinner enterWeight = new JSpinner();
+	// JSpinner enterWeight = new JSpinner();
+	JTextPane enterWeight = new JTextPane();
 	Eventhandler handler = new Eventhandler();
 
 	@Override
@@ -73,8 +72,9 @@ public class GUI implements IBoundary {
 		toweight = new JTextPane();
 		fromweight = new JTextPane();
 		digits = new JTextPane();
-		enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0,
-				1.0));
+		enterWeight = new JTextPane();
+		// enterWeight = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100000.0,
+		// 1.0));
 
 		// define attributes on components
 		clear.setToolTipText("Push to clear input");
@@ -143,7 +143,8 @@ public class GUI implements IBoundary {
 		clear.addActionListener(handler);
 		cancel.addActionListener(handler);
 		tara.addActionListener(handler);
-		enterWeight.addChangeListener(handler);
+		// enterWeight.addChangeListener(handler);
+		enterWeight.addKeyListener(handler);
 
 	}
 
@@ -207,7 +208,7 @@ public class GUI implements IBoundary {
 	 * @author Gruppe 53
 	 * 
 	 */
-	private class Eventhandler implements ActionListener, ChangeListener {
+	private class Eventhandler implements ActionListener, KeyListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -241,20 +242,46 @@ public class GUI implements IBoundary {
 				programState.tare();
 			} else if (e.getSource().equals(enter)) {
 				programState.setUserInput(digits.getText());
-				programState.confirmed();
+				programState.setConfirmed(true);
 				digits.setText("");
 			} else if (e.getSource() == cancel) {
-				programState.confirmed();
+				programState.setConfirmed(false);
+				digits.setText("");
+				programState.setUserInput("");
 			}
 		}
 
 		@Override
-		public void stateChanged(ChangeEvent ce) {
-
-			if (ce.getSource() == enterWeight) {
-				programState.setGross(Double.parseDouble(enterWeight.getValue()
-						.toString()));
-			}
+		public void keyTyped(KeyEvent e) {
 		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if (e.getSource() == enterWeight) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					try {
+						programState.setGross(Double.parseDouble(enterWeight
+								.getText()));
+					} catch (Exception ex) {
+
+					}
+			}
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		// @Override
+		// public void stateChanged(ChangeEvent ce) {
+		//
+		// if (ce.getSource() == enterWeight) {
+		// programState.setGross(Double.parseDouble(enterWeight.getValue()
+		// .toString()));
+		// }
+		// }
 	}
 }

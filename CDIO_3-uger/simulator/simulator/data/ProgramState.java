@@ -19,6 +19,7 @@ public class ProgramState implements IProgramState {
 	int port = 0;
 	InetAddress address;
 
+	boolean confirmed;
 	boolean exit = false;
 	long lastUpdate = 0;
 	long lastInput = 0;
@@ -144,8 +145,14 @@ public class ProgramState implements IProgramState {
 	}
 
 	@Override
-	public void confirmed() {
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
 
+	@Override
+	public boolean getConfirmed() {
+
+		return confirmed;
 	}
 
 }

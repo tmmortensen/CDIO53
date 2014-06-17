@@ -74,9 +74,13 @@ public class NetworkIOBoundary implements IBoundary {
 			while (programState.isRunning()) {
 
 				if (needResponse && programState.haveNewUserInput(lastRequest)) {
-					outstream.writeBytes("RM20 A \""
-							+ programState.getUserInput() + "\"\r\n");
-					needResponse = false;
+					if (programState.getConfirmed()) {
+						outstream.writeBytes("RM20 A \""
+								+ programState.getUserInput() + "\"\r\n");
+						needResponse = false;
+					} else {
+						outstream.writeBytes("RM20 C\r\n");
+					}
 				}
 
 				if (!instream.ready())

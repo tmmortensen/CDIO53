@@ -161,5 +161,7 @@ public interface IProgramState {
 	 */
 	public boolean isRunning();
 
-	public void confirmed();
+	public void setConfirmed(boolean confirmed);
+
+	public boolean getConfirmed();
 }
