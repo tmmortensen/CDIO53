@@ -175,3 +175,9 @@ tr{
 .status{
 	padding: 0em 1em;
 }
+
+input[disabled] {
+	color: #000;
+	background: transparent;
+	border: 0px solid transparent;
+}

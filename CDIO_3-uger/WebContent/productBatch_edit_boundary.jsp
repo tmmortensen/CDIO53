@@ -40,6 +40,7 @@
 					<th>Batch ID</th>
 					<th>Recept ID</th>
 					<th>Bruger ID</th>
+					<th>Oprettet</th>
 					<th>Status</th>
 				</tr>
 				<tr>
@@ -47,6 +48,7 @@
 				out.println("\t\t\t\t\t<td>" + product.getPbId() + "</td>\n");
 				out.println("\t\t\t\t\t<td>" + product.getPrescriptionId() + "</td>\n");
 				out.println("\t\t\t\t\t<td>" + product.getUserId() + "</td>\n");
+				out.println("\t\t\t\t\t<td>" + product.getCreationDate() + "</td>\n");
 				out.println("\t\t\t\t\t<td>" + product.getStatus().uiName() + "</td>\n");
 				%>
 				</tr>
@@ -121,6 +123,10 @@
 			<label for="userId">Bruger ID</label> <input type="text"
 				name="newUserId" id="userId"
 				value="<%out.print(newUserId);%>">
+
+			<label for="date">Oprettet</label> <input type="text"
+				name="date" id="date" disabled
+				value="<%out.print(product.getCreationDate());%>">
 
 			<% if (!statusError.equals("")) { %>
 			<div class="error">	<% out.print(statusError); %> </div>
