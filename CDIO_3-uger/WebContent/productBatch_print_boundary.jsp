@@ -70,6 +70,29 @@
 			</tbody></table>
 		</td></tr>
 	<%	} %>		
+	<tr><td>
+		<BR><BR><BR>		
+		<table border="0"><tbody>
+			<tr>
+				<td>Sum Tara</td>
+				<td><% out.print(sumTara);%></td>	
+			</tr>
+			<tr><td><BR></td></tr>		
+			<tr>
+				<td>Sum Netto</td>
+				<td><% out.print(sumNetto);%></td>
+			</tr>		
+			<tr><td><BR><BR></td></tr>		
+			<tr>
+				<td>Status</td>
+				<td><% out.print(product.getStatus().uiName());%></td>
+			</tr>		
+			<tr>
+				<td>Oprettelsesdato</td>
+				<td><% out.print(product.getCreationDate());%></td>
+			</tr>		
+		</tbody></table>
+	</td></tr>
 	</tbody></table>
 	<A href="productBatch_admin">Tilbage</A>
 </div> 
