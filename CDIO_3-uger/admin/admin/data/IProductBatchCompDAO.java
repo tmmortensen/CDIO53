@@ -6,6 +6,8 @@ public interface IProductBatchCompDAO {
 	
 	public ProductBatchCompDTO getProductBatchComp(int pb_id, int commoditybatch_id) throws DALException;
 	
+	public ProductBatchCompDTO getCompByComId(int pb_id, int commodity_id) throws DALException;
+	
 	public List<ProductBatchCompDTO> getCertainProductBatchComps(int pb_id) throws DALException;
 	
 	public List<ProductBatchCompDTO> getAllProductBatchComps() throws DALException;

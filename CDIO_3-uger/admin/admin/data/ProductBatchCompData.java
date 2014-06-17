@@ -35,7 +35,40 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 					rs.getInt("tara"), rs.getInt("netto"));
 		} catch (SQLException e) {
 			throw new DALException(
-					"Der skete en fejl i ProductBatchCompData i metoden getProductBatch(int pb_id, int commoditybatch_id)"
+					"Der skete en fejl i ProductBatchCompData i metoden getProductBatchComp(int pb_id, int commoditybatch_id)"
+							+ e.getMessage());
+		}
+	}
+
+	@Override
+	public synchronized ProductBatchCompDTO getCompByComId(int pb_id,
+			int commodity_id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM productbatchcomponent NATURAL JOIN commoditybatch WHERE pb_id = "
+						+ pb_id + " AND commodity_id = "
+						+ commodity_id + ";");
+		Connector.closeConnection();
+		try {
+			if (!rs.first()) {
+				throw new DALException(
+						"Produkt batchen med det givne produkt batch id = "
+								+ pb_id
+								+ " og det tilsvarende r�vare batch id = "
+								+ commodity_id
+								+ " eksisterer ikke i databasen");
+			}
+			return new ProductBatchCompDTO(rs.getInt("pb_id"),
+					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
+					rs.getInt("tara"), rs.getInt("netto"));
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i ProductBatchCompData i metoden getCompByComId()"
 							+ e.getMessage());
 		}
 	}

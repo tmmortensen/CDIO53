@@ -56,7 +56,7 @@ public class ProductBatchEditController extends AbstractController {
 			try {
 				iOldId = Integer.parseInt(sOldId);
 			} catch (NumberFormatException e) {
-				majorError = "ReceptID er ugyldigt";
+				majorError = "ProduktbatchID er ugyldigt";
 				anyError = true;
 			}
 		}

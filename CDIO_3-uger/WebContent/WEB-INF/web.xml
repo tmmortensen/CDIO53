@@ -110,6 +110,16 @@
   	<servlet-name>ProductBatchConfirmDeleteController</servlet-name>
   	<url-pattern>/productBatch_confirm_delete</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description>Print of product batch</description>
+  	<display-name>Print Product Batch</display-name>
+  	<servlet-name>ProductBatchPrintController</servlet-name>
+  	<servlet-class>admin.controller.ProductBatchPrintController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ProductBatchPrintController</servlet-name>
+  	<url-pattern>/productBatch_print</url-pattern>
+  </servlet-mapping>
 
   
   <!-- Prescription Administration -->

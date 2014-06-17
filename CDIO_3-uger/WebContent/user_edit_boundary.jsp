@@ -107,7 +107,9 @@
 		<% if (!accessError.equals("")){ %>
 		<div class="error"><%out.print(accessError);%></div>
 		<% }
-		String access = info.access.name();%>
+		String access = "OPERATOR";
+		if (info.access != null)
+			access = info.access.name();%>
 		<label for="usertype">Bruger Typpe</label>
 		<select name="newAccess">
 		<option value="OPERATOR" <% if (access.equals("OPERATOR")) out.print("selected");%>>

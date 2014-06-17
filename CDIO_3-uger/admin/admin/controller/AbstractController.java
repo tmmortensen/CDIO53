@@ -132,11 +132,7 @@ public abstract class AbstractController extends HttpServlet {
 		}
 
 		// do the stuff needed for the specific controller
-		try {
-			doRequest(request, response);
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+		doRequest(request, response);
 	}
 
 	/**
@@ -153,6 +149,5 @@ public abstract class AbstractController extends HttpServlet {
 	 * @throws DALException
 	 */
 	public abstract void doRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException,
-			DALException;
+			HttpServletResponse response) throws ServletException, IOException;
 }

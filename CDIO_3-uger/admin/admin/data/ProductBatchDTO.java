@@ -8,8 +8,7 @@ public class ProductBatchDTO {
 	int pb_id, prescription_id, user_id;
 	StatusType status;
 	// create a sql date object so we can use it in our INSERT statement
-	Calendar calendar = Calendar.getInstance();
-	Date creationDate = new Date(calendar.getTime().getTime());
+	Date creationDate = new Date(Calendar.getInstance().getTime().getTime());
 
 	/**
 	 * Constructor with no parameters and no error checks

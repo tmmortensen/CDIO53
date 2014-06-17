@@ -8,7 +8,8 @@ h1 {
 .adminDialog,
 .main_menu,
 .delete_dialog,
-.password_dialog{
+.password_dialog,
+.product_admin{
 	padding: 20px;
 	margin: auto;
 	margin-top: 5em;
@@ -18,6 +19,10 @@ h1 {
 
 .main_menu{
 	width: 20em;
+}
+
+.product_admin{
+	width: 40em;
 }
 
 .dialog,
@@ -107,13 +112,18 @@ tr button{
 	margin: auto;
 }
 
-.adminDialog a,
-.adminDialog button{
+.adminDialog a{
 	display: block;
 	width: 10em;
 }
 
-.adminDialog .buttons a{
+.product_admin a{
+	display: block;
+	width: 11em;
+}
+
+.adminDialog .buttons a,
+.product_admin .buttons a{
 	display: inline-block;
 	margin: 0.5em;
 	width: 6em;
@@ -141,7 +151,7 @@ tr button{
 }
 
 .adminDialog table a,
-.adminDialog table button{
+.product_admin table a{
 	width: 4em;
 }
 
@@ -152,6 +162,11 @@ table{
 
 td{
 	text-align: center;
+	padding: 0em 0.5em;
+}
+
+td a{
+	margin: 0em -0.5em;
 }
 
 tr{
@@ -180,4 +195,23 @@ input[disabled] {
 	color: #000;
 	background: transparent;
 	border: 0px solid transparent;
+}
+
+.print tr{
+		border: 0px solid transparent;
+}
+
+.print td{
+	padding: 0em 1em;
+	text-align: left;
+}
+
+.print table{
+	margin: 0px;
+}
+
+.print a{
+	margin: 0px;
+	margin-top: 2em;
+	
 }

@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="adminDialog">
+	<div class="product_admin">
 		<h1>Produktionsbatch Administration </h1>
 		<table border="1"><tbody>
 			<tr>
@@ -41,6 +41,7 @@
 						out.println("\t\t\t\t\t<td><A href=\"productBatch_edit?id=" + product.getPbId() + "\">Vis Detajler</A></td>\n");
 						out.println("\t\t\t\t\t<td></td>\n");
 					}
+					out.println("\t\t\t\t\t<td><A href=\"productBatch_print?id=" + product.getPbId() + "\">Print</A></td>\n");
 					out.println("\t\t\t\t</tr>\n");
 				}
 			%>

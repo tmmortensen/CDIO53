@@ -25,8 +25,7 @@ public class PrescriptionEditController extends AbstractController {
 
 	@Override
 	public void doRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException,
-			DALException {
+			HttpServletResponse response) throws ServletException, IOException {
 
 		boolean isNew = false;
 		boolean anyError = false;
