@@ -48,7 +48,8 @@ public class ASEBoundary {
 			return -1;
 
 		input = input.substring(input.indexOf("\"") + 1,
-				input.lastIndexOf("\""));
+				input.lastIndexOf("\"")+1);
+		input = input.replace("\"", "").trim();
 		try {
 			int id = Integer.parseInt(input);
 			return id;
@@ -141,7 +142,7 @@ public class ASEBoundary {
 			if (input.startsWith("S S"))
 				netto = Double.parseDouble(input.replaceAll("[^\\d\\.]", ""));
 			try {
-				Thread.sleep(100);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {}
 		} while (netto < (target * (1 - (tolerance / 100)))
 				|| netto > (target * (1 +(tolerance / 100))));
