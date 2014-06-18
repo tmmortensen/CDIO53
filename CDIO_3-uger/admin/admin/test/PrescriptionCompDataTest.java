@@ -17,6 +17,11 @@ public class PrescriptionCompDataTest {
 			prescriptionComp600;
 	private PrescriptionCompData prescriptionCompData;
 
+	/**
+	 * Sets up the entities needed for the test
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		this.prescriptionComp100 = new PrescriptionCompDTO(100, 100, 11.1, 1.1);
@@ -28,6 +33,11 @@ public class PrescriptionCompDataTest {
 		this.prescriptionCompData = new PrescriptionCompData();
 	}
 
+	/**
+	 * Cleans up what is used for testing
+	 * 
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		this.prescriptionComp100 = new PrescriptionCompDTO(100, 100, 11.1, 1.1);

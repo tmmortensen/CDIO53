@@ -19,6 +19,11 @@ public class PrescriptionDataTest {
 			prescription400, prescription500, prescription600;
 	private PrescriptionData prescriptionData;
 
+	/**
+	 * Sets up the entities needed for the test
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		this.prescription100 = new PrescriptionDTO(100, "ethundrede");
@@ -30,6 +35,11 @@ public class PrescriptionDataTest {
 		this.prescriptionData = new PrescriptionData();
 	}
 
+	/**
+	 * Cleans up what is used for testing
+	 * 
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		this.prescription100 = new PrescriptionDTO(100, "ethundrede");
@@ -146,16 +156,12 @@ public class PrescriptionDataTest {
 		// create list of users for testing
 		List<PrescriptionDTO> expected = new ArrayList<PrescriptionDTO>();
 
-		// Put user in the DB
+		// Put user in the DB and in list
 		prescriptionData.createPrescription(prescription600);
-
-		// Put users in List
 		expected.add(prescription600);
 
 		// Perform the action to be tested
 		prescriptionData.deletePrescription(prescription600.getId());
-
-		// List after deletion
 		List<PrescriptionDTO> actual = prescriptionData.getPrescriptionList();
 
 		// Run through the list an check if elements match

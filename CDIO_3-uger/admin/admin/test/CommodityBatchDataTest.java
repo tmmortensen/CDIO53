@@ -16,6 +16,11 @@ public class CommodityBatchDataTest {
 			commodityBatch300;
 	private CommodityBatchData commodityBatchData;
 
+	/**
+	 * Sets up the entities needed for the test
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		this.commodityBatch100 = new CommodityBatchDTO(0, 0, 0);
@@ -24,6 +29,11 @@ public class CommodityBatchDataTest {
 		this.commodityBatchData = new CommodityBatchData();
 	}
 
+	/**
+	 * Cleans up what is used for testing
+	 * 
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		this.commodityBatch100 = new CommodityBatchDTO(0, 0, 0);
