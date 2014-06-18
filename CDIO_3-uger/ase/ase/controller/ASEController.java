@@ -33,7 +33,7 @@ public class ASEController {
 	static IProductBatchCompDAO proComps = new ProductBatchCompData();
 
 	public static void main(String args[]) throws IOException {
-		ASEBoundary bound = new ASEBoundary("169.254.2.2");
+		ASEBoundary bound = new ASEBoundary("169.254.2.3");
 
 		while (!done) {
 			reset = false; // Bliver sat til true, hvis vi ønsker at

@@ -40,9 +40,10 @@ public class ASEBoundary {
 		socketOutput.writeBytes(sentence + "\r\n");
 
 		String input;
-		do
+		do{
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+			System.out.println(input);}
+		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 C"));
 
 		if (input.equals("RM20 C"))
 			return -1;
@@ -68,7 +69,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 I"));
 
 		input = input.substring(input.indexOf("\"") + 1,
 				input.lastIndexOf("\""));
@@ -88,7 +89,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 I"));
 
 		if (input.startsWith("RM20 A")) {
 			socketOutput.writeBytes("T\r\n");
@@ -104,7 +105,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (!input.startsWith("RM20") || input.startsWith("RM20 B"));
+		while (!input.startsWith("RM20") || input.startsWith("RM20 B") || input.startsWith("RM20 I"));
 		if (!input.startsWith("RM20 A"))
 			return -1.0;
 
@@ -168,7 +169,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B")|| input.startsWith("RM20 I"));
 		if (!input.startsWith("RM20 A"))
 			return -1;
 
@@ -189,7 +190,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B")|| input.startsWith("RM20 I"));
 		if (input.startsWith("RM20 A \"J\""))
 			return false;
 		return true;
@@ -215,7 +216,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B")|| input.startsWith("RM20 I"));
 
 	}
 
@@ -225,7 +226,7 @@ public class ASEBoundary {
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals("") || input.startsWith("RM20 B"));
+		while (input.equals("") || input.startsWith("RM20 B")|| input.startsWith("RM20 I"));
 		if (input.startsWith("RM20 A"))
 			return true;
 		return false;
