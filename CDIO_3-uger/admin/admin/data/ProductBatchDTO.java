@@ -5,10 +5,11 @@ import java.util.Calendar;
 
 public class ProductBatchDTO {
 
-	int pb_id, prescription_id, user_id;
-	StatusType status;
+	private int pb_id, prescription_id, user_id;
+	private StatusType status;
 	// create a sql date object so we can use it in our INSERT statement
-	Date creationDate = new Date(Calendar.getInstance().getTime().getTime());
+	private Date creationDate = new Date(Calendar.getInstance().getTime()
+			.getTime());
 
 	/**
 	 * Constructor with no parameters and no error checks
@@ -70,8 +71,8 @@ public class ProductBatchDTO {
 		return status;
 	}
 
-	public int getUserId(){
-		return user_id; 
+	public int getUserId() {
+		return user_id;
 	}
 
 	public void setUserId(int user_id) throws DALException {

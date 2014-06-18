@@ -2,8 +2,8 @@ package admin.data;
 
 public class PrescriptionCompDTO {
 
-	int prescriptionId, commodityId;
-	double nomNetto, tolerance;
+	private int prescriptionId, commodityId;
+	private double nomNetto, tolerance;
 
 	/**
 	 * Constructor with no parameters and no error checks

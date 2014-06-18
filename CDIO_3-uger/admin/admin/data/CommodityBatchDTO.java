@@ -2,8 +2,8 @@ package admin.data;
 
 public class CommodityBatchDTO {
 
-	int commodityBatchId, commodityId;
-	double amount;
+	private int commodityBatchId, commodityId;
+	private double amount;
 
 	/**
 	 * Constructor with no parameters and no error checks
