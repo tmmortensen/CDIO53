@@ -2,13 +2,13 @@ package admin.data;
 
 public class PrescriptionDTO {
 
-	int id;
-	String name;
+	private int id;
+	private String name;
 
 	/**
 	 * Constructor with no parameters and no error checks
 	 */
-	public PrescriptionDTO(){
+	public PrescriptionDTO() {
 		id = 0;
 		name = "";
 	}

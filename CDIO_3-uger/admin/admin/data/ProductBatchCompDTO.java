@@ -1,8 +1,8 @@
 package admin.data;
 
 public class ProductBatchCompDTO {
-	int pb_id, commoditybatch_id, user_id;
-	double tara, netto;
+	private int pb_id, commoditybatch_id, user_id;
+	private double tara, netto;
 
 	/**
 	 * Constructor with no parameters and no error checks
