@@ -1,8 +1,8 @@
 package admin.data;
 
 public class CommodityDTO {
-	int commodity_id;
-	String commodity_name, supplier;
+	private int commodity_id;
+	private String commodity_name, supplier;
 
 	/**
 	 * Constructor with no parameters and no error checks
