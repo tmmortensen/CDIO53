@@ -134,7 +134,7 @@ public class ASEBoundary {
 		}
 		String sentence = "P111 \"" + target + "kg\t" + sTol + "%\"";
 		socketOutput.writeBytes(sentence + "\r\n");
-		sentence = "RM30 \"\" \"\" \"\" \"Cancel\" \"OK\"";
+		sentence = "RM30 \"\" \"\" \"\" \"\" \"OK\" \"Cancel\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 		socketOutput.writeBytes("RM39 1\r\n");
 

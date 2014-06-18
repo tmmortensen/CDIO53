@@ -33,8 +33,23 @@ public class ASEController {
 	static IProductBatchCompDAO proComps = new ProductBatchCompData();
 
 	public static void main(String args[]) throws IOException {
-		ASEBoundary bound = new ASEBoundary("169.254.2.2");
+		String address = "169.254.2.2";
+		try{
+			address = args[0];
+		} catch (Exception e){}
 
+		while(true){
+			ASEBoundary bound = new ASEBoundary(address);
+			try {
+				menu(bound);
+			} catch (Exception e){}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {}
+		}
+	}
+	
+	public static void menu(ASEBoundary bound) throws IOException {
 		while (!done) {
 			reset = false; // Bliver sat til true, hvis vi ønsker at
 							// genstarte.

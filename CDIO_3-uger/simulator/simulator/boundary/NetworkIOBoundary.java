@@ -74,13 +74,17 @@ public class NetworkIOBoundary implements IBoundary {
 			while (programState.isRunning()) {
 
 				if (needResponse && programState.haveNewUserInput(lastRequest)) {
+					String prefix = programState.getPrefix();
 					if (programState.getConfirmed()) {
-						outstream.writeBytes("RM20 A \""
+						outstream.writeBytes(prefix + " A \""
 								+ programState.getUserInput() + "\"\r\n");
 						needResponse = false;
 					} else {
-						outstream.writeBytes("RM20 C\r\n");
-					}
+						if (prefix.equals("RM20"))
+							outstream.writeBytes("RM20 C\r\n");
+						else
+							outstream.writeBytes("RM30 A 6\r\n");
+					}	
 				}
 
 				if (!instream.ready())
@@ -92,6 +96,7 @@ public class NetworkIOBoundary implements IBoundary {
 				programState.setNetString(netString);
 
 				if (netString.startsWith("RM20")) {
+					programState.setPrefix("RM20");
 					String argString;
 					String args[];
 					try {
@@ -114,6 +119,9 @@ public class NetworkIOBoundary implements IBoundary {
 						outstream.writeBytes("RM20_8_\"<display text>\"_\""
 								+ "<placeholder text>\"_\"&3\"\r\n");
 					}
+				} else if (netString.startsWith("RM39 1")) {
+					programState.setPrefix("RM30");
+					needResponse = true;
 				} else if (netString.startsWith("RESET")) {
 					programState.reset();
 					outstream.writeBytes("du har nulstillet programmet\r\n");
