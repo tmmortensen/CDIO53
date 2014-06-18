@@ -15,6 +15,7 @@ public class ProgramState implements IProgramState {
 	String netString = "";
 	String userInput = "";
 	String botDisplay = "";
+	String prefix = "";
 
 	int port = 0;
 	InetAddress address;
@@ -153,6 +154,17 @@ public class ProgramState implements IProgramState {
 	public boolean getConfirmed() {
 
 		return confirmed;
+	}
+
+	@Override
+	public void setPrefix(String prefix) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrefix() {
+		return prefix;
 	}
 
 }

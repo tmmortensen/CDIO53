@@ -164,4 +164,8 @@ public interface IProgramState {
 	public void setConfirmed(boolean confirmed);
 
 	public boolean getConfirmed();
+	
+	public void setPrefix(String prefix);
+	
+	public String getPrefix();
 }
