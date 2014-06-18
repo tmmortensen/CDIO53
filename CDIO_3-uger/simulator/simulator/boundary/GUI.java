@@ -94,6 +94,8 @@ public class GUI implements IBoundary {
 		digits.setFocusable(true);
 		digits.setToolTipText("Displays input from numpad on the weight");
 		enterWeight.setToolTipText("Enter brutto weight here");
+		enterWeight.setBackground(Color.black);
+		enterWeight.setForeground(Color.green);
 
 		// set layoutmanagers
 		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -117,13 +119,14 @@ public class GUI implements IBoundary {
 		mainPanel.add(buttonPanel, BorderLayout.EAST);
 		mainPanel.add(viewPanel, BorderLayout.CENTER);
 		mainPanel.add(enterWeight, BorderLayout.NORTH);
+		mainPanel.add(taraPanel, BorderLayout.SOUTH);
 		viewPanel.add(digits);
 		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(toweight);
 		viewPanel.add(Box.createVerticalStrut(2));
 		viewPanel.add(fromweight);
 		viewPanel.add(Box.createVerticalStrut(2));
-		viewPanel.add(taraPanel);
+		// viewPanel.add(taraPanel);
 		taraPanel.add(cancel);
 		taraPanel.add(tara);
 		taraPanel.add(enterWeight);
