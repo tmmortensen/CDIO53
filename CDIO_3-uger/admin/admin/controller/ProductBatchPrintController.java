@@ -32,8 +32,8 @@ public class ProductBatchPrintController extends AbstractController {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		int iId = 0;
-		int sumTara = 0;
-		int sumNetto = 0;
+		double iSumTara = 0;
+		double iSumNetto = 0;
 		String sId = request.getParameter("id");
 
 		String sError = "";
@@ -74,9 +74,9 @@ public class ProductBatchPrintController extends AbstractController {
 					ProductBatchCompDTO proComp = prodComps.getCompByComId(iId,
 							item.commodityId);
 					item.tara = proComp.getTara();
-					sumTara += item.tara;
+					iSumTara += item.tara;
 					item.netto = proComp.getNetto();
-					sumNetto += item.netto;
+					iSumNetto += item.netto;
 					item.commodityBatch = proComp.getCommoditybatch_id();
 					item.operator = users.getUser(proComp.getUser_id())
 							.getIni();
@@ -85,12 +85,21 @@ public class ProductBatchPrintController extends AbstractController {
 				itemList.add(item);
 			}
 		}
+		
+		String sSumTara = "" + iSumTara;
+		String sSumNetto = "" + iSumNetto;
+		try {
+			sSumTara = sSumTara.substring(0, sSumTara.indexOf(".")+4);
+		}catch(Exception e){}
+		try {
+			sSumNetto = sSumNetto.substring(0, sSumNetto.indexOf(".")+4);
+		}catch(Exception e){}
 
 		request.setAttribute("error", sError);
 
 		request.setAttribute("date", printDate);
-		request.setAttribute("sumTara", "" + sumTara);
-		request.setAttribute("sumNetto", "" + sumNetto);
+		request.setAttribute("sumTara", sSumTara);
+		request.setAttribute("sumNetto", sSumNetto);
 
 		request.setAttribute("product", product);
 		request.setAttribute("components", itemList);

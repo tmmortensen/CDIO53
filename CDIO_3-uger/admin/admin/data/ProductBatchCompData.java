@@ -32,7 +32,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			}
 			return new ProductBatchCompDTO(rs.getInt("pb_id"),
 					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
-					rs.getInt("tara"), rs.getInt("netto"));
+					rs.getDouble("tara"), rs.getDouble("netto"));
 		} catch (SQLException e) {
 			throw new DALException(
 					"Der skete en fejl i ProductBatchCompData i metoden getProductBatchComp(int pb_id, int commoditybatch_id)"
@@ -65,7 +65,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			}
 			return new ProductBatchCompDTO(rs.getInt("pb_id"),
 					rs.getInt("commoditybatch_id"), rs.getInt("user_id"),
-					rs.getInt("tara"), rs.getInt("netto"));
+					rs.getDouble("tara"), rs.getDouble("netto"));
 		} catch (SQLException e) {
 			throw new DALException(
 					"Der skete en fejl i ProductBatchCompData i metoden getCompByComId()"
@@ -118,7 +118,7 @@ public class ProductBatchCompData implements IProductBatchCompDAO {
 			while (rs.next()) {
 				list.add(new ProductBatchCompDTO(rs.getInt("pb_id"), rs
 						.getInt("commoditybatch_id"), rs.getInt("user_id"), rs
-						.getInt("tara"), rs.getInt("netto")));
+						.getDouble("tara"), rs.getDouble("netto")));
 			}
 		} catch (SQLException e) {
 			throw new DALException(

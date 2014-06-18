@@ -43,7 +43,7 @@ public class ASEBoundary {
 		do{
 			input = socketReader.readLine();
 			System.out.println(input);}
-		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 C"));
+		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 I"));
 
 		if (input.equals("RM20 C"))
 			return -1;
@@ -83,7 +83,7 @@ public class ASEBoundary {
 
 	public boolean clearWeight() throws IOException {
 
-		String sentence = "RM20 4 \"Toem vaegt\" \"Tryk OK\" \"nr\"";
+		String sentence = "RM20 8 \"Toem vaegt\" \"Tryk OK\" \"\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 
 		String input;
@@ -134,36 +134,37 @@ public class ASEBoundary {
 		}
 		String sentence = "P111 \"" + target + "kg\t" + sTol + "%\"";
 		socketOutput.writeBytes(sentence + "\r\n");
+		sentence = "RM30 \"\" \"\" \"\" \"Cancel\" \"OK\"";
+		socketOutput.writeBytes(sentence + "\r\n");
+		socketOutput.writeBytes("RM39 1\r\n");
+
 		String input;
 
 		double netto = -1.0;
 		do {
-			socketOutput.writeBytes("S\r\n");
 			input = socketReader.readLine();
-			if (input.startsWith("S S"))
-				netto = Double.parseDouble(input.replaceAll("[^\\d\\.]", ""));
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {}
-		} while (netto < (target * (1 - (tolerance / 100)))
-				|| netto > (target * (1 +(tolerance / 100))));
-				
-		return netto;
-		/*
-		 * do input = socketReader.readLine().trim(); while (input.equals(""));
-		 * if (!input.startsWith("RM20 A")) return -1.0;
-		 * 
-		 * socketOutput.writeBytes("S\r\n"); do input =
-		 * socketReader.readLine().trim(); while (input.equals("")); if
-		 * (input.startsWith("SS")) { try { return
-		 * Double.parseDouble(input.substring(2)); } catch
-		 * (NumberFormatException e) { } } return -1.0;
-		 */
+		} while (!input.startsWith("RM30 A"));
+
+		if (!input.startsWith("RM30 A 5"))
+			return -1.0;
+
+		socketOutput.writeBytes("RM39 2\r\n");
+		
+		socketOutput.writeBytes("S\r\n");
+		do {
+			input = socketReader.readLine();
+		} while (!input.startsWith("S S"));
+
+		try {
+			netto = Double.parseDouble(input.replaceAll("[^\\d\\.]", ""));
+			return netto;
+		} catch (NumberFormatException e) {
+			return -1.0;
+		}
 	}
 
 	public int getRaavareBatchID(int commodityID) throws IOException {
-		String sentence = "RM20 4 \"Indtast batch id\" \"Raavare id:"
-				+ commodityID + "\" \"ID\"";
+		String sentence = "RM20 4 \"Raavarebatch id\" \"\" \"ID\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 
 		String input;
@@ -184,27 +185,27 @@ public class ASEBoundary {
 	}
 
 	public boolean getQuit() throws IOException {
-		String sentence = "RM20 8 \"Fortsaet Afvejning?\" \"J/N\" \"\"";
+		String sentence = "RM20 8 \"Fortsaet Afvejning?\" \"OK = ja Cancel = nej\" \"\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 
 		String input;
 		do
 			input = socketReader.readLine();
 		while (input.equals("") || input.startsWith("RM20 B")|| input.startsWith("RM20 I"));
-		if (input.startsWith("RM20 A \"J\""))
+		if (input.startsWith("RM20 A"))
 			return false;
 		return true;
 	}
 
 	public boolean retry() throws IOException {
 
-		String sentence = "RM20 8 \"Vil du proeve igen?\" \"J/N\" \"\"";
+		String sentence = "RM20 8 \"Vil du proeve igen?\" \"OK = ja Cancel = nej\" \"\"";
 		socketOutput.writeBytes(sentence + "\r\n");
 		String input;
 		do
 			input = socketReader.readLine();
-		while (input.equals(""));
-		if (input.startsWith("RM20 A \"J\""))
+		while (input.equals("") || input.startsWith("RM20 B") || input.startsWith("RM20 I"));
+		if (input.startsWith("RM20 A"))
 			return true;
 		return false;
 
