@@ -44,10 +44,16 @@ public class ProductBatchDTO {
 	}
 
 	public void setPb_id(int pb_id) throws DALException {
+		if(pb_id<=0){
+			throw new DALException("produkt batch id'et skal være positivt");
+		}
 		this.pb_id = pb_id;
 	}
 
 	public void setPrescription_id(int prescription_id) throws DALException {
+		if(prescription_id <= 0){
+			throw new DALException("Recept id'et skal være større end 0");
+		}
 		this.prescription_id = prescription_id;
 	}
 
@@ -76,6 +82,9 @@ public class ProductBatchDTO {
 	}
 
 	public void setUserId(int user_id) throws DALException {
+		if(user_id<=0){
+			throw new DALException("bruger id'et skal være større end 0");
+		}
 		this.user_id = user_id;
 	}
 }

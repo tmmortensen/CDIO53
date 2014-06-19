@@ -26,6 +26,9 @@ public class PrescriptionDTO {
 	}
 
 	public void setId(int prescriptionId) throws DALException {
+		if(prescriptionId<=0){
+			throw new DALException("Recept id'et skal være større end 0");
+		}
 		this.id = prescriptionId;
 	}
 

@@ -29,6 +29,9 @@ public class CommodityDTO {
 	}
 
 	public void setCommodity_id(int commodity_id) throws DALException {
+		if(commodity_id<=0){
+			throw new DALException("Råvare id'et skal være større end 0");
+		}
 		this.commodity_id = commodity_id;
 	}
 

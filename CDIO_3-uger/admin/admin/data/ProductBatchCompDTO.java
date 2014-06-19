@@ -31,14 +31,23 @@ public class ProductBatchCompDTO {
 	}
 
 	public void setPb_id(int pb_id) throws DALException {
+		if(pb_id<=0){
+			throw new DALException("Produkt batch id'et skal være større end 0");
+		}
 		this.pb_id = pb_id;
 	}
 
 	public void setCommoditybatch_id(int commoditybatch_id) throws DALException {
+		if(commoditybatch_id<=0){
+			throw new DALException("Råvare batch id'et skal være større end 0");
+		}
 		this.commoditybatch_id = commoditybatch_id;
 	}
 
 	public void setUser_id(int user_id) throws DALException {
+		if(user_id<=0){
+			throw new DALException("Bruger id'et skal være større end 0");
+		}
 		this.user_id = user_id;
 	}
 

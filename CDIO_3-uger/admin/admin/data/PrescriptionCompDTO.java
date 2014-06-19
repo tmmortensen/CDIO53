@@ -33,18 +33,30 @@ public class PrescriptionCompDTO {
 	}
 
 	public void setPrescriptionId(int prescriptionId) throws DALException {
+		if(prescriptionId<=0){
+			throw new DALException("Recept id'et skal være større end 0");
+		}
 		this.prescriptionId = prescriptionId;
 	}
 
 	public void setCommodityId(int commodityId) throws DALException {
+		if(commodityId<=0){
+			throw new DALException("Råvare id'et skal være større end 0");
+		}
 		this.commodityId = commodityId;
 	}
 
 	public void setNomNetto(double nomNetto) throws DALException {
+		if(nomNetto<0.0){
+			throw new DALException("nomNetto skal være en positiv værdi");
+		}
 		this.nomNetto = nomNetto;
 	}
 
 	public void setTolerance(double tolerance) throws DALException {
+		if(tolerance<0.0){
+			throw new DALException("Man kan ikke have en negativ tolerance");
+		}
 		this.tolerance = tolerance;
 	}
 

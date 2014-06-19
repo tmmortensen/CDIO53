@@ -32,6 +32,9 @@ public class CommodityBatchDTO {
 	}
 
 	public void setCommodityBatchId(int commodityBatchId) throws DALException {
+		if(commodityBatchId<=0){
+			throw new DALException("Råvare batch id'et skal være større end 0");
+		}
 		this.commodityBatchId = commodityBatchId;
 	}
 
@@ -40,6 +43,9 @@ public class CommodityBatchDTO {
 	}
 
 	public void setCommodityId(int commodityId) throws DALException {
+		if(commodityId<=0){
+			throw new DALException("Råvare id'et skal være større end 0");
+		}
 		this.commodityId = commodityId;
 	}
 
@@ -48,6 +54,9 @@ public class CommodityBatchDTO {
 	}
 
 	public void setAmount(double amount) throws DALException {
+		if(amount<0){
+			throw new DALException("Man kan ikke trække en negativ mængde fra i lageret");
+		}
 		this.amount = amount;
 	}
 }
