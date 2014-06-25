@@ -199,7 +199,7 @@ public class PrescriptionEditController extends AbstractController {
 				// if the new button was pressed we have to add a component to
 				// our list
 				if (button.equals("new")) {
-					components.add(new PrescriptionCompDTO(iOldId, 0, 0, 0));
+					components.add(new PrescriptionCompDTO());
 				}
 
 				// if a delete button was pressed we have to remove an entry
