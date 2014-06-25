@@ -158,8 +158,8 @@ public class ProgramState implements IProgramState {
 
 	@Override
 	public void setPrefix(String prefix) {
-		// TODO Auto-generated method stub
-		
+		this.prefix = prefix;
+
 	}
 
 	@Override
