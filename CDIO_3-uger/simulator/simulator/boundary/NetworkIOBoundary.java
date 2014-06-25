@@ -76,8 +76,11 @@ public class NetworkIOBoundary implements IBoundary {
 				if (needResponse && programState.haveNewUserInput(lastRequest)) {
 					String prefix = programState.getPrefix();
 					if (programState.getConfirmed()) {
-						outstream.writeBytes(prefix + " A \""
+						if (prefix.equals("RM20"))
+							outstream.writeBytes(prefix + " A \""
 								+ programState.getUserInput() + "\"\r\n");
+						else
+							outstream.writeBytes(prefix + " A 5\r\n");
 						needResponse = false;
 					} else {
 						if (prefix.equals("RM20"))
