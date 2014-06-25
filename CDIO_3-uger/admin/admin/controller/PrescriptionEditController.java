@@ -185,6 +185,7 @@ public class PrescriptionEditController extends AbstractController {
 						if (oldComp.getCommodityId() == component
 								.getCommodityId()) {
 							comIdError += "Samme vareID som #" + j + "<BR>";
+							anyError = true;
 						}
 						j++;
 					}
